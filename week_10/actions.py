@@ -17,10 +17,10 @@ def create_student():
     spanish_validation = True
     while spanish_validation == True:
         try:
-            spanish_grade = int(input("Spanish note: "))
+            spanish_grade = int(input("Spanish grade: "))
             while((spanish_grade<0) or (spanish_grade>100)):
                 print("\033[3;31mThe grade must be between 0 and 100\033[0m")
-                spanish_grade = int(input("Spanish note: "))
+                spanish_grade = int(input("Spanish grade: "))
             spanish_validation = False
         except ValueError as error:
             print("\033[3;31mPlease ONLY numbers\033[0m")
@@ -29,10 +29,10 @@ def create_student():
     english_validation = True
     while english_validation == True:        
         try:
-            english_grade = int(input("English note: "))
+            english_grade = int(input("Englise grade: "))
             while((english_grade<0) or (english_grade>100)):
                 print("\033[3;31mThe grade must be between 0 and 100\033[0m")
-                english_grade = int(input("English note: "))
+                english_grade = int(input("Englise grade: "))
             english_validation = False
         except ValueError as error:
             print("\033[3;31mPlease ONLY numbers\033[0m")
@@ -41,10 +41,10 @@ def create_student():
     social_validation = True
     while social_validation == True:        
         try:
-            social_studies_grade = int(input("Social Studies note: "))
+            social_studies_grade = int(input("Social Studies grade: "))
             while((social_studies_grade<0) or (social_studies_grade>100)):
                 print("\033[3;31mThe grade must be between 0 and 100\033[0m")
-                social_studies_grade = int(input("Social Studies note: "))
+                social_studies_grade = int(input("Social Studies grade: "))
             social_validation = False
         except ValueError as error:
             print("\033[3;31mPlease ONLY numbers\033[0m")
@@ -53,10 +53,10 @@ def create_student():
     science_validation = True
     while science_validation == True:        
         try:
-            science_grade = int(input("Science note: "))
+            science_grade = int(input("Science grade: "))
             while((science_grade<0) or (science_grade>100)):
                 print("\033[3;31mThe grade must be between 0 and 100\033[0m")
-                science_grade = int(input("Science note: "))
+                science_grade = int(input("Science grade: "))
             science_validation = False    
         except ValueError as error:
             print("\033[3;31mPlease ONLY numbers\033[0m")
@@ -67,13 +67,13 @@ def create_student():
 
     #student creation
     new_student = {
-            'name': student_name, 
-            'section': student_section, 
-            'spanish': spanish_grade,
-            'english': english_grade,
-            'social': social_studies_grade,
-            'science': science_grade,
-            'average': average_grade
+            'Student name': student_name, 
+            'Student section': student_section, 
+            'Spanish grade': spanish_grade,
+            'English grade': english_grade,
+            'Social Studies grade': social_studies_grade,
+            'Science grade': science_grade,
+            'Grade average': average_grade
             }                
         
     return new_student
@@ -102,14 +102,29 @@ def adding_student():
 
 def show_students():
     students = adding_student()
-    for index, student in enumerate(students):
-        print(f"Student name: {student.value()}")
-        #print(f"{student.values()}")
+    for student in students:
+        print("")
+        for key, value in student.items():
+            print(f"{key}: {value}")
+    
+    return students
+
+
+def highers_averages():
+    students = show_students()
+    average_list = []
+    for student in students:
+        for key, value in student.items():
+            if (key == "Grade average"):
+                average_list.append(value)
+
+    print(average_list)
 
 
 def main():
     #create_student()
     #adding_student()
-    show_students()
+    #show_students()
+    highers_averages()
 
 main()
