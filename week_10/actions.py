@@ -32,7 +32,7 @@ def create_student():
             english_grade = int(input("Englise grade: "))
             while((english_grade<0) or (english_grade>100)):
                 print("\033[3;31mThe grade must be between 0 and 100\033[0m")
-                english_grade = int(input("Englise grade: "))
+                english_grade = int(input("English grade: "))
             english_validation = False
         except ValueError as error:
             print("\033[3;31mPlease ONLY numbers\033[0m")
@@ -77,9 +77,10 @@ def create_student():
             }                
         
     return new_student
-        
-        
+
+
 def adding_student():        
+    global students
     students = []
     
     validation = True
@@ -96,22 +97,18 @@ def adding_student():
         elif (decision == "N"):
             validation = False
 
-    print("")    
+    print("")
     return students
 
 
-def show_students():
-    students = adding_student()
+def show_students(students):
     for student in students:
         print("")
         for key, value in student.items():
             print(f"{key}: {value}")
-    
-    return students
 
 
-def highers_averages():
-    students = show_students()
+def highers_averages(students):
     student_name_list = []
     average_list = []
     outstanding_students_list = []
@@ -146,14 +143,13 @@ def highers_averages():
     three_higher_average_dic = dict(list(student_name_average_dic.items())[:3])
 
     print("")
-    print("Top 3 averages:")  
+    print("Top three averages:")  
     for key, value in three_higher_average_dic.items():
             print(f"{key} with an average of {value}")
-    
-    return students
 
-def overall_averages():
-    students = highers_averages()
+
+def overall_averages(students):
+    #students = highers_averages()
     student_name_list = []
     average_list = []
     #list for all the averages
@@ -170,18 +166,19 @@ def overall_averages():
     overall_average = total_grade / len(average_list)
     
     student_name_average_dic = dict(zip(student_name_list, average_list))
-    student_name_average_dic["Total averages "] = overall_average
+    student_name_average_dic["all averages "] = overall_average
 
+    print("")
+    print("All averages:")
     for key, value in student_name_average_dic.items():
         print(f"Average for {key} is {value}")
 
-
+"""
 def main():
-    #create_student()
-    #adding_student()
-    #show_students()
-    #highers_averages()
-    overall_averages()
+    adding_student()
+    show_students(students)
+    highers_averages(students)
+    overall_averages(students)
 
 
-main()
+main()"""
