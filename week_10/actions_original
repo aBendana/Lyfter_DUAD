@@ -1,6 +1,3 @@
-from data import read_students_csv
-
-
 def create_student():
     print("")
     print("Please digit student's data:")
@@ -82,14 +79,9 @@ def create_student():
     return new_student
 
 
-#creating student list from a csv file
-def create_students():
+def adding_student():        
     global students
-    students = read_students_csv()
-    return students
-
-
-def adding_student(students):
+    students = []
     
     validation = True
     while validation == True:
@@ -106,11 +98,10 @@ def adding_student(students):
             validation = False
 
     print("")
-    #return students
+    return students
 
 
 def show_students(students):
-    print(students)
     for student in students:
         print("")
         for key, value in student.items():

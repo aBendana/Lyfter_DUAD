@@ -1,6 +1,7 @@
 import actions
-#global students
-#students = []
+import data
+global students
+students = actions.create_students()
 
 def menu():
     global option
@@ -10,10 +11,10 @@ def menu():
         2. Show all students
         3. Top three averages
         4. All averages
-        5. Export to a CSV file students info
+        5. Export or add to a CSV file students info
         6. Import CSV's student file
-        7. Want to know if there's a CSV file already exported?
-        8. Exit
+        8. Want to know if there's a CSV file already exported?
+        9. Exit
         """)
     
     validation = True
@@ -32,22 +33,24 @@ def menu():
     
 
 def excute_menu():
-
     validation = True
     while validation == True:
         option = menu()
         if option == 1:
-            students = actions.adding_student()
+            actions.adding_student(students)
         elif option == 2:
             actions.show_students(students)
         elif option == 3:
             actions.highers_averages(students)
         elif option == 4:
             actions.overall_averages(students)
+        elif option == 5:
+            exists = data.exists_students_csv()
+            data.create_students_csv("students.csv", students, students[0].keys())
         elif (option == 8):
             print("Students grade control is ended")
             exit()
-            #validation = False
+            
 
 
 def main():
