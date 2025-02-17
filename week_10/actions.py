@@ -1,5 +1,5 @@
-from data import read_students_csv
-
+#from data import read_students_csv
+global students
 
 def create_student():
     print("")
@@ -32,7 +32,7 @@ def create_student():
     english_validation = True
     while english_validation == True:        
         try:
-            english_grade = int(input("Englise grade: "))
+            english_grade = int(input("English grade: "))
             while((english_grade<0) or (english_grade>100)):
                 print("\033[3;31mThe grade must be between 0 and 100\033[0m")
                 english_grade = int(input("English grade: "))
@@ -82,11 +82,11 @@ def create_student():
     return new_student
 
 
-#creating student list from a csv file
+"""#creating student list from a csv file
 def create_students():
     global students
     students = read_students_csv()
-    return students
+    return students"""
 
 
 def adding_student(students):
@@ -110,7 +110,7 @@ def adding_student(students):
 
 
 def show_students(students):
-    print(students)
+    #this print is for testing purposes, print(students)
     for student in students:
         print("")
         for key, value in student.items():
@@ -131,7 +131,7 @@ def highers_averages(students):
             if (key == "Student name"):
                 student_name_list.append(value)
             if (key == "Grade average"):
-                average_list.append(value)
+                average_list.append(float(value))
     
     #creating a list of higher averages
     for index in range(0,len(average_list)):
@@ -161,6 +161,7 @@ def overall_averages(students):
     #students = highers_averages()
     student_name_list = []
     average_list = []
+
     #list for all the averages
     for student in students:
         for key, value in student.items():
@@ -168,14 +169,15 @@ def overall_averages(students):
                 student_name_list.append(value)
             if (key == "Grade average"):
                 average_list.append(value)
+
     #average of averages
-    total_grade = 0
+    total_grade = 0.0
     for grade in average_list:
-        total_grade += grade
+        total_grade = total_grade + float(grade)
     overall_average = total_grade / len(average_list)
     
     student_name_average_dic = dict(zip(student_name_list, average_list))
-    student_name_average_dic["all averages "] = overall_average
+    student_name_average_dic["all averages"] = round(overall_average, 2)
 
     print("")
     print("All averages:")

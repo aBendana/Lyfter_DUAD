@@ -15,17 +15,19 @@ def exists_students_csv():
 
 #creates students csv
 def create_students_csv(path, data, headers):
+    with open("students.csv", "x", encoding='utf-8') as file:
+        writer = csv.DictWriter(file, headers)
+        writer.writeheader()
+        writer.writerows(data)
+
+
+#modify new students to students.csv
+def write_to_students_csv(path, data,headers):
     with open("students.csv", "w", encoding='utf-8') as file:
         writer = csv.DictWriter(file, headers)
         writer.writeheader()
         writer.writerows(data)
 
-""""
-#add new students to students.csv
-def append_to_students_csv(path, data,headers):
-    with open("students.csv", "a", encoding='utf-8') as file:
-        writer = csv.DictWriter(file, headers)
-        writer.writerows(data)"""
 
 #read and import students info
 def read_students_csv():
@@ -33,12 +35,6 @@ def read_students_csv():
         print("")
         students_csv = csv.DictReader(file)
         students = [row for row in students_csv]
-    print(students)
+        print(file.read())
     return students
 
-
-def main():
-    read_students_csv()
-
-
-main()

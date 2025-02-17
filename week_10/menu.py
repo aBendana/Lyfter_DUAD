@@ -1,7 +1,9 @@
 import actions
 import data
+
 global students
-students = actions.create_students()
+students = data.read_students_csv()
+
 
 def menu():
     global option
@@ -11,10 +13,9 @@ def menu():
         2. Show all students
         3. Top three averages
         4. All averages
-        5. Export or add to a CSV file students info
+        5. Update students CSV file
         6. Import CSV's student file
-        8. Want to know if there's a CSV file already exported?
-        9. Exit
+        7. Exit
         """)
     
     validation = True
@@ -32,12 +33,13 @@ def menu():
     return option
     
 
-def excute_menu():
+def execute_menu():
     validation = True
     while validation == True:
         option = menu()
         if option == 1:
             actions.adding_student(students)
+            print("\033[3;31mDon't forget to save the changes (option 5)\033[0m")
         elif option == 2:
             actions.show_students(students)
         elif option == 3:
@@ -45,15 +47,18 @@ def excute_menu():
         elif option == 4:
             actions.overall_averages(students)
         elif option == 5:
-            exists = data.exists_students_csv()
-            data.create_students_csv("students.csv", students, students[0].keys())
-        elif (option == 8):
-            print("Students grade control is ended")
+            data.write_to_students_csv("students.csv", students, students[0].keys())
+            print("Changes have been saved")
+        elif option == 6:
+            imported_students = data.read_students_csv()
+            print(imported_students)
+        elif (option == 7):
+            print("Students grade control is ended\n ")
             exit()
             
 
-
+""""
 def main():
     excute_menu()
 
-main()
+main()"""
