@@ -1,5 +1,9 @@
-#from data import read_students_csv
+import data
+
+
 global students
+students = data.read_students_csv
+
 
 def create_student():
     print("")
@@ -82,13 +86,6 @@ def create_student():
     return new_student
 
 
-"""#creating student list from a csv file
-def create_students():
-    global students
-    students = read_students_csv()
-    return students"""
-
-
 def adding_student(students):
     
     validation = True
@@ -106,7 +103,7 @@ def adding_student(students):
             validation = False
 
     print("")
-    #return students
+    return students
 
 
 def show_students(students):

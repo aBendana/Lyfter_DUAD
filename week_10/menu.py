@@ -38,27 +38,60 @@ def execute_menu():
     while validation == True:
         option = menu()
         if option == 1:
-            actions.adding_student(students)
-            print("\033[3;31mDon't forget to save the changes (option 5)\033[0m")
+            validation = data.exists_students_csv()
+            if validation == False:
+                print("\nAt the moment there's not any students info, please type your first list of students\nand then you can use all our features:")
+                actions.adding_student(students)
+                data.create_students_csv("students.csv", students, students[0].keys())
+                print("Now you can use all features")
+                validation = True
+            else:
+                actions.adding_student(students)
+                print("\033[3;31mDon't forget to save your changes\033[0m")
+
         elif option == 2:
-            actions.show_students(students)
+            validation = data.exists_students_csv()
+            if validation == False:
+                print("\nAt the moment there's not any students info, please choose option 1 to start\nand then you can use all our features.")
+                validation = True
+            else:
+                actions.show_students(students)
+        
         elif option == 3:
-            actions.highers_averages(students)
+            validation = data.exists_students_csv()
+            if validation == False:
+                print("\nAt the moment there's not any students info, please choose option 1 to start\nand then you can use all our features.")
+                validation = True
+            else:
+                actions.highers_averages(students)
+        
         elif option == 4:
-            actions.overall_averages(students)
+            validation = data.exists_students_csv()
+            if validation == False:
+                print("\nAt the moment there's not any students info, please choose option 1 to start\nand then you can use all our features.")
+                validation = True
+            else:
+                actions.overall_averages(students)
+        
         elif option == 5:
-            data.write_to_students_csv("students.csv", students, students[0].keys())
-            print("Changes have been saved")
+            validation = data.exists_students_csv()
+            if validation == False:
+                print("\nThere's any data to save, please choose option 1 to start\nand then you can use all our features.")
+                validation = True
+            else:
+                data.write_to_students_csv("students.csv", students, students[0].keys())
+                print("Changes have been saved")
+        
         elif option == 6:
-            imported_students = data.read_students_csv()
-            print(imported_students)
+            validation = data.exists_students_csv()
+            if validation == False:
+                print("\nstudents.csv doesn't exists, please choose option 1 to start\nand then you can use all our features.")
+                validation = True
+            else:
+                imported_students = data.read_students_csv()
+                print(imported_students)
+                print("\nImportant: If you don't see the last info added is because you don't save it\nbut you can still do it (option 5).")
+        
         elif (option == 7):
             print("Students grade control is ended\n ")
             exit()
-            
-
-""""
-def main():
-    excute_menu()
-
-main()"""
