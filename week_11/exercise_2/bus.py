@@ -1,22 +1,36 @@
-import person
+from person import Person
+
 
 class Bus:
 
     def __init__(self,max_passengers):
         self.max_passengers = max_passengers
-
+        
 
     def passengers_on_board(self):
-        counter = 0
-
+        
+        counter = 1
         on_board = []
         while (counter <= self.max_passengers):
-            person = "passenger" + str(counter)
-            on_board.append(person)
+            passenger = Person()
+            on_board.append(passenger)
             counter += 1
 
-        print(on_board)
+        print(f"\nThese are the passengers on board:{on_board}\n FULL BUS!\n\n")
+        return on_board
+
+
+    def passengers_getting_off(self, a_list):
+        counter = 1
+        on_board = a_list
+        while len(on_board) > 0:
+            on_board.pop(-1)
+            print(f"All ready {counter} passenger(s) got off the bus\n{on_board}")
+            counter +=1
+
+        print(f"OK, now the bus is empty!")
 
 
 colombian_bus = Bus(10)
-colombian_bus.passengers_on_board()
+on_board = colombian_bus.passengers_on_board()
+colombian_bus.passengers_getting_off(on_board)
