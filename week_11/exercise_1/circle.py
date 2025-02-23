@@ -10,4 +10,4 @@ class Circle:
         return area
 
 circle_area_1 = Circle(5)
-print(circle_area_1.get_area())
+print(f"\nThe area of the circle is: {circle_area_1.get_area()}")

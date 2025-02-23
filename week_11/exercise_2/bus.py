@@ -25,7 +25,7 @@ class Bus:
         on_board = a_list
         while len(on_board) > 0:
             on_board.pop(-1)
-            print(f"All ready {counter} passenger(s) got off the bus\n{on_board}")
+            print(f"Already {counter} passenger(s) got off the bus\n{on_board}")
             counter +=1
 
         print(f"OK, now the bus is empty!")
