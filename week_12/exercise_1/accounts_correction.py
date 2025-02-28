@@ -9,13 +9,13 @@ class BankAccount():
         print(f"Your new balance is: ${self.balance}")
 
 
-    def withdraw_money(self, amount):
-        if (self.minimum_balance <= (self.balance - amount)):
+    def withdraw_money(self, amount, min_balance):
+        if (min_balance <= (self.balance - amount)):
             self.balance = self.balance - amount
             print(f"Your new balance is: ${self.balance}")
         else:
             print("Error: YOU CAN'T TAKE OUT THAT AMOUNT")
-            print(f"Your balance can't be less than ${self.minimum_balance}")
+            print(f"Your balance can't be less than ${min_balance}")
 
 
 class SavingAccount(BankAccount):
@@ -84,7 +84,8 @@ def main():
             print(f"Your current balance is: ${my_saving_account.balance}")
             print("How much do you want to withdraw:")
             amount = input_amount()
-            my_saving_account.withdraw_money(amount)
+            min_balance = my_saving_account.minimum_balance
+            my_saving_account.withdraw_money(amount, min_balance)
         elif option == 3:
             print("Have a nice day!\n")
             exit()
