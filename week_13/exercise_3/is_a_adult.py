@@ -18,33 +18,39 @@ class User:
 
 
 def age_validation(func):
-    def adult_benefits(user, *args):
+    def wrapper(user, *args, **kwargs):
+        print("\nPerforming the decorated function...")
         print(f"{user.name} you are {user.age}")
         
-        if user.age >= 18:
-            #this print was used to follow the process
-            #print(f"Using: {user}")
-            func(user)
-        else:
-            print("You can't have adult benefits yet\n")
-        #return func(user, *args)
-    return adult_benefits
+        try:
+            if user.age < 18:
+                raise ValueError("You can't have adult benefits yet")
+        
+        except ValueError as error:
+            print(f"Warning: {error}")
+            print("Interrupting the decorated function.")
+            return
+
+        result = func(user, *args, **kwargs)
+        print("Finishing execution of the decorated function.")
+        return result
+    return wrapper
 
 
 @age_validation
 def can_drink_alcohol(user):
+    print("Yes, you can have alcoholic beverages")
     #instructions to get id
-    return print("Yes, you can have alcoholic beverages\n")
 
 
 @age_validation
 def can_drive(user):
-    #instructions to get vehicle license
-    return print("Yes, you can have a vehicle license\n")
+    print("Yes, you can have a vehicle license")
+    # instructions to get vehicle license
 
 
 def main():
-    my_user_2 = User(date(2000, 11, 28), "Rodrigo Benetiz")
+    my_user_2 = User(date(2000, 11, 28), "Rodrigo Benitez")
     can_drink_alcohol(my_user_2)
     can_drive(my_user_2)
 

@@ -5,29 +5,31 @@ class Arguments:
 
 
     def integers_counter(func):
-        def the_verificator(*args):
-            list_of_integers = func(*args)
+        def wrapper(self, *args, **kwargs):
+            print("\nPerforming the decorated function...")
+            result = func(self, *args, **kwargs)
             print("\nThis is the list of parameters")
-            print(list_of_integers)
+            print(result)
             
-            for parameter in list_of_integers:
-                try:
-                    parameter_type = int(parameter)
-                    print(f"\nYes, {parameter_type} is {type(parameter)}")
+            for parameter in result:
+                if isinstance(parameter, int):
+                    print(f"\nYes, {parameter} is {type(parameter)}")
             
-                except ValueError as error:
+                else: 
                     print(f"\nNo, {parameter} is a {type(parameter)}")
-                    print(f'Value must be a integer. Error: {error}')
-
-            return func
-        return the_verificator    
+                    print(f"Value must be a integer.")
+            
+            print("Finishing execution of the decorated function.")
+            return result
+        return wrapper    
 
 
     @integers_counter
     def only_integers(self,*args):
-        print("This function have a bunch of instructions,\n but not today!")
-
+        print("This decorated function have more instructions")
+        args_list = list(args)
         return args
+
 
 def main():
     counting_integers = Arguments()
