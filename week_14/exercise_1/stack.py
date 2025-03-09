@@ -23,17 +23,21 @@ class LinkedList:
 class Stack(LinkedList):
     
     def push(self, new_node):
-        ## the commented prints was used to follow the sequence
-        current_node = self.top
-        #print(f"Flag {current_node.data}")
-        self.top = new_node
-        #print(f"Flag {self.top.data}")
-        new_node.next = current_node
-        #print(f"Flag {current_node.data}")
+        
+        if new_node is not None:
+            ## the commented prints was used to follow the sequence
+            current_node = self.top
+            #print(f"Flag {current_node.data}")
+            self.top = new_node
+            #print(f"Flag {self.top.data}")
+            new_node.next = current_node
+            #print(f"Flag {current_node.data}")
 
 
     def pop(self):
-        self.top = self.top.next
+
+        if self.top is not None:
+            self.top = self.top.next
 
 
 

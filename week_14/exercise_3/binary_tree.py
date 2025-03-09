@@ -42,8 +42,11 @@ class BinaryTree:
 
 
     def print_tree(self, root):
-        current_node = root
+        
+        if self.root == None:
+            return print("The tree is empty, there's nothing to print")
 
+        current_node = root
         if current_node is not None:
             print(current_node.data)
             self.print_tree(current_node.left_node)

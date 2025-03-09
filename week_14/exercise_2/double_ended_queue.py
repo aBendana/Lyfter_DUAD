@@ -19,7 +19,6 @@ class LinkedList:
             current_node = current_node.next
 
 
-
 class DoubleEndedQueue(LinkedList):
 
     def push_left(self, new_node):
@@ -39,17 +38,32 @@ class DoubleEndedQueue(LinkedList):
 
 
     def pop_left(self):
-        self.head = self.head.next
+        
+        if self.head is not None:
+            self.head = self.head.next
+        else:
+            print("Empty structure")
 
 
     def pop_right(self):
-        current_node = self.head
-        next_node = current_node.next
-        while (next_node.next is not None):
-            current_node = next_node
+
+        if self.head is not None:    
+            
+            current_node = self.head
             next_node = current_node.next
 
-        current_node.next = None
+            if next_node is None:
+                self.head = None
+
+            else:
+                while (next_node.next is not None):
+                    current_node = next_node
+                    next_node = current_node.next
+                current_node.next = None
+
+        else:
+            print("Empty structure")
+ 
 
 
 fourth_node = Node("I'm the fourth node")
