@@ -1,47 +1,8 @@
 import FreeSimpleGUI as sg
 import window_movement
 import window_category
-import data_movemets
-import data_category
-
-
-class PreparationsForMainWindow:
-
-    def table_values(self):
-
-        movements_list_of_dictionaries = data_movemets.read_movements_csv()
-        movements_list_of_lists = []
-        for index, movement in enumerate(movements_list_of_dictionaries):
-            values_list = list(movement.values())
-            index += 1
-            values_list.insert(0,index)
-            movements_list_of_lists.append(values_list)
-
-        #print(movements_list_of_lists)
-        return movements_list_of_lists
-
-
-    def income_outcome_balance(self):
-        
-        movements_list = data_movemets.read_movements_csv()
-        income_amount_list = []
-        income_total = 0
-        outcome_amount_list = []
-        outcome_total = 0
-        
-        for movement in movements_list:  
-            if movement['Type'] == "Income":
-                income_amount_list.append(int(movement['Amount']))
-                
-            elif movement ['Type'] == "Outcome":
-                outcome_amount_list.append(int(movement['Amount']))
-                
-        income_total = sum(income_amount_list)
-        outcome_total = sum(outcome_amount_list)
-        balance = income_total - outcome_total
-        
-        return balance
-    
+from transactions_table import PreparationsForMainWindow
+from data_managment import DataManagement
 
 
 class MainWindow: 
@@ -86,7 +47,7 @@ class MainWindow:
         main_window = self.make_window()
 
         # beginning for first time
-        if data_category.categories_csv_exists() == False:
+        if DataManagement.data_csv_exists(self, 'categories.csv') == False:
             sg.popup_quick("There is no movements, begin creating types of categories and then movements", title='DUAD',
                         text_color='blue',background_color="gray", auto_close_duration=4, non_blocking=False)
             window_category.main()
@@ -116,9 +77,9 @@ class MainWindow:
         return main_window
     
 
-def main():
-    main_window = MainWindow()
-    main_window.main_window_function()
+# def main():
+#     main_window = MainWindow()
+#     main_window.main_window_function()
 
 
-main()
+# main()

@@ -1,43 +1,6 @@
 import FreeSimpleGUI as sg
-import data_movemets
-import data_category
-
-class PreparationsforMovement:
-
-    def __init__(self):
-        pass
-
-
-    def preparing_category_combo_data(self):
-        categories_list = data_category.read_categories_csv()
-        income_category_list = []
-        outcome_category_list = []
-        
-        for category in categories_list:  
-            if category['type'] == "Income":
-                income_category_list.append(category['category'])
-                income_category_list.sort()
-            elif category['type'] == "Outcome":
-                outcome_category_list.append(category['category'])
-                outcome_category_list.sort()
-
-        return income_category_list, outcome_category_list
-    
-
-    def creating_movements_list(self, category_type, category, detail, amount):
-
-        movements_list = []
-        new_movement = {
-        "Type" : category_type, 
-        "Category" : category,
-        "Detail" : detail,
-        "Amount" : amount
-        }
-        #print(new_movement)
-        movements_list = data_movemets.read_movements_csv()
-        movements_list.append(new_movement)
-
-        return movements_list
+from movement import PreparationsForMovement, Movement
+import utilities as ut
 
 
 class MovementWindow:
@@ -89,8 +52,8 @@ class MovementWindow:
 
             elif event == '-TYPE-':  
                 category_type = values['-TYPE-']
-                incomes_list, outcomes_list = PreparationsforMovement.preparing_category_combo_data(self)
-                #print("Selected Type:", category_type)
+                incomes_list, outcomes_list = PreparationsForMovement.preparing_category_combo_data(self)
+
                 if category_type == "Income":
                     movement_window['-CATEGORY-'].update(values=incomes_list, value="Choose an income", size=17)
                 elif category_type == "Outcome":
@@ -98,17 +61,9 @@ class MovementWindow:
 
             elif event == '-NEXT-':
                 #preparing data and include possible errors
-                category = values['-CATEGORY-'] 
-                if category == "Choose a category" or not category:
-                    sg.popup_error("Error: Please select a valid category!", text_color='red', auto_close_duration=2)
-                    continue
+                category_type = values['-TYPE-']
                 category = values['-CATEGORY-']
-                if category == "Choose an income":
-                    sg.popup_error("Error: Please select a valid income!", text_color='red', auto_close_duration=2)
-                    continue
-                category = values['-CATEGORY-']
-                if category == "Choose an outcome":
-                    sg.popup_error("Error: Please select a valid outcome!", text_color='red', auto_close_duration=2)
+                if not ut.validate_category(category_type, category):
                     continue
 
                 detail = values['-DETAIL-']
@@ -116,30 +71,14 @@ class MovementWindow:
                     sg.popup_error("Error: Please write the detail!", text_color='red')
                     continue
                 
-                try:
-                    amount = int(values['-AMOUNT-'])  
-                except ValueError:
-                    sg.popup_error("Error: Please enter a valid number!", text_color='red', auto_close_duration=2)
-                    continue
-                amount = int(values['-AMOUNT-'])
-                if amount <= 0:
-                    sg.popup_error("Error: The amount must be greater than zero", text_color='red', auto_close_duration=2)
+                amount = ut.validate_amount(values['-AMOUNT-'])
+                if  amount == None:
                     continue
 
                 # saving the movements data
-                #movements_list = []
-                movements_list = PreparationsforMovement.creating_movements_list(self, category_type, category, detail, amount)
-                validation = data_movemets.movements_csv_exists()
-                if  validation == False:
-                    data_movemets.create_movements_csv("movements.csv", movements_list, movements_list[0].keys())
+                movements_list = PreparationsForMovement.creating_movements_list(self, category_type, category, detail, amount)
+                Movement.saving_movement(self, movements_list)
 
-                else:
-                    #print(movements_list)
-                    data_movemets.write_to_movements_csv("movements.csv", movements_list, movements_list[0].keys())
-                    
-                #save popup
-                sg.popup_auto_close("Movement saved!", text_color='sky blue', font=("Arial", 15), auto_close_duration=1)
-                
                 # clean window
                 for key in values:
                     movement_window[key]('')   
@@ -147,7 +86,6 @@ class MovementWindow:
                 movement_window['-CATEGORY-'].update(value="Choose a category", size=17)
                 
         movement_window.close()
-        #return movement_window
 
 
 

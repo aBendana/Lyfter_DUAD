@@ -2,4 +2,8 @@ from window_main import MainWindow
 
 
 def main():
-    MainWindow.main_window_function()
+    main_window = MainWindow()
+    main_window.main_window_function()
+
+
+main()

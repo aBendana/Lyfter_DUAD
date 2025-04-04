@@ -1,34 +1,6 @@
 import FreeSimpleGUI as sg
-import data_category
-
-
-class PreparationsForCategory:
-
-    def __init__(self):
-        pass
-
-
-    def creating_list_for_categories(self, category_type, category):
-        
-        categories_list = []
-        categories_list = data_category.read_categories_csv()
-        new_category = {"type":category_type, "category":category}
-        categories_list.append(new_category)
-        return new_category, categories_list
-
-    
-    def new_category_exists(self, new_category):
-
-        category_validation = False
-        categories = data_category.read_categories_csv()
-        #print(categories)
-        for category in categories:
-            if new_category == category:
-                category_validation = True
-                break
-
-        return category_validation    
-
+from category import Category, PreparationsForCategory
+import utilities as ut
 
 
 class CategoryWindow:
@@ -59,7 +31,7 @@ class CategoryWindow:
             ]
 
         return sg.Window("DUAD", layout, finalize=True)
-
+    
 
     def category_window_function(self):
         
@@ -76,21 +48,10 @@ class CategoryWindow:
             
             if event == sg.WIN_CLOSED or event == '-CLOSE-':
                 break
-            
-            # validations for the checkboxes
-            elif values['-INCOME-'] == True and values['-OUTCOME-'] == True:
-                category_window['-WARNING-'].update("Please choose only one checkbox option")
 
-            elif values['-INCOME-'] == False and values['-OUTCOME-'] == False:
-                category_window['-WARNING-'].update("Please choose a checkbox option")
-
-            elif (values['-INCOME-'] == True and values['-OUTCOME-'] == False) or (values['-INCOME-'] == False and values['-OUTCOME-']) == True:
-                
+            elif ut.checkbox_validations(category_window, values['-INCOME-'], values['-OUTCOME-']):           
                 #preparing the category data to be saved
-                if values['-INCOME-'] == True:
-                    category_type = "Income"
-                else:
-                    category_type = "Outcome"
+                category_type = PreparationsForCategory.category_type_value(self, values['-INCOME-'])
                 
                 category = values['-CATEGORY-']
                 if not category:
@@ -102,22 +63,7 @@ class CategoryWindow:
 
                 # saving
                 if event == '-NEXT-':
-                    validation_file_exists = data_category.categories_csv_exists()
-                    # creating the data category file for first time
-                    if  validation_file_exists == False:
-                        data_category.create_categories_csv("categories.csv", categories_list, categories_list[0].keys())
-                        sg.popup_auto_close("Category saved!", text_color='sky blue', font=("Arial", 15), auto_close_duration=1)
-
-                    elif validation_file_exists == True:
-                        validation_new_category_exists = PreparationsForCategory.new_category_exists(self, new_category)
-                        #print(validation_new_category_exists)
-
-                        # writing the data category file
-                        if validation_new_category_exists == False:
-                            data_category.write_to_categories_csv("categories.csv", categories_list, categories_list[0].keys())
-                            sg.popup_auto_close("Category saved!", text_color='sky blue', font=("Arial", 15), auto_close_duration=1)                       
-                        elif validation_new_category_exists == True:
-                            sg.popup_auto_close("Category already exists!", text_color='red', font=("Arial", 15), auto_close_duration=2)
+                    Category.saving_category(self, new_category, categories_list)
                     
                     #clean all inputs
                     category_window['-WARNING-'].update("")
