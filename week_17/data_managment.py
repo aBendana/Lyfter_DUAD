@@ -9,7 +9,7 @@ class DataManagement:
 
 
     #Checking if data.csv exists
-    def data_csv_exists(self, path):
+    def data_csv_exists(self, path):  
         validation = False
         file = Path(path)
         if file.exists():
@@ -19,19 +19,19 @@ class DataManagement:
 
 
     #creates data csv
-    def create_data_csv(self, path, data, headers):
-        with open(path, "x", encoding='utf-8') as file:
-            writer = csv.DictWriter(file, headers)
-            writer.writeheader()
-            writer.writerows(data)
+    def create_data_csv(self, path, data):
+        headers = list(data.__dict__.keys())
+        with open(path, "x", newline='', encoding='utf-8') as file:
+            writer = csv.writer(file, headers)
+            writer.writerow(headers)
+            writer.writerow(list(data.__dict__.values()))
 
 
     #add new data to data.csv
-    def write_to_data_csv(self, path, data, headers):
-        with open(path, "w", encoding='utf-8') as file:
-            writer = csv.DictWriter(file, headers)
-            writer.writeheader()
-            writer.writerows(data)
+    def write_to_data_csv(self, path, data):
+        with open(path, "a", newline='', encoding='utf-8') as file:
+            writer = csv.writer(file)
+            writer.writerow(list(data.__dict__.values()))
 
 
     #read and import data info

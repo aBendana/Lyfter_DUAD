@@ -1,5 +1,5 @@
 import FreeSimpleGUI as sg
-from category import Category, PreparationsForCategory
+from category import Category, PreparationsForCategory, CategoryItem
 import utilities as ut
 
 
@@ -42,28 +42,33 @@ class CategoryWindow:
         while True: 
             event, values = category_window.read()
             category_type = ""
-            category = ""
-            new_category = {}
-            categories_list = []
+            category_name = ""
             
             if event == sg.WIN_CLOSED or event == '-CLOSE-':
                 break
 
             elif ut.checkbox_validations(category_window, values['-INCOME-'], values['-OUTCOME-']):           
-                #preparing the category data to be saved
+
                 category_type = PreparationsForCategory.category_type_value(self, values['-INCOME-'])
                 
-                category = values['-CATEGORY-']
-                if not category:
-                    sg.popup_error("Error: Please write the detail!", text_color='red')
-                    continue
+                # category_name = values['-CATEGORY-']
+                # if not category_name:
+                #     sg.popup_error("Error: Please write the detail!", text_color='red')
+                #     continue
 
-                new_category, categories_list = PreparationsForCategory.creating_list_for_categories(self, category_type, category)
-                #print(categories_list)
+                #new_category = CategoryItem(category_type, category_name)
+                #print(new_category)
 
                 # saving
                 if event == '-NEXT-':
-                    Category.saving_category(self, new_category, categories_list)
+
+                    new_category = CategoryItem(category_type, values['-CATEGORY-'])
+
+                    if not CategoryItem.validate_category(self, new_category):
+                        sg.popup_error("Error: Please write the detail!", text_color='red', auto_close=True, auto_close_duration=2)
+                        continue
+
+                    Category.saving_category(self, new_category)
                     
                     #clean all inputs
                     category_window['-WARNING-'].update("")

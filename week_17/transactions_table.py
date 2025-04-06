@@ -6,7 +6,7 @@ class PreparationsForMainWindow:
 
     def table_values(self):
 
-        movements_list_of_dictionaries = DataManagement.read_data_csv(self, 'movements.csv')
+        movements_list_of_dictionaries = DataManagement.read_data_csv(self, 'transactions.csv')
         movements_list_of_lists = []
         for index, movement in enumerate(movements_list_of_dictionaries):
             values_list = list(movement.values())
@@ -20,18 +20,18 @@ class PreparationsForMainWindow:
 
     def income_outcome_balance(self):
         
-        movements_list = DataManagement.read_data_csv(self, 'movements.csv')
+        movements_list = DataManagement.read_data_csv(self, 'transactions.csv')
         income_amount_list = []
         income_total = 0
         outcome_amount_list = []
         outcome_total = 0
         
-        for movement in movements_list:  
-            if movement['Type'] == "Income":
-                income_amount_list.append(int(movement['Amount']))
+        for movement in movements_list:
+            if movement['type'] == "Income":
+                income_amount_list.append(int(movement['amount']))
                 
-            elif movement ['Type'] == "Outcome":
-                outcome_amount_list.append(int(movement['Amount']))
+            elif movement ['type'] == "Outcome":
+                outcome_amount_list.append(int(movement['amount']))
                 
         income_total = sum(income_amount_list)
         outcome_total = sum(outcome_amount_list)

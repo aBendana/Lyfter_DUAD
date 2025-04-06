@@ -1,5 +1,5 @@
 import FreeSimpleGUI as sg
-from movement import PreparationsForMovement, Movement
+from movement import PreparationsForMovement, Transaction, Movement
 import utilities as ut
 
 
@@ -60,24 +60,24 @@ class MovementWindow:
                     movement_window['-CATEGORY-'].update(values=outcomes_list, value="Choose an outcome", size=17)
 
             elif event == '-NEXT-':
-                #preparing data and include possible errors
-                category_type = values['-TYPE-']
-                category = values['-CATEGORY-']
-                if not ut.validate_category(category_type, category):
+                # creating the data and validations
+
+                new_transaction = Transaction(values['-TYPE-'], values['-CATEGORY-'], values['-DETAIL-'], values['-AMOUNT-'])
+                
+                if not Transaction.validate_category(self, new_transaction):
                     continue
 
-                detail = values['-DETAIL-']
-                if not detail:
-                    sg.popup_error("Error: Please write the detail!", text_color='red')
+                # detail = values['-DETAIL-']
+                if not Transaction.validate_detail(self, new_transaction):
+                    sg.popup_error("Error: Please write the detail!", text_color='red', auto_close=True, auto_close_duration=2)
                     continue
                 
-                amount = ut.validate_amount(values['-AMOUNT-'])
+                amount = Transaction.validate_amount(self, new_transaction)
                 if  amount == None:
                     continue
 
-                # saving the movements data
-                movements_list = PreparationsForMovement.creating_movements_list(self, category_type, category, detail, amount)
-                Movement.saving_movement(self, movements_list)
+                # saving the transaction
+                Movement.saving_transaction(self, new_transaction)
 
                 # clean window
                 for key in values:
