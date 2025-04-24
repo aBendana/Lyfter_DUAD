@@ -1,0 +1,62 @@
+[
+    {
+        "id": "D101",
+        "name": "Walk the dog",
+        "description": "Take out the dog for an hour, morning",
+        "status": "Pending"
+    },
+    {
+        "id": "H101",
+        "name": "Breakfast",
+        "description": "Cook a different breakfast",
+        "status": "Completed"
+    },
+    {
+        "id": "J101",
+        "name": "PSB 1P",
+        "description": "Move lines, check scores, setup Props",
+        "status": "Proceeding"
+    },
+    {
+        "id": "SL101",
+        "name": "Flask theory",
+        "description": "Study method views",
+        "status": "Pending"
+    },
+    {
+        "id": "J102",
+        "name": "Solve BTS88 problem",
+        "description": "Problems with the biding and css",
+        "status": "Proceeding"
+    },
+    {
+        "id": "SL102",
+        "name": "Endpoints with Flask ",
+        "description": "End exercise, review it and deliver it",
+        "status": "Completed"
+    },
+    {
+        "id": "D102",
+        "name": "Walk the dog",
+        "description": "Take out the dog for half hour, afternoon",
+        "status": "Pending"
+    },
+    {
+        "id": "H103",
+        "name": "Wash clothes",
+        "description": "Wash gym clothes",
+        "status": "Pending"
+    },
+    {
+        "id": "F101",
+        "name": "PS game",
+        "description": "Play AC Shadows",
+        "status": "Pending"
+    },
+    {
+        "id": "H105",
+        "name": "Sleep",
+        "description": "Prepare to sleep",
+        "status": "Pending"
+    }
+]
