@@ -50,7 +50,7 @@ def obtain_tasks():
 
 
 # get a specific task by id with path parameter
-@app.route("/get_task/<id>", methods=['GET'])
+@app.route("/tasks/<id>", methods=['GET'])
 #@read_tasks_json
 def get_task(id):
     
@@ -69,7 +69,7 @@ def get_task(id):
 
 
 # write in json file
-@app.route("/add_task", methods=['POST'])
+@app.route("/tasks", methods=['POST'])
 #@read_tasks_json
 def write_tasks():
 
@@ -96,7 +96,7 @@ def write_tasks():
 
 
 # update a task by path parameter id (id can't be changed)
-@app.route("/update_task/<id>", methods=['PATCH'])
+@app.route("/tasks/<id>", methods=['PATCH'])
 #@read_tasks_json
 def update_task(id):
 
@@ -126,7 +126,7 @@ def update_task(id):
 
 
 # delete a task by path parameter id
-@app.route("/delete_task/<id>", methods=['DELETE'])
+@app.route("/tasks/<id>", methods=['DELETE'])
 #@read_tasks_json
 def delete_task(id):
     
