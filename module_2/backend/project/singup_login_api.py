@@ -1,9 +1,10 @@
-from flask import Flask, request, jsonify
+from flask import Flask, Blueprint, request, jsonify
 
-app = Flask(__name__)
+# app = Flask(__name__)
+login_register_bp = Blueprint('login_register', __name__)
 
 # register a customer
-@app.route('/register', methods=['POST'])
+@login_register_bp.route('/register', methods=['POST'])
 def register():
 
     # info to register
@@ -17,7 +18,7 @@ def register():
 
 
 # Endpoint de login
-@app.route('/login', methods=['POST'])
+@login_register_bp.route('/login', methods=['POST'])
 def login():
 
     # ask for username or email and password
@@ -32,5 +33,5 @@ def login():
 
     return jsonify({'message': 'Successful login!'}), 200
 
-if __name__ == "__main__":
-    app.run(host="localhost", debug=True)  
+# if __name__ == "__main__":
+#     app.run(host="localhost", debug=True)  

@@ -70,5 +70,13 @@
         "name": "Carmelo Benavidez",
         "email": "cbenavidez@gmail.com",
         "address": "Parez"
+    },
+    {
+        "user_id": "abc456",
+        "password": "secret",
+        "type": "administrator",
+        "name": "Juan Blanco",
+        "email": "juan@example.com",
+        "address": "Calle Fallas"
     }
 ]

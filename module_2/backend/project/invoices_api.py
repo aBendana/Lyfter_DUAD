@@ -1,23 +1,24 @@
-from flask import Flask, request, jsonify
+from flask import Flask, Blueprint, request, jsonify
 from data import SaveData
 from validations import Validations
 from errors import ParameterError, Filter
 
 
-app = Flask(__name__)
+# app = Flask(__name__)
 
+invoices_bp = Blueprint('invoices', __name__)
 data = SaveData()
 filtering = Filter()
 valid_invoice = Validations()
 
 
-# root endpoint
-@app.route("/")
-def root():
-    return "<h1>Invoice Control!</h1>"
+# # root endpoint
+# @app.route("/")
+# def root():
+#     return "<h1>Invoice Control!</h1>"
 
 # show invoices and filter by email and shipping method with query parameter
-@app.route("/invoices", methods=['GET'])
+@invoices_bp.route("/invoices", methods=['GET'])
 def show_invoices():
 
     try:
@@ -41,7 +42,7 @@ def show_invoices():
 
 
 # get a invoice by invoice_id with path parameter
-@app.route("/invoices/<invoice_id>", methods=['GET'])
+@invoices_bp.route("/invoices/<invoice_id>", methods=['GET'])
 def get_invoice(invoice_id):
     
     try:
@@ -59,7 +60,7 @@ def get_invoice(invoice_id):
 
 
 # save invoices
-@app.route("/invoices", methods=['POST'])
+@invoices_bp.route("/invoices", methods=['POST'])
 def save_invoices():
 
     # preparing requisites for restrictions
@@ -116,7 +117,7 @@ def save_invoices():
 
 
 # update invoice by path parameter invoice_id (id can't be changed)
-@app.route("/invoices/<invoice_id>", methods=['PATCH'])
+@invoices_bp.route("/invoices/<invoice_id>", methods=['PATCH'])
 def update_invoice(invoice_id):
 
     valid_shipping_method = ["Standard", "Express", "Overnight"]
@@ -169,7 +170,7 @@ def update_invoice(invoice_id):
 
 
 # delete a invoice by path parameter invoice_id
-@app.route("/invoices/<invoice_id>", methods=['DELETE'])
+@invoices_bp.route("/invoices/<invoice_id>", methods=['DELETE'])
 def delete_invoice(invoice_id):
     
     try:
@@ -190,5 +191,5 @@ def delete_invoice(invoice_id):
         return jsonify(error="Internal server error"), 500
 
 
-if __name__ == "__main__":
-    app.run(host="localhost", debug=True)  
+# if __name__ == "__main__":
+#     app.run(host="localhost", debug=True)  

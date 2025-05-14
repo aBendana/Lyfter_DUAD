@@ -1,25 +1,26 @@
-from flask import Flask, request, jsonify
+from flask import Flask, Blueprint, request, jsonify
 from data import SaveData
 from validations import Validations
 from errors import ParameterError, Filter
 
 
-app = Flask(__name__)
+# app = Flask(__name__)
 
+products_bp = Blueprint('products', __name__)
 data = SaveData()
 filtering = Filter()
 valid_product = Validations()
 
 
-# root endpoint
-@app.route("/")
-def root():
-    return "<h1>Rocky Pet Shop Products!</h1>"
+# # root endpoint
+# @app.route("/")
+# def root():
+#     return "<h1>Rocky Pet Shop Products!</h1>"
 
 
 # show products and filter by category 
 # and target_species with query parameters
-@app.route("/products", methods=['GET'])
+@products_bp.route("/products", methods=['GET'])
 def show_products():
 
     try:
@@ -44,7 +45,7 @@ def show_products():
 
 
 # get a product by id with path parameter
-@app.route("/products/<product_id>", methods=['GET'])
+@products_bp.route("/products/<product_id>", methods=['GET'])
 def get_product(product_id):
     
     try:
@@ -62,7 +63,7 @@ def get_product(product_id):
 
 
 # save products
-@app.route("/products", methods=['POST'])
+@products_bp.route("/products", methods=['POST'])
 def save_products():
 
     obligatory_product_info = ['product_id', 'name', 'category', 'description', 'target_species', 
@@ -100,7 +101,7 @@ def save_products():
 
 
 # update product by path parameter product_id (id can't be changed)
-@app.route("/products/<product_id>", methods=['PATCH'])
+@products_bp.route("/products/<product_id>", methods=['PATCH'])
 def update_product(product_id):
 
     valid_categories = ["food", "toys", "pharmacy", "accessories"]
@@ -144,7 +145,7 @@ def update_product(product_id):
 
 
 # delete a product by path parameter product_id
-@app.route("/products/<product_id>", methods=['DELETE'])
+@products_bp.route("/products/<product_id>", methods=['DELETE'])
 def delete_product(product_id):
     
     try:
@@ -165,5 +166,5 @@ def delete_product(product_id):
         return jsonify(error="Internal server error"), 500
 
 
-if __name__ == "__main__":
-    app.run(host="localhost", debug=True)  
+# if __name__ == "__main__":
+#     app.run(host="localhost", debug=True)  

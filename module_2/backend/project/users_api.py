@@ -1,24 +1,25 @@
-from flask import Flask, request, jsonify
+from flask import Flask, Blueprint, request, jsonify
 from data import SaveData
 from validations import Validations
 from errors import ParameterError, Filter
 
 
-app = Flask(__name__)
+#app = Flask(__name__)
 
+users_bp = Blueprint('users', __name__)
 data = SaveData()
 filtering = Filter()
 valid_user = Validations()
 
 
-# root endpoint
-@app.route("/")
-def root():
-    return "<h1>Rocky Pet Shop!</h1>"
+# # root endpoint
+# @app.route("/")
+# def root():
+#     return "<h1>Rocky Pet Shop!</h1>"
 
 
 # show users and type of users with query parameters
-@app.route("/users", methods=['GET'])
+@users_bp.route("/users", methods=['GET'])
 def show_users():
 
     try:
@@ -39,7 +40,7 @@ def show_users():
 
 
 # get a user by id with path parameter
-@app.route("/users/<user_id>", methods=['GET'])
+@users_bp.route("/users/<user_id>", methods=['GET'])
 def get_user(user_id):
     
     try:
@@ -57,7 +58,7 @@ def get_user(user_id):
 
 
 # save users
-@app.route("/users", methods=['POST'])
+@users_bp.route("/users", methods=['POST'])
 def save_users():
 
     obligatory_user_info = ['user_id', 'password', 'type', 'name', 'email', 'address']
@@ -88,7 +89,7 @@ def save_users():
 
 
 # update a user by path parameter user_id (id can't be changed)
-@app.route("/users/<user_id>", methods=['PATCH'])
+@users_bp.route("/users/<user_id>", methods=['PATCH'])
 def update_user(user_id):
 
     valid_types = ["administrator","customer"]
@@ -124,7 +125,7 @@ def update_user(user_id):
 
 
 # delete a user by path parameter user_id
-@app.route("/users/<user_id>", methods=['DELETE'])
+@users_bp.route("/users/<user_id>", methods=['DELETE'])
 def delete_user(user_id):
     
     try:
@@ -145,5 +146,5 @@ def delete_user(user_id):
         return jsonify(error="Internal server error"), 500
 
 
-if __name__ == "__main__":
-    app.run(host="localhost", debug=True)  
+# if __name__ == "__main__":
+#     app.run(host="localhost", debug=True)  
