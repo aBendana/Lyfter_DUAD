@@ -1,0 +1,33 @@
+
+-- DDL queries
+
+-- Authors
+CREATE TABLE authors(
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	name VARCHAR(35) UNIQUE NOT NULL
+);
+
+
+-- -- Customers
+CREATE TABLE customers(
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	name VARCHAR(35) UNIQUE NOT NULL,
+    email VARCHAR(30) UNIQUE NOT NULL
+);
+
+
+-- Books
+CREATE TABLE books(
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	name VARCHAR(30) UNIQUE NOT NULL,
+    author_id INT REFERENCES authors (id)
+);
+
+
+-- Rents
+CREATE TABLE rents(
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	book_id INT REFERENCES books (id),
+    customer_id INT REFERENCES customers (id),
+    state VARCHAR(10) NOT NULL
+);
