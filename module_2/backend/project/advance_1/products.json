@@ -1,0 +1,57 @@
+[
+    {
+        "product_id": "P001",
+        "name": "Canine Digestive Kibble",
+        "category": "food",
+        "description": "Easily digestible dry food for adult dogs.",
+        "target_species": "Dog",
+        "supplier": "NutriPet",
+        "stock": 80,
+        "cost": 7.25,
+        "price": 15.99
+    },
+    {
+        "product_id": "P002",
+        "name": "Catnip Mouse Toy",
+        "category": "toys",
+        "description": "Plush mouse filled with organic catnip to stimulate play.",
+        "target_species": "Cat",
+        "supplier": "FelineFun",
+        "stock": 150,
+        "cost": 1.5,
+        "price": 4.99
+    },
+    {
+        "product_id": "P003",
+        "name": "Equine Dewormer Paste",
+        "category": "pharmacy",
+        "description": "Broad-spectrum deworming paste for horses.",
+        "target_species": "Horse",
+        "supplier": "VetMeds Inc.",
+        "stock": 60,
+        "cost": 9.0,
+        "price": 21.5
+    },
+    {
+        "product_id": "P004",
+        "name": "Bird Mirror with Bell",
+        "category": "accessories",
+        "description": "Hanging mirror toy for cage birds with attached bell.",
+        "target_species": "Bird",
+        "supplier": "FeatherJoy",
+        "stock": 95,
+        "cost": 2.0,
+        "price": 5.49
+    },
+    {
+        "product_id": "P005",
+        "name": "Fish Flakes - Tropical BlendX",
+        "category": "food",
+        "description": "Nutrient-rich flake food for tropical freshwater fish.",
+        "target_species": "Fish",
+        "supplier": "AquaNutraXYZ",
+        "stock": 201,
+        "cost": 3.1,
+        "price": 7.89
+    }
+]
