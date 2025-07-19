@@ -6,9 +6,9 @@ BEGIN
 
     -- validate if the product is in stock
     IF EXISTS (
-        SELECT 2 FROM products
+        SELECT 1 FROM products
         WHERE id = 1 
-        AND stock < 1
+        AND stock < 0
     ) 
     THEN
         RAISE NOTICE 'Not enough stock';
@@ -33,14 +33,14 @@ BEGIN
         1, 
         1, 
         2, 
-        (SELECT price FROM products WHERE id = 1) * 2, -- calculating invoice_total
+        (SELECT price FROM products WHERE id = 1) * 1, -- calculating invoice_total
         'completed'
     );
 
 
     -- update the stock
     UPDATE products
-    SET stock = stock - 2
+    SET stock = stock - 1
     WHERE id = 1;
 
 END
