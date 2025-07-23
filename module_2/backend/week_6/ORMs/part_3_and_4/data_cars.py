@@ -1,10 +1,18 @@
 car_data = {
-    "user_id": 1,
-    "makers": "Toyota",     
-    "model": "4Runner",          
-    "year": 2024,
-    "color": "yellow"
+    "user_id": 10,
+    "makers": "Honda",     
+    "model": "CRV",          
+    "year": 2012,
+    "color": "black"
 }
+
+# car_data = {
+#     "user_id": 1,
+#     "makers": "Toyota",     
+#     "model": "4Runner",          
+#     "year": 2024,
+#     "color": "yellow"
+# }
 
 # car_data = {
 #     "user_id": 13,
@@ -13,6 +21,12 @@ car_data = {
 #     "year": 2024,
 #     "color": "yellow"
 # }
+
+update_car_dict_list = [
+    {"old_value":2026, "new_value":2051},
+    {"old_value":2000, "new_value":2052},
+    {"old_value":2023, "new_value":2053},
+    ]
 
 
 cars_data_list = [

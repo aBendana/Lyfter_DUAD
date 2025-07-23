@@ -1,10 +1,25 @@
+# address_data = {
+#         "user_id": 1,
+#         "address": "San Rafael avenida 99 casa #674",
+#         "canton": "Escazu",
+#         "province": "San Jose",
+#         "postal_code": "10203"
+#     }
+
+
 address_data = {
-        "user_id": 1,
-        "address": "San Rafael avenida 99 casa #674",
-        "canton": "Escazu",
+        "user_id": 2,
+        "address": "San Isidro avenida 10 casa #11",
+        "canton": "Perez Zeledon",
         "province": "San Jose",
-        "postal_code": "10203"
+        "postal_code": "11904"
     }
+
+update_addresses_dict_list = [
+    {"old_value":"Calle Luna. lote 8", "new_value":"Calle Sol, lote 50"},
+    {"old_value":"Limon centro, calle principal, frente al parque", "new_value":"Limon centro, 50N del estadio"},
+    {"old_value":"Alajuela, La Garita, finca #12", "new_value":"La Garita, finca #501"}
+]
 
 
 addresses_data_list = [

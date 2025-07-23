@@ -23,19 +23,20 @@ def scripts_exceptions(func):
         except Exception as error:
             print("\033[91mError:\033[0m", error)    
     return wrapper
+ 
 
 
+class QueryFunctions:
 
-class Insert:
-
-    def __init__(self, engine):
+    def __init__(self, engine, table):
         self.engine = engine
+        self.table = table
 
     @scripts_exceptions
-    def single_insert(self, table, data:dict):
+    def single_insert(self, data:dict):
 
         # unpack data key=value
-        stmt = insert(table).values(**data)
+        stmt = insert(self.table).values(**data)
         with self.engine.begin() as conn:
             result = conn.execute(stmt)
             conn.commit()
@@ -43,25 +44,18 @@ class Insert:
         
 
     @scripts_exceptions
-    def multiple_inserts(self, table, dict_list):
+    def multiple_inserts(self, dict_list):
 
-        stmt = insert(table).values(dict_list)
+        stmt = insert(self.table).values(dict_list)
         with self.engine.begin() as conn:
             result = conn.execute(stmt)
         print(f"\033[92mSuccessfully added{dict_list}\033[0m")
 
-    
-
-class Select:
-
-    def __init__(self, engine):
-        self.engine = engine
-
 
     @scripts_exceptions
-    def whole_table_select(self, table):
+    def whole_table_select(self):
 
-        stmt = select(table)
+        stmt = select(self.table)
         with self.engine.connect() as conn:
             result = conn.execute(stmt).fetchall()
             print(f"\n\033[92m{result}\033[0m\n\n")
@@ -69,26 +63,19 @@ class Select:
 
     
     @scripts_exceptions
-    def single_select(self, table, column, value):
+    def single_select(self, column, value):
 
-        stmt = select(table).where(getattr(table.c, column) == value)
+        stmt = select(self.table).where(getattr(self.table.c, column) == value)
         with self.engine.connect() as conn:
             result = conn.execute(stmt).fetchall()
             print(f"\n\033[92m{result}\033[0m\n")
         return(result)
 
 
-
-class Update:
-
-    def __init__(self, engine):
-        self.engine = engine
-
-
     @scripts_exceptions
-    def single_update(self, table, column, value, column_modify, new_value):
+    def single_update(self, column, value, column_modify, new_value):
 
-        stmt = update(table).where(getattr(table.c, column) == value).values({column_modify: new_value})
+        stmt = update(self.table).where(getattr(self.table.c, column) == value).values({column_modify: new_value})
         with self.engine.begin() as conn:
             result = conn.execute(stmt)
             conn.commit()
@@ -96,26 +83,19 @@ class Update:
 
 
     @scripts_exceptions
-    def multiple_update(self, table, column_modify, dict_list):
+    def multiple_update(self, column_modify, dict_list):
 
-        stmt = update(table).where(getattr(table.c, column_modify) == bindparam("old_value")).values({column_modify: bindparam("new_value")})
+        stmt = update(self.table).where(getattr(self.table.c, column_modify) == bindparam("old_value")).values({column_modify: bindparam("new_value")})
         with self.engine.begin() as conn:
             conn.execute(stmt, dict_list)
             conn.commit()
         print(f"\033[92mSuccessfully updated! {column_modify}:{dict_list}\033[0m")
 
 
-
-class Delete:
-
-    def __init__(self, engine):
-        self.engine = engine
-
-
     @scripts_exceptions
-    def single_delete(self, table, column, value):
+    def single_delete(self, column, value):
 
-        stmt = delete(table).where(getattr(table.c, column) == value)
+        stmt = delete(self.table).where(getattr(self.table.c, column) == value)
         with self.engine.begin() as conn:
             result = conn.execute(stmt)
             conn.commit()
