@@ -60,6 +60,29 @@ def admin_only(func):
             # print(f"USER DATA {user_data}") # list of dictionary
             g.user_name = user_data[0]['name']
             g.user_role = str(user_data[0]['rol'].value)
+
+            return func(*args, **kwargs)
+        
+        except Exception as error:
+            return Response(str(error), status=401)
+    return wrapper
+
+
+def all_users(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        try:
+            user = me()
+            print(user['rol'])
+            if user.get('rol') != 'administrator' and user.get('rol') != 'client':
+                return Response("Access denied", status=403)
+
+            # save data in g
+            g.user_id = user['id']
+            user_data = users_repo.get_user_by_value("id", user['id'])
+            # print(f"USER DATA {user_data}") # list of dictionary
+            g.user_name = user_data[0]['name']
+            g.user_role = str(user_data[0]['rol'].value)
             print(g.user_role)
 
             return func(*args, **kwargs)

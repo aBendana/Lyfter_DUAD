@@ -44,7 +44,6 @@ def create_many_fruits():
 
 # show fruits or show fruits by name, entry_date, price or quantity(query parameter)
 @fruits_bp.route("/fruits", methods=['GET'])
-@admin_only
 def show_fruits():
 
     try:
@@ -72,7 +71,6 @@ def show_fruits():
 
 # get a fruit ideally by id with path parameters or any other parameter
 @fruits_bp.route("/fruits/<column>/<value>", methods=['GET'])
-@admin_only
 def get_fruit(column, value):
     
     try:

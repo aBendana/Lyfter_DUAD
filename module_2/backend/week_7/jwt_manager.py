@@ -32,9 +32,9 @@ class JWT_Manager:
     def __init__(self, secret, algorithm):
         self.secret = secret
         self.algorithm = algorithm
-        with open('week_7/private_key.pem', 'rb') as f:
+        with open('module_2/backend/week_7/private_key.pem', 'rb') as f:
             self.private_key = f.read()
-        with open('week_7/public_key.pem', 'rb') as f:
+        with open('module_2/backend/week_7/public_key.pem', 'rb') as f:
             self.public_key = f.read()
 
 

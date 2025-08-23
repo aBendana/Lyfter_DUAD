@@ -7,7 +7,7 @@ from repository_carts import CartsRepository
 from repository_fruits_in_cart import FruitsInCartRepository
 from repository_invoices import InvoiceRepository
 from repository_invoice_details import InvoiceDetailsRepository
-from decorator_authenticator import client_only
+from decorator_authenticator import client_only, all_users
 
 jwt_manager = JWT_Manager('happylife', 'RS256')
 users_repo = UsersRepository()
@@ -19,34 +19,10 @@ invoice_details_repo = InvoiceDetailsRepository()
 
 buying_bp = Blueprint('buying', __name__)
 
-# login
-# @buying_bp.route("/buy/login", methods=['POST'])
-# def login():
-#     try:
-#         user_data = request.get_json()
-#         email = user_data.get('email')
-#         password = user_data.get('password')
-#         result = users_repo.get_user_by_credentials(user_data, 'email', 'password', email, password)
-#         user_id = result[0]["id"]
-#         rol_type = result[0]["rol"]
-#         token = jwt_manager.encode({'id':user_id, 'rol':rol_type})
-#         return jsonify(message="Successful Login!", token=token)
-    
-#     except ValueError as error:
-#         msg = str(error)
-#         if "Info missing required" in msg:
-#             return jsonify(error = msg), 400
-#         elif "Wrong credentials" in msg:
-#             return jsonify(error = msg), 403
-#         else:
-#             return jsonify(error = msg), 422
-#     except Exception as error:
-#         return jsonify(error = str(error)), 500
-
 
 # show fruits or show fruits by name or id (query parameter)
 @buying_bp.route("/buy/fruits", methods=["GET"])
-@client_only
+@all_users
 def show_fruits():
     try:
         query_params = request.args
@@ -77,7 +53,7 @@ def show_fruits():
 
 # get a fruit ideally by id with path parameters or any other parameter
 @buying_bp.route("/buy/fruits/<column>/<value>", methods=["GET"])
-@client_only
+@all_users
 def get_fruit(column, value):
     try:
         valid_columns_search = ["id", "name"]
@@ -96,7 +72,7 @@ def get_fruit(column, value):
 
 
 @buying_bp.route("/buy/fruits", methods=["POST"])
-@client_only
+@all_users
 def create_cart():
     try:
         user_id = g.user_id
@@ -132,7 +108,7 @@ def create_cart():
 
 
 @buying_bp.route("/buy/carts", methods=["GET"])
-@client_only
+@all_users
 def show_cart():
     try:
         user_id = g.user_id
@@ -155,7 +131,7 @@ def show_cart():
 
 
 @buying_bp.route("/buy/carts", methods=["PATCH"])
-@client_only
+@all_users
 def update_cart():
     try:
         user_name = g.user_name
@@ -203,7 +179,7 @@ def update_cart():
 
 
 @buying_bp.route("/buy/invoices", methods=["POST"])
-@client_only
+@all_users
 def create_invoice():
     try:
         # necessary data
@@ -258,7 +234,7 @@ def create_invoice():
 
 
 @buying_bp.route("/buy/invoices", methods=["GET"])
-@client_only
+@all_users
 def get_invoices():
     try:
         # necessary data

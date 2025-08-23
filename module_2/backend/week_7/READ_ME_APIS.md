@@ -25,7 +25,7 @@ FROM **app_api.py** (welcome message) run all the others apis:
 Apis:
 a) api_login:
     END POINTS
-    1) register (default role client, for creat administrator ):
+    1) register (default role client, for create an administrator api_users, create_user):
         i. http://localhost:5000/register (POST)
         ii. body example: {
                             "name": "Michael Jordan",
@@ -48,8 +48,7 @@ a) api_login:
         iii. return: user id, user name and user role
 
 
-**all end points for api_buying use a decorator @client_only authenticate that the user is a client, this decorator works same as "me" (module decorator_authenticator)**
-**a test user is used for make any test necessary**
+**all end points for api_buying use a decorator @all_users authenticate that the user is a client or administrator, this decorator works same as "me" (module decorator_authenticator)**
 b) api_buying:
     END POINTS:
     1) show fruits
@@ -102,7 +101,7 @@ b) api_buying:
 
 
 **api_fruits and api_users have the same structure (CRUD, basically only changes the necessary body for Create or Update)**
-**all end points for these apis only can be used by a user with role administrator, the authentication is do it with @admin_only decorator, this decorator works same as "me" (module decorator_authenticator)**
+**all endpoints for these apis only can be used by a user with role administrator, (EXCEPTIONS SHOW_FRUITS AND GET_FRUIT these are open to visitors) the authentication is do it with @admin_only decorator, this decorator works same as "me" (module decorator_authenticator)**
 c) api_fruits:
     END POINTS:
     1) create fruit
