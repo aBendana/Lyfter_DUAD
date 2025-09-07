@@ -6,7 +6,13 @@ class Validations:
     
     def valid_columns(self, column, valid_columns):
         if column not in valid_columns:
-            raise ValueError(f"{column} not exists or not allowed for searches or modifications.")
+            raise ValueError(f"Column '{column}' not exists or not allowed for modification.")
+        return True
+
+
+    def valid_value(self, column, value, values):
+        if not values:
+            raise ValueError(f"Invalid value '{value}' in column '{column}' for this search, modification or deletion.")
         return True
 
 
@@ -14,8 +20,8 @@ class Validations:
         for info in obligatory_info:
             value = data.get(info) 
             if info not in data or (isinstance(value, str) and value.strip() == ""):
-                #raise ValueError("Info missing required")
-                raise ValueError(f"{info} can't be empty or is missing from the body")   
+                raise ValueError("Info missing required")
+                #raise ValueError(f"{info} can't be empty or is missing from the body")   
         return True
     
 

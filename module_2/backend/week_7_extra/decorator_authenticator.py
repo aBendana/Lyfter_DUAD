@@ -12,8 +12,8 @@ def me():
     try:
         token = request.headers.get("Authorization")
         if not token:
-            return Response("Token not provided", status=403, content_type="text/plain")
-
+            return None
+        
         user_token = token.replace("Bearer ", "")
         user_decoded = jwt_manager.decode(user_token)
         if user_decoded:
@@ -30,7 +30,7 @@ def me():
                 refreshed_user_decoded = jwt_manager.decode(new_access_token)
                 return refreshed_user_decoded
 
-        return Response("Invalid or expired token", status=401, content_type="text/plain")
+        return None
 
     except Exception as error:
         print(f"Unexpected error: {error}")
@@ -60,6 +60,10 @@ def cb_user_only(func):
     def wrapper(*args, **kwargs):
         try:
             user = me()
+            # help to return Response in case of error from me()
+            if not user:
+                return Response("Invalid or missing token", status=401)
+
             if user.get('role') != 'cb_user':
                 return Response("Access denied: only contact book users allowed", status=403)
 
@@ -81,6 +85,9 @@ def admin_only(func):
     def wrapper(*args, **kwargs):
         try:
             user = me()
+            if not user:
+                return Response("Invalid or missing token", status=401)
+
             if user.get('role') != 'administrator':
                 return Response("Access denied: only administrators allowed", status=403)
             
@@ -96,4 +103,26 @@ def admin_only(func):
             return Response(str(error), status=401)
     return wrapper
 
+
+def users_only(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        try:
+            user = me()
+            if not user:
+                return Response("Invalid or missing token", status=401)
+            
+            if user.get('role') not in ['cb_user', 'administrator']:
+                return Response("Access denied: only users allowed", status=403)
+            
+            # save data in g
+            g.user_id = user['id']
+            g.user_role = user['role']
+            user_data = users_repo.get_user_by_value("id", user['id'])
+            g.user_name = user_data[0]['name']
+            return func(*args, **kwargs)
+        
+        except Exception as error:
+            return Response(str(error), status=401)
+    return wrapper 
 

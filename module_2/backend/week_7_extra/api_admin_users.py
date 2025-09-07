@@ -9,10 +9,10 @@ users_repo = UsersRepository()
 login_repo = LoginHistoryRepository()
 user_validations = Validations()
 
-users_bp = Blueprint('users', __name__)
+admin_users_bp = Blueprint('admin_users', __name__)
 
 # create (insert) user
-@users_bp.route("/users", methods=['POST'])
+@admin_users_bp.route("/admin/users", methods=['POST'])
 @admin_only
 def create_users():
     try:
@@ -27,7 +27,7 @@ def create_users():
 
 
 # create - insert many users
-@users_bp.route("/users/many", methods=['POST'])
+@admin_users_bp.route("/admin/users/many", methods=['POST'])
 @admin_only
 def create_many_users():
     try:
@@ -42,7 +42,7 @@ def create_many_users():
 
 
 # show users or show users by name, email, or role(query parameter)
-@users_bp.route("/users", methods=['GET'])
+@admin_users_bp.route("/admin/users", methods=['GET'])
 @admin_only
 def show_users():
     try:
@@ -66,7 +66,7 @@ def show_users():
 
 
 # get a user ideally by id with path parameters or any other parameter except password
-@users_bp.route("/users/<column>/<value>", methods=['GET'])
+@admin_users_bp.route("/admin/users/<column>/<value>", methods=['GET'])
 @admin_only
 def get_user(column, value):
     try:
@@ -79,24 +79,26 @@ def get_user(column, value):
     return jsonify(formatted_users), 200
 
 
-# update a user by path parameter user id or name (id or name can't be changed)
-@users_bp.route("/users/<column>/<value>", methods=['PATCH'])
+# update a user by path parameter user id (id, name, role can't be changed)
+@admin_users_bp.route("/admin/users/<id_value>", methods=['PATCH'])
 @admin_only
-def update_user(column, value):
+def update_user(id_value):
     try:
         user_data = request.get_json()
-        # prevents 'user id' or 'user name' from being changed
+        # prevents 'user id', 'user name' or 'role' from being changed
         user_data.pop("id", None)
         user_data.pop("name", None)
+        user_data.pop("role", None)
 
         for user_key, user_value in user_data.items():
             column_modify = user_key
             new_value = user_value
             # updating
-            users_repo.update_user(column, value, column_modify, new_value)
+            users_repo.update_user("id", id_value, column_modify, new_value)
 
-        return jsonify(message="Successful updated"), 200
-    
+        return jsonify(message1="Successful updated", message2="'user id', 'user name' or 'role' can't be changed", 
+                    user_data_updated=user_data), 200
+
     except ValueError as error:
         return jsonify(error=str(error)), 400
     except Exception as error:
@@ -105,12 +107,12 @@ def update_user(column, value):
 
 # delete user by path parameter id or name
 #preferably not to use, keep for reference and for related functionality of the db
-@users_bp.route("/users/<column>/<value>", methods=['DELETE'])
+@admin_users_bp.route("/admin/users/<id_value>", methods=['DELETE'])
 @admin_only
-def delete_user(column, value):
+def delete_user(id_value):
     try:
-        users_repo.delete_user(column, value)
-        return jsonify(user=value, message="Successful delete"), 200
+        users_repo.delete_user("id", id_value)
+        return jsonify(user=id_value, message="Successful delete"), 200
 
     except Exception as error:
         return jsonify(error = f"{error}"), 400
@@ -120,7 +122,7 @@ def delete_user(column, value):
 
 
 # show users or show users by name, email, or role(query parameter)
-@users_bp.route("/users/login-history", methods=['GET'])
+@admin_users_bp.route("/admin/users/login-history", methods=['GET'])
 @admin_only
 def show_login_history():
     try:
@@ -146,12 +148,12 @@ def show_login_history():
 
 # delete a login_history by id
 #preferably not to use, keep for reference and for related functionality of the db
-@users_bp.route("/users/login-history/<column>/<value>", methods=['DELETE'])
+@admin_users_bp.route("/admin/users/login-history/<id_value>", methods=['DELETE'])
 @admin_only
-def delete_login_history(column, value):
+def delete_login_history(id_value):
     try:
-        login_repo.delete_login_history(column, value)
-        return jsonify(user=value, message="Successful delete"), 200
+        login_repo.delete_login_history("id", id_value)
+        return jsonify(user=id_value, message="Successful delete"), 200
 
     except Exception as error:
         return jsonify(error = f"{error}"), 400

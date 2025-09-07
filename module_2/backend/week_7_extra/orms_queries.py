@@ -89,7 +89,7 @@ class QueryFunctions:
             # return a dictionary instead a row
             data = conn.execute(stmt).mappings().fetchone()
 
-        # enums type returning like a string (rol_type, status_type)
+        # enums type returning like a string (special type in columns)
         formatted_data = {}
         for col_name, val in data.items():
             # enum values

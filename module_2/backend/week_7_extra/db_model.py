@@ -65,11 +65,13 @@ class Contacts(base):
 	__tablename__ = 'contacts'
 	__table_args__ = {'schema': schema_name}
 
+	# name, phone_number, email are not unique because different users can have same contacts,
+	# the differentiation is given with the id and user_id to which they belong.
 	id = Column(Integer, primary_key=True)
 	user_id = Column(Integer, ForeignKey(schema_name+".users.id"), nullable=False)
 	name = Column(String(50),nullable=False)
-	phone_number = Column(String(15), nullable=False, unique=True)
-	email = Column(String(30), nullable=False, unique=True)
+	phone_number = Column(String(15), nullable=False)
+	email = Column(String(30), nullable=False)
 
 
 class LoginHistory(base):

@@ -32,9 +32,11 @@ class JWT_Manager:
     def __init__(self, secret, algorithm):
         self.secret = secret
         self.algorithm = algorithm
-        with open('week_7/private_key.pem', 'rb') as f:
+        self.path_private_key = "E:\\Studies\\Lyfter\\Repos\\Lyfter_DUAD\\Lyfter_DUAD\\module_2\\backend\\week_7_extra\\private_key.pem"
+        self.path_public_key = "E:\\Studies\\Lyfter\\Repos\\Lyfter_DUAD\\Lyfter_DUAD\\module_2\\backend\\week_7_extra\\public_key.pem"
+        with open(self.path_private_key, 'rb') as f:
             self.private_key = f.read()
-        with open('week_7/public_key.pem', 'rb') as f:
+        with open(self.path_public_key, 'rb') as f:
             self.public_key = f.read()
 
 

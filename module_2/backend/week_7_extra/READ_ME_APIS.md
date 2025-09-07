@@ -51,27 +51,26 @@ a) api_login:
 
 
 
-**api_users have structure CRUD**
-**all end points from api_users only can be used by a user with role administrator, the authentication is do it with @admin_only decorator, this decorator works same as "me" (module decorator_authenticator)**
-b) api_users:
+**all end points from api_admin_users only can be used by a user with role administrator, the authentication is do it with @admin_only decorator, this decorator works same as "me" (module decorator_authenticator)**
+b) api_admin_users:
     END POINTS:
     1) create user
-    i. http://localhost:5000/users (POST)
+    i. http://localhost:5000/admin/users (POST)
     ii. body example: {
                         "name": "Charle Barkley",
                         "email": "cb@example.com",
                         "password": "Cb34PhoSuns",
-                        "rol": administrator **default rol is cb_user for registration porpuses**
+                        "role": administrator **default rol is cb_user for registration porpuses**
                         }
     iii. returns message="Successful saved", user=user_data
 
     2) create many users
-    i. http://localhost:5000/users/many (POST)
+    i. http://localhost:5000/admin/users/many (POST)
     ii. body example: [{
                         "name": "Charle Barkley",
                         "email": "cb@example.com",
                         "password": "Cb34PhoSuns",
-                        "rol": administrator
+                        "role": administrator
                         }
                         {
                         "name": "John Wall",
@@ -81,29 +80,31 @@ b) api_users:
     iii. returns message="Successful saved", users=users_data
 
     3) show users
-        i. http://localhost:5000/users (GET)
+        i. http://localhost:5000/admin/users (GET)
         ii. show all the users in the db, return a list of all the users
-        iii. http://localhost:5000/users?id=3 (GET)
+        iii. http://localhost:5000/admin/users?id=3 (GET)
         iV. return all users or return a specific user using query parameters (id, name, email or role), return a specific user or users
 
     4) get user
-    i. http://localhost:5000/users/<column>/<value> (GET)
+    i. http://localhost:5000/admin/users/<column>/<value> (GET)
     ii. return a specific user using path parameters (id, name, email or role), return a specific user or users
 
     5) update user
-    i. http://localhost:5000/users/<column>/<value> (PATCH)
-    ii. body example: {
+    i. http://localhost:5000/admin/users/<id_value> (PATCH)
+    ii. column always should be id, if´s not raise ValueError
+    iii. body example: {
                         "email": "JW@example.com",
                         "password": "Jw001WasWiSS"
                         }
-    iii. only can update email or password, can update only one column if it´s necessary
-    iv. returns "Successful updated"
+    iv. only can update email or password, can update only one column if it´s necessary
+    v. returns "Successful updated"
 
     6) delete user
-    i. http://localhost:5000/users/<column>/<value> (DELETE)
-    ii delete an specific user 
-    iii. returns "Successful deleted"
-    iv. **this end point, shouldn't be use, cause all the correlations between db tables, actually gonna receive error messages. This could be useful if an user was created with an error and has no activity yet.**
+    i. http://localhost:5000/users/<id_value> (DELETE)
+    ii. column always should be id, if´s not raise ValueError
+    iii delete an specific user 
+    iv. returns "Successful deleted"
+    v. **this end point, shouldn't be use, cause all the correlations between db tables, actually gonna receive error messages. This could be useful if an user was created with an error and has no activity yet.**
 
     7) show login history
     i. http://localhost:5000/users/login-history?user_id=2 (GET)
@@ -112,21 +113,18 @@ b) api_users:
     iV. return all logins or return a specific login from an user, can filter logins by failed o sucessfuly, using query parameters (id, user_id, ip_address or login_status)
 
     8) delete a login
-    i. http://localhost:5000/users/id/3 (DELETE)
+    i. http://localhost:5000/users/<id_value> (DELETE)
     ii. delete a specific login from login history 
     iii. returns "Successful deleted"
     iv. **this end point, shouldn't be use, cause all the correlations between db tables and it is not good practice to alter important information.
 
 
 
-**api_contacts for administrator (admin) and contact book users (cb_user) have structure CRUD**
-**all end points from api_contacts/cb_user only can be used by a user with role cb_user, the authentication is do it with @cb_user_only decorator. Only can create, manipulate or modify his own contacts**
-**all end points from api_contacts/admin only can be used by a user with role administrator, the authentication is do it with @admin_only decorator. Can create, manipulate or modify any contact**
-**descripton of all end points it will be dual for both admin and cb_user**
-c) api_contacts:
+**all end points from api_admin_contacts only can be used by a user with role administrator, the authentication is do it with @admin_only decorator, this decorator works same as "me" (module decorator_authenticator)**
+c) api_admin_contacts:
     END POINTS:
     1) create contacts
-    i. http://localhost:5000/contacts/admin or /cb_user (POST)
+    i. http://localhost:5000/admin/contacts (POST)
     ii. body example: {
                         "user_id": 2
                         "name": "Charles Barkley",
@@ -136,7 +134,60 @@ c) api_contacts:
     iii. returns message="Successful saved", contact=contact_data
 
     2) create many contacts
-    i. http://localhost:5000/contacts/admin or /cb_user/many (POST)
+    i. http://localhost:5000/admin/contacts (POST)
+    ii. body example: [{
+                        "user_id": 2
+                        "name": "Charles Barkley",
+                        "phone_number": "8080-8080" 
+                        "email": "cb@example.com"
+                        }
+                        {
+                        "user_id": 3
+                        "name": "Carlos Barklii",
+                        "phone_number": "8080-8888" 
+                        "email": "cb888@example.com"
+                        }]
+    iii. returns message="Successful saved", contacts=contacts_data
+
+    3) show contacts
+        i. http://localhost:5000/admin/contacts (GET)
+        ii. show all the contacts in the db, return a list of all the users
+        iii. http://localhost:5000/users?id=3 (GET)
+        iV. return all users or return a specific contact using query parameters (id, user_id phone_number or email), return a specific contact or contacts
+
+    4) update contact
+    i. http://localhost:5000/admin/contacts/<id_value> (PATCH)
+    ii. body example: {
+                        "name": "Juanito Cañas"
+                        "phone_number": "2020-2121"
+                        "email": "jc@example.com",
+    iii. only can update name, phone_number or email, can update only one column if it´s necessary
+    iv. returns "Successful updated"
+
+    5) delete contact
+    i. http://localhost:5000/admin/contacts/<id_value> (DELETE)
+    ii delete an specific contact 
+    iii. returns "Successful deleted"
+    iv. **this end point, shouldn't be use, cause all the correlations between db tables, actually gonna receive error messages.
+
+
+
+**all end points from api_users_contacts only can be used by a user with role administrator or role cb_user, the authentication is do it with @users_only decorator, this decorator works same as "me" (module decorator_authenticator)**
+d) api_users_contacts:
+    END POINTS:
+    1) create contacts
+    i. http://localhost:5000/users/contacts (POST)
+    ii. body example: {
+                        "user_id": 2
+                        "name": "Charles Barkley",
+                        "phone_number": "8080-8080" 
+                        "email": "cb@example.com"
+                        }
+        "user_id" is not obligatory
+    iii. returns message="Successful saved", contact=contact_data
+
+    2) create many contacts
+    i. http://localhost:5000/users/contacts (POST)
     ii. body example: [{
                         "user_id": 2
                         "name": "Charles Barkley",
@@ -149,25 +200,28 @@ c) api_contacts:
                         "phone_number": "8080-8888" 
                         "email": "cb888@example.com"
                         }]
+        "user_id" is not obligatory
     iii. returns message="Successful saved", contacts=contacts_data
 
     3) show contacts
-        i. http://localhost:5000/contacts/admin or /cb_user (GET)
+        i. http://localhost:5000/users/contacts (GET)
         ii. show all the contacts in the db, return a list of all the users
-        iii. http://localhost:5000/users?id=3 (GET)
+        iii. http://localhost:5000/users/contacts?id=3 (GET)
         iV. return all users or return a specific contact using query parameters (id, user_id phone_number or email), return a specific contact or contacts
 
     4) update contact
-    i. http://localhost:5000/contacts/admin or /cb_user/<column>/<value> (PATCH)
-    ii. body example: {
+    i. http://localhost:5000/users/contacts/<id_value> (PATCH)
+    ii. validates whether the contact belongs to the logged in user
+    iii. body example: {
                         "name": "Juanito Cañas"
                         "phone_number": "2020-2121"
                         "email": "jc@example.com",
-    iii. only can update name, phone_number or email, can update only one column if it´s necessary
-    iv. returns "Successful updated"
+    iv. only can update name, phone_number or email, can update only one column if it´s necessary
+    v. returns "Successful updated"
 
     5) delete contact
-    i. http://localhost:5000/contacts/admin or /cb_user/<column>/<value> (DELETE)
-    ii delete an specific contact 
-    iii. returns "Successful deleted"
-    iv. **this end point, shouldn't be use, cause all the correlations between db tables, actually gonna receive error messages.
+    i. http://localhost:5000/users/contacts/<id_value> (DELETE)
+    ii. validates whether the contact belongs to the logged in user
+    iii delete an specific contact 
+    iv. returns "Successful deleted"
+    v. **this end point, shouldn't be use, cause all the correlations between db tables, actually gonna receive error messages.

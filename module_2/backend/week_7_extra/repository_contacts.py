@@ -12,8 +12,6 @@ contact_validations = Validations()
 
 
 class ContactsRepository:
-
-    
     def __init__(self):
         pass
 
@@ -29,13 +27,8 @@ class ContactsRepository:
         }
 
 
-    def insert_contact(self, user_id, role, contact_data):
+    def insert_contact(self, contact_data):
         obligatory_info = [col for col in Contacts.__table__.columns.keys() if col not in ("id")]
-        # avoid errors in the user_id saving
-        if role == "cb_user":
-            contact_validations.not_need_value(contact_data, "user_id")
-            contact_data["user_id"] = user_id
-
         #validating the contact data
         contact_validations.not_need_value(contact_data, "id")
         complete_info = contact_validations.complete_info(contact_data, obligatory_info)
@@ -44,72 +37,68 @@ class ContactsRepository:
             return result
 
 
-    def insert_many_contacts(self, user_id, role, contacts_list):
+    def insert_many_contacts(self, contacts_list):
         obligatory_info = [col for col in Contacts.__table__.columns.keys() if col not in ("id")]
         # validating each contact data
         for contact_data in contacts_list:
-            # avoid errors in the user_id saving
-            if role == "cb_user":
-                contact_validations.not_need_value(contact_data, "user_id")
-                contact_data["user_id"] = user_id
+            contact_validations.not_need_value(contact_data, "id")
             contact_validations.complete_info(contact_data, obligatory_info)
-        #insert all new contacts
         contact_manager.multiple_inserts(contacts_list)
 
 
-    def get_contacts(self, user_id, role):
-        if role == "administrator":
-            results = contact_manager.whole_table_select()
-        elif role == "cb_user":
-            results = contact_manager.single_select("user_id", user_id)
-        else:
-            raise ValueError("Invalid specified role")
-
-        formatted_results = [self._format_contact(result) for result in results]
-        return formatted_results
-
-
-    def get_contact_by_value(self, role, user_id, column, value):
-        valid_columns = Contacts.__table__.columns.keys()
-        contact_validations.valid_columns(column, valid_columns)
-        if role == "administrator":
-            results = contact_manager.single_select(column, value)
-        elif role == "cb_user":
-            results = contact_manager.select_by_two_values("user_id", column, user_id, value)
-        if not results:
-            raise ValueError(f" '{value}' value is wrong")
-
+    def admin_show_contacts(self):
+        results = contact_manager.whole_table_select()
         formatted_results = [self._format_contact(result) for result in results]
         return formatted_results
     
 
-    def update_contact(self, user_id, role, search_col, search_value, column_modify, new_value):
-        valid_search_columns = ["id", "email"]
-        contact_validations.valid_columns(search_col, valid_search_columns)
-        
-        # verifying the value in the search column
-        if role == "administrator":
-            valid_value = contact_manager.single_select(search_col, search_value)
-        elif role == "cb_user":
-            valid_value = contact_manager.select_by_two_values("user_id", search_col, user_id, search_value)
-        if not valid_value:
-                raise ValueError(f"'{search_value}' value is wrong")
+    def cb_user_show_contacts(self, user_id):
+        results = contact_manager.single_select("user_id", user_id)
+        formatted_results = [self._format_contact(result) for result in results]
+        return formatted_results
 
+
+    def admin_get_contact_by_value(self, column, value):
+        valid_columns = Contacts.__table__.columns.keys()
+        contact_validations.valid_columns(column, valid_columns)
+        results = contact_manager.single_select(column, value)
+        contact_validations.valid_value(column, value, results)
+        formatted_results = [self._format_contact(result) for result in results]
+        return formatted_results
+    
+
+    def cb_user_get_contact_by_value(self, column_a, column_b, value_a, value_b):
+        valid_columns = Contacts.__table__.columns.keys()
+        contact_validations.valid_columns(column_a, valid_columns)
+        contact_validations.valid_columns(column_b, valid_columns)
+        results = contact_manager.select_by_two_values(column_a, column_b, value_a, value_b)
+        contact_validations.valid_value(column_a, value_a, results)
+        formatted_results = [self._format_contact(result) for result in results]
+        return formatted_results
+
+
+    def get_repeated_contact(self, column_a, column_b, value_a, value_b):
+        valid_columns = ["user_id", "email", "phone_number"]
+        contact_validations.valid_columns(column_a, valid_columns)
+        contact_validations.valid_columns(column_b, valid_columns)
+        results = contact_manager.select_by_two_values(column_a, column_b, value_a, value_b)
+        formatted_results = [self._format_contact(result) for result in results]
+        return formatted_results
+
+
+    def update_contact(self, search_col, search_value, column_modify, new_value):
+        valid_search_columns = ["id"]
+        contact_validations.valid_columns(search_col, valid_search_columns)
+        # valid_value = contact_manager.single_select(search_col, search_value)
+        # contact_validations.valid_value(search_col, search_value, valid_value)
         valid_update_columns = ["name", "phone_number", "email"]
         contact_validations.valid_columns(column_modify, valid_update_columns)
         contact_manager.single_update(search_col, search_value, column_modify, new_value)
 
 
-    def delete_contact(self, user_id, role, column, value):
-        # verifying the chosen column
-        valid_search_columns = ["id", "email"]
+    def delete_contact(self, column, value):
+        valid_search_columns = ["id"]
         contact_validations.valid_columns(column, valid_search_columns)
-
-        if role == "administrator":
-            valid_value = contact_manager.single_select(column, value)
-        elif role == "cb_user":
-            valid_value = contact_manager.select_by_two_values("user_id", column, user_id, value)
-        if not valid_value:
-            raise ValueError(f"{value} value is wrong")
-        
+        valid_value = contact_manager.single_select(column, value)
+        contact_validations.valid_value(column, value, valid_value)
         contact_manager.single_delete(column, value)

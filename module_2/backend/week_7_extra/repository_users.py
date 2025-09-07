@@ -130,7 +130,7 @@ class UsersRepository:
     def update_user(self, search_col, search_value, column_modify, new_value):
 
         # verifying the search column
-        valid_columns = ["id", "email"]
+        valid_columns = ["id"]
         user_validations.valid_columns(search_col, valid_columns)
         
         # verifying the value in the search column
@@ -155,7 +155,7 @@ class UsersRepository:
     def delete_user(self, column, value): 
 
         # verifying the chosen column
-        valid_columns = ["id", "email"]
+        valid_columns = ["id"]
         user_validations.valid_columns(column, valid_columns)
         
         # verifying the value in the chosen column
