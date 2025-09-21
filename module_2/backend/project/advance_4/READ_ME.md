@@ -1,4 +1,4 @@
-GENERAL DESCRIPTION AND INSTRUCTIONS:
+GENERAL DESCRIPTION:
 
 1. The project works and save data with PostgreSQL.
 
@@ -6,15 +6,15 @@ GENERAL DESCRIPTION AND INSTRUCTIONS:
 
 3. Connection to db is do it with db_connection, this module connects via a URI that is hidden in a .env file, which is not uploaded to the repository.
 
-3. The api_login works with jwt_manager coding and decoding users. Works with private and public keys (R256 algorithim), which are not uploaded to the repository.
+4. The api_login works with jwt_manager coding and decoding users. Works with private and public keys (R256 algorithim), which are not uploaded to the repository.
 
-4. Counts with login history.
+5. Counts with login history.
 
-5. Counts with repositories from each table in the db. These repositories use orms_queries module and validations module to make CRUD and depends of the needs the repository can have more methods.
+6. Counts with repositories from each table in the db. These repositories use orms_queries module and validations module to make CRUD and depends of the needs the repository can have more methods.
 
-6. Transactions module manage the maths and stock of carts, invoices and products.
+7. Transactions module manage the maths and stock of carts, invoices and products.
 
-6. APIs: 
+8. APIs: 
     a) api_login: register, login, me and refresh token. **decorator_authenticator module used for manage roles**
     
     b) api_admin_users: endpoints only permits users with administrator role, CRUD of users, reads login history, show invoices, and can update an invoice if it's necessary.
