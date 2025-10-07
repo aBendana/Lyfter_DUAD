@@ -81,6 +81,12 @@ class FruitsRepository:
         results = fruit_manager.select_with_pagination(Fruits, offset, items_per_page)
         formatted_results = [self._format_fruit_for_cache(result) for result in results]
         return formatted_results
+    
+    
+    def get_all_fruits_cache(self):
+        results = fruit_manager.whole_table_select()
+        formatted_results = [self._format_fruit_for_cache(result) for result in results]
+        return formatted_results
 
     
     def get_fruit_by_value(self, column, value):

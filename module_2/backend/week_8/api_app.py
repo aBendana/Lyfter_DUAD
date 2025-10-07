@@ -1,7 +1,6 @@
 from flask import Flask
 from api_login import logins_bp
 from api_buying import buying_bp
-from api_admin import admin_bp
 from api_fruits import fruits_bp
 from api_users import users_bp
 from api_cart_invoice import cart_invoice_bp
@@ -13,7 +12,6 @@ app = Flask(__name__)
 #app.register_blueprint(name_bp, url_prefix='/*/**')
 app.register_blueprint(logins_bp)
 app.register_blueprint(buying_bp)
-app.register_blueprint(admin_bp)
 app.register_blueprint(fruits_bp)
 app.register_blueprint(users_bp)
 app.register_blueprint(cart_invoice_bp)

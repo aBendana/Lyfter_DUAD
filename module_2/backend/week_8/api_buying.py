@@ -8,6 +8,7 @@ from repository_fruits_in_cart import FruitsInCartRepository
 from repository_invoices import InvoiceRepository
 from repository_invoice_details import InvoiceDetailsRepository
 from decorator_authenticator import client_only, all_users
+from cache_manager import CacheManager
 
 jwt_manager = JWT_Manager('happylife', 'RS256')
 users_repo = UsersRepository()
@@ -16,6 +17,7 @@ carts_repo = CartsRepository()
 fruits_in_repo = FruitsInCartRepository()
 invoices_repo = InvoiceRepository()
 invoice_details_repo = InvoiceDetailsRepository()
+cache_manager = CacheManager()
 
 buying_bp = Blueprint('buying', __name__)
 
@@ -29,46 +31,20 @@ def show_fruits():
         if query_params:
             column = list(request.args.keys())[0]
             filter_value = request.args.get(column)
-            
-            valid_columns_search = ["id", "name"]
-            if column not in valid_columns_search:
-                raise ValueError(f" '{column}' Search not allowed!")
-            
-            if column and filter_value:
-                formatted_fruits = fruits_repo.get_fruit_by_value(column, filter_value)
-            else:
-                raise ValueError(f"Column or column's value info incomplete")
+            # get fruits and cache paging  + cache id
+            results = cache_manager.get_and_caching(column, filter_value)
+            return results
 
         else:
-            formatted_fruits = fruits_repo.get_fruits()
-            
+            # get or caching all fruits
+            all_data_cache = cache_manager.all_data_caching("fruits")
+            return all_data_cache
+
     except ValueError as error:
         return jsonify(error = str(error)), 400
     except Exception as error:
         return jsonify(error = str(error)), 500
     
-    return jsonify(formatted_fruits), 200
-    
-
-
-# get a fruit ideally by id with path parameters or any other parameter
-@buying_bp.route("/buy/fruits/<column>/<value>", methods=["GET"])
-@all_users
-def get_fruit(column, value):
-    try:
-        valid_columns_search = ["id", "name"]
-        if column not in valid_columns_search:
-            raise ValueError(f" '{column}' Search not allowed!")
-        
-        formatted_fruits = fruits_repo.get_fruit_by_value(column, value)
-        
-    except ValueError as error:
-        return jsonify(error = str(error)), 400
-    except Exception as error:
-        return jsonify(error = str(error)), 500
-    
-    return jsonify(formatted_fruits ), 200
-
 
 
 @buying_bp.route("/buy/fruits", methods=["POST"])
@@ -97,6 +73,11 @@ def create_cart():
         if new_total_quantity < 0:
             raise ValueError("Not enough fruit in stock")
         fruits_repo.update_fruit("id", fruit_id, "quantity", new_total_quantity)
+
+        # deleting cache because the updating of the quantity of fruit
+        cache_manager.invalidate_cache_page("fruits", "id", int(fruit_id))
+        cache_manager.invalidate_cache_by_id("fruit", "id", fruit_id)
+        cache_manager.delete_data_with_pattern("fruits:all")
 
         return jsonify(message="Cart updated", user=user_name), 200
 
@@ -166,6 +147,11 @@ def update_cart():
             quantity_to_back = old_quantity - new_quantity
             new_total_quantity = (fruit[0]["quantity"]) + quantity_to_back
             fruits_repo.update_fruit("id", fruit_id, "quantity", new_total_quantity)
+
+        # deleting cache because the updating of the quantity of fruit
+        cache_manager.invalidate_cache_page("fruits", "id", int(fruit_id))
+        cache_manager.invalidate_cache_by_id("fruit", "id", fruit_id)
+        cache_manager.delete_data_with_pattern("fruits:all")
 
         # update the detail of the cart
         fruits_in_repo.update_fruit_in_cart("id", new_cart_detail.get("id"), "quantity", new_quantity)

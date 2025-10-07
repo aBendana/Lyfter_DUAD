@@ -5,6 +5,7 @@ from repository_invoices import InvoiceRepository
 from repository_invoice_details import InvoiceDetailsRepository
 from repository_fruits import FruitsRepository
 from decorator_authenticator import admin_only
+from cache_manager import CacheManager
 
 
 carts_repo = CartsRepository()
@@ -12,7 +13,7 @@ fruits_in_repo = FruitsInCartRepository()
 invoices_repo = InvoiceRepository()
 invoice_details_repo = InvoiceDetailsRepository()
 fruits_repo = FruitsRepository()
-
+cache_manager = CacheManager()
 
 cart_invoice_bp = Blueprint('cart_invoice', __name__)
 
@@ -130,6 +131,11 @@ def update_cart_invoice(column, value):
         fruits_in_repo.update_fruit_in_cart_by_two_search_values(
             "cart_id", value, "fruit_id", fruit_id, "quantity", new_quantity)
         
+        # deleting cache because the updating of the quantity of fruit
+        cache_manager.invalidate_cache_page("fruits", "id", int(fruit_id))
+        cache_manager.invalidate_cache_by_id("fruit", "id", fruit_id)
+        cache_manager.delete_data_with_pattern("fruits:all")
+        
         # updating invoice details
         invoice_id = invoices_repo.get_invoice_by_value("cart_id", value)[0]["id"]
         invoice_details_repo.update_invoice_details_by_two_search_values(
@@ -152,50 +158,6 @@ def update_cart_invoice(column, value):
         return jsonify(error=str(error)), 500
     
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# delete fruit by path parameter id or name
-#preferably not to use, keep for reference and for related functionality of the db
-@cart_invoice_bp.route("/fruits/<column>/<value>", methods=['DELETE'])
-@admin_only
-def delete_fruit(column, value):
-    
-    try:
-        carts_repo.delete_fruit(column, value)
-        return jsonify(fruit=value, message="Successful delete"), 200
-
-    except Exception as error:
-        return jsonify(error = f"{error}"), 400
-    except Exception as error:
-        return jsonify(error="Internal server error"), 500
 
 
 # if __name__ == "__main__":

@@ -1,11 +1,17 @@
+import os
 from sqlalchemy import create_engine
+from dotenv import load_dotenv
 
+# Load environment variables from .env file
+load_dotenv(dotenv_path=r"E:\Studies\Lyfter\Repos\Lyfter_DUAD\Lyfter_DUAD\module_2\backend\week_8\dbs.env")
 
 class DatabaseConnection:
     
-    def __init__(self, uri='PLACEHOLDER'):
-        self.uri = uri
-        self.engine = create_engine(self.uri, echo=True)
+    def __init__(self):
+        uri = os.getenv("DATABASE_URI")
+        if not uri:
+            raise ValueError("DATABASE_URI not set in environment variables")
+        self.engine = create_engine(uri, echo=True)
 
     
     def db_connection(self):
