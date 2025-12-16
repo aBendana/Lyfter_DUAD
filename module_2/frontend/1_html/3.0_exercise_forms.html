@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <h1 align="center">
+    Elecciones Presidenciales de la República de Costa Rica
+  </h1>
+  <br /><br />
+
+  <form
+    style="padding-left: 80px"
+    action="https://www.tse.go.cr/revista/revista.htm"
+    method="POST"
+  >
+    <h2>Rellene el formulario, no deje espacios en blanco:</h2>
+    <br />
+
+    <label for="full-name">Nombre completo</label>
+    <br />
+    <input type="text" id="full-name" name="full_name" />
+    <br /><br />
+    <label for="email">Email</label>
+    <br />
+    <input type="text" id="email" name="email" />
+    <br /><br />
+    <label for="id-number">Cédula</label>
+    <br />
+    <input type="text" id="id-number" name="id_number" required />
+    <br /><br />
+    <label for="phone-number"># teléfonico</label>
+    <br />
+    <input type="text" id="phone-number" name="phone_number" />
+    <br /><br />
+
+    <label for="type">Candidatos Presidenciales</label>
+    <br />
+    <select id="candidate" name="Candidate">
+      <option hidden>Seleccione al candidato</option>
+      <option value="candidate_1">Candidato #1</option>
+      <option value="candidate_2">Candidato #2</option>
+      <option value="candidate_3">Candidato #3</option>
+    </select>
+    <br /><br /><br />
+    <input type="submit" value="Envie su voto" />
+  </form>
+</html>
