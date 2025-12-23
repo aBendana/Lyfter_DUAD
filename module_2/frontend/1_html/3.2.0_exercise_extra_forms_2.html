@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <h1 align="center">Paradise Hotel</h1>
+  <br /><br />
+
+  <form
+    style="padding-left: 80px"
+    action="3.2.1_exercise_extra_forms_2_confirmation.html"
+    method="POST"
+  >
+    <h2>Reservations:</h2>
+    <br />
+
+    <label for="full-name">Full name</label>
+    <br />
+    <input type="text" id="full-name" name="full_name" />
+    <br /><br />
+    <label for="email">Email</label>
+    <br />
+    <input type="text" id="email" name="email" />
+    <br /><br /><br />
+
+    <label for="check-in">Check-in date</label>
+    <input
+      type="date"
+      id="check-in"
+      name="check_in"
+      style="margin-right: 30px"
+    />
+    <label for="check-out">Check-out date</label>
+    <input type="date" id="check-out" name="check_out" />
+    <br /><br /><br />
+
+    <label for="room">Select room type:</label>
+    <br /><br />
+    <input
+      type="radio"
+      name="room"
+      value="standard"
+      style="margin-left: 30px"
+    />
+    Standard
+    <br />
+    <input type="radio" name="room" value="premium" style="margin-left: 30px" />
+    Premium
+    <br />
+    <input type="radio" name="room" value="suite" style="margin-left: 30px" />
+    Suite <br /><br />
+
+    <p>Additional Services:</p>
+    <input
+      type="checkbox"
+      id="breakfast"
+      name="breakfast"
+      style="margin-left: 30px"
+    />
+    <label for="breakfast">Breakfast</label>
+    <br />
+    <input type="checkbox" id="wi-fi" name="wi_fi" style="margin-left: 30px" />
+    <label for="wi-fi">Wi-Fi</label>
+    <br />
+    <input
+      type="checkbox"
+      id="parking-space"
+      name="parking_space"
+      style="margin-left: 30px"
+    />
+    <label for="parking-space">Parking space</label>
+    <br /><br /><br />
+
+    <input type="submit" value="Send" />
+  </form>
+</html>

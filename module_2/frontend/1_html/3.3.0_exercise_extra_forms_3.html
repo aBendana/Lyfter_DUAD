@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <h1 align="center">Do you love Read?</h1>
+  <br /><br />
+
+  <form
+    style="padding-left: 80px"
+    action="3.3.1_exercise_extra_forms_3_resume.html"
+    method="POST"
+  >
+    <h2>Brief survey:</h2>
+    <br />
+
+    <label for="full-name">Full name</label>
+    <br />
+    <input type="text" id="full-name" name="full_name" />
+    <br /><br />
+    <label for="age">Age</label>
+    <br />
+    <input type="text" id="age" name="age" />
+    <br /><br /><br />
+
+    <label for="times">How often do your read?</label>
+    <br /><br />
+    <input type="radio" name="times" value="daily" style="margin-left: 30px" />
+    Daily
+    <br />
+    <input type="radio" name="times" value="weekly" style="margin-left: 30px" />
+    Weekly
+    <br />
+    <input
+      type="radio"
+      name="times"
+      value="almost_never"
+      style="margin-left: 30px"
+    />
+    Almost never
+    <br /><br /><br />
+
+    <label for="favorite-book">Favorite book:</label><br />
+    <textarea
+      id="favorite-book"
+      name="favorite_book"
+      rows="3"
+      cols="40"
+      placeholder="Write your book here..."
+    ></textarea>
+    <br /><br /><br />
+
+    <input type="submit" value="Send" />
+  </form>
+</html>

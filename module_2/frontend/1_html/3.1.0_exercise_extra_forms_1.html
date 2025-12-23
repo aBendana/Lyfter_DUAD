@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <h1 align="center">Form for Lyfter courses</h1>
+  <br /><br />
+
+  <form
+    style="padding-left: 80px"
+    action="3.1.1_exercise_extra_forms_1_thank_you.html"
+    method="POST"
+  >
+    <h2>Fill out the form (do not leave any blank spaces):</h2>
+    <br />
+
+    <label for="full-name">Full name</label>
+    <br />
+    <input type="text" id="full-name" name="full_name" />
+    <br /><br />
+    <label for="email">Email</label>
+    <br />
+    <input type="text" id="email" name="email" />
+    <br /><br />
+    <label for="id-number">ID Number</label>
+    <br />
+    <input type="text" id="id-number" name="id_number" />
+    <br /><br />
+    <label for="phone-number"># teléfonico</label>
+    <br />
+    <input type="text" id="phone-number" name="phone_number" />
+    <br /><br />
+
+    <label for="type">Available courses</label>
+    <br />
+    <select id="lyfter-courses" name="lyfter_courses">
+      <option hidden>select a course</option>
+      <option value="course_1">Web Development</option>
+      <option value="course_2">Networking</option>
+      <option value="course_3">Cybersecurity</option>
+      <option value="course_4">Data Science</option>
+    </select>
+    <br /><br />
+    <div
+      style="
+        width: 400px;
+        height: 150px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        overflow-y: scroll;
+      "
+    >
+      <h3>Terms and Conditions</h3>
+      <p>
+        Last Updated: December 14, 2025
+        <br /><br />
+        Welcome to lyfter.team. By accessing our website or enrolling in
+        courses, you agree to these terms.
+        <br /><br />
+        1. Use of Service You may access courses for personal, non-commercial
+        use. No resale or distribution of content is permitted.
+        <br /><br />
+        2. Payments and Refunds All fees are non-refundable after course access.
+        We accept major credit cards. Prices may change without notice.
+        <br /><br />
+        3. Account and Security You are responsible for maintaining your account
+        confidentiality. Notify us of any unauthorized use.
+        <br /><br />
+        4. Intellectual Property All course materials are owned by
+        OnlineCourses.com. You receive a limited license for personal study
+        only.
+        <br /><br />
+        5. Termination We may suspend or terminate your access for violations
+        without notice.
+      </p>
+    </div>
+    <input type="checkbox" id="terms" name="terms" />
+    <label for="terms">I accept the terms and conditions</label>
+
+    <br /><br /><br />
+    <input type="submit" value="Send" />
+  </form>
+</html>
