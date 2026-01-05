@@ -1,0 +1,81 @@
+.page {
+  width: 525px;
+  margin: 10vh auto;
+  justify-content: center;
+  border-top: 1.5em solid #4f63ff;
+  border-bottom: 1.5em solid #4f63ff;
+  border-left: 1em solid #4f63ff;
+  border-right: 1em solid #4f63ff;
+  box-shadow: inset 0 0 0 1em #4f63ff;
+}
+
+.fire-away-form {
+  margin: 0;
+  border: 0.1em solid #4f63ff;
+  border-radius: 1em;
+  padding: 2em;
+  background-color: #fcfcfc;
+}
+
+.line {
+  width: 2em;
+  height: 0.01px;
+  background: #4f63ff;
+  border-radius: 0.5em;
+  margin-bottom: 1em;
+}
+
+h1 {
+  margin: 0.25em;
+  padding: 0.25em;
+}
+
+p {
+  margin: 0.5em;
+  margin-bottom: 1em;
+  padding: 0.5em;
+}
+
+.personal-data {
+  background: #dee8ff;
+  width: 100%;
+  height: 3em;
+  box-sizing: border-box;
+  margin: 0.5em;
+  padding: 0.5em;
+  border: none;
+  border-radius: 0.5em;
+  font-size: 1em;
+}
+
+textarea {
+  background: #dee8ff;
+  width: 100%;
+  height: 6em;
+  box-sizing: border-box;
+  margin: 0.5em;
+  padding: 0.5em;
+  border: none;
+  border-radius: 0.5em;
+  font-size: 1.25em;
+}
+
+.button-summit {
+  background: #4f63ff;
+  color: white;
+  width: 47%;
+  align-self: center;
+  margin: 0.5em;
+  margin-top: 1.5em;
+  padding: 1.25em;
+  border: none;
+  border-radius: 0em;
+  font-size: 1em;
+}
+
+footer {
+  margin-top: 2em;
+  text-align: right;
+  font-size: 1em;
+  color: #999;
+}

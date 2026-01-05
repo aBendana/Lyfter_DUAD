@@ -1,0 +1,203 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+.container-all {
+  display: flex;
+  flex-direction: column;
+  background-color: #e2dede;
+  width: 100%;
+  height: 100%;
+}
+
+.container-table {
+  width: 65%;
+  justify-content: center;
+  align-self: center;
+  align-items: center;
+  margin: 3%;
+}
+
+/*christmas effect in title*/
+@keyframes blink {
+  0%,
+  100% {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff;
+  }
+  50% {
+    text-shadow: 0 0 15px #2f32c4, 0 0 20px #2341c7;
+  }
+}
+.container-title {
+  display: flex;
+  flex-direction: row;
+  margin-top: 2rem;
+
+  .title-table {
+    padding-left: 2rem;
+    padding-bottom: 1rem;
+    text-align: left;
+    animation: blink 1.5s infinite alternate;
+    font-size: 3rem;
+    font-family: "Great Vibes", cursive;
+    color: #ffffff;
+    text-shadow: 2px 2px 5px #0f31f1;
+  }
+  .title-space {
+    align-self: center;
+    background-color: white;
+    height: 20px;
+    flex-grow: 1;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    border-radius: 8px;
+  }
+  .title-week {
+    padding-right: 1rem;
+    font-size: 1.2rem;
+    align-self: center;
+    text-align: right;
+    font-family: "Times New Roman", Times, serif;
+  }
+}
+
+.billboard-table {
+  width: 100%;
+  min-width: 600px;
+  table-layout: fixed;
+  border-collapse: collapse;
+
+  .header-column-week {
+    width: 8%;
+    text-align: center;
+    padding: 1rem 1.3rem;
+    background-color: rgb(15, 15, 241);
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.8em;
+  }
+
+  .header-column-song {
+    width: 64%;
+    padding: 1rem 0;
+    background-color: rgb(15, 15, 241);
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.8em;
+  }
+
+  .header-column {
+    width: 7%;
+    padding: 1rem 0;
+    background-color: rgb(15, 15, 241);
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.8em;
+
+    .inf-image {
+      background-color: white;
+      justify-content: center;
+      margin: 0.5em auto;
+      height: 1.2em;
+    }
+  }
+
+  .row-position {
+    background-color: black;
+    padding: 1rem;
+    border-bottom: #c0bcbc 1px solid;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    font-family: "Times New Roman", Times, sans-serif;
+  }
+
+  .row-song {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    flex-direction: row;
+    background-color: #ffffff;
+    padding: 0;
+    border-bottom: #c0bcbc 1px solid;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+
+    .song-cover-1 {
+      padding: 0;
+      margin: 0;
+      width: 40%;
+      height: 12rem;
+    }
+
+    .song-cover {
+      padding: 0;
+      margin: 0;
+      width: 20%;
+      height: 8rem;
+    }
+
+    .song-advance {
+      width: 12.5%;
+      padding: 1rem;
+      padding-left: 2rem;
+    }
+
+    .song-details {
+      width: 55%;
+      .song-title {
+        font-family: "Times New Roman", Times, sans-serif;
+        font-weight: bold;
+        font-size: 1.5rem;
+      }
+      .song-artist {
+        font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
+        font-style: italic;
+        font-size: 1.2rem;
+      }
+    }
+
+    .song-info-plus {
+      display: flex;
+      justify-content: right;
+      width: 12.5%;
+      padding-right: 2rem;
+    }
+  }
+
+  /*rigth columns */
+  .row-award-peak,
+  .row-last-on {
+    align-items: center;
+    justify-items: center;
+    padding: 1rem;
+    border-bottom: #c0bcbc 1px solid;
+    text-align: center;
+    font-size: 1rem;
+    color: rgb(0, 0, 0);
+    font-family: Arial, Helvetica, sans-serif;
+
+    .award-black-star {
+      width: 0.5rem;
+      height: 0.5rem;
+    }
+  }
+  .row-award-peak {
+    background-color: #e2dede;
+  }
+  .row-last-on {
+    background-color: white;
+  }
+}

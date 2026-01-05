@@ -1,0 +1,167 @@
+/* {
+  box-sizing: border-box;
+}*/
+
+body {
+  background: linear-gradient(to bottom, #9fa3aa 0%, #000000 20%);
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: content-box;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 5em;
+  margin-top: 0;
+  padding: 1%;
+}
+
+.content-section {
+  min-height: 100vh;
+  padding: 5em;
+  padding-top: 0;
+  padding-bottom: 1em;
+  display: flex;
+  justify-content: center;
+}
+
+.top-section {
+  padding-top: 0;
+  width: 55vw;
+}
+
+.video-game-blog-title {
+  font-size: 2em;
+  font-family: "Gill Sans", sans-serif;
+  font-style: italic;
+  background: linear-gradient(to right, #160e27, #2802ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  letter-spacing: 2px;
+  line-height: 1.5;
+}
+
+.video-game-blog-subtitle {
+  font-size: 1.2em;
+  font-family: "Georgia", "Helvetica", sans-serif;
+  color: #ffffff77;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+.writer {
+  font-size: 0.8em;
+  font-family: "Arial", sans-serif;
+  color: #ffffffaa;
+  text-align: center;
+  margin-top: 0.5em;
+
+  .link-writer {
+    font-style: italic;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .point {
+    color: red;
+    font-weight: bold;
+    padding: 0.5em;
+  }
+}
+
+.links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1em;
+
+  .link-logos {
+    padding-top: 0.5em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+}
+
+.figure-video-game {
+  margin-left: 0;
+  margin-right: 0;
+
+  .blog-image {
+    max-width: 100%;
+    margin-top: 2em;
+    height: auto;
+    display: block;
+  }
+}
+
+.content-article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .article-video-game {
+    width: 55vw;
+
+    .paragraph-video-game {
+      margin-top: 0.5em;
+      justify-content: center;
+      align-self: center;
+      text-align: justify;
+      font-family: "Times New Roman", Times, serif;
+      font-size: 1.2em;
+      color: white;
+    }
+  }
+}
+
+.div-paragraph-aside {
+  display: flex;
+  gap: 24px;
+}
+.div-paragraph-aside .paragraph-aside {
+  margin-top: 0.5em;
+  justify-content: center;
+  align-self: center;
+  text-align: justify;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 1.2em;
+  color: white;
+}
+.div-paragraph-aside .aside-advertisement-video-game {
+  margin-top: 0.8em;
+  margin-bottom: 1.4em;
+  border-radius: 1.5em;
+  max-height: 240px;
+  background-color: #ffa600;
+  text-align: center;
+  font-family: "Verdana", sans-serif;
+  color: #000000;
+  flex: 0 0 220px;
+
+  .a-inside-aside {
+    text-decoration: none;
+    font-family: "Lucida Grande", Arial, sans-serif;
+    font-size: 0.7em;
+    border-radius: 1em;
+    background-color: #1b1919;
+    color: #ffffff;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 15px;
+  }
+
+  .footer-aside {
+    margin-top: 3em;
+    margin-right: 1em;
+    padding-bottom: 1em;
+    text-align: right;
+    font-family: cursive;
+    font-weight: bold;
+    font-size: 0.8em;
+  }
+}
