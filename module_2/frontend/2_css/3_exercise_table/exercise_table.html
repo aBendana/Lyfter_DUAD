@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Hot 100 songs chart table for 2025" />
+    <title>Billoboard HOT 100</title>
+    <link href="style_table.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <!-- award symbols -->
+    <svg style="display: none" xmlns="http://www.w3.org/2000/svg">
+      <symbol id="icon-star" viewBox="0 0 24 24">
+        <path
+          fill="black"
+          d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+        />
+      </symbol>
+    </svg>
+
+    <svg style="display: none" xmlns="http://www.w3.org/2000/svg">
+      <symbol id="icon-star-circle" viewBox="0 0 24 24">
+        <circle
+          cx="12"
+          cy="12"
+          r="11"
+          fill="none"
+          stroke="black"
+          stroke-width="2"
+        />
+        <path
+          fill="black"
+          d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+        />
+      </symbol>
+    </svg>
+
+    <!-- song symbols -->
+    <svg style="display: none" xmlns="http://www.w3.org/2000/svg">
+      <symbol id="icon-red-down" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="12" fill="red" />
+        <path
+          d="M12 7v11m0 0l-5-5m5 5l5-5"
+          fill="none"
+          stroke="white"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </symbol>
+    </svg>
+
+    <svg style="display: none" xmlns="http://www.w3.org/2000/svg">
+      <symbol id="icon-gray-right" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="12" fill="#b0b0b0" />
+        <path
+          d="M7 12h11m0 0l-5-5m5 5l-5 5"
+          fill="none"
+          stroke="white"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </symbol>
+    </svg>
+
+    <svg style="display: none" xmlns="http://www.w3.org/2000/svg">
+      <symbol id="icon-green-up" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="12" fill="green" />
+        <path
+          d="M12 17V6m0 0l-5 5m5-5l5 5"
+          fill="none"
+          stroke="white"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </symbol>
+    </svg>
+
+    <svg style="display: none" xmlns="http://www.w3.org/2000/svg">
+      <symbol id="icon-gray-plus" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="12" fill="#d3d3d3" />
+        <path
+          d="M12 7v10M7 12h10"
+          fill="none"
+          stroke="white"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </symbol>
+    </svg>
+
+    <div class="container-all">
+      <div class="container-table">
+        <div class="container-title">
+          <h1 class="title-table">Billboard HOT 100</h1>
+          <div class="title-space"></div>
+          <p class="title-week">Week of January 3,2026</p>
+        </div>
+
+        <table class="billboard-table">
+          <thead class="table-columns">
+            <tr>
+              <th class="header-column-week">THIS WEEK</th>
+              <th class="header-column-song"></th>
+              <th class="header-column">
+                AWARD<br /><img
+                  src="images/inf.webp"
+                  alt="Awards"
+                  class="inf-image"
+                />
+              </th>
+              <th class="header-column">LAST<br />WEEK</th>
+              <th class="header-column">PEAK<br />POS.</th>
+              <th class="header-column">WKS ON<br />CHART</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="row-position">1</td>
+              <td class="row-song">
+                <img src="images/1_bob_marley.jpg" class="song-cover-1" />
+                <div class="song-advance">
+                  <svg width="30" height="30">
+                    <use href="#icon-gray-right"></use>
+                  </svg>
+                </div>
+                <div class="song-details">
+                  <div class="song-title">Redemption Song</div>
+                  <div class="song-artist">Bob Marley</div>
+                </div>
+                <div class="song-info-plus">
+                  <svg width="30" height="30">
+                    <use href="#icon-gray-plus"></use>
+                  </svg>
+                </div>
+              </td>
+              <td class="row-award-peak">
+                <svg width="30" height="30">
+                  <use href="#icon-star-circle"></use>
+                </svg>
+              </td>
+              <td class="row-last-on">1</td>
+              <td class="row-award-peak">1</td>
+              <td class="row-last-on">23</td>
+            </tr>
+            <tr>
+              <td class="row-position">2</td>
+              <td class="row-song">
+                <img src="images/2_2Pac.jpg" class="song-cover" />
+                <div class="song-advance">
+                  <svg width="30" height="30">
+                    <use href="#icon-green-up"></use>
+                  </svg>
+                </div>
+                <div class="song-details">
+                  <div class="song-title">Changes</div>
+                  <div class="song-artist">2Pac</div>
+                </div>
+                <div class="song-info-plus">
+                  <svg width="30" height="30">
+                    <use href="#icon-gray-plus"></use>
+                  </svg>
+                </div>
+              </td>
+
+              <td class="row-award-peak">
+                <svg width="30" height="30">
+                  <use href="#icon-star"></use>
+                </svg>
+              </td>
+              <td class="row-last-on">4</td>
+              <td class="row-award-peak">2</td>
+              <td class="row-last-on">21</td>
+            </tr>
+            <tr>
+              <td class="row-position">3</td>
+              <td class="row-song">
+                <img src="images/3_ray_charles.jpg" class="song-cover" />
+                <div class="song-advance">
+                  <svg width="30" height="30">
+                    <use href="#icon-green-up"></use>
+                  </svg>
+                </div>
+                <div class="song-details">
+                  <div class="song-title">That Old Lucky Old Sun</div>
+                  <div class="song-artist">Ray Charles</div>
+                </div>
+                <div class="song-info-plus">
+                  <svg width="30" height="30">
+                    <use href="#icon-gray-plus"></use>
+                  </svg>
+                </div>
+              </td>
+              <td class="row-award-peak">
+                <svg width="30" height="30">
+                  <use href="#icon-star"></use>
+                </svg>
+              </td>
+              <td class="row-last-on">5</td>
+              <td class="row-award-peak">3</td>
+              <td class="row-last-on">16</td>
+            </tr>
+            <tr>
+              <td class="row-position">4</td>
+              <td class="row-song">
+                <img src="images/4_bone_thugs.webp" class="song-cover" />
+                <div class="song-advance">
+                  <svg width="30" height="30">
+                    <use href="#icon-red-down"></use>
+                  </svg>
+                </div>
+                <div class="song-details">
+                  <div class="song-title">Tha Crossroads</div>
+                  <div class="song-artist">Bone Thugs-n-Harmony</div>
+                </div>
+                <div class="song-info-plus">
+                  <svg width="30" height="30">
+                    <use href="#icon-gray-plus"></use>
+                  </svg>
+                </div>
+              </td>
+              <td class="row-award-peak">
+                <svg width="30" height="30">
+                  <use href="#icon-star-circle"></use>
+                </svg>
+              </td>
+              <td class="row-last-on">2</td>
+              <td class="row-award-peak">1</td>
+              <td class="row-last-on">22</td>
+            </tr>
+            <tr>
+              <td class="row-position">5</td>
+              <td class="row-song">
+                <img src="images/5_herencia_timbiqui.jpg" class="song-cover" />
+                <div class="song-advance">
+                  <svg width="30" height="30">
+                    <use href="#icon-red-down"></use>
+                  </svg>
+                </div>
+                <div class="song-details">
+                  <div class="song-title">Te Invito</div>
+                  <div class="song-artist">Herencia de Timbiquí</div>
+                </div>
+                <div class="song-info-plus">
+                  <svg width="30" height="30">
+                    <use href="#icon-gray-plus"></use>
+                  </svg>
+                </div>
+              </td>
+              <td class="row-award-peak">
+                <svg width="30" height="30">
+                  <use href="#icon-star-circle"></use>
+                </svg>
+              </td>
+              <td class="row-last-on">3</td>
+              <td class="row-award-peak">1</td>
+              <td class="row-last-on">25</td>
+            </tr>
+            <tr>
+              <td class="row-position">6</td>
+              <td class="row-song">
+                <img src="images/6_avicci_aloe.jpg" class="song-cover" />
+                <div class="song-advance">
+                  <svg width="30" height="30">
+                    <use href="#icon-gray-right"></use>
+                  </svg>
+                </div>
+                <div class="song-details">
+                  <div class="song-title">Wake Me Up</div>
+                  <div class="song-artist">Avicci & Aloe Blacc</div>
+                </div>
+                <div class="song-info-plus">
+                  <svg width="30" height="30">
+                    <use href="#icon-gray-plus"></use>
+                  </svg>
+                </div>
+              </td>
+              <td class="row-award-peak">
+                <svg width="30" height="30">
+                  <use href="#icon-star"></use>
+                </svg>
+              </td>
+              <td class="row-last-on">6</td>
+              <td class="row-award-peak">4</td>
+              <td class="row-last-on">14</td>
+            </tr>
+            <tr>
+              <td class="row-position">7</td>
+              <td class="row-song">
+                <img src="images/7_john_legend.webp" class="song-cover" />
+                <div class="song-advance">
+                  <svg width="30" height="30">
+                    <use href="#icon-green-up"></use>
+                  </svg>
+                </div>
+                <div class="song-details">
+                  <div class="song-title">Love Me Now</div>
+                  <div class="song-artist">John Legend</div>
+                </div>
+                <div class="song-info-plus">
+                  <svg width="30" height="30">
+                    <use href="#icon-gray-plus"></use>
+                  </svg>
+                </div>
+              </td>
+              <td class="row-award-peak">-</td>
+              <td class="row-last-on">25</td>
+              <td class="row-award-peak">7</td>
+              <td class="row-last-on">14</td>
+            </tr>
+            <tr>
+              <td class="row-position">8</td>
+              <td class="row-song">
+                <img src="images/8_beres_hammond.jpg" class="song-cover" />
+                <div class="song-advance">
+                  <svg width="30" height="30">
+                    <use href="#icon-gray-right"></use>
+                  </svg>
+                </div>
+                <div class="song-details">
+                  <div class="song-title">Rock Away</div>
+                  <div class="song-artist">Beres Hammond</div>
+                </div>
+                <div class="song-info-plus">
+                  <svg width="30" height="30">
+                    <use href="#icon-gray-plus"></use>
+                  </svg>
+                </div>
+              </td>
+              <td class="row-award-peak">-</td>
+              <td class="row-last-on">8</td>
+              <td class="row-award-peak">5</td>
+              <td class="row-last-on">19</td>
+            </tr>
+            <tr>
+              <td class="row-position">9</td>
+              <td class="row-song">
+                <img src="images/9_g_whizz.jpg" class="song-cover" />
+                <div class="song-advance">
+                  <svg width="30" height="30">
+                    <use href="#icon-green-up"></use>
+                  </svg>
+                </div>
+                <div class="song-details">
+                  <div class="song-title">Life</div>
+                  <div class="song-artist">G Whizz</div>
+                </div>
+                <div class="song-info-plus">
+                  <svg width="30" height="30">
+                    <use href="#icon-gray-plus"></use>
+                  </svg>
+                </div>
+              </td>
+              <td class="row-award-peak">-</td>
+              <td class="row-last-on">31</td>
+              <td class="row-award-peak">9</td>
+              <td class="row-last-on">18</td>
+            </tr>
+            <tr>
+              <td class="row-position">10</td>
+              <td class="row-song">
+                <img src="images/10_bob_marley.jpg" class="song-cover" />
+                <div class="song-advance">
+                  <svg width="30" height="30">
+                    <use href="#icon-red-down"></use>
+                  </svg>
+                </div>
+                <div class="song-details">
+                  <div class="song-title">Time Will Tell</div>
+                  <div class="song-artist">Bob Marley</div>
+                </div>
+                <div class="song-info-plus">
+                  <svg width="30" height="30">
+                    <use href="#icon-gray-plus"></use>
+                  </svg>
+                </div>
+              </td>
+              <td class="row-award-peak">
+                <svg width="30" height="30">
+                  <use href="#icon-star-circle"></use>
+                </svg>
+              </td>
+              <td class="row-last-on">7</td>
+              <td class="row-award-peak">1</td>
+              <td class="row-last-on">38</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Form to give opinion or complaint" />
+    <title>Fire away!</title>
+    <link href="style_form.css" rel="stylesheet" />
+  </head>
+
+  <div class="page">
+    <form
+      class="fire-away-form"
+      action="https://dummyjson.com/test"
+      method="POST"
+    >
+      <p class="line"></p>
+      <h1>Contact us!</h1>
+      <p>Got something to say? Fire away!</p>
+
+      <input
+        class="personal-data"
+        type="text"
+        id="first-name"
+        name="first_name"
+        placeholder="First name *"
+        required
+      />
+      <input
+        class="personal-data"
+        type="text"
+        id="last-name"
+        name="last_name"
+        placeholder="Last name *"
+        required
+      />
+      <input
+        class="personal-data"
+        type="email"
+        id="email"
+        name="email"
+        placeholder="Email address *"
+        required
+      />
+      <br />
+
+      <select class="personal-data" id="type-message" name="type_message">
+        <option hidden>What's your message about?*</option>
+        <option value="question">Question</option>
+        <option value="suggestion">Suggestion</option>
+        <option value="complaint">Complaint</option>
+      </select>
+      <br />
+
+      <textarea
+        id="message"
+        name="message"
+        placeholder="Fire away! *"
+      ></textarea>
+      <br />
+
+      <input class="button-summit" type="submit" value="Send my message" />
+
+      <footer>Powered by <strong>NetHunt CRM</strong></footer>
+    </form>
+  </div>
+</html>
