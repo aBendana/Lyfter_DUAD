@@ -1,0 +1,74 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: rgb(216, 216, 216);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+header {
+  align-items: center;
+  margin-top: 5%;
+  margin-bottom: 3%;
+}
+
+h1 {
+  text-align: center;
+  font-family: Cambria, Cochin, serif;
+}
+
+main {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+section {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+h3 {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  font-style: italic;
+}
+
+p {
+  text-align: justify;
+  font-family: "Times New Roman", Times, serif;
+}
+
+/* mobile style*/
+section {
+  width: 100%;
+}
+
+/* tablet style*/
+@media (min-width: 768px) {
+  section {
+    width: 50%;
+  }
+}
+
+/* desktop style */
+@media (min-width: 1024px) {
+  section {
+    width: 33.33%;
+  }
+}
+
+/*320px  → Mobiles
+768px  → Tablets
+1024px → Laptops
+1440px → Desktops
+*/
