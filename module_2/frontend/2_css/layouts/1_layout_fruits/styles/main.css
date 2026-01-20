@@ -1,0 +1,16 @@
+@import url(header.css);
+@import url(aside.css);
+@import url(section_buttons_fruits.css);
+@import url(section_fruits.css);
+@import url(section-subscribe.css);
+@import url(footer.css);
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0 17% 5% 17%;
+}
