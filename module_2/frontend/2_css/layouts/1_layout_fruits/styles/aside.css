@@ -1,0 +1,86 @@
+/* space filler*/
+.div-space {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover,
+a:active,
+a:focus,
+a:visited {
+  text-decoration: none;
+}
+
+/*aside - advertisement of farmacy for life*/
+.aside-advertisement-farmacy {
+  max-height: 20.5rem;
+  background-color: rgb(255, 249, 194);
+  border-radius: 25px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  padding-right: 2rem;
+  padding-left: 2rem;
+}
+
+.container-advertisement-farmacy {
+  max-height: 21rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  text-align: justify;
+  .aside-title-farmacy {
+    font-family: "Times New Roman", Times, serif;
+    text-align: center;
+    .title-green {
+      color: rgb(33, 128, 33);
+    }
+  }
+
+  .aside-description {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  .aside-price-farmacy {
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding-top: 1rem;
+    color: rgb(255, 145, 0);
+  }
+}
+
+.aside-link-farmacy {
+  display: inline-block;
+  text-decoration: none !important;
+}
+.aside-link-farmacy:hover,
+.aside-link-farmacy:active,
+.aside-link-farmacy:focus {
+  text-decoration: none !important;
+}
+
+.aside-buy {
+  display: block;
+  border-radius: 16px;
+  transition: transform 0.3s ease;
+}
+
+.aside-link-farmacy:hover .aside-buy {
+  transform: scale(1.1);
+}
+.aside-link-farmacy:active .aside-buy {
+  transform: scale(0.8) rotate(15deg);
+}
+
+.aside-oils-image {
+  max-width: 20rem;
+  height: auto;
+  border: 0.8rem solid rgb(252, 238, 117);
+}

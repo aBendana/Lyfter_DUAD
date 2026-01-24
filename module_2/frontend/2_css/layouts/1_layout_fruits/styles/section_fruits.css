@@ -1,0 +1,66 @@
+/* section - cards of fruits*/
+.container-all-fruits {
+  padding: 1rem 0 2rem 0;
+}
+
+.container-cards-fruits {
+  display: flex;
+  flex-direction: column;
+}
+
+.title-cards-fruits {
+  padding-left: 1.2rem;
+  padding-bottom: 0.5rem;
+}
+
+.section-fruits {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  padding-bottom: 2rem;
+}
+
+.product-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-image {
+  max-width: 230px;
+  height: auto;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.product-description {
+  max-width: 230px;
+  padding: 0 0.5rem 0 0.5rem;
+}
+
+.product-price {
+  padding: 0.4rem;
+  font-weight: bold;
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+.add-to-cart {
+  background-color: rgb(255, 255, 164);
+  width: 140px;
+  padding: 0.5rem;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  cursor: pointer;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+.add-to-cart:hover {
+  background-color: rgb(255, 187, 124);
+}
+.add-to-cart:active {
+  background-color: yellow;
+}

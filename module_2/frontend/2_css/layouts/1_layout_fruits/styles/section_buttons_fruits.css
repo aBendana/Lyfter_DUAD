@@ -1,0 +1,29 @@
+/*section - buttons types of fruits*/
+.section-types-of-fruits {
+  padding: 5rem 0 1.4rem 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.button-type-of-fruits {
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.image-type-of-fruits {
+  max-width: 230px;
+  height: auto;
+  object-fit: cover;
+  border-top-right-radius: 50px;
+}
+
+.button-type-of-fruits:hover {
+  transform: scale(1.1);
+}
+.button-type-of-fruits:active {
+  transform: scale(0.8);
+}
