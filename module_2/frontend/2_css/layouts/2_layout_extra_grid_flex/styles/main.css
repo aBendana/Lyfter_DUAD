@@ -1,0 +1,44 @@
+@import url(header.css);
+@import url(main_cards.css);
+@import url(main_categories_links.css);
+@import url(footer.css);
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0 17% 5% 17%;
+}
+
+.container-layout-grid {
+  display: grid;
+  grid-template-areas:
+    "header"
+    "main"
+    "footer";
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+}
+
+.container-header {
+  grid-area: header;
+  display: grid;
+  grid-template-rows: auto auto;
+}
+
+.container-main {
+  grid-area: main;
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 30px;
+}
+
+.container-footer {
+  grid-area: footer;
+  display: grid;
+  grid-template-rows: auto auto;
+}
