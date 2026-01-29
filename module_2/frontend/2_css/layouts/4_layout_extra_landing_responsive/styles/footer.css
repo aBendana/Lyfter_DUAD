@@ -1,0 +1,11 @@
+footer p {
+  color: white;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  letter-spacing: 1px;
+}
+
+footer img {
+  width: 5rem;
+  height: auto;
+  padding-right: 1rem;
+}

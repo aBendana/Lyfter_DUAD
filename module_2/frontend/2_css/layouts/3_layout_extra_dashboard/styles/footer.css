@@ -1,0 +1,41 @@
+.contact-social-media {
+  gap: 20rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+/*contact us*/
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.info {
+  padding: 0.5rem 0 2rem 0;
+}
+
+/*social-media*/
+.social-media-link {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.container-icons-media {
+  padding: 0.5rem 0 2rem 0;
+  display: flex;
+  justify-content: flex-start;
+}
+.icon-media {
+  width: 3rem;
+  height: auto;
+  padding-right: 1rem;
+}
+
+/*copy rights*/
+.copy-rights {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", sans-serif;
+  font-weight: bold;
+}

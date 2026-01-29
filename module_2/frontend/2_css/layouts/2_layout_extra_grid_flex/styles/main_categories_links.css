@@ -1,0 +1,65 @@
+.container-categories-links {
+  padding: 1rem 0 2rem 0;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 5rem;
+}
+
+/* categories*/
+.section-categories-fruits {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.title-categories {
+  padding: 1rem;
+  padding-left: 2rem;
+}
+
+.button-category-fruits {
+  padding-bottom: 2rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.image-type-of-fruits {
+  max-width: 200px;
+  height: auto;
+  object-fit: cover;
+  border-top-right-radius: 50px;
+}
+
+.button-category-fruits:hover {
+  transform: scale(1.1);
+}
+.button-category-fruits:active {
+  transform: scale(0.8);
+}
+
+/*links*/
+.section-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.title-links {
+  padding-left: 2rem;
+}
+
+.links-list {
+  font-family:
+    "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", sans-serif;
+  font-size: 1.1rem;
+  list-style: none;
+  padding-left: 4rem;
+}
+
+li::before {
+  content: "🍎 ";
+  color: red;
+  font-size: 1.4rem;
+}

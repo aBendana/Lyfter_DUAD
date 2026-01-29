@@ -1,0 +1,92 @@
+/*header logo and title*/
+.top-header {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 3rem;
+  align-items: center;
+}
+
+.logo-header {
+  max-width: 13rem;
+  height: auto;
+  display: block;
+}
+
+.title-header {
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-size: 7rem;
+  letter-spacing: 5px;
+  background: linear-gradient(
+    90deg,
+    #ff0000,
+    #ff9900,
+    #33cc33,
+    #3399ff,
+    #9933ff
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/* nav bar*/
+.navbar-container {
+  background-color: rgb(223, 223, 223);
+  display: flex;
+  padding: 1rem;
+  margin-top: 5rem;
+  justify-content: center;
+  justify-content: space-between;
+  align-self: auto;
+  font-family: "Times New Roman", Times, serif;
+}
+
+/*nav menu buttons*/
+.div-nav-buttons {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.nav-button {
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  justify-content: space-evenly;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.nav-button:hover {
+  background-color: rgb(255, 244, 149);
+}
+.nav-button:active {
+  background-color: rgb(85, 85, 85);
+  color: white;
+}
+
+/* menu icons*/
+.div-nav-icons {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+.nav-button-icon {
+  border: none;
+  background: none;
+}
+.nav-icon {
+  max-width: 2.5rem;
+  height: auto;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+.nav-icon:hover {
+  transform: scale(1.2);
+}
+.nav-icon:active {
+  transform: scale(0.8) rotate(15deg);
+}

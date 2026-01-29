@@ -1,0 +1,54 @@
+.company {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 2.5rem;
+}
+
+.company-logo {
+  max-width: 5rem;
+  height: auto;
+}
+
+.company-name {
+  font-size: 2.5rem;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-style: italic;
+  background: linear-gradient(90deg, gold, #ffffff, gold, #ffffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/* nav bar*/
+.navbar-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 2rem;
+  padding-right: 2.5rem;
+}
+
+/* menu icons*/
+.div-nav-icons {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+.nav-button-icon {
+  border: none;
+  background: none;
+}
+.nav-icon {
+  max-width: 2rem;
+  height: auto;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+.nav-icon:hover {
+  transform: scale(1.2);
+}
+.nav-icon:active {
+  transform: scale(0.8) rotate(15deg);
+}
