@@ -1,0 +1,56 @@
+.contact-section {
+  display: grip;
+  grid-template-areas: "section h2" "form";
+  grid-template-rows: auto, 1fr;
+  padding: 1rem 1.5rem 2rem 5rem;
+  color: azure;
+}
+
+.contact-title {
+  grid-area: section h2;
+  letter-spacing: 1px;
+}
+
+.contact-form {
+  grid-area: form;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 3fr 1fr;
+  padding-left: 1.5rem;
+}
+
+form label {
+  font-size: 1.1rem;
+  padding-top: 1rem;
+  display: flex;
+  align-items: end;
+}
+
+form input {
+  max-width: 300px;
+  border-radius: 5px;
+}
+form textarea {
+  max-width: 400px;
+  border-radius: 5px;
+}
+
+.button-send {
+  margin-top: 0.5rem;
+  background-color: gold;
+  max-height: 3rem;
+  max-width: 7rem;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.button-send:hover {
+  background-color: rgb(250, 250, 248);
+}
+.button-send:active {
+  background-color: rgb(202, 172, 1);
+  color: white;
+}

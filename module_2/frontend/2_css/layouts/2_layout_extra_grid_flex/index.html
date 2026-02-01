@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="layout using grid for structure and flex for cards"
+    />
+    <title>Layout Grid/Flex</title>
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+
+  <body class="container-layout-grid">
+    <header class="container-header">
+      <div class="top-header">
+        <img src="imgs/logo.png" alt="lyfter fruits logo" class="logo-header" />
+        <h1 class="title-header">Lyter Fruits</h1>
+      </div>
+
+      <nav class="navbar-container">
+        <div class="div-nav-buttons">
+          <button class="nav-button">Home</button>
+          <button class="nav-button">Menu</button>
+          <button class="nav-button">About us</button>
+          <button class="nav-button">Contact</button>
+          <button class="nav-button">Help</button>
+        </div>
+
+        <div class="div-nav-icons">
+          <button class="nav-button-icon">
+            <img src="icons/wishlist.png" alt="wishlist" class="nav-icon" />
+          </button>
+          <button class="nav-button-icon">
+            <img
+              src="icons/shopping_cart.png"
+              alt="shopping cart"
+              class="nav-icon"
+            />
+          </button>
+          <button class="nav-button-icon">
+            <img src="icons/my_account.png" alt="my account" class="nav-icon" />
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-main">
+      <div class="container-all-cards">
+        <div class="container-cards-fruits">
+          <h2 class="title-cards-fruits">Sweet Fruits</h2>
+          <section class="section-fruits">
+            <article class="product-card">
+              <figure>
+                <img
+                  src="imgs/fruits/apple.jpg"
+                  alt="Fresh red apples"
+                  class="product-image"
+                />
+              </figure>
+              <h3 class="product-title">Red Apples</h3>
+              <p class="product-description">
+                Juicy, sweat and fresh apples from organic farms.
+              </p>
+              <div class="product-price">$4.99</div>
+              <button class="add-to-cart">Add to cart</button>
+            </article>
+
+            <article class="product-card">
+              <figure>
+                <img
+                  src="imgs/fruits/banana.jpg"
+                  alt="Ripe yellow bananas"
+                  class="product-image"
+                />
+              </figure>
+              <h3 class="product-title">Bananas</h3>
+              <p class="product-description">
+                Naturally sweet bananas, perfect for smoothies and snacks.
+              </p>
+              <div class="product-price">$2.99</div>
+              <button class="add-to-cart">Add to cart</button>
+            </article>
+
+            <article class="product-card">
+              <figure>
+                <img
+                  src="imgs/fruits/melon.jpg"
+                  alt="Fresh melon slices"
+                  class="product-image"
+                />
+              </figure>
+              <h3 class="product-title">Melon</h3>
+              <p class="product-description">
+                Sweet and refreshing melon, perfect for breakfast or dessert.
+              </p>
+              <div class="product-price">$4.59</div>
+              <button class="add-to-cart">Add to cart</button>
+            </article>
+
+            <article class="product-card">
+              <figure>
+                <img
+                  src="imgs/fruits/watermelon.jpg"
+                  alt="Fresh watermelon slices"
+                  class="product-image"
+                />
+              </figure>
+              <h3 class="product-title">Watermelon</h3>
+              <p class="product-description">
+                Juicy and refreshing watermelon, perfect for hot summer days.
+              </p>
+              <div class="product-price">$6.49</div>
+              <button class="add-to-cart">Add to cart</button>
+            </article>
+          </section>
+        </div>
+
+        <div class="container-cards-fruits">
+          <h2 class="title-cards-fruits">Acidic Fruits</h2>
+          <section class="section-fruits">
+            <article class="product-card">
+              <figure>
+                <img
+                  src="imgs/fruits/lemon.jpg"
+                  alt="Fresh lemons"
+                  class="product-image"
+                />
+              </figure>
+              <h3 class="product-title">Lemon</h3>
+              <p class="product-description">
+                Zesty and refreshing lemons, perfect for drinks and cooking.
+              </p>
+              <div class="product-price">$3.99</div>
+              <button class="add-to-cart">Add to cart</button>
+            </article>
+
+            <article class="product-card">
+              <figure>
+                <img
+                  src="imgs/fruits/tamarind.jpg"
+                  alt="Tamarind pods"
+                  class="product-image"
+                />
+              </figure>
+              <h3 class="product-title">Tamarind</h3>
+              <p class="product-description">
+                Sweet and tangy tamarind, ideal for sauces and desserts.
+              </p>
+              <div class="product-price">$4.49</div>
+              <button class="add-to-cart">Add to cart</button>
+            </article>
+
+            <article class="product-card">
+              <figure>
+                <img
+                  src="imgs/fruits/grapefruit.jpg"
+                  alt="Fresh grapefruit halves"
+                  class="product-image"
+                />
+              </figure>
+              <h3 class="product-title">Grapefruit</h3>
+              <p class="product-description">
+                Juicy grapefruit with a sweet and slightly bitter taste.
+              </p>
+              <div class="product-price">$5.29</div>
+              <button class="add-to-cart">Add to cart</button>
+            </article>
+
+            <article class="product-card">
+              <figure>
+                <img
+                  src="imgs/fruits/kiwi.jpg"
+                  alt="Fresh kiwi"
+                  class="product-image"
+                />
+              </figure>
+              <h3 class="product-title">Kiwi</h3>
+              <p class="product-description">
+                Sweet and tangy! with vibrant green flesh, rich in vitamin C.
+              </p>
+              <div class="product-price">$2.99</div>
+              <button class="add-to-cart">Add to cart</button>
+            </article>
+          </section>
+        </div>
+
+        <div class="container-cards-fruits">
+          <h2 class="title-cards-fruits">Semi-Acid Fruits</h2>
+          <section class="section-fruits">
+            <article class="product-card">
+              <figure>
+                <img
+                  src="imgs/fruits/strawberry.jpg"
+                  alt="Fresh strawberries"
+                  class="product-image"
+                />
+              </figure>
+              <h3 class="product-title">Strawberries</h3>
+              <p class="product-description">
+                Sweet and juicy, perfect for desserts and smoothies.
+              </p>
+              <div class="product-price">$5.49</div>
+              <button class="add-to-cart">Add to cart</button>
+            </article>
+
+            <article class="product-card">
+              <figure>
+                <img
+                  src="imgs/fruits/mandarin.jpg"
+                  alt="Mandarin oranges"
+                  class="product-image"
+                />
+              </figure>
+              <h3 class="product-title">Mandarin Orange</h3>
+              <p class="product-description">
+                Easy-to-peel mandarins with a naturally sweet flavor.
+              </p>
+              <div class="product-price">$4.29</div>
+              <button class="add-to-cart">Add to cart</button>
+            </article>
+
+            <article class="product-card">
+              <figure>
+                <img
+                  src="imgs/fruits/peach.jpg"
+                  alt="Fresh peaches"
+                  class="product-image"
+                />
+              </figure>
+              <h3 class="product-title">Peach</h3>
+              <p class="product-description">
+                Soft and fragrant peaches, full of natural sweetness.
+              </p>
+              <div class="product-price">$4.99</div>
+              <button class="add-to-cart">Add to cart</button>
+            </article>
+
+            <article class="product-card">
+              <figure>
+                <img
+                  src="imgs/fruits/tomato.jpg"
+                  alt="Fresh tomatoes"
+                  class="product-image"
+                />
+              </figure>
+              <h3 class="product-title">Tomato</h3>
+              <p class="product-description">
+                Fresh and ripe tomatoes, ideal for salads and cooking.
+              </p>
+              <div class="product-price">$3.59</div>
+              <button class="add-to-cart">Add to cart</button>
+            </article>
+          </section>
+        </div>
+
+        <div class="container-cards-fruits">
+          <h2 class="title-cards-fruits">Neutral Fruits</h2>
+          <section class="section-fruits">
+            <article class="product-card">
+              <figure>
+                <img
+                  src="imgs/fruits/avocado.jpg"
+                  alt="Fresh avocados"
+                  class="product-image"
+                />
+              </figure>
+              <h3 class="product-title">Avocado</h3>
+              <p class="product-description">
+                Creamy and nutritious avocados, perfect for salads and spreads.
+              </p>
+              <div class="product-price">$6.49</div>
+              <button class="add-to-cart">Add to cart</button>
+            </article>
+
+            <article class="product-card">
+              <figure>
+                <img
+                  src="imgs/fruits/cocoa.jpg"
+                  alt="Cocoa beans"
+                  class="product-image"
+                />
+              </figure>
+              <h3 class="product-title">Cocoa</h3>
+              <p class="product-description">
+                Rich cocoa beans, ideal for chocolate and desserts.
+              </p>
+              <div class="product-price">$7.99</div>
+              <button class="add-to-cart">Add to cart</button>
+            </article>
+
+            <article class="product-card">
+              <figure>
+                <img
+                  src="imgs/fruits/coconut.jpg"
+                  alt="Fresh coconuts"
+                  class="product-image"
+                />
+              </figure>
+              <h3 class="product-title">Coconut</h3>
+              <p class="product-description">
+                Sweet and tropical coconuts, great for drinks and cooking.
+              </p>
+              <div class="product-price">$5.49</div>
+              <button class="add-to-cart">Add to cart</button>
+            </article>
+
+            <article class="product-card">
+              <figure>
+                <img
+                  src="imgs/fruits/nuts.jpg"
+                  alt="Mixed nuts"
+                  class="product-image"
+                />
+              </figure>
+              <h3 class="product-title">Mixed Nuts</h3>
+              <p class="product-description">
+                Crunchy and healthy nuts, full of protein and energy.
+              </p>
+              <div class="product-price">$4.99</div>
+              <button class="add-to-cart">Add to cart</button>
+            </article>
+          </section>
+        </div>
+      </div>
+
+      <div class="container-categories-links">
+        <section class="section-categories-fruits">
+          <h2 class="title-categories">Categories:</h2>
+          <button class="button-category-fruits">
+            <img
+              src="imgs/button_sweets_banana.png"
+              alt="Sweets"
+              class="image-type-of-fruits"
+            />
+            <h2>Sweets</h2>
+          </button>
+          <button class="button-category-fruits">
+            <img
+              src="imgs/button_acidics_lemon.png"
+              alt="Acidics"
+              class="image-type-of-fruits"
+            />
+            <h2>Acidics</h2>
+          </button>
+          <button class="button-category-fruits">
+            <img
+              src="imgs/button_semi_acids_strawberry.png"
+              alt="Semi-Acids"
+              class="image-type-of-fruits"
+            />
+            <h2>Semi-Acids</h2>
+          </button>
+          <button class="button-category-fruits">
+            <img
+              src="imgs/button_neutrals_coco.png"
+              alt="Neutrals"
+              class="image-type-of-fruits"
+            />
+            <h2>Neutrals</h2>
+          </button>
+        </section>
+
+        <section class="section-links">
+          <h2 class="title-links">Our sections:</h2>
+          <ul class="links-list">
+            <li><a href="/all-fruits">All Fruits </a></li>
+            <li><a href="/seasonal-fruits">Seasonal Fruits</a></li>
+            <li><a href="/organic-fruits">Organic Fruits</a></li>
+            <li><a href="/recipes">Fruit Recipes</a></li>
+            <li><a href="/nutrition">Nutrition & Benefits</a></li>
+            <li><a href="/fruit-baskets">Fruit Baskets</a></li>
+          </ul>
+        </section>
+      </div>
+    </main>
+
+    <footer class="container-footer">
+      <section class="contact-social-media">
+        <div class="contact-info">
+          <h3>Contact Us</h3>
+          <div class="info">
+            <p class="contact-info">Email: info@lyfterfruits.com</p>
+            <p class="contact-info">Phone number: 9-988-988-9888</p>
+          </div>
+        </div>
+
+        <div class="social-media-links">
+          <h3>Follow Us</h3>
+          <div class="container-icons-media">
+            <a href="https://www.youtube.com" target="blank" class="social-link"
+              ><img src="icons/youtube.png" alt="YouTube" class="icon-media"
+            /></a>
+            <a
+              href="https://www.facebook.com"
+              target="blank"
+              class="social-link"
+              ><img src="icons/facebook.png" alt="Facebook" class="icon-media"
+            /></a>
+            <a
+              href="https://www.instagram.com"
+              target="blank"
+              class="social-link"
+              ><img
+                src="icons/instagram.png"
+                alt="Instagram"
+                class="icon-media"
+            /></a>
+            <a
+              href="https://www.pinterest.com"
+              target="blank"
+              class="social-link"
+              ><img
+                src="icons/pinterest.png"
+                alt="Pinterest"
+                class="icon-media"
+            /></a>
+          </div>
+        </div>
+      </section>
+
+      <section class="copy-rights">
+        <p>&copy; 2026 Lyfter Fruits Commerce. All rights reserved.</p>
+      </section>
+    </footer>
+  </body>
+</html>

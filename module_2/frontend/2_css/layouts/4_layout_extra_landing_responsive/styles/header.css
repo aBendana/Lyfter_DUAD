@@ -1,0 +1,104 @@
+/* logo + company name*/
+.company {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 1rem;
+}
+
+.company-logo {
+  max-width: 3rem;
+  height: auto;
+}
+
+.company-name {
+  font-size: 1.5rem;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-style: italic;
+  background: linear-gradient(90deg, gold, #ffffff, gold, #ffffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/* nav bar*/
+.navbar-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding-right: 1rem;
+  flex-wrap: wrap;
+}
+
+/* menu buttons*/
+.nav-button {
+  max-height: 3rem;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  white-space: nowrap;
+}
+.nav-button:hover {
+  background-color: rgb(255, 244, 149);
+}
+.nav-button:active {
+  background-color: rgb(85, 85, 85);
+  color: white;
+}
+
+/* Tablet - 768px+ */
+@media (min-width: 768px) {
+  .company-name {
+    font-size: 2rem;
+  }
+
+  .company-logo {
+    max-width: 4rem;
+  }
+
+  .company {
+    padding-left: 1.5rem;
+  }
+
+  .navbar-container {
+    gap: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .nav-button {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+/*Desktop - 1024px+ */
+@media (min-width: 1024px) {
+  .company-name {
+    font-size: 2.5rem;
+  }
+
+  .company-logo {
+    max-width: 5rem;
+  }
+
+  .company {
+    padding-left: 2.5rem;
+  }
+
+  .navbar-container {
+    gap: 2rem;
+    padding-right: 2.5rem;
+  }
+
+  .nav-button {
+    font-size: 1.1rem;
+    padding: 0.5rem;
+    max-width: 7rem;
+  }
+}

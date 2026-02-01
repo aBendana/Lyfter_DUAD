@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="layout using dashboard, header, main and footer"
+    />
+    <title>Layout dashboard</title>
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+
+  <body>
+    <header>
+      <div class="company">
+        <a href="/sports">
+          <img src="imgs/logo.png" alt="logo" class="company-logo" />
+        </a>
+        <h2 class="company-name">Premier Sports</h2>
+      </div>
+
+      <nav class="navbar-container">
+        <button class="nav-button-icon">
+          <img
+            src="icons/notifications.png"
+            alt="notifications"
+            class="nav-icon"
+          />
+        </button>
+        <button class="nav-button-icon">
+          <img src="icons/favorites.png" alt="favorites" class="nav-icon" />
+        </button>
+        <button class="nav-button-icon">
+          <img src="icons/account.png" alt="account" class="nav-icon" />
+        </button>
+      </nav>
+    </header>
+
+    <div class="container-dashboard-main">
+      <aside class="dashboard">
+        <div class="dashboard-sports">
+          <ul class="sports-list">
+            <li><a href="/football">🏈 Football</a></li>
+            <li><a href="/basketball">🏀 Basketball</a></li>
+            <li><a href="/soccer">⚽ Soccer</a></li>
+            <li><a href="/baseball">⚾ Baseball</a></li>
+            <li><a href="/tennis">🎾 Tennis</a></li>
+            <li><a href="/hockey">🏒 Hockey</a></li>
+          </ul>
+        </div>
+
+        <div class="dashboard-options">
+          <ul class="options-list">
+            <li><a href="/wagers">🎲 Wagers</a></li>
+            <li><a href="/balance">💰 Balance</a></li>
+            <li><a href="/settings">⚙️ Settings</a></li>
+            <li><a href="/information">ℹ️ Info</a></li>
+            <li><a href="/help">❓ Help</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <div class="container-cards">
+          <section class="section-wagers">
+            <article class="wager-card">
+              <a
+                href="/straights"
+                class="wager"
+                aria-label="place straights wagers"
+              >
+                <figure>
+                  <img
+                    src="imgs/straights.jpg"
+                    alt="straights wagers"
+                    class="card-image"
+                  />
+                </figure>
+              </a>
+            </article>
+            <article class="wager-card">
+              <a
+                href="/if-bets"
+                class="wager"
+                aria-label="place if bets wagers"
+              >
+                <figure>
+                  <img
+                    src="imgs/if_bets.jpg"
+                    alt="if bets wagers"
+                    class="card-image"
+                  />
+                </figure>
+              </a>
+            </article>
+            <article class="wager-card">
+              <a href="/parlays" class="wager" aria-label="place parlay wagers">
+                <figure>
+                  <img
+                    src="imgs/parlays.jpg"
+                    alt="parlays wagers"
+                    class="card-image"
+                  />
+                </figure>
+              </a>
+            </article>
+          </section>
+
+          <section class="section-wagers">
+            <article class="wager-card">
+              <a
+                href="/teasers"
+                class="wager"
+                aria-label="place teasers wagers"
+              >
+                <figure>
+                  <img
+                    src="imgs/teasers.jpg"
+                    alt="teasers wagers"
+                    class="card-image"
+                  />
+                </figure>
+              </a>
+            </article>
+            <article class="wager-card">
+              <a
+                href="/futures"
+                class="wager"
+                aria-label="place wagers for championships and tournamets"
+              >
+                <figure>
+                  <img
+                    src="imgs/futures.jpg"
+                    alt="futures wagers"
+                    class="card-image"
+                  />
+                </figure>
+              </a>
+            </article>
+            <article class="wager-card">
+              <a href="/live-betting" class="wager" aria-label="live wagering">
+                <figure>
+                  <img
+                    src="imgs/live_betting.jpg"
+                    alt="live betting wagers"
+                    class="card-image"
+                  />
+                </figure>
+              </a>
+            </article>
+          </section>
+
+          <section class="section-wagers">
+            <article class="wager-card">
+              <a
+                href="/upcoming-season"
+                class="wager"
+                aria-label="info about upcoming tournaments"
+              >
+                <figure>
+                  <img
+                    src="imgs/up_seasons.jpg"
+                    alt="upcoming seasons"
+                    class="card-image"
+                  />
+                </figure>
+              </a>
+            </article>
+            <article class="wager-card">
+              <a
+                href="/casino"
+                class="wager"
+                aria-label="casino games, slot machines, roulete, texas holdem"
+              >
+                <figure>
+                  <img
+                    src="imgs/casino.jpg"
+                    alt="casino games"
+                    class="card-image"
+                  />
+                </figure>
+              </a>
+            </article>
+            <article class="wager-card">
+              <a
+                href="/expert-blogs"
+                class="wager"
+                aria-label="blogs predictions about games and tournamets"
+              >
+                <figure>
+                  <img
+                    src="imgs/blogs.jpg"
+                    alt="odds blogs"
+                    class="card-image"
+                  />
+                </figure>
+              </a>
+            </article>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <footer>
+      <section class="contact-social-media">
+        <div class="contact-info">
+          <h3>Play today!</h3>
+          <div class="info">
+            <p class="contact-info">📧 wagering@premiersports.com</p>
+            <p class="contact-info">🕿 1-800-premier</p>
+            <p class="contact-info">💻 Chat with us</p>
+          </div>
+        </div>
+
+        <div class="social-media-links">
+          <h3>Follow Us</h3>
+          <div class="container-icons-media">
+            <a href="https://www.x.com" target="blank" class="social-link"
+              ><img src="icons/x.png" alt="X" class="icon-media"
+            /></a>
+            <a href="https://www.youtube.com" target="blank" class="social-link"
+              ><img src="icons/youtube.png" alt="YouTube" class="icon-media"
+            /></a>
+            <a
+              href="https://www.facebook.com"
+              target="blank"
+              class="social-link"
+              ><img src="icons/facebook.png" alt="Facebook" class="icon-media"
+            /></a>
+            <a
+              href="https://www.instagram.com"
+              target="blank"
+              class="social-link"
+              ><img
+                src="icons/instagram.png"
+                alt="Instagram"
+                class="icon-media"
+            /></a>
+          </div>
+        </div>
+      </section>
+
+      <section class="copy-rights">
+        <p>&copy; 2026 Premier Sports Sportbook. All rights reserved.</p>
+      </section>
+    </footer>
+  </body>
+</html>
