@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="button add elements to a list, button delete all elements"
+    />
+    <title>button-list</title>
+  </head>
+
+  <body>
+    <div>
+      <button id="add-button">Add item!</button>
+      <button id="delete-button">Delete list</button>
+      <ol id="list"></ol>
+    </div>
+
+    <script>
+      // add items
+      const buttonAdd = document.getElementById("add-button");
+
+      const addItem = () => {
+        const item = document.createElement("li");
+        item.innerHTML = "Item";
+        const list = document.getElementById("list");
+        list.appendChild(item);
+      };
+
+      buttonAdd.addEventListener("click", addItem);
+    </script>
+
+    <script>
+      // delete list
+      const buttonDelete = document.getElementById("delete-button");
+
+      const deleteList = () => {
+        const listItems = (document.getElementById("list").innerHTML = "");
+      };
+
+      buttonDelete.addEventListener("click", deleteList);
+    </script>
+  </body>
+</html>

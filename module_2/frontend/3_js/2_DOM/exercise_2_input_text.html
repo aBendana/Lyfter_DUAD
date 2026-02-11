@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="input text, button copy a text and clean textarea"
+    />
+    <title>input-text-clean</title>
+  </head>
+
+  <body>
+    <div>
+      <label for="write-something">Speak your mind:</label><br />
+      <textarea
+        id="write-something"
+        name="write_somtehing"
+        rows="4"
+        cols="50"
+        placeholder="Write what are you thinking..."
+      ></textarea>
+      <br />
+
+      <button id="button-send">Send!</button>
+      <br /><br /><br /><br /><br />
+    </div>
+
+    <div>
+      <h3 align="center">Read area</h3>
+      <p align="center" id="text-sent"></p>
+    </div>
+  </body>
+
+  <script>
+    const buttonSend = document.getElementById("button-send");
+
+    const addText = () => {
+      // copy text
+      const textArea = document.getElementById("write-something");
+      const copiedText = textArea.value;
+
+      // if a text exists is deleted in the read area
+      const textSent = document.getElementById("text-sent");
+      if (textSent.value !== "") {
+        textSent.value = "";
+      }
+      // create or renew the content
+      textSent.textContent = copiedText;
+
+      // clean the write text area
+      textArea.value = "";
+    };
+
+    buttonSend.addEventListener("click", addText);
+  </script>
+</html>
