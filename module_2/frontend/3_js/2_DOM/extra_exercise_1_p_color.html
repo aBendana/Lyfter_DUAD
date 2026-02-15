@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Change the color of a paragraph" />
+    <title>paragraph-color</title>
+  </head>
+
+  <body>
+    <div
+      style="
+        margin: 2rem 10rem 0rem 10rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      "
+    >
+      <h2>Changing the paragraph color</h2>
+
+      <p
+        style="border: solid 2px black; padding: 2rem; text-align: justify"
+        id="paragraph-colorized"
+      >
+        Cascading Style Sheets (CSS) is a stylesheet language used to describe
+        the presentation and styling of a document written in a markup language,
+        most commonly HTML. While HTML provides the structure and content of a
+        webpage (the "skeleton"), CSS acts as the presentation layer,
+        determining how elements appear on screen, paper, or in other media.
+      </p>
+      <br /><br />
+
+      <button id="button-color">Change Color</button>
+    </div>
+
+    <script>
+      const buttonColor = document.getElementById("button-color");
+
+      const changingColor = () => {
+        const colors = [
+          "red",
+          "blue",
+          "green",
+          "yellow",
+          "orange",
+          "purple",
+          "silver",
+        ];
+
+        const paragraphColorized = document.getElementById(
+          "paragraph-colorized",
+        );
+
+        // regenerate a random index for a color
+        const colorBackground = Math.floor(Math.random() * colors.length);
+        let colorText = Math.floor(Math.random() * colors.length);
+        // prevent same colors
+        if (colorBackground === colorText) {
+          colorText = Math.floor(Math.random() * colors.length);
+        }
+
+        // change color and background color
+        paragraphColorized.style.backgroundColor = colors[colorBackground];
+        paragraphColorized.style.color = colors[colorText];
+      };
+
+      buttonColor.addEventListener("click", changingColor);
+    </script>
+  </body>
+</html>

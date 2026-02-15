@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="add and eliminate tasks" />
+    <title>task list</title>
+    <style>
+      .delete-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+      }
+
+      .delete-icon {
+        max-width: 15px;
+        height: auto;
+        padding: 0 0.2rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div
+      style="
+        margin: 2rem 15rem 0rem 15rem;
+        display: flex;
+        flex-direction: column;
+      "
+    >
+      <h1>Task List</h1>
+
+      <label for="write-task">Write a task:</label><br />
+      <textarea
+        id="write-task"
+        name="write_task"
+        rows="2"
+        cols="75"
+        placeholder="task to do..."
+        style="width: 450px; max-width: 100%; align-self: flex-start"
+      ></textarea>
+      <br />
+
+      <button
+        id="button-save"
+        style="width: auto; align-self: flex-start; padding: 0.5rem 0.5rem"
+      >
+        Save!
+      </button>
+      <br /><br /><br />
+
+      <h2>Tasks:</h2>
+
+      <ul style="list-style-type: none" id="task-list"></ul>
+    </div>
+
+    <script>
+      const buttonSave = document.getElementById("button-save");
+
+      const addTask = () => {
+        // copy the task
+        const taskArea = document.getElementById("write-task");
+        const copiedTask = taskArea.value;
+
+        // create elimination button
+        const deleteButton = document.createElement("button");
+        deleteButton.className = "delete-button";
+
+        // give attributes and style to the delete icon
+        const deleteImg = document.createElement("img");
+        deleteImg.src = "x_eliminate_button.png";
+        deleteImg.alt = "eliminate task";
+        deleteImg.className = "delete-icon";
+
+        // create a task
+        const newTask = document.createElement("li");
+        newTask.style.marginBottom = "0.5rem";
+
+        // add task to the task list
+        const taskList = document.getElementById("task-list");
+        deleteButton.appendChild(deleteImg);
+        newTask.appendChild(deleteButton);
+        newTask.appendChild(document.createTextNode(copiedTask));
+        taskList.appendChild(newTask);
+
+        // remove a task
+        deleteButton.addEventListener("click", () => {
+          taskList.removeChild(newTask);
+        });
+
+        // clean the write task area
+        taskArea.value = "";
+      };
+
+      buttonSave.addEventListener("click", addTask);
+    </script>
+  </body>
+</html>
