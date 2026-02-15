@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Form and radio button with function" />
+    <title>form-radio-button</title>
+  </head>
+
+  <body>
+    <form
+      id="info"
+      style="padding-left: 80px"
+      action="https://www.lyfter/employees.com"
+      method="POST"
+    >
+      <h2>Full fill the form (don't leave any blank space):</h2>
+      <br />
+
+      <label for="email">Email</label>
+      <br />
+      <input type="text" id="full-name" name="full_name" required />
+      <br /><br />
+
+      <label for="password">Password:</label>
+      <br />
+      <input
+        type="password"
+        id="password"
+        name="password"
+        placeholder="Minimum 8 characters"
+        required
+      />
+      <br /><br />
+
+      <label for="name">Name</label>
+      <br />
+      <input type="text" id="name" name="name" required />
+      <br /><br />
+
+      <label for="lastname">Last name</label>
+      <br />
+      <input type="text" id="last-name" name="last_name" required />
+      <br /><br /><br />
+
+      <label for="room">Are you an employee?</label>
+      <br /><br />
+      <input
+        type="radio"
+        id="yes"
+        name="employee"
+        value="yes"
+        required
+        style="margin-left: 30px"
+      />
+      Yes
+      <br />
+      <input
+        type="radio"
+        id="no"
+        name="employee"
+        value="no"
+        required
+        style="margin-left: 30px"
+      />
+      No <br /><br />
+
+      <div id="roles-container"></div>
+
+      <input type="submit" id="submit-form" value="Send info" />
+    </form>
+
+    <script>
+      const employeeYes = document.getElementById("yes");
+      const employeeNo = document.getElementById("no");
+
+      const showYesHideNo = () => {
+        const rolesContainer = document.getElementById("roles-container");
+
+        // show up roles container (radio buttons)
+        if (employeeYes.checked) {
+          const jobTitle = document.createElement("h4");
+          jobTitle.innerHTML = "What is your job position?";
+          rolesContainer.appendChild(jobTitle);
+
+          const roles = [
+            "Full Stack",
+            "DevOps",
+            "Data Analyst",
+            "AI Developer",
+          ];
+
+          roles.forEach((role) => {
+            const jobRole = document.createElement("input");
+            const jobLabel = document.createElement("label");
+
+            jobRole.type = "radio";
+            jobRole.id = "role" + role.toLowerCase().replace(" ", "-");
+            jobRole.name = "role";
+            jobRole.value = "role" + role.toLowerCase().replace(" ", "_");
+            jobRole.required = true;
+            jobRole.style.marginLeft = "30px";
+
+            jobLabel.appendChild(jobRole);
+            jobLabel.append(` ${role}`);
+
+            rolesContainer.appendChild(jobLabel);
+            rolesContainer.appendChild(document.createElement("br"));
+          });
+          rolesContainer.appendChild(document.createElement("br"));
+          rolesContainer.appendChild(document.createElement("br"));
+        }
+
+        // hide the roles container
+        if (employeeNo.checked) {
+          rolesContainer.innerHTML = "";
+        }
+      };
+
+      employeeYes.addEventListener("change", showYesHideNo);
+      employeeNo.addEventListener("change", showYesHideNo);
+    </script>
+  </body>
+</html>
