@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="make a simple counter" />
+    <title>counter</title>
+  </head>
+
+  <body>
+    <div
+      style="
+        margin: 2rem 10rem 0rem 10rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      "
+    >
+      <h1>Counter</h1>
+
+      <h1 id="counter-number">0</h1>
+
+      <div>
+        <button id="increase">Increase</button>
+        <button id="decrease">Decrease</button>
+      </div>
+
+      <h3 style="color: red" id="warning-message"></h3>
+    </div>
+
+    <script>
+      const increase = document.getElementById("increase");
+      const decrease = document.getElementById("decrease");
+      const warningMessage = document.getElementById("warning-message");
+
+      const counterIncrease = () => {
+        const counterNumber = document.getElementById("counter-number");
+        // prevent a negative count
+        if (counterNumber.textContent === "0") {
+          warningMessage.textContent = "Counter is at zero!";
+        } else {
+          counterNumber.textContent = parseInt(counterNumber.textContent) - 1;
+        }
+      };
+
+      const counterDecrease = () => {
+        const counterNumber = document.getElementById("counter-number");
+        counterNumber.textContent = parseInt(counterNumber.textContent) + 1;
+        warningMessage.textContent = "";
+      };
+
+      increase.addEventListener("click", counterIncrease);
+      decrease.addEventListener("click", counterDecrease);
+    </script>
+  </body>
+</html>
