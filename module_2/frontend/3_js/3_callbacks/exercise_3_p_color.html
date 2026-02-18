@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Change the background color of a paragraph"
+    />
+    <title>background-color</title>
+  </head>
+
+  <body>
+    <div
+      style="
+        margin: 2rem 10rem 0rem 10rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      "
+    >
+      <h2>Changing the paragraph background color</h2>
+
+      <p
+        style="border: solid 2px black; padding: 2rem; text-align: justify"
+        id="paragraph-colorized"
+      >
+        In JavaScript, a callback function is a function passed as an argument
+        into another function, to be "called back" or executed at a later time.
+        This is a core concept in JavaScript, made possible because functions
+        are treated as first-class objects and can be used like any other
+        variable. The primary use of callbacks is to manage the flow of
+        execution, particularly in asynchronous operations. JavaScript is
+        single-threaded, which means it generally executes one command at a
+        time. Without callbacks, a long-running task (like fetching data from a
+        server) would "block" the entire application, preventing any other code
+        from running until the task finishes.
+      </p>
+      <br /><br />
+
+      <button id="button-color">Background Color</button>
+    </div>
+
+    <script>
+      const buttonColor = document.getElementById("button-color");
+
+      const changingColor = () => {
+        const colors = ["red", "blue", "green", "yellow", "cyan", "pink"];
+        const backgroundColorized = document.getElementById(
+          "paragraph-colorized",
+        );
+
+        // regenerate a random index for a color
+        const colorBackground = Math.floor(Math.random() * colors.length);
+
+        // change background color
+        backgroundColorized.style.backgroundColor = colors[colorBackground];
+      };
+
+      buttonColor.addEventListener("click", changingColor);
+    </script>
+  </body>
+</html>
