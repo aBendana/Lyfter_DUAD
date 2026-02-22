@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Change div color and show color in a paragraph"
+    />
+    <title>div color</title>
+  </head>
+
+  <body style="display: flex; flex-direction: column; align-items: center">
+    <div
+      id="div-color"
+      style="
+        margin: 10rem 0 1rem 0;
+        width: 400px;
+        height: 400px;
+        background-color: aqua;
+      "
+    ></div>
+    <button id="button-color">Change Color</button>
+    <p id="color-description"></p>
+  </body>
+  <script>
+    const buttonColor = document.getElementById("button-color");
+
+    const colorDescription = (hexColor) => {
+      const nameBackgroundColor = document.getElementById("color-description");
+      nameBackgroundColor.textContent = `The backgound color is ${hexColor}`;
+    };
+
+    const changingColor = () => {
+      const colors = ["#FF5733", "#33FF57", "#3357FF", "#F5FF33", "#FF33F6"];
+      const divBackgroundColor = document.getElementById("div-color");
+
+      // regenerate a random index for a color
+      const colorBackground = Math.floor(Math.random() * colors.length);
+
+      // change background color and show color description
+      divBackgroundColor.style.backgroundColor = colors[colorBackground];
+      colorDescription(colors[colorBackground]);
+    };
+
+    buttonColor.addEventListener("click", changingColor);
+  </script>
+</html>
