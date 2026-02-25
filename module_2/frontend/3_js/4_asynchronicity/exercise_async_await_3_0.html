@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="show info of user using fetch and async await"
+    />
+    <title>fetch user info</title>
+    <script src="./exercise_async_await_3_1_fetch_user.js" defer></script>
+  </head>
+
+  <body>
+    <div
+      style="
+        margin: 2rem 10rem 0rem 10rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      "
+    >
+      <label for="user-id">Enter the user id:</label><br />
+      <input type="text" id="user-id" name="user_id" />
+      <br />
+
+      <button id="button-get-user">Get User</button>
+      <br /><br /><br />
+    </div>
+
+    <div
+      style="
+        margin: 2rem 10rem 0rem 10rem;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+      "
+      id="container-user-info"
+    ></div>
+  </body>
+</html>
