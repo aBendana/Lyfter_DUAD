@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="request form, css, DOM, javascript" />
+    <title>request register</title>
+    <link href="1_style_register.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="1_code_request_register.js" defer></script>
+  </head>
+
+  <body>
+    <div class="page">
+      <form id="register-form" class="register-form" method="POST">
+        <p class="line"></p>
+        <h1>Register</h1>
+
+        <label for="first-name">First name</label>
+        <input
+          class="personal-data"
+          type="text"
+          id="first-name"
+          name="first_name"
+          placeholder="First name *"
+          required
+        />
+        <label for="last-name">Last name</label>
+        <input
+          class="personal-data"
+          type="text"
+          id="last-name"
+          name="last_name"
+          placeholder="Last name *"
+          required
+        />
+        <label for="username">Username</label>
+        <input
+          class="personal-data"
+          type="text"
+          id="username"
+          name="username"
+          placeholder="Username *"
+          required
+        />
+        <label for="address">Address</label>
+        <input
+          class="personal-data"
+          type="text"
+          id="address"
+          name="address"
+          placeholder="Street, City, Province*"
+          required
+        />
+        <label for="email">Email</label>
+        <input
+          class="personal-data"
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Email address *"
+          required
+        />
+        <label for="password">Password</label>
+        <input
+          class="personal-data"
+          type="password"
+          id="password"
+          name="password"
+          placeholder="length 8 characters*"
+          required
+        />
+
+        <input
+          id="button-submit"
+          class="button-submit"
+          type="submit"
+          value="Register"
+        />
+
+        <h1 id="register-message"></h1>
+        <h2 id="register-name"></h2>
+
+        <footer>Powered by <strong>Lyfter</strong></footer>
+      </form>
+    </div>
+  </body>
+</html>
