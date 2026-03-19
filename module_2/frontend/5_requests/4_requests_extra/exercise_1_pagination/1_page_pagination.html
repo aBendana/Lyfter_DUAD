@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="pagination example, css, DOM, javascript"
+    />
+    <title>pagination</title>
+    <link href="1_style_pagination.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="1_code_pagination.js" defer></script>
+  </head>
+
+  <body>
+    <div class="page">
+      <h1>Products</h1>
+      <div id="pagination-container" class="pagination-container">
+        <div id="items-container" class="items-container">
+          <article class="product-card">
+            <figure>
+              <img
+                src="imgs/no_image.png"
+                alt=" product image"
+                class="product-image"
+              />
+            </figure>
+            <h3 class="product-title"></h3>
+            <p class="product-category"></p>
+            <p class="product-brand"></p>
+            <div class="product-price"></div>
+            <button class="add-to-cart">Add to cart</button>
+          </article>
+
+          <article class="product-card">
+            <figure>
+              <img
+                src="imgs/no_image.png"
+                alt=" product image"
+                class="product-image"
+              />
+            </figure>
+            <h3 class="product-title"></h3>
+            <p class="product-category"></p>
+            <p class="product-brand"></p>
+            <div class="product-price"></div>
+            <button class="add-to-cart">Add to cart</button>
+          </article>
+
+          <article class="product-card">
+            <figure>
+              <img
+                src="imgs/no_image.png"
+                alt=" product image"
+                class="product-image"
+              />
+            </figure>
+            <h3 class="product-title"></h3>
+            <p class="product-category"></p>
+            <p class="product-brand"></p>
+            <div class="product-price"></div>
+            <button class="add-to-cart">Add to cart</button>
+          </article>
+
+          <article class="product-card">
+            <figure>
+              <img
+                src="imgs/no_image.png"
+                alt=" product image"
+                class="product-image"
+              />
+            </figure>
+            <h3 class="product-title"></h3>
+            <p class="product-category"></p>
+            <p class="product-brand"></p>
+            <div class="product-price"></div>
+            <button class="add-to-cart">Add to cart</button>
+          </article>
+
+          <article class="product-card">
+            <figure>
+              <img
+                src="imgs/no_image.png"
+                alt=" product image"
+                class="product-image"
+              />
+            </figure>
+            <h3 class="product-title"></h3>
+            <p class="product-category"></p>
+            <p class="product-brand"></p>
+            <div class="product-price"></div>
+            <button class="add-to-cart">Add to cart</button>
+          </article>
+        </div>
+
+        <div id="pagination-controls" class="pagination-controls">
+          <button class="pagination-button" id="previous-button">
+            Previous
+          </button>
+          <button class="pagination-button" onclick="goToPage(1)">1</button>
+          <button class="pagination-button" onclick="goToPage(2)">2</button>
+          <button class="pagination-button" onclick="goToPage(3)">3</button>
+          <button class="pagination-button" onclick="goToPage(4)">4</button>
+          <button class="pagination-button" onclick="goToPage(5)">5</button>
+          <button class="pagination-button" onclick="goToPage(6)">6</button>
+          <button class="pagination-button" id="next-button">Next</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

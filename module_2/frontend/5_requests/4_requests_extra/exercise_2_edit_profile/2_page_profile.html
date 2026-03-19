@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="profile, css, DOM, javascript" />
+    <title>profile</title>
+    <link href="2_style_profile.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="2_code_load_edit_profile.js" defer></script>
+  </head>
+
+  <body>
+    <div class="page">
+      <div class="profile-card">
+        <div class="logout-container">
+          <button id="logout-button" class="button-logout">Logout</button>
+        </div>
+
+        <p class="line"></p>
+
+        <img
+          id="profile-image"
+          class="profile-image"
+          src="https://via.placeholder.com/150"
+          alt="Profile Image"
+        />
+
+        <h1>Your Personal Information</h1>
+
+        <div class="profile-data">
+          <div class="personal-data">
+            <span class="info-label">User ID:</span>
+            <p class="p-data" id="profile-session-id"></p>
+          </div>
+
+          <div class="personal-data">
+            <span class="info-label">First Name:</span>
+            <p class="p-data" id="profile-first-name"></p>
+          </div>
+
+          <div class="personal-data">
+            <span class="info-label">Last Name:</span>
+            <p class="p-data" id="profile-last-name"></p>
+          </div>
+
+          <div class="personal-data">
+            <span class="info-label">Username:</span>
+            <p class="p-data" id="profile-username"></p>
+          </div>
+
+          <div class="personal-data">
+            <span class="info-label">Gender:</span>
+            <p class="p-data" id="profile-gender"></p>
+          </div>
+
+          <div class="personal-data">
+            <span class="info-label">Email:</span>
+            <p class="p-data" id="profile-email"></p>
+          </div>
+
+          <div id="actions-buttons-container" class="actions-buttons-container">
+            <button
+              type="button"
+              class="action-button"
+              id="change-profile-button"
+            >
+              Change Profile
+            </button>
+
+            <button
+              type="button"
+              class="action-button"
+              id="change-password-button"
+            >
+              Change Password
+            </button>
+          </div>
+        </div>
+
+        <footer>Powered by <strong>Lyfter</strong></footer>
+      </div>
+    </div>
+  </body>
+</html>
