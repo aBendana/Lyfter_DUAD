@@ -18,7 +18,7 @@ function logout() {
 
 // separate the update of the endpoint and the local storage,
 // for an easier maintainance and handle
-// only can update username and gender in the endpoint
+// for testing purposes, we just can edit username and gender
 async function updateProfile(newUsername, newGender) {
   const sessionUser = getSession();
   if (!sessionUser) return;
@@ -91,7 +91,7 @@ changePasswordButton.addEventListener("click", () => {
   window.location.href = "4_page_change_password.html";
 });
 
-// this only changes username and gender
+// updating only username and gender
 function changeProfile() {
   const actionsButtonsContainer = document.getElementById(
     "actions-buttons-container",
@@ -130,7 +130,7 @@ function changeProfile() {
     profileGender.style.backgroundColor = "lightyellow";
     profileUsername.focus();
 
-    //add save button and fucntionality
+    //add save button and functionality
     const saveButton = document.createElement("button");
     saveButton.type = "button";
     saveButton.textContent = "Save";
