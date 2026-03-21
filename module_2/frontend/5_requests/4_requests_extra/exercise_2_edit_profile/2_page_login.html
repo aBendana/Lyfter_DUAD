@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="login, css, DOM, javascript" />
+    <title>login</title>
+    <link href="2_style_login.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="2_code_login.js" defer></script>
+  </head>
+  <body>
+    <div class="page">
+      <div class="login-container">
+        <p class="line"></p>
+        <h1>Login</h1>
+
+        <form class="login-form" id="login-form">
+          <label for="username" class="login-info">Username:</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            class="login-input"
+            required
+          />
+
+          <label for="password" class="login-info">Password:</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            class="login-input"
+            required
+          />
+
+          <button type="submit" class="button-login">Login</button>
+
+          <h2 id="login-message"></h2>
+
+          <footer>Powered by <strong>Lyfter</strong></footer>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
