@@ -2,8 +2,9 @@ from redis import Redis
 from dotenv import load_dotenv
 import os
 
-# Load environment variables from .env file
-load_dotenv(dotenv_path=r"E:\Studies\Lyfter\Repos\Lyfter_DUAD\Lyfter_DUAD\module_2\backend\project\advance_5\dbs.env")
+# Load environment variables - path relative to this file, works from any cwd
+_env_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../../../dbs.env")
+load_dotenv(dotenv_path=_env_path)
 
 class RedisConnection:
     _client = None
