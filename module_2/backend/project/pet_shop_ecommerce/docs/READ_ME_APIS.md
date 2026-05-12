@@ -1,5 +1,6 @@
 # For all apis:
-    1.Dependencies: 
+
+    1.Dependencies:
         a. Flask (version 3.1.0)
         b. PyJWT (version 2.10.1)
         c. SQLAlchemy (version 2.0.41)
@@ -15,66 +16,58 @@
     2.For testing use postman or any other similar
     3.REST API listening in http://localhost:5000/
 
-
 FROM **app_api.py** (welcome message) run all the others apis:
-    a) api_login 
-    b) api_admin_users 
-    c) api_products 
-    d) api_client_info
-    e) api_cart
-    f) api_invoice
-
+a) api_login
+b) api_admin_users
+c) api_products
+d) api_client_info
+e) api_cart
+f) api_invoice
 
 Apis:
 a) api_login:
-    END POINTS
-    1) register (default role client, for creat administrator ):
-        i. http://localhost:5000/auth/register (POST)
-        ii. body example: {
-                            "name": "Michael Jordan",
-                            "email": "mj@example.com",
-                            "password": "mj23buLLsNC",
-                            "phone_number": "8888-1111"
-                          }
-        iii. return: message="Successful Registration", token(to stay in the session), access token
+END POINTS 1) register (default role client, for creat administrator ):
+i. http://localhost:5000/auth/register (POST)
+ii. body example: {
+"name": "Michael Jordan",
+"email": "mj@example.com",
+"password": "mj23buLLsNC",
+"phone_number": "8888-1111"
+}
+iii. return: message="Successful Registration", access_token, refresh_token, id, name, email, phone_number, role
 
-    2) login an user:  
+    2) login an user:
         i. i. http://localhost:5000/auth/login (POST)
         ii. body example: {
                             "email": "mj@example.com",
                             "password": "mj23buLLsNC"
                           }
-        iii. return message="Administrator: Successful Login!" or "User: Successful Login!" depends of the user rol, access token and refresh_token
+        iii. return message="Administrator: Successful Login!" or "Client: Successful Login!" depends of the user rol, access_token, refresh_token, id, name, email, phone_number, role
 
-    3) me authentication:  
+    3) me authentication:
         i. http://localhost:5000/auth/me (GET)
         ii. copy access token from register or login then Authorization, Bearer Token, paste token
         iii. return: user id, user name and user role
 
-    4) refresh token: 
+    4) refresh token:
         i. http://localhost:5000/auth/refresh-token (POST)
         ii. copy refresh token from login then Authorization, Bearer Token, paste refresh token
         iii. return: new access token
 
-
-b) api_admin_users:
-    * only can be use for administrators
-    ** administrate users 
-    *** see login history 
-    **** read and update invoices
-    END POINTS:
-    1) create user
-        @admin_only
-        i. http://localhost:5000/admin/users (POST)
-        ii. body example: {
-                            "name": "Charle Barkley",
-                            "email": "cb@example.com",
-                            "password": "Cb34PhoSuns",
-                            "phone_number": "1111-1111",
-                            "role": "administrator" **default rol is client for registration porpuses**
-                            }
-        iii. for "create user" is obligatory to declare role
-        iv. returns message="Successful saved", user=user_data
+b) api_admin_users: \* only can be use for administrators
+** administrate users \*** see login history \***\* read and update invoices
+END POINTS: 1) create user
+@admin_only
+i. http://localhost:5000/admin/users (POST)
+ii. body example: {
+"name": "Charle Barkley",
+"email": "cb@example.com",
+"password": "Cb34PhoSuns",
+"phone_number": "1111-1111",
+"role": "administrator" **default rol is client for registration porpuses\*\*
+}
+iii. for "create user" is obligatory to declare role
+iv. returns message="Successful saved", user=user_data
 
     2) create many users
         @admin_only
@@ -119,7 +112,7 @@ b) api_admin_users:
         @admin_only
         i. http://localhost:5000/users/<user_id> (DELETE)
         ii. column always should be id, if´s not raise ValueError
-        iii delete an specific user 
+        iii delete an specific user
         iv. returns "Successful deleted"
         v. **this end point, shouldn't be use, cause all the correlations between db tables, actually gonna receive error messages. This could be useful if an user was created with an error and has no activity yet.**
 
@@ -133,7 +126,7 @@ b) api_admin_users:
     7) delete a login
         @admin_only
         i. http://localhost:5000/admin/users/<user_id> (DELETE)
-        ii. delete a specific login from login history 
+        ii. delete a specific login from login history
         iii. returns "Successful deleted"
         iv. **this end point, shouldn't be use, cause all the correlations between db tables and it is not good practice to alter important information.
 
@@ -144,6 +137,7 @@ b) api_admin_users:
         iii. http://localhost:5000/admin/invoices?id=2 (GET)
         iv. show all info of specific invoice by id
         V. returns (invoice=formatted_invoice, invoice_details=formatted_invoice_details, user=user_name), 200
+        ** invoice_details items include: id, invoice_id, product_id, product_name, product_price, quantity, item_total
 
     9) update invoice
         i. http://localhost:5000/admin/invoices/<invoice_id> (PATCH)
@@ -156,26 +150,23 @@ b) api_admin_users:
         iii. update product stock, update products in cart, update invoice (subtotal, discount, invoice total), update invoice details
         iv. returns (message="Invoice updated", invoice=invoice_id), 200
 
-
-c) api_products:
-    * administrators can use all end points (administrate products)
-    ** show_products is open for administrators, clients and any visitor
-    END POINTS:
-    1) create product
-        @admin_only
-        i. http://localhost:5000/products (POST)
-        ii. body example:{
-                            "SKU": "DOGG-FOOD-001",
-                            "name": "Canine Complete Chicken",
-                            "description": "Premium dry food with real chicken for adult dogs",
-                            "target_species": "dog",
-                            "supplier": "PetPro Supplies",
-                            "stock": 120,
-                            "cost": 25.50,
-                            "price": 49.99
-                            }
-        iii. delete cache
-        iV. message="Successful saved", product=formatted_data, 200
+c) api_products: \* administrators can use all end points (administrate products)
+\*\* show_products is open for administrators, clients and any visitor
+END POINTS: 1) create product
+@admin_only
+i. http://localhost:5000/products (POST)
+ii. body example:{
+"SKU": "DOGG-FOOD-001",
+"name": "Canine Complete Chicken",
+"description": "Premium dry food with real chicken for adult dogs",
+"target_species": "dog",
+"supplier": "PetPro Supplies",
+"stock": 120,
+"cost": 25.50,
+"price": 49.99
+}
+iii. delete cache
+iV. message="Successful saved", product=formatted_data, 200
 
     2) create many products
         @admin_only
@@ -213,7 +204,16 @@ c) api_products:
         iv. create paging cache, cache by id and all products cache
         v. return a specific product or products using query parameters (id, SKU, name, target_species or supplier), return a specific contact or contacts
 
-    4) update product
+    4) search products
+        **Open, anyone can use: visitors, clients, admins
+        i. http://localhost:5000/products/search (GET)
+        ii. query parameters:
+            - column: column to search on (default: "name"), can also be "description"
+            - value: partial string to match (default: "")
+        iii. example: http://localhost:5000/products/search?column=name&value=chicken
+        iv. returns a list of products matching the partial search, 200
+
+    5) update product
         @admin_only
         i. http://localhost:5000/products/<product_id> (PATCH)
         ii. body example: {
@@ -226,22 +226,19 @@ c) api_products:
         iv. delete cache by id, page (where is the id) and all products cache
         iv. returns "Successful updated"
 
-    5) delete product
+    6) delete product
         @admin_only
         i. http://localhost:5000/admin/products/<product_id> (DELETE)
-        ii delete an specific product 
+        ii delete an specific product
         iii. delete all paging cache, cache id and all products cache
         iv. returns "Successful deleted"
         v. **this end point, shouldn't be use, because all the correlations between db tables, actually gonna receive error messages.
 
-
-d) api_client_info:
-    * clients can update or delete his own info
-    END POINTS:
-    1) show personal data
-        @client_only
-        i. http://localhost:5000/client/info/personal-data (GET)
-        ii. return formatted user, 200 (the personal data belongs to the user logged)
+d) api_client_info: \* clients can update or delete his own info
+END POINTS: 1) show personal data
+@client_only
+i. http://localhost:5000/client/info/personal-data (GET)
+ii. return formatted user, 200 (the personal data belongs to the user logged)
 
     2) update personal data
         @client_only
@@ -252,7 +249,7 @@ d) api_client_info:
                             "phone_number": "2221-2424"
                             }
         iii. can update email, password, phone_number. Can update only one column if it´s necessary
-        iv. returns "Successful updated"  
+        iv. returns "Successful updated"
 
     3) create shipping address
         @client_only
@@ -291,7 +288,7 @@ d) api_client_info:
         i. http://localhost:5000/client/info/shipping-addresses (GET)
         ii. show all the addresses that belongs to the user logged, returns a list of addresses
         iii. http://localhost:5000/shipping-addresses?id=3 (GET)
-        iV. returns a specific address  using query parameters (id, user_id), 
+        iV. returns a specific address  using query parameters (id, user_id),
 
     6) update shipping address
         @client_only
@@ -312,28 +309,26 @@ d) api_client_info:
         iii. returns "Successful deleted"
         iv. **this end point, shouldn't be use, because all the correlations between db tables, actually gonna receive error messages.
 
-
-e) api_cart:
-    * used for clients to fill carts and update cart items
-    END POINTS:
-    1) create cart and fill it
-        @client_only
-        i. http://localhost:5000/cart (POST)
-        ii. body example:   {
-                                "product_id": 15,
-                                "quantity": 4
-                            }
-        iii. validate if product exits (1st in cache if not in DB)
-        iv. look for a pending cart, if not create a new cart
-        v. update product stock 
-        vi. delete cache
-        vii. returns (message="Product added to shopping cart", user=user_name), 200
+e) api_cart: \* used for clients to fill carts and update cart items
+END POINTS: 1) create cart and fill it
+@client_only
+i. http://localhost:5000/cart (POST)
+ii. body example: {
+"product_id": 15,
+"quantity": 4
+}
+iii. validate if product exits (1st in cache if not in DB)
+iv. look for a pending cart, if not create a new cart
+v. update product stock
+vi. delete cache
+vii. returns (message="Product added to shopping cart", user=user_name), 200
 
     2) show current user's pending cart
         @client_only
         i. http://localhost:5000/cart (GET)
         ii. shows info, owner and items of a current shopping cart
-        returns (cart=cart, cart_details=cart_details, user=user_name), 200 
+        returns (cart=cart, cart_details=cart_details, user=user_name), 200
+        ** cart_details items include: id, cart_id, product_id, quantity, product_name, product_price, product_target_species, product_stock
 
     3) update cart
         @client_only
@@ -355,24 +350,20 @@ e) api_cart:
         ii deletes a specific item in cart
         iii. returns (user=user_name, message="Product removed from cart"), 200
 
-
-f) api_invoice:
-    * endpoints for clients
-    ** create a invoice based on a "pending" cart
-    *** customer can see invoices
-    END POINTS:
-    1) create_invoice
-        @client_only
-        i. http://localhost:5000/invoice (POST)
-        ii. body example:   {
-                                "shipping_address_id": 5,
-                                "shipping_method": "express",
-                                "payment_method": "credit_card",
-                                "discount": 10.00
-                            }
-        iii. Calculations using the transactions module to complete the rest of the necessary invoice information.
-        iv. Creates invoice_details
-        v. returns (message="Invoice created successfully", invoice=invoice, user=user_name), 200
+f) api_invoice: \* endpoints for clients
+** create a invoice based on a "pending" cart \*** customer can see invoices
+END POINTS: 1) create_invoice
+@client_only
+i. http://localhost:5000/invoice (POST)
+ii. body example: {
+"shipping_address_id": 5,
+"shipping_method": "express",
+"payment_method": "credit_card",
+"discount": 10.00
+}
+iii. Calculations using the transactions module to complete the rest of the necessary invoice information.
+iv. Creates invoice_details
+v. returns (message="Invoice created successfully", invoice=invoice, user=user_name), 200
 
     2) show current user's pending cart
         @client_only
@@ -383,7 +374,6 @@ f) api_invoice:
         iii.2. select the invoice, verifying that the logged user is the owner
         iii.3. get invoice_details for that specific invoice
         iii.4. returns (invoice=formatted_invoice, invoice_details=formatted_invoice_details, user=user_name), 200
+        ** invoice_details items include: id, invoice_id, product_id, product_name, product_price, quantity, item_total
 
-
-NOTES:
-    1) all endpoints using decorator authenticator for verify user's role, cache user data for 15 minutes
+NOTES: 1) all endpoints using decorator authenticator for verify user's role, cache user data for 15 minutes
