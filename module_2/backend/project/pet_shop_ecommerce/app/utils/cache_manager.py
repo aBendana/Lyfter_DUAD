@@ -17,6 +17,9 @@ class CacheManager:
 
 
     def set_data(self, key, value, ttl=None):
+        if self.redis_client is None:
+            print("Redis client unavailable, skipping cache write.")
+            return
         try:     
             if ttl is None:
                 self.redis_client.set(key, value)
@@ -50,11 +53,14 @@ class CacheManager:
 
 
     def get_data(self, key):
+        if self.redis_client is None:
+            print("Redis client unavailable, skipping cache read.")
+            return None
         try:
             data = self.redis_client.get(key)
             if data is not None:
                 result = data.decode("utf-8")
-                print(f"Value for key '{key}' is '{result}'.")
+                #print(f"Value for key '{key}' is '{result}'.")
                 return result
             else:
                 print(f"No value found for key {key}.")

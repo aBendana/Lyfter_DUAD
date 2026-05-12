@@ -26,7 +26,10 @@ class ProductsInCartRepository:
             "cart_id": product_in_cart_record.cart_id,
             "product_id": product_in_cart_record.product_id,
             "quantity": product_in_cart_record.quantity,
-            "product_name": product[0]["name"] if product else None
+            "product_name": product[0]["name"] if product else None,
+            "product_price": product[0]["price"] if product else None,
+            "product_target_species": product[0]["target_species"] if product else None,
+            "product_stock": product[0]["stock"] if product else None
         }
 
 

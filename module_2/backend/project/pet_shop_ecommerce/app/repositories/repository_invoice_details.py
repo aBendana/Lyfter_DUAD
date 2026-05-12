@@ -25,6 +25,7 @@ class InvoiceDetailsRepository:
             "invoice_id": invoice_detail_record.invoice_id,
             "product_id": invoice_detail_record.product_id,
             "product_name": product[0]["name"] if product else None,
+            "product_price": float(product[0]["price"]) if product else None,
             "quantity": invoice_detail_record.quantity,
             "item_total": float(invoice_detail_record.item_total)
         }

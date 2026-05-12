@@ -129,6 +129,14 @@ class QueryFunctions:
     
 
     @query_exceptions
+    def like_select(self, column, value):
+        stmt = select(self.table).where(getattr(self.table.c, column).ilike(f"%{value}%"))
+        with self.engine.connect() as conn:
+            result = conn.execute(stmt).fetchall()
+        return result
+
+
+    @query_exceptions
     def select_by_two_values(self, column_a, column_b, value_a, value_b):
         stmt = select(self.table).where(and_(getattr(self.table.c, column_a) == value_a),(getattr(self.table.c, column_b) == value_b))
         with self.engine.connect() as conn:

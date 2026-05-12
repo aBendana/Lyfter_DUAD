@@ -46,6 +46,7 @@ def create_many_products():
 
 
 # show all contacts or select products by id, SKU, name, target_species or supplier(query parameters)
+# paging is possible with query parameter "page"" too
 @products_bp.route("/products", methods=['GET'])
 def show_products():
     try:
@@ -68,6 +69,21 @@ def show_products():
     except Exception as error:
         return jsonify(error = str(error)), 500  
     # return jsonify(formatted_products), 200
+
+
+# search products by partial match on name or description
+@products_bp.route("/products/search", methods=['GET'])
+def search_products():
+    try:
+        column = request.args.get("column", "name")
+        value = request.args.get("value", "")
+        results = products_repo.search_products(column, value)
+        return jsonify(results), 200
+
+    except ValueError as error:
+        return jsonify(error=str(error)), 400
+    except Exception as error:
+        return jsonify(error=str(error)), 500
 
 
 # update a product by path parameter product id (id or user_id can't be changed)
@@ -98,7 +114,7 @@ def update_product(id_value):
         return jsonify(error=str(error)), 500
 
 
-# delete contact by path parameter id
+# delete product by path parameter id
 @products_bp.route("/products/<id_value>", methods=['DELETE'])
 @admin_only
 def delete_product(id_value):

@@ -1,3 +1,5 @@
+import token
+
 from app.repositories.repository_users import UsersRepository
 from app.repositories.repository_login_history import LoginHistoryRepository
 from app.infrastructure.security.jwt_manager import JWT_Manager
@@ -26,9 +28,14 @@ def register():
         # verifying register - login status successfully or failed
         login_repo.login_status_verification(user_id, True)
 
-        # generate a token upon registration
-        token = jwt_manager.encode({'id':user_id, 'role':role_type})
-        return jsonify(message="Successful Registration", token=token), 201
+        # generate tokens upon registration
+        # access tokens --- access token and refresh token
+        access_token = jwt_manager.encode({'id':user_id, 'role':role_type})
+        refresh_token = jwt_manager.encode({'id':user_id, 'role':role_type}, expires_in=604800, is_refresh=True)
+        return jsonify(message="Successful Registration", access_token=access_token, 
+                    refresh_token=refresh_token, id=user_id, role=role_type.value, 
+                    name=user_data.get("name"), email=user_data.get("email"), 
+                    phone_number=user_data.get("phone_number")), 201
 
     except ValueError as error:
         return jsonify(error=str(error)), 400
@@ -49,6 +56,9 @@ def login():
 
         user_exists = users_repo.get_user_by_value_login("email", email)
         result = users_repo.get_user_by_credentials(user_data, 'email', 'password', email, password)
+        # user_to_send = result[0]
+        #print(f"\033[92mLogin result: {user_to_send}\033[0m")
+
         #verifying login status
         if not user_exists and not result:
             login_repo.login_status_verification(1001, False)
@@ -57,6 +67,9 @@ def login():
         elif user_exists and result:
             login_repo.login_status_verification(user_exists[0]["id"], True)
             user_id = result[0]["id"]
+            user_name = result[0]["name"]
+            email = result[0]["email"]
+            phone_number = result[0]["phone_number"]
             role_type = result[0]["role"]
 
         # access tokens --- access token and refresh token
@@ -64,18 +77,28 @@ def login():
         refresh_token = jwt_manager.encode({'id':user_id, 'role':role_type}, expires_in=604800, is_refresh=True)
 
         if role_type.value == 'administrator':
-            return jsonify(message="Administrator: Successful Login!", access_token=access_token, refresh_token=refresh_token)
+            return jsonify(message="Administrator: Successful Login!", access_token=access_token, 
+                        refresh_token=refresh_token, id=user_id, name=user_name, email=email, 
+                        phone_number=phone_number, role=role_type.value), 200
         elif role_type.value == 'client':
-            return jsonify(message="Client: Successful Login!", access_token=access_token, refresh_token=refresh_token)
+            return jsonify(message="Client: Successful Login!", access_token=access_token, 
+                        refresh_token=refresh_token, id=user_id, name=user_name, email=email, 
+                        phone_number=phone_number, role=role_type.value), 200
 
     except ValueError as error:
         msg = str(error)
         if "Info missing required" in msg:
             return jsonify(error = msg), 422
+        
         elif "Authenticated but no permissions" in msg:
             return jsonify(error = msg), 403
+        
         elif "Invalid credentials: Wrong password" in msg:
             return jsonify(error = msg), 403
+        
+        elif "Wrong credentials, email or password is incorrect" in msg:
+            return jsonify(error=msg), 403
+        
         else:
             return jsonify(error = msg), 400
     except Exception as error:

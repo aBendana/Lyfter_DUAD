@@ -2,8 +2,9 @@ import os
 from sqlalchemy import create_engine
 from dotenv import load_dotenv
 
-# Load environment variables from .env file
-load_dotenv(dotenv_path=r"E:\Studies\Lyfter\Repos\Lyfter_DUAD\Lyfter_DUAD\module_2\backend\project\pet_shop_ecommerce\dbs.env")
+# Load environment variables - path relative to this file, works from any cwd
+_env_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../../dbs.env")
+load_dotenv(dotenv_path=_env_path)
 
 class DatabaseConnection:
     

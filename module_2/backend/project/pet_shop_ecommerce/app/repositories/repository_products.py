@@ -72,12 +72,12 @@ class ProductsRepository:
         return formatted_results
     
 
-    def get_products_pagination(self, page_number=1, items_per_page=10):
+    def get_products_pagination(self, page_number=1, items_per_page=12):
         if isinstance(page_number, str):
             page_number = int(page_number)
 
-        if page_number < 1 or items_per_page < 10:
-            raise ValueError("Page number must be a positive integer and items per page must be at least 10.")
+        if page_number < 1 or items_per_page < 12:
+            raise ValueError("Page number must be a positive integer and items per page must be at least 12.")
 
         offset = (page_number - 1) * items_per_page
         results = product_manager.select_with_pagination(Products, offset, items_per_page)
@@ -112,7 +112,18 @@ class ProductsRepository:
 
         formatted_results = [self._format_product_for_cache(result) for result in results]
         return formatted_results
-        
+
+    # search products by name or description with like operator
+    # this gonna be used for search bar in the frontend
+    def search_products(self, column, value):
+        valid_columns = ["name", "description"]
+        product_validations.valid_columns(column, valid_columns)
+
+        results = product_manager.like_select(column, value)
+
+        formatted_results = [self._format_product_for_cache(result) for result in results]
+        return formatted_results
+
 
     def get_product_max_id(self):
         max_id = product_manager.get_max_id()
