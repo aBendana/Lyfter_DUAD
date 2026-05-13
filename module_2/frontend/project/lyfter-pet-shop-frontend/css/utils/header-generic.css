@@ -1,0 +1,239 @@
+/* login, register, and info styles */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  left: 0;
+}
+
+.nav-info {
+  background: linear-gradient(90deg, #ffb347 0%, #ff8017 100%);
+  color: #1d1c1c;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+}
+
+.nav-info-logged-user {
+  padding: 0rem 1rem;
+  justify-content: center;
+}
+
+.div-log {
+  padding: 0.5rem;
+  font-weight: bold;
+}
+
+.div-info {
+  padding: 0.5rem;
+}
+
+a {
+  padding: 0.5rem 1rem;
+  display: inline-block;
+}
+a:hover,
+a:active,
+a:focus {
+  cursor: pointer;
+  border-bottom: 2px solid #424242;
+}
+
+/* logged user info and logout styles */
+.nav-logged-user:empty {
+  display: none;
+}
+
+.nav-logged-user {
+  background-color: #6ac5f0;
+  color: #1d1c1c;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+}
+
+.welcome-logged-user {
+  padding-left: 2rem;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: 1.2rem;
+}
+
+.nav-buttons-container {
+  padding-right: 1.3rem;
+  display: flex;
+  gap: 1.2rem;
+}
+.nav-button {
+  border: none;
+  background: none;
+}
+.nav-icon {
+  max-width: 2rem;
+  height: auto;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+.nav-icon:hover {
+  transform: scale(1.2);
+}
+.nav-icon:active {
+  transform: scale(0.8) rotate(15deg);
+}
+
+.logo-search-section {
+  padding: 0.8rem 1.5rem;
+  background-color: #f0f0f0;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  margin-bottom: 5.5rem;
+}
+
+.logo-figure {
+  padding-left: 4.5rem;
+  align-self: flex-start;
+}
+.logo-image {
+  width: 12rem;
+  height: auto;
+  rotate: -13deg;
+}
+
+.shop-tagline {
+  align-self: center;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: clamp(1rem, 2.4vw, 3.4rem);
+  font-style: italic;
+  color: #bf6a00;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.search-form {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  padding-right: 1.5rem;
+}
+
+.search-input {
+  padding: 0.5rem;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.search-button {
+  padding: 0.2rem 1rem;
+  border: none;
+  background: linear-gradient(90deg, #6ac5f0 10%, #1fb1f5 100%);
+  color: #1d1c1c;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+.search-button:active {
+  transform: scale(0.8);
+}
+
+/* Responsive */
+/* Mobile (≤ 768px) */
+@media (max-width: 768px) {
+  .nav-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+
+  .div-info span {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+  }
+
+  .nav-logged-user {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .welcome-logged-user {
+    padding-left: 0.5rem;
+    font-size: 1rem;
+  }
+
+  .logo-figure {
+    padding-left: 0;
+  }
+
+  .logo-image {
+    width: 9rem;
+  }
+
+  .logo-search-section {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1rem;
+  }
+
+  .shop-tagline {
+    display: none;
+  }
+
+  .search-form {
+    padding-right: 0;
+    width: 90%;
+    justify-content: center;
+  }
+
+  .search-input {
+    flex: 1;
+  }
+}
+
+/* Small mobile (≤ 480px) */
+@media (max-width: 480px) {
+  a {
+    padding: 0.4rem 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .species-category-button {
+    font-size: 0.85rem;
+    padding: 0.3rem 0.5rem;
+  }
+
+  .search-input,
+  .search-button {
+    font-size: 0.9rem;
+  }
+
+  .logo-figure {
+    padding-left: 0;
+  }
+
+  .logo-image {
+    width: 7rem;
+  }
+
+  .search-form {
+    width: 100%;
+    padding: 0 0.5rem;
+    box-sizing: border-box;
+  }
+}

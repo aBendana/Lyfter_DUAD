@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="pet shop customer dashboard" />
+    <title>Lyfter Pet Shop</title>
+    <link rel="icon" type="image/png" href="../assets/icons/icon-dog.png" />
+    <link rel="stylesheet" href="../css/customer-dashboard/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="../js/customer-dashboard/main.js"></script>
+  </head>
+
+  <body>
+    <header>
+      <nav id="nav-info" class="nav-info">
+        <div id="login-register-container" class="div-log">
+          <span><a id="login">Login</a> or <a id="register">Register</a></span>
+        </div>
+
+        <div class="div-info">
+          <span
+            ><a id="products">Products</a> | <a id="about">About us</a> |
+            <a id="locations">Locations</a> |
+            <a id="contact">Contact Us</a>
+          </span>
+        </div>
+      </nav>
+      <nav id="nav-logged-user" class="nav-logged-user"></nav>
+    </header>
+
+    <main>
+      <aside class="dashboard">
+        <div class="dashboard-nav">
+          <ul class="dashboard-list">
+            <li><a id="dashboard-personal-data">👤 Personal Info</a></li>
+            <li><a id="dashboard-addresses">📍 Shipping Addresses</a></li>
+            <li><a id="dashboard-change-password">🔒 Change Password</a></li>
+            <li><a id="dashboard-payment">💳 Payment Methods</a></li>
+            <li><a id="dashboard-orders">📦 My Orders</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <section id="dashboard-content" class="dashboard-content">
+        <figure class="dashboard-figure">
+          <img
+            src="../assets/images/logo.png"
+            alt="Welcome to Dashboard"
+            class="dashboard-image"
+          />
+        </figure>
+        <h1 class="intro-title">Welcome to your Dashboard</h1>
+        <p class="intro-text">
+          Here you can manage your account, update your preferences and review
+          your order history.
+        </p>
+      </section>
+    </main>
+
+    <footer class="container-footer">
+      <section class="social-media">
+        <h2>Follow Us</h2>
+
+        <div class="social-media-links">
+          <img
+            src="../assets/icons/facebook.png"
+            alt="Facebook"
+            id="facebook-link"
+            class="icon-media"
+          />
+          <img
+            src="../assets/icons/instagram.png"
+            alt="Instagram"
+            id="instagram-link"
+            class="icon-media"
+          />
+          <img
+            src="../assets/icons/pinterest.png"
+            alt="Pinterest"
+            id="pinterest-link"
+            class="icon-media"
+          />
+          <img
+            src="../assets/icons/youtube.png"
+            alt="YouTube"
+            id="youtube-link"
+            class="icon-media"
+          />
+        </div>
+      </section>
+
+      <section class="copy-rights">
+        <p>© <span id="year"></span> Lyfter Pet Shop. All rights reserved.</p>
+      </section>
+    </footer>
+    <script>
+      // get year dynamically for the footer
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>

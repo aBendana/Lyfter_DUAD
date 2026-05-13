@@ -1,0 +1,7 @@
+@import url(../utils/reset.css);
+@import url(./header.css);
+@import url(../utils/cart-badge.css);
+@import url(./display-products-cards.css);
+@import url(../utils/pagination.css);
+@import url(../utils/error-message.css);
+@import url(../utils/footer.css);

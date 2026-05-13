@@ -1,0 +1,211 @@
+main {
+  width: 90%;
+  margin: 0 auto;
+  margin-bottom: 6rem;
+}
+
+/* confirmation wrapper */
+.confirmation-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  max-width: 50rem;
+  margin: 2rem auto 0 auto;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 5px rgba(252, 153, 40, 0.849);
+}
+
+.confirmation-title {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  color: #039ee6;
+  text-align: center;
+}
+
+.confirmation-message {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: clamp(0.95rem, 2vw, 1.15rem);
+  font-weight: 350;
+  color: rgb(61, 61, 61);
+  text-align: center;
+  max-width: 38rem;
+}
+
+/* customer info section */
+.customer-info-section {
+  background-color: #fff3e0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1.2rem 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 5px rgba(252, 153, 40, 0.849);
+}
+
+.confirmation-subtitle {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
+  font-weight: 700;
+  color: #039ee6;
+  margin-bottom: 0.4rem;
+}
+
+.title-text {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  font-weight: 650;
+  color: rgb(46, 46, 46);
+  margin-top: 0.6rem;
+}
+
+.info-text {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: clamp(0.9rem, 2vw, 1.05rem);
+  font-weight: 500;
+  font-style: italic;
+  color: rgb(61, 61, 61);
+  padding-left: 1rem;
+}
+
+/* products list section */
+.products-list-section {
+  background-color: #fff3e0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding: 1.2rem 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 5px rgba(252, 153, 40, 0.849);
+}
+
+.product-item {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: clamp(0.9rem, 2vw, 1.05rem);
+  font-weight: 500;
+  color: rgb(61, 61, 61);
+  padding: 0.4rem 0.6rem;
+  border-bottom: 1px solid rgba(252, 153, 40, 0.35);
+}
+.product-item:last-child {
+  border-bottom: none;
+}
+
+.order-summary-section h2 {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
+  font-weight: 700;
+  color: #039ee6;
+  margin-bottom: 0.4rem;
+}
+
+/* order summary section */
+.order-summary-section {
+  background-color: #fff3e0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1.2rem 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 5px rgba(252, 153, 40, 0.849);
+}
+
+.summary-text {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: clamp(0.9rem, 2vw, 1.05rem);
+  font-weight: 500;
+  color: rgb(61, 61, 61);
+  padding: 0.2rem 0.4rem;
+  border-bottom: 1px solid rgba(252, 153, 40, 0.35);
+}
+.summary-text:last-child {
+  border-bottom: none;
+}
+.summary-text.total {
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  font-weight: 700;
+  color: #039ee6;
+  margin-top: 0.4rem;
+  border-top: 2px solid rgba(252, 153, 40, 0.6);
+  border-bottom: none;
+  padding-top: 0.6rem;
+}
+
+/* back to home link */
+.back-home-link {
+  display: inline-block;
+  padding: 0.6rem 1.8rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: clamp(0.9rem, 1.8vw, 1.1rem);
+  font-weight: 600;
+  color: #fff;
+  background-color: #039ee6;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s ease;
+}
+.back-home-link:hover {
+  background-color: #027bbf;
+}
+.back-home-link:active {
+  transform: scale(0.92);
+  background-color: rgba(252, 153, 40, 0.849);
+}
+
+/* responsive */
+@media (max-width: 768px) {
+  .confirmation-container {
+    padding: 1.5rem 1rem;
+    gap: 1.5rem;
+  }
+
+  .confirmation-message {
+    max-width: 100%;
+  }
+
+  .customer-info-section,
+  .products-list-section,
+  .order-summary-section {
+    padding: 1rem 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  main {
+    width: 95%;
+  }
+
+  .confirmation-container {
+    padding: 1rem 0.75rem;
+    gap: 1.2rem;
+  }
+
+  .confirmation-message {
+    max-width: 100%;
+  }
+
+  .customer-info-section,
+  .products-list-section,
+  .order-summary-section {
+    padding: 0.9rem 1rem;
+  }
+
+  .product-item {
+    padding: 0.3rem 0.4rem;
+  }
+
+  .summary-text {
+    padding: 0.15rem 0.3rem;
+  }
+
+  .back-home-link {
+    width: 100%;
+    text-align: center;
+  }
+}

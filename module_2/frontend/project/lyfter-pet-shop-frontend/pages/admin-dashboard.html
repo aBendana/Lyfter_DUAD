@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="pet shop administrator dashboard" />
+    <title>Lyfter Pet Shop</title>
+    <link rel="icon" type="image/png" href="../assets/icons/icon-dog.png" />
+    <link rel="stylesheet" href="../css/admin-dashboard/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="../js/admin-dashboard/main.js"></script>
+  </head>
+
+  <body>
+    <header>
+      <nav class="admin-nav">
+        <figure class="logo-figure">
+          <img
+            class="logo-img"
+            src="../assets/images/logo.png"
+            alt="Lyfter Pet Shop Logo"
+          />
+        </figure>
+
+        <p id="admin-title" class="admin-title"></p>
+
+        <div id="nav-buttons-container">
+          <img
+            id="account-icon"
+            class="nav-button"
+            src="../assets/icons/account.png"
+            alt="Account Icon"
+          />
+
+          <img
+            id="products-icon"
+            class="nav-button"
+            src="../assets/icons/products.png"
+            alt="Products Icon"
+          />
+
+          <img
+            id="sign-out-icon"
+            class="nav-button"
+            src="../assets/icons/sign-out.png"
+            alt="Sign Out Icon"
+          />
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <aside class="dashboard">
+        <div class="dashboard-nav">
+          <ul class="dashboard-list">
+            <li><a id="dashboard-personal-info">👤 Personal Info</a></li>
+            <li><a id="dashboard-change-password">🔒 Change Password</a></li>
+            <li><a id="dashboard-manage-users">👥 Manage Users</a></li>
+            <li><a id="dashboard-users-orders">🧾 Customers Orders</a></li>
+            <li><a id="dashboard-manage-products">🛍️ Manage Products</a></li>
+            <li>
+              <a id="dashboard-create-products">➕ Create Products</a>
+            </li>
+          </ul>
+        </div>
+      </aside>
+
+      <section id="dashboard-content" class="dashboard-content">
+        <figure class="dashboard-figure">
+          <img
+            src="../assets/images/logo.png"
+            alt="Welcome to Dashboard"
+            class="dashboard-image"
+          />
+        </figure>
+        <h1 class="intro-title">Welcome to your Dashboard</h1>
+        <p class="intro-text">
+          Here you can manage your account, manage users, products and review
+          order history.
+        </p>
+      </section>
+    </main>
+
+    <footer class="container-footer">
+      <section class="social-media">
+        <h2>Follow Us</h2>
+
+        <div class="social-media-links">
+          <img
+            src="../assets/icons/facebook.png"
+            alt="Facebook"
+            id="facebook-link"
+            class="icon-media"
+          />
+          <img
+            src="../assets/icons/instagram.png"
+            alt="Instagram"
+            id="instagram-link"
+            class="icon-media"
+          />
+          <img
+            src="../assets/icons/pinterest.png"
+            alt="Pinterest"
+            id="pinterest-link"
+            class="icon-media"
+          />
+          <img
+            src="../assets/icons/youtube.png"
+            alt="YouTube"
+            id="youtube-link"
+            class="icon-media"
+          />
+        </div>
+      </section>
+
+      <section class="copy-rights">
+        <p>© <span id="year"></span> Lyfter Pet Shop. All rights reserved.</p>
+      </section>
+    </footer>
+    <script>
+      // get year dynamically for the footer
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>

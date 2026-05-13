@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="pet shop confirmation page" />
+    <title>Lyfter Pet Shop</title>
+    <link rel="icon" type="image/png" href="../assets/icons/icon-dog.png" />
+    <link rel="stylesheet" href="../css/confirmation/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="../js/confirmation/main.js"></script>
+  </head>
+
+  <body>
+    <header>
+      <nav id="nav-info" class="nav-info">
+        <div id="login-register-container" class="div-log">
+          <span><a id="login">Login</a> or <a id="register">Register</a></span>
+        </div>
+
+        <div class="div-info">
+          <span
+            ><a id="products">Products</a> | <a id="about">About us</a> |
+            <a id="locations">Locations</a> |
+            <a id="contact">Contact Us</a>
+          </span>
+        </div>
+      </nav>
+
+      <!-- this section will be used to show the logged user info and logout button -->
+      <nav id="nav-logged-user" class="nav-logged-user"></nav>
+    </header>
+
+    <main>
+      <div class="confirmation-container">
+        <h1 class="confirmation-title">Thanks for your buy!</h1>
+        <p class="confirmation-message">
+          Your order has been successfully placed. We will send you a
+          confirmation email shortly.
+        </p>
+
+        <section id="customer-info-section" class="customer-info-section">
+          <h2 id="order-id" class="confirmation-subtitle"></h2>
+          <p class="title-text">Confirmed to:</p>
+          <p id="customer-email" class="info-text"></p>
+
+          <p class="title-text">Shipped To:</p>
+          <p id="customer-name" class="info-text"></p>
+          <p id="customer-shipping-method" class="info-text"></p>
+          <p id="customer-shipping-address" class="info-text"></p>
+          <p id="customer-shipping-postal-code" class="info-text"></p>
+
+          <p class="title-text">Payment Method:</p>
+          <p id="customer-payment-method" class="info-text"></p>
+        </section>
+
+        <section id="products-list-section" class="products-list-section">
+          <h2 class="confirmation-subtitle">Products in Your Order</h2>
+          <!-- create products list dynamically -->
+        </section>
+
+        <section id="order-summary-section" class="order-summary-section">
+          <h2 class="confirmation-subtitle">Order Summary</h2>
+          <p id="order-subtotal" class="summary-text"></p>
+          <p id="discount" class="summary-text"></p>
+          <p id="shipping-cost" class="summary-text"></p>
+          <p id="order-tax" class="summary-text"></p>
+          <p id="order-total" class="summary-text total"></p>
+        </section>
+
+        <a href="../index.html" class="back-home-link">Main Page</a>
+      </div>
+    </main>
+
+    <footer class="container-footer">
+      <section class="social-media">
+        <h2>Follow Us</h2>
+        <div class="social-media-links">
+          <img
+            src="../assets/icons/facebook.png"
+            alt="Facebook"
+            id="facebook-link"
+            class="icon-media"
+          />
+          <img
+            src="../assets/icons/instagram.png"
+            alt="Instagram"
+            id="instagram-link"
+            class="icon-media"
+          />
+          <img
+            src="../assets/icons/pinterest.png"
+            alt="Pinterest"
+            id="pinterest-link"
+            class="icon-media"
+          />
+          <img
+            src="../assets/icons/youtube.png"
+            alt="YouTube"
+            id="youtube-link"
+            class="icon-media"
+          />
+        </div>
+      </section>
+
+      <section class="copy-rights">
+        <p>© <span id="year"></span> Lyfter Pet Shop. All rights reserved.</p>
+      </section>
+    </footer>
+    <script>
+      // get year dynamically for the footer
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>

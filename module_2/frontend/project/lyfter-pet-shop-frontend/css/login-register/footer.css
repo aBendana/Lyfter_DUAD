@@ -1,0 +1,22 @@
+.copy-rights {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", sans-serif;
+  font-weight: bold;
+}
+/*responsive*/
+@media (max-width: 768px) {
+  .container-footer {
+    padding: 1.5rem 1rem;
+  }
+
+  .icon-media {
+    width: 2.5rem;
+  }
+
+  .copy-rights {
+    font-size: 0.9rem;
+    text-align: center;
+  }
+}
