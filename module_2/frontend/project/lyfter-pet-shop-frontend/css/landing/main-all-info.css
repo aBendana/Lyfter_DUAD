@@ -1,4 +1,4 @@
-main {
+﻿main {
   display: grid;
   grid-template-columns: 1fr;
   gap: 2rem;
@@ -21,14 +21,14 @@ main {
 
 .p-info {
   background-color: #fff3e0;
-  border-radius: 15px;
+  border-radius: 0.9rem;
   box-shadow: 0 2px 5px rgba(252, 153, 40, 0.849);
   padding: 1rem;
   font-size: clamp(1rem, 2.5vw, 1.3rem);
   color: #2e2c2c;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 30em) {
   main {
     padding: 1rem;
   }

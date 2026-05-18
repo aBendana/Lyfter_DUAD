@@ -1,4 +1,4 @@
-/* shipping addresses content container */
+﻿/* shipping addresses content container */
 .shipping-addresses-content {
   display: flex;
   flex-direction: column;
@@ -80,7 +80,7 @@
 }
 
 /* responsive */
-@media (max-width: 768px) {
+@media (max-width: 48em) {
   .shipping-addresses-content {
     padding: 1.5rem;
   }
@@ -99,7 +99,7 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 30em) {
   .shipping-addresses-content {
     padding: 1rem;
   }

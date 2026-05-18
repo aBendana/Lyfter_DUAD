@@ -13,6 +13,14 @@ export async function displayProducts() {
     const page = 1;
     const productsArray = await getProductsByPages(page);
     const productsGrid = document.getElementById("products-grid");
+
+    // if there no products show an friendly message instead of an empty grid
+    if (!productsArray || productsArray.length === 0) {
+      const productsTitle = document.getElementById("products-title");
+      productsTitle.textContent = "No products available at the moment.";
+      return;
+    }
+
     productsArray.forEach((product) => {
       createProductsGrid(productsGrid, product);
     });
@@ -36,10 +44,18 @@ export async function displayProductsByPages() {
   // backend doesn't provide total pages, so we calculate it
   // by fetching all products and dividing by items per page
   let totalPages;
+  let totalProducts;
   try {
-    const totalProducts = await getProducts();
+    totalProducts = await getProducts();
     const itemsPerPage = 12;
-    totalPages = Math.ceil(totalProducts.length / itemsPerPage);
+
+    // if there no products, set totalPages to 1 to avoid division by zero
+    // and allow pagination to show the "No products available"
+    if (!totalProducts || totalProducts.length === 0) {
+      totalPages = 1;
+    } else {
+      totalPages = Math.ceil(totalProducts.length / itemsPerPage);
+    }
   } catch (error) {
     console.error("Error fetching total products for pagination:", error);
     const paginationNav = document.getElementById("pagination-nav");
@@ -47,45 +63,53 @@ export async function displayProductsByPages() {
     return;
   }
 
-  // set the state of the buttons according to current page
-  const updateButtonStates = () => {
-    beginningButton.disabled = currentPage === 1;
-    backButton.disabled = currentPage === 1;
-    nextButton.disabled = currentPage === totalPages;
-    endButton.disabled = currentPage === totalPages;
-  };
+  // if there no products show an friendly message instead of pagination
+  if (!totalProducts || totalProducts.length === 0) {
+    const productsTitle = document.getElementById("products-title");
+    productsTitle.textContent = "No products available at the moment.";
 
-  // initially set the button states for page 1
-  updateButtonStates();
+    return;
+  } else {
+    // set the state of the buttons according to current page
+    const updateButtonStates = () => {
+      beginningButton.disabled = currentPage === 1;
+      backButton.disabled = currentPage === 1;
+      nextButton.disabled = currentPage === totalPages;
+      endButton.disabled = currentPage === totalPages;
+    };
 
-  beginningButton.addEventListener("click", async () => {
-    if (currentPage !== 1) {
-      currentPage = 1;
+    // initially set the button states for page 1
+    updateButtonStates();
+
+    beginningButton.addEventListener("click", async () => {
+      if (currentPage !== 1) {
+        currentPage = 1;
+        updateButtonStates();
+        await refreshPaginationNav(currentPage);
+      }
+    });
+
+    backButton.addEventListener("click", async () => {
+      // ensure page number doesn't go below 1
+      currentPage = Math.max(1, currentPage - 1);
       updateButtonStates();
       await refreshPaginationNav(currentPage);
-    }
-  });
+    });
 
-  backButton.addEventListener("click", async () => {
-    // ensure page number doesn't go below 1
-    currentPage = Math.max(1, currentPage - 1);
-    updateButtonStates();
-    await refreshPaginationNav(currentPage);
-  });
-
-  nextButton.addEventListener("click", async () => {
-    currentPage = currentPage + 1;
-    updateButtonStates();
-    await refreshPaginationNav(currentPage);
-  });
-
-  endButton.addEventListener("click", async () => {
-    if (currentPage !== totalPages) {
-      currentPage = totalPages;
+    nextButton.addEventListener("click", async () => {
+      currentPage = currentPage + 1;
       updateButtonStates();
       await refreshPaginationNav(currentPage);
-    }
-  });
+    });
+
+    endButton.addEventListener("click", async () => {
+      if (currentPage !== totalPages) {
+        currentPage = totalPages;
+        updateButtonStates();
+        await refreshPaginationNav(currentPage);
+      }
+    });
+  }
 }
 
 export async function displayProductsBySpecies() {
@@ -152,6 +176,14 @@ export async function displayProductsBySpecies() {
           displayProductsByPages();
         } else {
           productsArrayFilter = await getProductsBySpecies(species);
+
+          // display a friendly message if there are no products for the selected category
+          if (!productsArrayFilter || productsArrayFilter.length === 0) {
+            productsTitle.textContent =
+              "No products available for this category.";
+            return;
+          }
+
           productsArrayFilter.forEach((product) => {
             createProductsGrid(productsGrid, product);
           });

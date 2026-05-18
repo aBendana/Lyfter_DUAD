@@ -1,11 +1,11 @@
-.nav-button {
+﻿.nav-button {
   position: relative;
 }
 
 .cart-badge {
   position: absolute;
-  top: -6px;
-  right: -6px;
+  top: -0.4rem;
+  right: -0.4rem;
   background-color: rgb(250, 135, 41);
   color: white;
   font-size: 0.7rem;
@@ -16,5 +16,5 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 3px;
+  padding: 0 0.2rem;
 }

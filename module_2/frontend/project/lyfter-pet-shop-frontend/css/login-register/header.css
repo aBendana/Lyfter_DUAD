@@ -1,4 +1,4 @@
-body {
+﻿body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background-color: #fff3e0;
 }
@@ -21,7 +21,7 @@ body {
 }
 
 /* Responsive */
-@media (max-width: 768px) {
+@media (max-width: 48em) {
   .section-logo {
     margin: 4vh auto 0 auto;
     align-items: center;
@@ -35,7 +35,7 @@ body {
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 30em) {
   .section-logo {
     margin: 2vh auto 0 auto;
     padding: 0.5em;

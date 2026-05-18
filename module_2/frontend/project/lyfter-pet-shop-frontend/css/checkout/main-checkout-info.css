@@ -1,4 +1,4 @@
-main {
+﻿main {
   width: 90%;
   margin: 0 auto;
   margin-bottom: 6rem;
@@ -126,13 +126,13 @@ label {
 }
 
 /* responsive */
-@media (max-width: 1024px) {
+@media (max-width: 64em) {
   main {
     width: 80%;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 48em) {
   main {
     width: 95%;
   }
@@ -161,7 +161,7 @@ label {
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 30em) {
   main {
     width: 100%;
   }

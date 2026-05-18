@@ -1,5 +1,5 @@
 import { getPersonalInfo } from "../requests/get-personal-info.js";
-import { checkPasswordStrength } from "../register/password-restrictions.js";
+import { checkPasswordStrength } from "../utils/input-restrictions.js";
 import { updatePersonalInfo } from "../requests/patch-personal-info.js";
 
 export async function validatePassword(

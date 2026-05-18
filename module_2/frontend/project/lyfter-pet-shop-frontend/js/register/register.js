@@ -1,9 +1,15 @@
 import { registerUser } from "../requests/post-register.js";
-import { checkPasswordStrength } from "./password-restrictions.js";
+import {
+  nameFormatValidation,
+  checkPasswordStrength,
+  emailFormatValidation,
+  phoneNumberFormatValidation,
+} from "../utils/input-restrictions.js";
 
 export async function register() {
   async function handleRegister(event) {
     event.preventDefault();
+
     const name = document.getElementById("name").value.trim();
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value.trim();
@@ -11,11 +17,38 @@ export async function register() {
       .getElementById("confirm-password")
       .value.trim();
     const phoneNumber = document.getElementById("phone-number").value.trim();
-    const registerMessage = document.getElementById("login-register-message");
 
+    //  element to display error or success messages
+    const registerMessage = document.getElementById("login-register-message");
+    registerMessage.classList.add("login-register-message-error");
+
+    // manage restrictions for inputs
+    // name restrictions
+    if (!nameFormatValidation(name)) {
+      registerMessage.textContent =
+        "Full Name must have letters and spaces only, and be between 5 to 40 characters.";
+      document.getElementById("name").value = "";
+      return;
+    }
+
+    // email restrictions
+    if (!emailFormatValidation(email)) {
+      registerMessage.textContent = "Please enter a valid email address.";
+      document.getElementById("email").value = "";
+      return;
+    }
+
+    // phone number restrictions
+    if (!phoneNumberFormatValidation(phoneNumber)) {
+      registerMessage.textContent =
+        "Phone number must be in the format XXXX-XXXX.";
+      document.getElementById("phone-number").value = "";
+      return;
+    }
+
+    // password restrictions
     if (password !== confirmPassword) {
       registerMessage.textContent = "Passwords do not match.";
-      registerMessage.classList.add("login-register-message-error");
       document.getElementById("password").value = "";
       document.getElementById("confirm-password").value = "";
       return;
@@ -24,7 +57,6 @@ export async function register() {
     if (!checkPasswordStrength(password)) {
       registerMessage.textContent =
         "Password does not meet the required criteria.";
-      registerMessage.classList.add("login-register-message-error");
       document.getElementById("password").value = "";
       document.getElementById("confirm-password").value = "";
       return;
@@ -34,6 +66,7 @@ export async function register() {
       const userData = await registerUser(name, email, password, phoneNumber);
       registerMessage.textContent =
         "Registration successful! Welcome, " + userData.name + ".";
+      registerMessage.classList.remove("login-register-message-error");
       registerMessage.classList.add("login-register-message-welcome");
 
       setTimeout(() => {
@@ -60,7 +93,6 @@ export async function register() {
         message = "Registration failed. Please try again.";
       }
       registerMessage.textContent = message;
-      registerMessage.classList.add("login-register-message-error");
     }
   }
 

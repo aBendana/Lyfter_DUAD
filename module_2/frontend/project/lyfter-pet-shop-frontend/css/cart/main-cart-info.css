@@ -1,4 +1,4 @@
-main {
+﻿main {
   width: 60%;
   margin: 0 auto;
   display: flex;
@@ -161,13 +161,13 @@ option {
 }
 
 /* responsive*/
-@media (max-width: 1024px) {
+@media (max-width: 64em) {
   main {
     width: 80%;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 48em) {
   main {
     width: 95%;
   }
@@ -185,7 +185,7 @@ option {
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 30em) {
   main {
     width: 100%;
   }

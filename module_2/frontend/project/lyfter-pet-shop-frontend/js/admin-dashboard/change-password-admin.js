@@ -42,6 +42,14 @@ export async function changePasswordAdmin() {
       newPasswordInput.type = "password";
       changePasswordForm.appendChild(newPasswordInput);
 
+      const passwordRestrictions = document.createElement("p");
+      passwordRestrictions.classList.add("password-restrictions");
+      passwordRestrictions.textContent =
+        `Password must be at least 8 to 18 characters long and include ` +
+        `at least one uppercase letter, one lowercase letter, ` +
+        `one number, and one special character.`;
+      changePasswordForm.appendChild(passwordRestrictions);
+
       // confirm new password input
       const confirmNewPasswordLabel = document.createElement("label");
       confirmNewPasswordLabel.textContent = "Confirm New Password:";

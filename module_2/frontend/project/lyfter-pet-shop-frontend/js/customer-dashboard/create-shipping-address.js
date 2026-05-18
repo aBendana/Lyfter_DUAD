@@ -1,4 +1,5 @@
 import { postShippingAddress } from "../requests/post-shipping-address.js";
+import { validateShippingAddress } from "./edit-shipping-address.js";
 
 export async function createShippingAddress() {
   const addNewAddressButton = document.getElementById("add-new-address-button");
@@ -98,6 +99,22 @@ export async function createShippingAddress() {
       // handle form submission
       addressForm.addEventListener("submit", async (event) => {
         event.preventDefault();
+
+        // validate inputs before submitting the form
+        if (
+          !validateShippingAddress(
+            addressInput.value,
+            addressInput,
+            cantonInput.value,
+            cantonInput,
+            postalCodeInput.value,
+            postalCodeInput,
+          )
+        ) {
+          return;
+        }
+
+        // gather info from form
         const newAddress = {
           address: addressInput.value,
           canton: cantonInput.value,
@@ -111,6 +128,7 @@ export async function createShippingAddress() {
           successMessage.textContent = "Your new address is ready for use!";
         } catch (error) {
           console.error("Error creating new address:", error);
+          successMessage.textContent = `Failed to create new address: ${error}. Please try again.`;
         }
       });
 

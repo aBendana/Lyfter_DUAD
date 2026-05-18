@@ -1,4 +1,4 @@
-main {
+﻿main {
   width: 90%;
   margin: 0 auto;
   margin-bottom: 6rem;
@@ -159,7 +159,7 @@ main {
 }
 
 /* responsive */
-@media (max-width: 768px) {
+@media (max-width: 48em) {
   .confirmation-container {
     padding: 1.5rem 1rem;
     gap: 1.5rem;
@@ -176,7 +176,7 @@ main {
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 30em) {
   main {
     width: 95%;
   }

@@ -1,4 +1,10 @@
 import { postProduct } from "../requests/post-product.js";
+import {
+  skuCodeFormatValidation,
+  stringLengthValidation,
+  stockQuantityValidation,
+  costPriceValidation,
+} from "../utils/input-restrictions.js";
 
 export function createProduct() {
   const createProductButton = document.getElementById(
@@ -155,6 +161,27 @@ async function createProductForm() {
   productForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
+    if (
+      !validateProductFormat(
+        skuInput.value,
+        skuInput,
+        nameInput.value,
+        nameInput,
+        descriptionInput.value,
+        descriptionInput,
+        supplierInput.value,
+        supplierInput,
+        stockInput.value,
+        stockInput,
+        costInput.value,
+        costInput,
+        priceInput.value,
+        priceInput,
+      )
+    ) {
+      return;
+    }
+
     // gather info from form
     const newProduct = {
       SKU: skuInput.value,
@@ -178,4 +205,74 @@ async function createProductForm() {
       errorMessage.textContent = `Error: ${error} Failed to create product. Please try again.`;
     }
   });
+}
+
+// validate product format before sending to backend
+export function validateProductFormat(
+  SKU,
+  SKUInput,
+  name,
+  nameInput,
+  description,
+  descriptionInput,
+  supplier,
+  supplierInput,
+  stock,
+  stockInput,
+  cost,
+  costInput,
+  price,
+  priceInput,
+) {
+  if (!skuCodeFormatValidation(SKU)) {
+    SKUInput.value = "";
+    alert(
+      "Invalid SKU format. SKU should be alphanumeric, caps only, between 4 and 30 characters.",
+    );
+    return false;
+  }
+
+  if (!stringLengthValidation(name, 4, 35)) {
+    nameInput.value = "";
+    alert("Invalid name format. Name should be between 4 and 35 characters.");
+    return false;
+  }
+
+  if (!stringLengthValidation(description, 10, 60)) {
+    descriptionInput.value = "";
+    alert(
+      "Invalid description format. Description should be between 10 and 60 characters.",
+    );
+    return false;
+  }
+
+  if (!stringLengthValidation(supplier, 4, 35)) {
+    supplierInput.value = "";
+    alert(
+      "Invalid supplier format. Supplier should be between 4 and 35 characters.",
+    );
+    return false;
+  }
+
+  if (!stockQuantityValidation(stock)) {
+    stockInput.value = "";
+    alert(
+      "Invalid stock format. Stock should be a number between 0 and 10000.",
+    );
+    return false;
+  }
+
+  if (!costPriceValidation(cost)) {
+    costInput.value = "";
+    alert("Invalid cost format. Cost should be in the format XXX.xx.");
+    return false;
+  }
+
+  if (!costPriceValidation(price)) {
+    priceInput.value = "";
+    alert("Invalid price format. Price should be in the format XXX.xx.");
+    return false;
+  }
+
+  return true;
 }

@@ -5,18 +5,18 @@ import { editShippingAddress } from "./edit-shipping-address.js";
 export async function loadShippingAddresses() {
   const dashboardContent = document.getElementById("dashboard-content");
   try {
-    const shippingAddresses = await getShippingAddresses();
-    if (!shippingAddresses) {
-      dashboardContent.innerHTML = `<p class="error-message-generic">Failed to load shipping addresses. Please try again.</p>`;
-      return;
-    }
-
     const shippingAddressesButton = document.getElementById(
       "dashboard-addresses",
     );
     shippingAddressesButton.addEventListener("click", async () => {
       const shippingAddressesContent =
         document.getElementById("dashboard-content");
+
+      const shippingAddresses = await getShippingAddresses();
+      if (!shippingAddresses) {
+        dashboardContent.innerHTML = `<p class="error-message-generic">Failed to load shipping addresses. Please try again.</p>`;
+        return;
+      }
       shippingAddressesContent.innerHTML = ""; // clear previous content
       shippingAddressesContent.className = ""; // clear previous classes
       shippingAddressesContent.classList.add("shipping-addresses-content");

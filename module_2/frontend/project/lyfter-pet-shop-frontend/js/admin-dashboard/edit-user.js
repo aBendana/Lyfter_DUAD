@@ -1,4 +1,8 @@
 import { updateUserInfo } from "../requests/patch-user-admin.js";
+import {
+  emailFormatValidation,
+  phoneNumberFormatValidation,
+} from "../utils/input-restrictions.js";
 
 export async function editUserInfo(userId, userRole) {
   const emailOriginalLabel = document.getElementById("email");
@@ -54,6 +58,20 @@ export async function editUserInfo(userId, userRole) {
 
       if (emailInputValue === "" || phoneInputValue === "") {
         alert("Email or phone number cannot be empty.");
+        return;
+      }
+
+      // validate email
+      if (!emailFormatValidation(emailInputValue)) {
+        emailInput.value = lastEmailValue;
+        alert("Invalid email format.");
+        return;
+      }
+
+      // validate phone number
+      if (!phoneNumberFormatValidation(phoneInputValue)) {
+        phoneInput.value = lastPhoneValue;
+        alert("Invalid phone number format. Please use XXXX-XXXX format.");
         return;
       }
 

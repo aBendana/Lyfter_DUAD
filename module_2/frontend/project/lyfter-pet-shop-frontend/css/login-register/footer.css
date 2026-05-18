@@ -1,4 +1,4 @@
-.copy-rights {
+﻿.copy-rights {
   margin-top: 2rem;
   display: flex;
   justify-content: center;
@@ -6,7 +6,7 @@
   font-weight: bold;
 }
 /*responsive*/
-@media (max-width: 768px) {
+@media (max-width: 48em) {
   .container-footer {
     padding: 1.5rem 1rem;
   }

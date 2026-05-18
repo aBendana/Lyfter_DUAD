@@ -1,5 +1,5 @@
 import { getUserByAdmin } from "../requests/get-user-admin.js";
-import { checkPasswordStrength } from "../register/password-restrictions.js";
+import { checkPasswordStrength } from "../utils/input-restrictions.js";
 import { updateUserInfo } from "../requests/patch-user-admin.js";
 
 function getAdminId() {

@@ -1,4 +1,4 @@
-/* admin dashboard edit user info use this css module */
+﻿/* admin dashboard edit user info use this css module */
 
 /* dashboard edit addresses, create shipping address 
    and change password  are using this css module 
@@ -36,7 +36,7 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  max-width: 500px;
+  max-width: 31.25rem;
   width: 100%;
 }
 
@@ -51,6 +51,16 @@
   color: rgb(46, 46, 46);
 }
 
+/* password restrictions text */
+.password-restrictions {
+  font-size: 0.8rem;
+  font-style: italic;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #555;
+  margin-top: -0.5em;
+  margin-bottom: 1em;
+}
+
 /* inputs and select */
 .edit-address-form input,
 .edit-address-form select,
@@ -63,7 +73,7 @@
   color: rgb(46, 46, 46);
   padding: 0.55rem 0.8rem;
   background-color: #ffffff;
-  border: 1.5px solid rgba(3, 158, 230, 0.4);
+  border: 1px solid rgba(3, 158, 230, 0.4);
   border-radius: 0.5rem;
   outline: none;
   transition: border-color 0.2s ease;
@@ -163,7 +173,7 @@
 }
 
 /* responsive */
-@media (max-width: 768px) {
+@media (max-width: 48em) {
   .edit-address-content,
   .create-shipping-address-content,
   .change-password-content {
@@ -181,7 +191,7 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 30em) {
   .edit-address-content,
   .create-shipping-address-content,
   .change-password-content {

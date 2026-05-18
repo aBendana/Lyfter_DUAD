@@ -1,5 +1,9 @@
 import { getShippingAddressById } from "../requests/get-shipping-adresses.js";
 import { updateShippingAddress } from "../requests/patch-shipping-address.js";
+import {
+  stringLengthValidation,
+  postalCodeValidation,
+} from "../utils/input-restrictions.js";
 
 export async function editShippingAddress() {
   const editButtons = document.querySelectorAll(".edit-address-button");
@@ -126,6 +130,22 @@ export async function editShippingAddress() {
         // handle form submission
         editForm.addEventListener("submit", async (event) => {
           event.preventDefault();
+
+          // validate inputs before submitting the form
+          if (
+            !validateShippingAddress(
+              addressInput.value,
+              addressInput,
+              cantonInput.value,
+              cantonInput,
+              postalCodeInput.value,
+              postalCodeInput,
+            )
+          ) {
+            return;
+          }
+
+          // payload for the PATCH request
           const updatedAddress = {
             address: addressInput.value,
             canton: cantonInput.value,
@@ -149,4 +169,34 @@ export async function editShippingAddress() {
       }
     });
   });
+}
+
+export function validateShippingAddress(
+  address,
+  addressInput,
+  canton,
+  cantonInput,
+  postalCode,
+  postalCodeInput,
+) {
+  if (!stringLengthValidation(address, 8, 100)) {
+    addressInput.value = "";
+    alert(
+      "Address is too short or too long and can include letters, numbers, spaces, and #.",
+    );
+    return false;
+  }
+  if (!stringLengthValidation(canton, 2, 40)) {
+    cantonInput.value = "";
+    alert("Invalid canton format.");
+    return false;
+  }
+  if (!postalCodeValidation(postalCode)) {
+    postalCodeInput.value = "";
+    alert(
+      "Invalid postal code format. Postal code should be a 5-digit integer.",
+    );
+    return false;
+  }
+  return true;
 }

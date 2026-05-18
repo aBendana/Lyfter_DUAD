@@ -1,5 +1,6 @@
 import { loginUser } from "../requests/post-login.js";
 import { getTotalCartItems } from "../requests/get-cart.js";
+import { emailFormatValidation } from "../utils/input-restrictions.js";
 
 export async function login() {
   async function handleLogin(event) {
@@ -14,7 +15,16 @@ export async function login() {
       return;
     }
 
+    // validate email format
+    if (!emailFormatValidation(email)) {
+      loginMessage.classList.add("login-register-message-error");
+      loginMessage.textContent = "Please enter a valid email address.";
+      document.getElementById("email").value = "";
+      return;
+    }
+
     try {
+      //fetch login API and get user data
       const user = await loginUser(email, password);
 
       // set total items in cart if customer has left pending cart from previous session,

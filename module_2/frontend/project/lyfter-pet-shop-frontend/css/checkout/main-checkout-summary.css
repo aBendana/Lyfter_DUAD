@@ -1,4 +1,4 @@
-.checkout-summary-section {
+﻿.checkout-summary-section {
   background-color: #fff3e0;
   display: flex;
   flex-direction: column;
@@ -52,7 +52,7 @@
 }
 
 /* responsive */
-@media (max-width: 768px) {
+@media (max-width: 48em) {
   .checkout-summary-section {
     padding: 1rem;
   }
@@ -62,7 +62,7 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 30em) {
   .checkout-summary-section {
     padding: 0.8rem 1rem;
     gap: 0.6rem;

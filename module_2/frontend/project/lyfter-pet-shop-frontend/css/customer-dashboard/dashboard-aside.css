@@ -1,4 +1,4 @@
-/* this dashboard-aside css is used by admin-dashboard-aside too */
+﻿/* this dashboard-aside css is used by admin-dashboard-aside too */
 
 main {
   width: 70%;
@@ -58,7 +58,7 @@ main {
 }
 
 /* responsive */
-@media (max-width: 768px) {
+@media (max-width: 48em) {
   main {
     grid-template-columns: 1fr;
     gap: 1.5rem;
@@ -76,7 +76,7 @@ main {
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 30em) {
   main {
     width: 95%;
     gap: 1rem;

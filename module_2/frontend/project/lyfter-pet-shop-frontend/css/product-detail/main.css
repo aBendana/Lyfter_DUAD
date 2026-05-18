@@ -1,4 +1,4 @@
-main {
+﻿main {
   width: 80%;
   margin: 0 auto;
   display: flex;
@@ -14,15 +14,15 @@ main {
   margin: 0;
 }
 
-/* Responsive */ /* Mobile (≤ 768px) */
-@media (max-width: 768px) {
+/* Responsive */ /* Mobile (≤ 48em) */
+@media (max-width: 48em) {
   main {
     width: 95%;
   }
 }
 
-/* Small mobile (≤ 480px) */
-@media (max-width: 480px) {
+/* Small mobile (≤ 30em) */
+@media (max-width: 30em) {
   main {
     width: 100%;
     gap: 1.5rem;

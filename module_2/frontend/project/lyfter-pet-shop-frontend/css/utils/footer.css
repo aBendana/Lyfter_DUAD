@@ -1,4 +1,4 @@
-.container-footer {
+﻿.container-footer {
   margin-top: 3rem;
   display: grid;
   grid-template-rows: auto auto;
@@ -46,7 +46,7 @@
 }
 
 /* responsive */
-@media (max-width: 768px) {
+@media (max-width: 48em) {
   .container-footer {
     padding: 1.5rem 1rem;
   }
@@ -61,7 +61,7 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 30em) {
   .container-footer {
     padding: 1rem 0.75rem;
     margin-top: 1.5rem;

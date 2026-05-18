@@ -1,4 +1,4 @@
-/* this dashboard-personal-info css is used 
+﻿/* this dashboard-personal-info css is used 
 admin-dashboard-personal-info,
 product-info-content
  */
@@ -66,7 +66,7 @@ product-info-content
 /* edit mode */
 .personal-input:not(:disabled) {
   background-color: #eefaff;
-  border: 1.5px solid #039ee6;
+  border: 1px solid #039ee6;
   border-radius: 0.5rem;
   cursor: text;
 }
@@ -106,7 +106,7 @@ product-info-content
 }
 
 /* responsive */
-@media (max-width: 768px) {
+@media (max-width: 48em) {
   .personal-info-content {
     padding: 1.5rem;
   }
@@ -121,7 +121,7 @@ product-info-content
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 30em) {
   .personal-info-content {
     padding: 1rem;
   }

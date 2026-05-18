@@ -1,4 +1,9 @@
 import { updateProduct } from "../requests/patch-product-info.js";
+import {
+  stringLengthValidation,
+  stockQuantityValidation,
+  costPriceValidation,
+} from "../utils/input-restrictions.js";
 
 export async function editProductInfo(productId) {
   const suplierOriginalContent = document.getElementById("product-supplier");
@@ -92,6 +97,21 @@ export async function editProductInfo(productId) {
         return;
       }
 
+      if (
+        !validateEditProductFormat(
+          supplierInput.value,
+          supplierInput,
+          stockInput.value,
+          stockInput,
+          costInput.value,
+          costInput,
+          priceInput.value,
+          priceInput,
+        )
+      ) {
+        return;
+      }
+
       // payload for patch request
       const updatedInfo = {
         supplier: supplierInputValue,
@@ -140,4 +160,46 @@ function cleanupEditMode(saveButton, cancelButton) {
 
   // enable edit button
   editInfoButton.disabled = false;
+}
+
+// validate product format before sending to backend
+export function validateEditProductFormat(
+  supplier,
+  supplierInput,
+  stock,
+  stockInput,
+  cost,
+  costInput,
+  price,
+  priceInput,
+) {
+  if (!stringLengthValidation(supplier, 4, 35)) {
+    supplierInput.value = "";
+    alert(
+      "Invalid supplier format. Supplier should be between 4 and 35 characters.",
+    );
+    return false;
+  }
+
+  if (!stockQuantityValidation(stock)) {
+    stockInput.value = "";
+    alert(
+      "Invalid stock format. Stock should be a number between 0 and 10000.",
+    );
+    return false;
+  }
+
+  if (!costPriceValidation(cost)) {
+    costInput.value = "";
+    alert("Invalid cost format. Cost should be in the format XXX.xx.");
+    return false;
+  }
+
+  if (!costPriceValidation(price)) {
+    priceInput.value = "";
+    alert("Invalid price format. Price should be in the format XXX.xx.");
+    return false;
+  }
+
+  return true;
 }

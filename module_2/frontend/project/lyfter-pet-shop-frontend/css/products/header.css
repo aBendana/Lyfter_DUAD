@@ -1,4 +1,4 @@
-/* login, register, and info styles */
+﻿/* login, register, and info styles */
 header {
   position: sticky;
   top: 0;
@@ -118,7 +118,7 @@ a:focus {
 .species-category-button {
   padding: 0.5rem 1rem;
   background-color: #e6e0e0;
-  border-radius: 5px;
+  border-radius: 0.3rem;
   font-family:
     "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans",
     Arial, sans-serif;
@@ -149,7 +149,7 @@ a:focus {
   padding: 0.5rem;
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 0.3rem;
   font-size: 1rem;
 }
 
@@ -160,7 +160,7 @@ a:focus {
   color: #1d1c1c;
   font-size: 1rem;
   font-weight: bold;
-  border-radius: 5px;
+  border-radius: 0.3rem;
   cursor: pointer;
   transition: 0.3s ease;
 }
@@ -170,8 +170,8 @@ a:focus {
 }
 
 /* Responsive */
-/* Tablet (≤ 1024px) */
-@media (max-width: 1024px) {
+/* Tablet (≤ 64em) */
+@media (max-width: 64em) {
   .species-categories-span {
     flex-wrap: wrap;
     justify-content: center;
@@ -189,8 +189,8 @@ a:focus {
   }
 }
 
-/* Mobile (≤ 768px) */
-@media (max-width: 768px) {
+/* Mobile (≤ 48em) */
+@media (max-width: 48em) {
   .nav-info {
     flex-direction: column;
     align-items: flex-start;
@@ -246,8 +246,8 @@ a:focus {
   }
 }
 
-/* Small mobile (≤ 480px) */
-@media (max-width: 480px) {
+/* Small mobile (≤ 30em) */
+@media (max-width: 30em) {
   a {
     padding: 0.4rem 0.5rem;
     font-size: 0.9rem;

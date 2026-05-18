@@ -1,4 +1,4 @@
-.page {
+﻿.page {
   width: min(32.8rem, 92vw);
   margin: 8vh auto;
   margin-top: 0;
@@ -109,7 +109,7 @@
 }
 
 /* Responsive */
-@media (max-width: 768px) {
+@media (max-width: 48em) {
   .page {
     margin: 4vh auto;
     padding: 0.3em;
@@ -129,7 +129,7 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 30em) {
   .page {
     margin: 2vh auto;
     padding: 0.25em;

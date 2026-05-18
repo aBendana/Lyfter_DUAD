@@ -1,4 +1,4 @@
-/* invoice container */
+﻿/* invoice container */
 .invoice-info-content {
   display: flex;
   flex-direction: column;
@@ -13,7 +13,7 @@
 .invoice-info-content::before {
   content: "";
   display: block;
-  height: 5px;
+  height: 0.3rem;
   border-radius: 0.5rem 0.5rem 0 0;
   background: linear-gradient(90deg, #ffb347 0%, #039ee6 100%);
   margin: -2rem -2rem 1.5rem -2rem;
@@ -108,7 +108,7 @@
 }
 
 /* ── responsive ── */
-@media (max-width: 768px) {
+@media (max-width: 48em) {
   .invoice-info-content {
     padding: 1.5rem;
   }
@@ -124,7 +124,7 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 30em) {
   .invoice-info-content {
     padding: 1rem;
   }

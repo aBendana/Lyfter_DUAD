@@ -1,4 +1,4 @@
-/* admin dashboard header styles */
+﻿/* admin dashboard header styles */
 header {
   position: sticky;
   top: 0;
@@ -69,8 +69,8 @@ header {
 }
 
 /* Responsive */
-/* Mobile (≤ 768px) */
-@media (max-width: 768px) {
+/* Mobile (≤ 48em) */
+@media (max-width: 48em) {
   .admin-nav {
     flex-direction: column;
     align-items: center;
@@ -98,8 +98,8 @@ header {
   }
 }
 
-/* Small mobile (≤ 480px) */
-@media (max-width: 480px) {
+/* Small mobile (≤ 30em) */
+@media (max-width: 30em) {
   .logo-img {
     width: 5.5rem;
   }

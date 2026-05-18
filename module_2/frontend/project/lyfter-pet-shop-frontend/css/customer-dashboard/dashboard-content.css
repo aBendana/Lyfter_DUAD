@@ -1,4 +1,4 @@
-/* this dashboard-content css is used by admin-dashboard-content too */
+﻿/* this dashboard-content css is used by admin-dashboard-content too */
 
 /* main content area */
 .dashboard-content {
@@ -40,7 +40,7 @@
 }
 
 /* responsive */
-@media (max-width: 768px) {
+@media (max-width: 48em) {
   .dashboard-content {
     gap: 1.2rem;
   }
@@ -50,7 +50,7 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 30em) {
   .dashboard-content {
     gap: 1rem;
   }
