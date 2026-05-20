@@ -1,0 +1,12 @@
+@import url(../utils/reset.css);
+@import url(./admin-header.css);
+@import url(../customer-dashboard/dashboard-aside.css);
+@import url(../customer-dashboard/dashboard-content.css);
+@import url(../utils/error-message.css);
+@import url(../customer-dashboard/dashboard-personal-info.css);
+@import url(../customer-dashboard/dashboard-edit-create-change.css);
+@import url(./tables-format.css);
+@import url(./invoice-info.css);
+@import url(./create-product.css);
+@import url(../utils/pagination.css);
+@import url(../utils/footer.css);

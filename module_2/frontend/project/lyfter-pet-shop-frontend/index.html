@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="pet shop e-commerce" />
+    <title>Lyfter Pet Shop</title>
+    <link rel="icon" type="image/png" href="assets/icons/icon-dog.png" />
+    <link rel="stylesheet" href="css/landing/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/circletype@2.3.0/dist/circletype.min.js"></script>
+    <script type="module" src="./js/landing/main.js"></script>
+  </head>
+
+  <body>
+    <header>
+      <nav id="nav-info" class="nav-info">
+        <div id="login-register-container" class="div-log">
+          <span><a id="login">Login</a> or <a id="register">Register</a></span>
+        </div>
+        <div class="div-info">
+          <span
+            ><a id="products">Products</a> | <a id="about">About us</a> |
+            <a id="locations">Locations</a> |
+            <a id="contact">Contact Us</a>
+          </span>
+        </div>
+      </nav>
+
+      <!-- this section will be used to show the logged user info and logout button -->
+      <nav id="nav-logged-user" class="nav-logged-user"></nav>
+
+      <section class="section-welcome">
+        <h1 id="title-welcome" class="title-welcome">
+          Welcome to Lyfter Pet Shop
+        </h1>
+        <img
+          src="assets/images/logo.png"
+          alt="Lyfter Pet Shop Logo"
+          class="logo"
+        />
+        <p class="p-welcome">
+          Your one-stop shop for all your pet's needs. From food to toys, we
+          have everything to keep your furry friend happy and healthy.
+        </p>
+      </section>
+
+      <section class="banner-section">
+        <img
+          src="assets/images/banner-food.png"
+          alt="Food Banner"
+          class="banner"
+        />
+        <img
+          src="assets/images/banner-toys.png"
+          alt="Toys Banner"
+          class="banner"
+        />
+        <img
+          src="assets/images/banner-accesories.png"
+          alt="Accessories Banner"
+          class="banner"
+        />
+      </section>
+    </header>
+
+    <main>
+      <section id="section-products" class="section-products">
+        <h2 class="title-info">Featured Products</h2>
+        <div id="products-grid" class="products-grid">
+          <!-- here we will dynamically insert product cards -->
+          <!-- product card structure:
+          <article class="product-card">
+            <figure class="product-figure">
+              <img class="product-image" 
+              src="assets/images/logo.png" 
+              alt="Product Image"/>
+            </figure>
+            <h3 class="product-title"></h3>
+            <p class="product-description"></p>
+            <div class="product-price"></div>
+          </article>
+          -->
+        </div>
+      </section>
+
+      <section id="section-about" class="section-all-info">
+        <h2 class="title-info">About Us</h2>
+        <p class="p-info">
+          <strong>Our Origins:</strong> A Dream with Paw Prints The story of
+          Lyfter Pet Shop began in 2008, in a small 30-square-meter storefront
+          in the heart of the San Benito neighborhood. Its founder, Carlos
+          Lyfter, a passionate animal rescuer, noticed that his community
+          struggled to find products that combined high nutritional quality with
+          prices that allowed every family to care for their pets as they
+          deserved. What started with just two shelves of organic food and a
+          single grooming tub quickly grew. Thanks to "word of mouth"
+          recommendations from neighbors who saw Carlos not just as a
+          shopkeeper, but as an ally in their companions' well-being, the
+          business began to flourish. <br /><br />
+          <strong>Evolution and Growth:</strong> By 2015, Lyfter Pet Shop took a
+          major leap in technology and logistics. We transitioned from a local
+          shop to launching our online store, allowing our philosophy of "Happy
+          Pets, Peaceful Families" to reach every corner of the country. In
+          2021, we celebrated the opening of our Integrated Wellness Center.
+          Beyond just products, we incorporated professional grooming services,
+          personalized nutritional consulting, and canine and feline behavior
+          workshops. <br /><br />
+          <strong>Our Core Philosophy:</strong>
+          At Lyfter Pet Shop, we don’t see animals as just pets; they are
+          fundamental members of the family unit. Our mission is built on three
+          unbreakable pillars: <br /><br />
+          <strong style="margin-left: 1.5rem; display: inline-block"
+            >🐶 Uncompromising Quality:</strong
+          >
+          We select every product under strict safety and health standards. If
+          it’s not good enough for our own animals, it doesn’t make it to our
+          shelves. <br />
+          <strong style="margin-left: 1.5rem; display: inline-block"
+            >🐶 Real Affordability:</strong
+          >
+          We believe that loving an animal shouldn't be dictated by a budget. We
+          work directly with suppliers to ensure the best quality-price ratio on
+          the market. <br />
+          <strong style="margin-left: 1.5rem; display: inline-block"
+            >🐶 Social Commitment:</strong
+          >
+          We donate 5% of our monthly sales to local shelters and sterilization
+          campaigns, giving back to the community of rescued animals that gives
+          us so much joy. <br /><br />
+          <strong>Looking Toward the Future:</strong> Today, with over 15 years
+          of experience, our goal remains the same as day one: to create an
+          environment where the health and happiness of your pets are the top
+          priority. We are constantly innovating and seeking new sustainable and
+          eco-friendly products to ensure a greener planet for future
+          generations of owners and pets alike. At Lyfter Pet Shop, we walk by
+          your side—paw after paw.
+        </p>
+      </section>
+
+      <section id="section-locations" class="section-all-info">
+        <h2 class="title-info">Our Locations</h2>
+        <p class="p-info">
+          We have multiple locations across the country. Find the nearest one to
+          you!
+        </p>
+        <p class="p-info">
+          📍 <strong>Zootopia Central</strong> – Savannah District <br />
+          📍 <strong>Pawston City</strong> – Downtown Avenue <br />
+          📍 <strong>Barkcelona</strong> – Pet Plaza 42 <br />
+          📍 <strong>Meowami Beach</strong> – Ocean Drive <br />
+          📍 <strong>Furtown</strong> – Green Park Street
+        </p>
+      </section>
+
+      <section id="section-contact" class="section-all-info">
+        <h2 class="title-info">Contact Us</h2>
+        <p class="p-info">
+          Need assistance? Our <strong>customer support team</strong> is here to
+          help you with any questions or concerns you may have.
+        </p>
+        <p class="p-info">
+          📧 <strong>Email:</strong> contact@lyfterpetshop.com <br />
+          📞 <strong>General Inquiries:</strong> (123) 456-7890 <br />
+          🐾 <strong>Pet Care Support:</strong> (123) 456-7891 <br />
+          🛒 <strong>Orders & Help:</strong> (123) 456-7892 <br />
+          💬 <strong>WhatsApp:</strong> +1 (123) 456-7893
+        </p>
+        <p class="p-info">
+          <strong>Headquarters Address:</strong> 123 Pet Street, Pet City, PC
+          12345
+        </p>
+      </section>
+    </main>
+
+    <footer class="container-footer">
+      <section class="social-media">
+        <h3>Follow Us</h3>
+        <div class="social-media-links">
+          <img
+            src="assets/icons/facebook.png"
+            alt="Facebook"
+            id="facebook-link"
+            class="icon-media"
+          />
+          <img
+            src="assets/icons/instagram.png"
+            alt="Instagram"
+            id="instagram-link"
+            class="icon-media"
+          />
+          <img
+            src="assets/icons/pinterest.png"
+            alt="Pinterest"
+            id="pinterest-link"
+            class="icon-media"
+          />
+          <img
+            src="assets/icons/youtube.png"
+            alt="YouTube"
+            id="youtube-link"
+            class="icon-media"
+          />
+        </div>
+      </section>
+
+      <section class="copy-rights">
+        <p>© <span id="year"></span> Lyfter Pet Shop. All rights reserved.</p>
+      </section>
+    </footer>
+
+    <script>
+      // get year dynamically for the footer
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>

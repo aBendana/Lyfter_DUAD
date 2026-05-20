@@ -1,0 +1,13 @@
+﻿.error-message-generic {
+  padding: 1rem 1.5rem;
+  border: 1px solid #ff8017;
+  border-radius: 0.8rem;
+  background-color: #fff3e0;
+  color: #1d1c1c;
+  text-align: center;
+  margin: 2rem auto;
+  max-width: 75%;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.95rem;
+  box-shadow: 0 2px 5px rgba(252, 153, 40, 0.4);
+}

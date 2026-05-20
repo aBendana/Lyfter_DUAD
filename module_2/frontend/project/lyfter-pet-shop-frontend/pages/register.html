@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="register pet shop e-commerce" />
+    <title>Lyfter Pet Shop</title>
+    <link rel="icon" type="image/png" href="../assets/icons/icon-dog.png" />
+    <link rel="stylesheet" href="../css/login-register/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="../js/register/main.js"></script>
+  </head>
+
+  <body>
+    <header>
+      <section class="section-logo">
+        <figure class="logo-header">
+          <img
+            src="../assets/images/logo.png"
+            alt="Lyfter Pet Shop Logo"
+            class="logo"
+          />
+        </figure>
+      </section>
+    </header>
+
+    <main class="page">
+      <div class="login-register-container">
+        <h1>Create Account</h1>
+
+        <form class="login-register-form" id="register-form">
+          <label for="name" class="login-register-info">Name:</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            class="login-register-input"
+            placeholder="Michael Jordan"
+            required
+          />
+
+          <label for="email" class="login-register-info">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="login-register-input"
+            placeholder="mj@example.com"
+            required
+          />
+
+          <label for="phone_number" class="login-register-info"
+            >Phone Number:</label
+          >
+          <input
+            type="tel"
+            id="phone-number"
+            name="phone_number"
+            class="login-register-input"
+            placeholder="8888-1111"
+            required
+          />
+
+          <label for="password" class="login-register-info">Password:</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            class="login-register-input"
+          />
+          <p class="password-restrictions">
+            Password must be at least 8 to 18 characters long and include at
+            least one uppercase letter, one lowercase letter, one number, and
+            one special character.
+          </p>
+
+          <label for="confirm-password" class="login-register-info"
+            >Confirm Password:</label
+          >
+          <input
+            type="password"
+            id="confirm-password"
+            name="confirm_password"
+            class="login-register-input"
+            required
+          />
+
+          <button type="submit" class="button-login-register">Register</button>
+
+          <h2 id="login-register-message"></h2>
+
+          <p class="powered-by">Powered by <strong>Lyfter</strong></p>
+        </form>
+      </div>
+    </main>
+
+    <footer>
+      <section class="copy-rights">
+        <p>© <span id="year"></span> Lyfter Pet Shop. All rights reserved.</p>
+      </section>
+    </footer>
+  </body>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</html>

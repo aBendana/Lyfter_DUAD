@@ -1,0 +1,70 @@
+﻿/* this dashboard-content css is used by admin-dashboard-content too */
+
+/* main content area */
+.dashboard-content {
+  display: flex;
+  flex-direction: column;
+  min-height: 40vh;
+  background-color: #fff3e0;
+  border-radius: 1rem;
+  box-shadow: 0 2px 5px rgba(252, 153, 40, 0.849);
+  padding: 1.2rem 1rem;
+  gap: 1.5rem;
+}
+
+.dashboard-figure {
+  display: flex;
+  justify-content: center;
+  transform: translateX(-30%);
+  pointer-events: none;
+}
+.dashboard-image {
+  width: 25%;
+  height: auto;
+  rotate: -15deg;
+}
+
+.intro-title {
+  margin-top: -2rem;
+  align-self: center;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: #039ee6;
+}
+
+.intro-text {
+  align-self: center;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: clamp(0.9rem, 2vw, 1.05rem);
+  font-style: italic;
+  color: rgb(61, 61, 61);
+}
+
+/* responsive */
+@media (max-width: 48em) {
+  .dashboard-content {
+    gap: 1.2rem;
+  }
+
+  .dashboard-figure {
+    transform: translateX(-20%);
+  }
+}
+
+@media (max-width: 30em) {
+  .dashboard-content {
+    gap: 1rem;
+  }
+
+  .dashboard-figure {
+    transform: translateX(0);
+    justify-content: center;
+  }
+
+  .dashboard-image {
+    width: 35%;
+  }
+
+  .intro-title {
+    font-size: clamp(1.3rem, 5vw, 1.6rem);
+  }
+}

@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="pet shop checkout page" />
+    <title>Lyfter Pet Shop</title>
+    <link rel="icon" type="image/png" href="../assets/icons/icon-dog.png" />
+    <link rel="stylesheet" href="../css/checkout/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="../js/checkout/main.js"></script>
+  </head>
+
+  <body>
+    <header>
+      <nav id="nav-info" class="nav-info">
+        <div id="login-register-container" class="div-log">
+          <span><a id="login">Login</a> or <a id="register">Register</a></span>
+        </div>
+
+        <div class="div-info">
+          <span
+            ><a id="products">Products</a> | <a id="about">About us</a> |
+            <a id="locations">Locations</a> |
+            <a id="contact">Contact Us</a>
+          </span>
+        </div>
+      </nav>
+
+      <!-- this section will be used to show the logged user info and logout button -->
+      <nav id="nav-logged-user" class="nav-logged-user"></nav>
+    </header>
+
+    <main>
+      <div id="checkout-container" class="checkout-container">
+        <div class="logo-title-container">
+          <img
+            src="../assets/images/logo.png"
+            alt="Lyfter Pet Shop Logo"
+            class="logo"
+          />
+
+          <h1 id="checkout-title" class="checkout-title">Checkout</h1>
+        </div>
+        <div id="checkout-info" class="checkout-info">
+          <section id="user-checkout-section" class="user-checkout-section">
+            <form id="checkout-user-form" class="checkout-user-form">
+              <h2 class="checkout-form-title">Purchase Information:</h2>
+              <br />
+
+              <label>Full Name:</label>
+              <p id="checkout-full-name" class="checkout-info-text"></p>
+
+              <label>Email:</label>
+              <p id="checkout-email" class="checkout-info-text"></p>
+
+              <label>Phone:</label>
+              <p id="checkout-phone" class="checkout-info-text"></p>
+
+              <label for="shipping-address">Shipping Address:</label>
+              <select id="shipping-address" class="select-checkout" required>
+                <option value="" disabled selected>
+                  Select a shipping address
+                </option>
+              </select>
+
+              <label for="shipping-method">Shipping Method:</label>
+              <select id="shipping-method" class="select-checkout" required>
+                <option value="" disabled selected>
+                  Select a shipping method
+                </option>
+              </select>
+
+              <label for="payment-method">Payment Method:</label>
+              <select id="payment-method" class="select-checkout" required>
+                <option value="" disabled selected>
+                  Select a payment method
+                </option>
+              </select>
+
+              <label for="discount-code">Discount Code:</label>
+              <div class="discount-code-container">
+                <input
+                  type="text"
+                  placeholder="Enter discount code"
+                  id="discount-code"
+                  class="select-checkout discount-input"
+                />
+                <button
+                  type="button"
+                  id="apply-discount-button"
+                  class="apply-discount-button"
+                >
+                  Apply
+                </button>
+                <p id="discount-message"></p>
+              </div>
+            </form>
+          </section>
+
+          <section
+            id="checkout-summary-section"
+            class="checkout-summary-section"
+          >
+            <h2 class="checkout-summary-title">Order Summary:</h2>
+
+            <p id="total-items" class="summary-text"></p>
+            <div id="checkout-items-container" class="checkout-items-container">
+              <!-- this section will be created dynamically -->
+            </div>
+
+            <p id="subtotal" class="summary-text"></p>
+            <p id="discount-amount" class="summary-text">Discount: $0.00</p>
+            <p id="shipping-cost" class="summary-text">Shipping Cost: $0.00</p>
+            <p id="tax-amount" class="summary-text">Tax: $0.00</p>
+            <h2 id="total-price" class="total-price"></h2>
+
+            <button id="place-order-button" class="place-order-button">
+              Place Order
+            </button>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <footer class="container-footer">
+      <section class="social-media">
+        <h3>Follow Us</h3>
+
+        <div class="social-media-links">
+          <img
+            src="../assets/icons/facebook.png"
+            alt="Facebook"
+            id="facebook-link"
+            class="icon-media"
+          />
+          <img
+            src="../assets/icons/instagram.png"
+            alt="Instagram"
+            id="instagram-link"
+            class="icon-media"
+          />
+          <img
+            src="../assets/icons/pinterest.png"
+            alt="Pinterest"
+            id="pinterest-link"
+            class="icon-media"
+          />
+          <img
+            src="../assets/icons/youtube.png"
+            alt="YouTube"
+            id="youtube-link"
+            class="icon-media"
+          />
+        </div>
+      </section>
+
+      <section class="copy-rights">
+        <p>© <span id="year"></span> Lyfter Pet Shop. All rights reserved.</p>
+      </section>
+    </footer>
+    <script>
+      // get year dynamically for the footer
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>

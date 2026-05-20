@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="pet shop product details" />
+    <title>Lyfter Pet Shop</title>
+    <link rel="icon" type="image/png" href="../assets/icons/icon-dog.png" />
+    <link rel="stylesheet" href="../css/product-detail/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="../js/product-detail/main.js"></script>
+  </head>
+
+  <body>
+    <header>
+      <nav id="nav-info" class="nav-info">
+        <div id="login-register-container" class="div-log">
+          <span><a id="login">Login</a> or <a id="register">Register</a></span>
+        </div>
+        <div class="div-info">
+          <span
+            ><a id="products">Products</a> | <a id="about">About us</a> |
+            <a id="locations">Locations</a> |
+            <a id="contact">Contact Us</a>
+          </span>
+        </div>
+      </nav>
+
+      <!-- this section will be used to show the logged user info and logout button -->
+      <nav id="nav-logged-user" class="nav-logged-user"></nav>
+
+      <section class="logo-search-section">
+        <figure class="logo-figure">
+          <img
+            src="../assets/images/logo.png"
+            alt="Lyfter Pet Shop Logo"
+            class="logo-image"
+          />
+        </figure>
+        <p class="shop-tagline">Your pet's happiness, our mission.</p>
+        <form id="search-form" class="search-form">
+          <input
+            id="search-input"
+            class="search-input"
+            type="search"
+            placeholder="🔍 Search..."
+            required
+          />
+          <button id="search-button" class="search-button" type="submit">
+            Search
+          </button>
+        </form>
+      </section>
+    </header>
+
+    <main>
+      <section id="product-detail-section" class="product-detail-section">
+        <div class="product-image-container-detail">
+          <figure class="product-figure-detail">
+            <img
+              alt="Product Image"
+              id="product-image-detail"
+              class="product-image-detail"
+            />
+          </figure>
+        </div>
+
+        <div class="product-info-container">
+          <h1 id="load-error" class="load-error"></h1>
+          <h1 id="product-name-d" class="product-name-d"></h1>
+          <p id="product-description-d" class="product-description-d"></p>
+          <p id="product-price-d" class="product-price-d"></p>
+          <div
+            id="quantity-selector-container"
+            class="quantity-selector-container"
+          >
+            <!--  quantity selector gonna be dynamically populated -->
+            <!-- <h3>In Stock or Out of Stock</h3>
+            <label for="quantity">Quantity:</label>
+            <select id="quantity"></select>
+          </div>
+          <button id="add-to-cart-button" class="add-to-cart-button">
+            Add to Cart
+          </button>-->
+          </div>
+        </div>
+      </section>
+
+      <h3 id="products-search-title" class="products-search-title"></h3>
+      <div id="products-search-grid" class="products-grid">
+        <!-- products will be dynamically inserted here -->
+      </div>
+
+      <hr class="section-divider" />
+
+      <section id="section-products" class="section-products">
+        <h2 class="title-featured">Featured Products</h2>
+        <div id="products-grid" class="products-grid">
+          <!-- here we will dynamically insert product cards -->
+          <!-- product card structure:
+          <article class="product-card">
+            <figure class="product-figure">
+              <img class="product-image" 
+              src="assets/images/logo.png" 
+              alt="Product Image"/>
+            </figure>
+            <h3 class="product-title"></h3>
+            <p class="product-description"></p>
+            <div class="product-price"></div>
+          </article>
+          -->
+        </div>
+      </section>
+    </main>
+
+    <footer class="container-footer">
+      <section class="social-media">
+        <h2>Follow Us</h2>
+        <div class="social-media-links">
+          <img
+            src="../assets/icons/facebook.png"
+            alt="Facebook"
+            id="facebook-link"
+            class="icon-media"
+          />
+          <img
+            src="../assets/icons/instagram.png"
+            alt="Instagram"
+            id="instagram-link"
+            class="icon-media"
+          />
+          <img
+            src="../assets/icons/pinterest.png"
+            alt="Pinterest"
+            id="pinterest-link"
+            class="icon-media"
+          />
+          <img
+            src="../assets/icons/youtube.png"
+            alt="YouTube"
+            id="youtube-link"
+            class="icon-media"
+          />
+        </div>
+      </section>
+
+      <section class="copy-rights">
+        <p>© <span id="year"></span> Lyfter Pet Shop. All rights reserved.</p>
+      </section>
+    </footer>
+
+    <!-- modal for add to cart confirmation -->
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <p id="modal-message"></p>
+
+        <div id="modal-buttons-container" class="modal-buttons-container">
+          <button id="continue-shopping-button" class="modal-button">
+            Continue Shopping
+          </button>
+          <button id="go-to-cart-button" class="modal-button">
+            Go to Cart
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // get year dynamically for the footer
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>

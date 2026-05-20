@@ -1,0 +1,51 @@
+﻿body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fff3e0;
+}
+
+.section-logo {
+  display: flex;
+  flex-direction: column;
+  width: min(32.8rem, 92vw);
+  margin: 8vh auto 0 auto;
+  padding: 0.75em;
+  border-radius: 1.25em;
+}
+
+.logo {
+  max-width: 60%;
+  height: auto;
+  rotate: -22deg;
+  margin-left: -8.8rem;
+  margin-bottom: -4.5rem;
+}
+
+/* Responsive */
+@media (max-width: 48em) {
+  .section-logo {
+    margin: 4vh auto 0 auto;
+    align-items: center;
+  }
+
+  .logo {
+    max-width: 45%;
+    rotate: 0deg;
+    margin-left: 0;
+    margin-bottom: -2rem;
+  }
+}
+
+@media (max-width: 30em) {
+  .section-logo {
+    margin: 2vh auto 0 auto;
+    padding: 0.5em;
+    align-items: center;
+  }
+
+  .logo {
+    max-width: 40%;
+    rotate: 0deg;
+    margin-left: 0;
+    margin-bottom: -1.5rem;
+  }
+}

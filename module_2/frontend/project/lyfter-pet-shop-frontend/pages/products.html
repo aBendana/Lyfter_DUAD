@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="pet shop products" />
+    <title>Lyfter Pet Shop</title>
+    <link rel="icon" type="image/png" href="../assets/icons/icon-dog.png" />
+    <link rel="stylesheet" href="../css/products/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="../js/products/main.js"></script>
+  </head>
+
+  <body>
+    <header>
+      <nav id="nav-info" class="nav-info">
+        <div id="login-register-container" class="div-log">
+          <span><a id="login">Login</a> or <a id="register">Register</a></span>
+        </div>
+
+        <div class="div-info">
+          <span
+            ><a id="about">About us</a> | <a id="locations">Locations</a> |
+            <a id="contact">Contact Us</a>
+          </span>
+        </div>
+      </nav>
+
+      <!-- this section will be used to show the logged user info and logout button -->
+      <nav id="nav-logged-user" class="nav-logged-user"></nav>
+
+      <nav class="species-search-nav">
+        <div class="species-categories-container">
+          <img
+            src="../assets/images/logo.png"
+            alt="Lyfter Pet Shop Logo"
+            class="logo"
+          />
+          <span class="species-categories-span">
+            <button data-species="all" class="species-category-button">
+              All
+            </button>
+            <button data-species="dogs" class="species-category-button">
+              Dogs
+            </button>
+            <button data-species="cats" class="species-category-button">
+              Cats
+            </button>
+            <button data-species="birds" class="species-category-button">
+              Birds
+            </button>
+            <button data-species="fish" class="species-category-button">
+              Fish
+            </button>
+            <button data-species="reptiles" class="species-category-button">
+              Reptiles
+            </button>
+            <button data-species="rodents" class="species-category-button">
+              Rodents
+            </button>
+            <button
+              data-species="small-mammals"
+              class="species-category-button"
+            >
+              Small Mammals
+            </button>
+          </span>
+        </div>
+
+        <form id="search-form" class="search-form">
+          <input
+            id="search-input"
+            class="search-input"
+            type="search"
+            placeholder="🔍 Search..."
+            required
+          />
+          <button id="search-button" class="search-button" type="submit">
+            Search
+          </button>
+        </form>
+      </nav>
+    </header>
+
+    <main>
+      <section id="products-section" class="products-section">
+        <h2 id="products-title" class="products-title">Our Products</h2>
+        <div id="products-grid" class="products-grid">
+          <!-- products will be dynamically inserted here -->
+        </div>
+        <nav id="pagination-nav" class="pagination-nav"></nav>
+      </section>
+    </main>
+
+    <footer class="container-footer">
+      <section class="social-media">
+        <h2>Follow Us</h2>
+        <div class="social-media-links">
+          <img
+            src="../assets/icons/facebook.png"
+            alt="Facebook"
+            id="facebook-link"
+            class="icon-media"
+          />
+          <img
+            src="../assets/icons/instagram.png"
+            alt="Instagram"
+            id="instagram-link"
+            class="icon-media"
+          />
+          <img
+            src="../assets/icons/pinterest.png"
+            alt="Pinterest"
+            id="pinterest-link"
+            class="icon-media"
+          />
+          <img
+            src="../assets/icons/youtube.png"
+            alt="YouTube"
+            id="youtube-link"
+            class="icon-media"
+          />
+        </div>
+      </section>
+
+      <section class="copy-rights">
+        <p>© <span id="year"></span> Lyfter Pet Shop. All rights reserved.</p>
+      </section>
+    </footer>
+
+    <script>
+      // get year dynamically for the footer
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>

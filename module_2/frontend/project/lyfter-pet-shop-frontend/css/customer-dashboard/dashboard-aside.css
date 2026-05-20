@@ -1,0 +1,94 @@
+﻿/* this dashboard-aside css is used by admin-dashboard-aside too */
+
+main {
+  width: 70%;
+  margin: 0 auto;
+  margin-bottom: 6rem;
+  display: grid;
+  grid-template-columns: 14rem 1fr;
+  gap: 2rem;
+  align-items: start;
+  padding-top: 2rem;
+}
+
+/* aside sidebar */
+.dashboard {
+  position: sticky;
+  top: 5rem;
+  background-color: #fff3e0;
+  border-radius: 1rem;
+  box-shadow: 0 2px 5px rgba(252, 153, 40, 0.849);
+  padding: 1.2rem 1rem;
+}
+
+.dashboard-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.dashboard-list li a {
+  display: block;
+  padding: 0.6rem 0.8rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: clamp(0.9rem, 1.8vw, 1rem);
+  font-weight: 500;
+  color: rgb(46, 46, 46);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.3s ease;
+}
+.dashboard-list li a:hover {
+  transform: scale(1.1);
+  background-color: rgba(252, 153, 40, 0.2);
+  color: #039ee6;
+  border-bottom: none;
+}
+.dashboard-list li a.active {
+  background-color: #039ee6;
+  color: #fff;
+  font-weight: 600;
+}
+.dashboard-list li a:active {
+  transform: scale(0.8);
+  transition: transform 0.1s ease;
+}
+
+/* responsive */
+@media (max-width: 48em) {
+  main {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding-top: 1.5rem;
+  }
+
+  .dashboard {
+    position: static;
+  }
+
+  .dashboard-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 30em) {
+  main {
+    width: 95%;
+    gap: 1rem;
+    padding-top: 1rem;
+  }
+
+  .dashboard {
+    padding: 0.9rem 0.8rem;
+  }
+
+  .dashboard-list li a {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.6rem;
+  }
+}

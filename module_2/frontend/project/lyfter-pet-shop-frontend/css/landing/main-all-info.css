@@ -1,0 +1,35 @@
+﻿main {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+/* about us*/
+.section-all-info {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.title-info {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  color: #039ee6;
+  margin: 0;
+}
+
+.p-info {
+  background-color: #fff3e0;
+  border-radius: 0.9rem;
+  box-shadow: 0 2px 5px rgba(252, 153, 40, 0.849);
+  padding: 1rem;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  color: #2e2c2c;
+}
+
+@media (max-width: 30em) {
+  main {
+    padding: 1rem;
+  }
+}

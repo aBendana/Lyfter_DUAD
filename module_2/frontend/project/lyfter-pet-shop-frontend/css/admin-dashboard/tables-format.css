@@ -1,0 +1,192 @@
+﻿/* users table container */
+.users-container,
+.invoices-container,
+.products-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff3e0;
+  min-height: 40vh;
+  border-radius: 1rem;
+  box-shadow: 0 2px 5px rgba(252, 153, 40, 0.4);
+  padding: 2rem;
+  gap: 1rem;
+  overflow-x: auto;
+}
+
+/* search container */
+.search-total-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+/* search input */
+.search-input {
+  padding: 0.5rem;
+  border: 1px solid #039ee6;
+  border-radius: 0.8rem;
+}
+/* total sales title */
+.total-sales-title,
+.total-clients-title,
+.total-products-title {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  letter-spacing: 0.1rem;
+  font-weight: 700;
+  color: #007bb4;
+}
+
+/* users table */
+.users-table,
+.invoices-table,
+.products-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: clamp(0.85rem, 1.6vw, 0.95rem);
+}
+
+/* table header */
+.users-table thead tr,
+.invoices-table thead tr,
+.products-table thead tr {
+  background-color: #039ee6;
+  color: #ffffff;
+}
+
+.users-table thead th,
+.invoices-table thead th,
+.products-table thead th {
+  padding: 0.75rem 1rem;
+  text-align: center;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: clamp(0.75rem, 1.4vw, 0.85rem);
+  border-bottom: 2px solid rgba(3, 158, 230, 0.4);
+}
+
+.users-table thead th:first-child,
+.invoices-table thead th:first-child,
+.products-table thead th:first-child {
+  border-radius: 0.5rem 0 0 0;
+}
+
+.users-table thead th:last-child,
+.invoices-table thead th:last-child,
+.products-table thead th:last-child {
+  border-radius: 0 0.5rem 0 0;
+}
+
+/* table body rows */
+.users-table tbody tr,
+.invoices-table tbody tr,
+.products-table tbody tr {
+  background-color: #ffffff;
+  transition: background-color 0.15s ease;
+}
+
+.users-table tbody tr:nth-child(even),
+.invoices-table tbody tr:nth-child(even),
+.products-table tbody tr:nth-child(even) {
+  background-color: #fdf0dc;
+}
+
+.users-table tbody tr:hover,
+.invoices-table tbody tr:hover,
+.products-table tbody tr:hover {
+  background-color: #eefaff;
+}
+
+.users-table tbody td,
+.invoices-table tbody td,
+.products-table tbody td {
+  padding: 0.65rem 1rem;
+  color: rgb(46, 46, 46);
+  border-bottom: 1px solid rgba(252, 153, 40, 0.2);
+  text-align: center;
+}
+
+/* buttons view */
+.view-user-button,
+.view-invoice-button,
+.view-product-button {
+  margin-left: 0.5rem;
+  background-color: #039ee6;
+  color: #ffffff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s ease;
+}
+.view-user-button:hover,
+.view-invoice-button:hover,
+.view-product-button:hover {
+  background-color: #0288c9;
+}
+.view-user-button:active,
+.view-invoice-button:active,
+.view-product-button:active {
+  background-color: #0277bd;
+  transform: scale(1.05);
+}
+
+/* responsive */
+@media (max-width: 48em) {
+  .users-container,
+  .invoices-container,
+  .products-container {
+    padding: 1.5rem 1rem;
+  }
+
+  .users-table thead th,
+  .users-table tbody td,
+  .invoices-table thead th,
+  .invoices-table tbody td,
+  .products-table thead th,
+  .products-table tbody td {
+    padding: 0.55rem 0.7rem;
+  }
+
+  .view-user-button,
+  .view-invoice-button,
+  .view-product-button {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.85rem;
+    margin-left: 0.25rem;
+  }
+}
+
+@media (max-width: 30em) {
+  .users-container,
+  .invoices-container,
+  .products-container {
+    padding: 1rem 0.75rem;
+  }
+
+  .users-table thead th,
+  .users-table tbody td,
+  .invoices-table thead th,
+  .invoices-table tbody td,
+  .products-table thead th,
+  .products-table tbody td {
+    padding: 0.45rem 0.5rem;
+    font-size: clamp(0.75rem, 3vw, 0.85rem);
+  }
+
+  .view-user-button,
+  .view-invoice-button,
+  .view-product-button {
+    display: block;
+    width: 100%;
+    margin-left: 0;
+    margin-top: 0.3rem;
+    padding: 0.4rem 0.5rem;
+    font-size: 0.8rem;
+  }
+}
