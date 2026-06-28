@@ -20,6 +20,14 @@
   margin: 2rem 0;
 }
 
+p {
+  font-family: arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #2b2828;
+  margin: 0.5rem 0;
+}
+
 a {
   font-family: arial, sans-serif;
   font-size: 1.2rem;

@@ -1,12 +1,14 @@
-import React from 'react';
-import products from '../../data/products.json';
+//import products from '../../data/products.json';
+import { useCatalog } from '../../context/CatalogContext';
 import './Products.css';
 
 // simulate no products available
-//const products = [];
+//const catalog = [];
 
 function Products({ setCurrentPage, setSelectedProduct }) {
-  if (!products || products.length === 0) {
+  const { catalog } = useCatalog();
+
+  if (!catalog || catalog.length === 0) {
     return (
       <main className="products products--empty">
         <h1 className="products__title-no-products">
@@ -20,7 +22,7 @@ function Products({ setCurrentPage, setSelectedProduct }) {
     <main className="products">
       <h1 className="products__title">Catálogo de Productos</h1>
       <div className="products__grid">
-        {products.map((product) => (
+        {catalog.map((product) => (
           <div key={product.id} className="product__card">
             <img
               src={product.imagen}

@@ -18,6 +18,7 @@ This is still an in-progress project, so some planned features are not implement
 - react
 - react-dom
 - vite
+- react-hook-form
 
 ### Prerequisites
 
@@ -28,9 +29,10 @@ This is still an in-progress project, so some planned features are not implement
 
 1. Clone the repository: git clone <https://github.com/aBendana/Lyfter_DUAD>
 2. navigate to project folder: cd /module_3/React/Project_1/paw-store
-3. install dependencies: npm install
-4. start development server: npm run dev
-5. open in browser: http://localhost:5173
+3. install dependency: npm install
+4. install dependency: npm install react-hook-form
+5. start development server: npm run dev
+6. open in browser: http://localhost:5173
 
 ## Current Features
 
@@ -39,9 +41,13 @@ This is still an in-progress project, so some planned features are not implement
 - Products page rendered from local JSON data
 - Empty-state support when no products are available
 - Product details page
-- Can navigate from Products to Home
-- Can navigate from ProductDetails to Home or Products
-- Responsive styling for core views
+- Administration panel to manage catalog products
+- Create product flow from admin panel
+- Edit product flow with preloaded product data
+- Delete product action from admin table
+- Form handling and validation with react-hook-form
+- Shared catalog state via CatalogContext
+- Responsive styling for core views and admin views
 
 ## Project Structure
 
@@ -50,18 +56,27 @@ paw-store/
 	public/
 	src/
 		assets/
+			icons/
 		components/
 			Footer/
+			Forms/
 			Header/
 			Loading/
+		context/
 		data/
 			products.json
+		hooks/
 		pages/
+			Admin/
+			EditProduct/
 			Home/
 			ProductDetails/
 			Products/
 		App.jsx
+		index.css
 		main.jsx
+	eslint.config.js
 	package.json
+	README.md
 	vite.config.js
 ```

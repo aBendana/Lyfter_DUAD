@@ -23,6 +23,7 @@ function Header({ currentPage, setCurrentPage }) {
         >
           Inicio
         </a>
+
         <a
           href="#"
           className={currentPage === 'products' ? 'active' : 'products-header'}
@@ -33,6 +34,7 @@ function Header({ currentPage, setCurrentPage }) {
         >
           Productos
         </a>
+
         <a
           href="#"
           className={currentPage === 'contact' ? 'active' : 'contact'}
@@ -42,6 +44,17 @@ function Header({ currentPage, setCurrentPage }) {
           }}
         >
           Contacto
+        </a>
+
+        <a
+          href="#"
+          className={currentPage === 'admin' ? 'active' : 'admin'}
+          onClick={(e) => {
+            e.preventDefault();
+            setCurrentPage('admin');
+          }}
+        >
+          Administración
         </a>
       </nav>
     </header>
