@@ -1,4 +1,3 @@
-import React from 'react';
 import './ProductDetails.css';
 
 function ProductDetails({ product, setCurrentPage }) {
@@ -40,7 +39,7 @@ function ProductDetails({ product, setCurrentPage }) {
             className="card__btn"
             onClick={() => setCurrentPage('products')}
           >
-            Volver al cátalogo
+            Volver al catálogo
           </button>
         </div>
       </div>
