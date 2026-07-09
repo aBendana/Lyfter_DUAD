@@ -1,4 +1,3 @@
-import React from 'react';
 import pawPrint from '../../assets/icons/PawPrint.svg';
 import './Header.css';
 

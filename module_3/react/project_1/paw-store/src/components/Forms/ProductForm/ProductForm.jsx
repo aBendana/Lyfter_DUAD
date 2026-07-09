@@ -10,6 +10,7 @@ function ProductForm({
   genericErrorMessage,
   successMessage = '',
   showCancelButton = true,
+  shouldResetOnSuccess = false,
 }) {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
@@ -32,6 +33,12 @@ function ProductForm({
   const handleFormSubmit = (data) => {
     if (onSubmit) {
       onSubmit(data);
+
+      // reset the form if shouldResetOnSuccess is true
+      if (shouldResetOnSuccess) {
+        reset();
+      }
+
       setShowSuccessMessage(true);
       return;
     }
@@ -69,8 +76,22 @@ function ProductForm({
       <input
         id="price"
         placeholder="0.00"
+        type="number"
+        step="0.01"
         {...register('price', {
           required: genericErrorMessage,
+          valueAsNumber: true,
+
+          min: {
+            value: 0,
+            message: 'El precio debe ser un número positivo',
+          },
+          max: {
+            value: 100000,
+            message: 'El precio no puede ser mayor a ₡100,000',
+          },
+          validate: (value) =>
+            Number.isFinite(value) || 'El precio debe ser un número válido',
         })}
       />
       {errors.price && <span role="alert">{errors.price.message}</span>}
@@ -99,8 +120,21 @@ function ProductForm({
       <input
         id="stock"
         placeholder="0"
+        type="number"
+        step="1"
         {...register('stock', {
           required: genericErrorMessage,
+          valueAsNumber: true,
+          min: {
+            value: 0,
+            message: 'El stock debe ser un número positivo',
+          },
+          max: {
+            value: 20000,
+            message: 'El stock no puede ser mayor a 20,000',
+          },
+          validate: (value) =>
+            Number.isFinite(value) || 'El stock debe ser un número válido',
         })}
       />
       {errors.stock && <span role="alert">{errors.stock.message}</span>}

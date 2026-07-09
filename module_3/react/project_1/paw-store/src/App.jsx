@@ -7,29 +7,38 @@ import Administration from './pages/Admin';
 import EditProduct from './pages/EditProduct';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import Loading from './components/Loading';
 import { CatalogProvider } from './context/CatalogContext';
+import { useExistsCurrentPage } from './hooks/useExistsCurrentPage';
 
 function App() {
   // state to manage the current page view
   const [currentPage, setCurrentPage] = useState('home');
+
+  // custom hook to ensure the current page is valid and exists
+  const safeSetCurrentPage = useExistsCurrentPage(setCurrentPage);
+
   // state to manage the selected product for details view
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedProductDetailsId, setSelectedProductDetailsId] =
+    useState(null);
+
   // state to manage the selected product for edit view
   const [selectedProductId, setSelectedProductId] = useState(null);
+
   // define the loading effect hook - loading screen
-  const loadingView = useLoadingEffect(currentPage);
+  const isLoading = useLoadingEffect(currentPage);
 
   const renderPage = () => {
     // render products page
     if (currentPage === 'products') {
-      if (loadingView) {
-        return loadingView;
+      if (isLoading) {
+        return <Loading />;
       }
 
       return (
         <Products
           setCurrentPage={setCurrentPage}
-          setSelectedProduct={setSelectedProduct}
+          setSelectedProductDetailsId={setSelectedProductDetailsId}
         />
       );
     }
@@ -38,7 +47,7 @@ function App() {
     if (currentPage === 'product-details') {
       return (
         <ProductDetails
-          product={selectedProduct}
+          productId={selectedProductDetailsId}
           setCurrentPage={setCurrentPage}
         />
       );
@@ -65,14 +74,16 @@ function App() {
       );
     }
 
-    /* send to home any other link for now, since contact page 
-      is not implemented yet */
+    /* send to home any other link, right now is not used because 
+    of the useExistsCurrentPage hook, this can be quite  useful 
+    for future implementations of 404 pages or other error handling. 
+    General fallback for security */
     return <Home setCurrentPage={setCurrentPage} />; // render default home page
   };
 
   return (
     <CatalogProvider>
-      <Header currentPage={currentPage} setCurrentPage={setCurrentPage} />
+      <Header currentPage={currentPage} setCurrentPage={safeSetCurrentPage} />
       {renderPage()}
       <Footer />
     </CatalogProvider>

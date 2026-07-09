@@ -1,32 +1,23 @@
 import { useCatalog } from '../../context/CatalogContext';
 import { CreateProductForm } from '../../components/Forms';
 import { useEditProduct } from '../../hooks/useEditProduct';
-import createProduct from '../../hooks/useCreateProduct';
-import deleteProduct from '../../hooks/useDeleteProduct';
+import { useCreateProduct } from '../../hooks/useCreateProduct';
+import { useDeleteProduct } from '../../hooks/useDeleteProduct';
 import './Admin.css';
 
 function Administration({ setCurrentPage, setSelectedProductId }) {
   const { catalog } = useCatalog();
 
   // handle for creating a new product using the custom hook
-  const handleCreateProduct = createProduct();
+  const handleCreateProduct = useCreateProduct();
 
   //handlers for edit and delete product actions using custom hooks
   const handleEditProduct = useEditProduct({
     setCurrentPage,
     setSelectedProductId,
   });
-  const handleDeleteProduct = deleteProduct();
-
-  if (!catalog || catalog.length === 0) {
-    return (
-      <main className="products products--empty">
-        <h1 className="products__title-no-products">
-          No hay productos para gestionar
-        </h1>
-      </main>
-    );
-  }
+  const handleDeleteProduct = useDeleteProduct();
+  const hasProducts = Boolean(catalog?.length);
 
   return (
     <main className="panel-admin">
@@ -35,45 +26,53 @@ function Administration({ setCurrentPage, setSelectedProductId }) {
         En esta sección puedes gestionar el catálogo de productos de PawStore.
       </p>
 
-      <section className="products__table">
-        <table className="products__table-content">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Nombre</th>
-              <th>Precio</th>
-              <th>Categoría</th>
-              <th>Stock</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {catalog.map((product) => (
-              <tr key={product.id}>
-                <td>{product.id}</td>
-                <td>{product.nombre}</td>
-                <td>₡{product.precio.toLocaleString('es-CR')}</td>
-                <td>{product.categoria}</td>
-                <td>{product.stock}</td>
-                <td>
-                  <button
-                    className="product__button--edit"
-                    onClick={() => handleEditProduct(product.id)}
-                  >
-                    Editar
-                  </button>
-                  <button
-                    className="product__button--delete"
-                    onClick={() => handleDeleteProduct(product.id)}
-                  >
-                    Eliminar
-                  </button>
-                </td>
+      {!hasProducts ? (
+        /* show a message when there are no products in the catalog */
+        <h1 className="products-admin__title-no-products">
+          No hay productos para gestionar
+        </h1>
+      ) : (
+        /* show the products table when there are products in the catalog */
+        <section className="products-admin__table">
+          <table className="products-admin__table-content">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Categoría</th>
+                <th>Stock</th>
+                <th>Acciones</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </section>
+            </thead>
+            <tbody>
+              {catalog.map((product) => (
+                <tr key={product.id}>
+                  <td>{product.id}</td>
+                  <td>{product.nombre}</td>
+                  <td>₡{product.precio.toLocaleString('es-CR')}</td>
+                  <td>{product.categoria}</td>
+                  <td>{product.stock}</td>
+                  <td>
+                    <button
+                      className="product__button--edit"
+                      onClick={() => handleEditProduct(product.id)}
+                    >
+                      Editar
+                    </button>
+                    <button
+                      className="product__button--delete"
+                      onClick={() => handleDeleteProduct(product.id)}
+                    >
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+      )}
 
       <section className="panel-admin__form">
         <h2 className="panel-admin__form-title">Agregar nuevo producto</h2>

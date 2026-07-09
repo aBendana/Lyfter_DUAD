@@ -1,23 +1,4 @@
-/* ── Empty state (shared with products) ── */
-.products {
-  background: #ffffff;
-  width: 100%;
-  min-height: 50dvh;
-  box-sizing: border-box;
-  padding: 2rem 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  margin: 0 auto;
-}
-
-.products--empty {
-  min-height: 50dvh;
-  display: grid;
-  place-items: center;
-}
-
-.products__title-no-products {
+.products-admin__title-no-products {
   font-family: Poppins, sans-serif;
   font-size: 2rem;
   font-weight: 800;
@@ -64,7 +45,7 @@
 }
 
 /* ── Table ── */
-.products__table {
+.products-admin__table {
   width: 100%;
   overflow-x: auto;
   border: 0.0625rem solid #e5e4e7;
@@ -72,14 +53,14 @@
   background-color: #fff;
 }
 
-.products__table-content {
+.products-admin__table-content {
   width: 100%;
   min-width: 44rem;
   border-collapse: collapse;
 }
 
-.products__table-content th,
-.products__table-content td {
+.products-admin__table-content th,
+.products-admin__table-content td {
   font-family: Inter, sans-serif;
   font-size: 0.9rem;
   padding: 0.85rem 1rem;
@@ -89,7 +70,7 @@
   vertical-align: middle;
 }
 
-.products__table-content thead th {
+.products-admin__table-content thead th {
   font-family: Poppins, sans-serif;
   font-size: 0.85rem;
   font-weight: 600;
@@ -99,11 +80,11 @@
   background: #faf8ff;
 }
 
-.products__table-content tbody tr:hover {
+.products-admin__table-content tbody tr:hover {
   background-color: #fcfaff;
 }
 
-.products__table-content tbody tr:last-child td {
+.products-admin__table-content tbody tr:last-child td {
   border-bottom: none;
 }
 
@@ -144,30 +125,30 @@
 /* ── Responsive ── */
 @media (max-width: 64rem) {
   .panel-admin,
-  .products {
+  .products-admin {
     padding: 1.75rem 1.25rem;
   }
 
   .panel-admin__title,
-  .products__title-no-products {
+  .products-admin__title-no-products {
     font-size: 1.625rem;
     margin-top: 1.5rem;
   }
 
-  .products__table-content th,
-  .products__table-content td {
+  .products-admin__table-content th,
+  .products-admin__table-content td {
     padding: 0.75rem 0.8rem;
   }
 }
 
 @media (max-width: 48rem) {
   .panel-admin,
-  .products {
+  .products-admin {
     padding: 1.25rem 1rem;
   }
 
   .panel-admin__title,
-  .products__title-no-products {
+  .products-admin__title-no-products {
     font-size: 1.375rem;
     margin-top: 1rem;
   }
@@ -179,12 +160,12 @@
 
 @media (max-width: 30rem) {
   .panel-admin,
-  .products {
+  .products-admin {
     padding: 1rem 0.75rem;
   }
 
   .panel-admin__title,
-  .products__title-no-products {
+  .products-admin__title-no-products {
     font-size: 1.2rem;
     margin-top: 0.75rem;
   }

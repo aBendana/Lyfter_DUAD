@@ -18,6 +18,7 @@ function CreateProductForm({ onSubmit }) {
       genericErrorMessage="Por favor completa todos los campos antes de agregar el producto."
       successMessage="Producto creado con exito."
       showCancelButton={false}
+      shouldResetOnSuccess={true}
       onSubmit={onSubmit}
     />
   );

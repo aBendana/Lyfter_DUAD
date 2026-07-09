@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useCatalog } from '../context/CatalogContext';
 
-export const deleteProduct = () => {
+export const useDeleteProduct = () => {
   const { setCatalog } = useCatalog();
 
   return useCallback(
@@ -21,5 +21,3 @@ export const deleteProduct = () => {
     [setCatalog]
   );
 };
-
-export default deleteProduct;

@@ -5,7 +5,7 @@ import './Products.css';
 // simulate no products available
 //const catalog = [];
 
-function Products({ setCurrentPage, setSelectedProduct }) {
+function Products({ setCurrentPage, setSelectedProductDetailsId }) {
   const { catalog } = useCatalog();
 
   if (!catalog || catalog.length === 0) {
@@ -38,7 +38,7 @@ function Products({ setCurrentPage, setSelectedProduct }) {
               <button
                 className="product__button"
                 onClick={() => {
-                  setSelectedProduct(product);
+                  setSelectedProductDetailsId(product.id);
                   setCurrentPage('product-details');
                 }}
               >

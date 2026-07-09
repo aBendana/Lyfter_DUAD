@@ -1,26 +1,21 @@
-import { createElement, useEffect, useState } from 'react';
-import Loading from '../components/Loading';
+import { useEffect, useState } from 'react';
 
 export const useLoadingEffect = (currentPage) => {
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (currentPage !== 'products') {
-      setLoading(false);
+      setIsLoading(false);
       return;
     }
 
-    setLoading(true);
+    setIsLoading(true);
     const timer = setTimeout(() => {
-      setLoading(false);
+      setIsLoading(false);
     }, 1300);
 
     return () => clearTimeout(timer);
-  }, [currentPage, setLoading]);
+  }, [currentPage, setIsLoading]);
 
-  if (currentPage === 'products' && loading) {
-    return createElement(Loading);
-  }
-
-  return null;
+  return currentPage === 'products' && isLoading;
 };
