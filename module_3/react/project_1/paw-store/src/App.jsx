@@ -1,41 +1,44 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Home from './pages/Home';
 import Products from './pages/Products';
-import Loading from './components/Loading';
+import { useLoadingEffect } from './hooks/useLoadingEffect';
 import ProductDetails from './pages/ProductDetails';
+import Administration from './pages/Admin';
+import EditProduct from './pages/EditProduct';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import Loading from './components/Loading';
+import { CatalogProvider } from './context/CatalogContext';
+import { useExistsCurrentPage } from './hooks/useExistsCurrentPage';
 
 function App() {
-  const [loading, setLoading] = useState(false);
+  // state to manage the current page view
   const [currentPage, setCurrentPage] = useState('home');
-  const [selectedProduct, setSelectedProduct] = useState(null);
 
-  useEffect(() => {
-    if (currentPage !== 'products') {
-      setLoading(false);
-      return;
-    }
+  // custom hook to ensure the current page is valid and exists
+  const safeSetCurrentPage = useExistsCurrentPage(setCurrentPage);
 
-    setLoading(true);
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1300); // simulate the loading time for products page
+  // state to manage the selected product for details view
+  const [selectedProductDetailsId, setSelectedProductDetailsId] =
+    useState(null);
 
-    return () => clearTimeout(timer);
-  }, [currentPage]);
+  // state to manage the selected product for edit view
+  const [selectedProductId, setSelectedProductId] = useState(null);
+
+  // define the loading effect hook - loading screen
+  const isLoading = useLoadingEffect(currentPage);
 
   const renderPage = () => {
     // render products page
     if (currentPage === 'products') {
-      if (loading) {
+      if (isLoading) {
         return <Loading />;
       }
 
       return (
         <Products
           setCurrentPage={setCurrentPage}
-          setSelectedProduct={setSelectedProduct}
+          setSelectedProductDetailsId={setSelectedProductDetailsId}
         />
       );
     }
@@ -44,25 +47,46 @@ function App() {
     if (currentPage === 'product-details') {
       return (
         <ProductDetails
-          product={selectedProduct}
+          productId={selectedProductDetailsId}
           setCurrentPage={setCurrentPage}
         />
       );
     }
 
-    {
-      /* send to home any other link for now, since contact page 
-      is not implemented yet */
+    // render administration page
+    if (currentPage === 'admin') {
+      return (
+        <Administration
+          setCurrentPage={setCurrentPage}
+          setSelectedProductId={setSelectedProductId}
+        />
+      );
     }
+
+    // render edit product page
+    if (currentPage === 'edit-product') {
+      return (
+        <EditProduct
+          productId={selectedProductId}
+          setCurrentPage={setCurrentPage}
+          setSelectedProductId={setSelectedProductId}
+        />
+      );
+    }
+
+    /* send to home any other link, right now is not used because 
+    of the useExistsCurrentPage hook, this can be quite  useful 
+    for future implementations of 404 pages or other error handling. 
+    General fallback for security */
     return <Home setCurrentPage={setCurrentPage} />; // render default home page
   };
 
   return (
-    <>
-      <Header currentPage={currentPage} setCurrentPage={setCurrentPage} />
+    <CatalogProvider>
+      <Header currentPage={currentPage} setCurrentPage={safeSetCurrentPage} />
       {renderPage()}
       <Footer />
-    </>
+    </CatalogProvider>
   );
 }
 

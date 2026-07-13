@@ -1,0 +1,18 @@
+.edit-product {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+}
+
+.edit-product__title {
+  font-family: Poppins, sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #7f55e0;
+  margin: 0;
+  padding-top: 1rem;
+}

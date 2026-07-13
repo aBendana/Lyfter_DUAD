@@ -1,7 +1,10 @@
-import React from 'react';
 import './ProductDetails.css';
+import { useCatalog } from '../../context/CatalogContext';
 
-function ProductDetails({ product, setCurrentPage }) {
+function ProductDetails({ productId, setCurrentPage }) {
+  const { catalog } = useCatalog();
+  const product = catalog.find((p) => p.id === productId);
+
   if (!product) {
     return (
       <main className="product-details">
@@ -40,7 +43,7 @@ function ProductDetails({ product, setCurrentPage }) {
             className="card__btn"
             onClick={() => setCurrentPage('products')}
           >
-            Volver al cátalogo
+            Volver al catálogo
           </button>
         </div>
       </div>
