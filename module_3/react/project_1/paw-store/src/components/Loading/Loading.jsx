@@ -4,7 +4,7 @@ function Loading() {
   return (
     <main className="loading">
       <div className="loading__spinner"></div>
-      <p className="loading__text">Cargando productos...</p>
+      <p className="loading__text">Cargando...</p>
     </main>
   );
 }

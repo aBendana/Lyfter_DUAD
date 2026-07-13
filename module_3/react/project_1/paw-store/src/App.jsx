@@ -5,6 +5,7 @@ import { useLoadingEffect } from './hooks/useLoadingEffect';
 import ProductDetails from './pages/ProductDetails';
 import Administration from './pages/Admin';
 import EditProduct from './pages/EditProduct';
+import Login from './pages/Login/Login';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Loading from './components/Loading';
@@ -55,12 +56,21 @@ function App() {
 
     // render administration page
     if (currentPage === 'admin') {
+      if (isLoading) {
+        return <Loading />;
+      }
+
       return (
         <Administration
           setCurrentPage={setCurrentPage}
           setSelectedProductId={setSelectedProductId}
         />
       );
+    }
+
+    // render login page
+    if (currentPage === 'login') {
+      return <Login setCurrentPage={setCurrentPage} />;
     }
 
     // render edit product page

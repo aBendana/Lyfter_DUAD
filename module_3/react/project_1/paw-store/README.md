@@ -19,6 +19,8 @@ This is still an in-progress project, so some planned features are not implement
 - react-dom
 - vite
 - react-hook-form
+- axios
+- json-server (dev dependency)
 
 ### Prerequisites
 
@@ -33,6 +35,50 @@ This is still an in-progress project, so some planned features are not implement
 4. install dependency: npm install react-hook-form
 5. start development server: npm run dev
 6. open in browser: http://localhost:5173
+
+## JSON Server Setup
+
+JSON Server provides a fake REST API for development and testing. It's located in the `json-server/` folder.
+
+### Starting the JSON Server
+
+In a separate terminal, run:
+
+```bash
+npm run json-server
+```
+
+This will start the JSON Server on `http://localhost:3001` with your database from `json-server/paw-store-db.json`.
+
+### Available Endpoints
+
+Once the JSON Server is running, you can access these endpoints:
+
+- **GET** `/products` - Get all products
+- **GET** `/products/:id` - Get a specific product
+- **POST** `/products` - Create a new product
+- **PUT** `/products/:id` - Update a product
+- **DELETE** `/products/:id` - Delete a product
+- **GET** `/users` - Get all users
+- **GET** `/users/:id` - Get a specific user
+
+### Running Both Dev and JSON Server
+
+Open two terminals:
+
+**Terminal 1 - React Dev Server:**
+
+```bash
+npm run dev
+```
+
+**Terminal 2 - JSON Server:**
+
+```bash
+npm run json-server
+```
+
+Then access the app at `http://localhost:5173` (it will connect to the JSON Server at `http://localhost:3001`)
 
 ## Current Features
 
