@@ -5,10 +5,13 @@ import { useLoadingEffect } from './hooks/useLoadingEffect';
 import ProductDetails from './pages/ProductDetails';
 import Administration from './pages/Admin';
 import EditProduct from './pages/EditProduct';
+import Login from './pages/Login/Login';
+import Register from './pages/Register/Register';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Loading from './components/Loading';
-import { CatalogProvider } from './context/CatalogContext';
+import { ProductsProvider } from './context/ProductsContext';
+import { AuthProvider } from './context/AuthContext';
 import { useExistsCurrentPage } from './hooks/useExistsCurrentPage';
 
 function App() {
@@ -29,6 +32,16 @@ function App() {
   const isLoading = useLoadingEffect(currentPage);
 
   const renderPage = () => {
+    // render login page
+    if (currentPage === 'login') {
+      return <Login setCurrentPage={setCurrentPage} />;
+    }
+
+    // render register page
+    if (currentPage === 'register') {
+      return <Register setCurrentPage={setCurrentPage} />;
+    }
+
     // render products page
     if (currentPage === 'products') {
       if (isLoading) {
@@ -55,6 +68,10 @@ function App() {
 
     // render administration page
     if (currentPage === 'admin') {
+      if (isLoading) {
+        return <Loading />;
+      }
+
       return (
         <Administration
           setCurrentPage={setCurrentPage}
@@ -82,11 +99,13 @@ function App() {
   };
 
   return (
-    <CatalogProvider>
-      <Header currentPage={currentPage} setCurrentPage={safeSetCurrentPage} />
-      {renderPage()}
-      <Footer />
-    </CatalogProvider>
+    <AuthProvider>
+      <ProductsProvider>
+        <Header currentPage={currentPage} setCurrentPage={safeSetCurrentPage} />
+        {renderPage()}
+        <Footer />
+      </ProductsProvider>
+    </AuthProvider>
   );
 }
 

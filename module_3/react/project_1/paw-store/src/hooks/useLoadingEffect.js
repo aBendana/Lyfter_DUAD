@@ -4,7 +4,7 @@ export const useLoadingEffect = (currentPage) => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (currentPage !== 'products') {
+    if (currentPage !== 'products' && currentPage !== 'admin') {
       setIsLoading(false);
       return;
     }
@@ -17,5 +17,5 @@ export const useLoadingEffect = (currentPage) => {
     return () => clearTimeout(timer);
   }, [currentPage, setIsLoading]);
 
-  return currentPage === 'products' && isLoading;
+  return (currentPage === 'products' || currentPage === 'admin') && isLoading;
 };

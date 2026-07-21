@@ -1,14 +1,14 @@
-//import products from '../../data/products.json';
-import { useCatalog } from '../../context/CatalogContext';
+import { useProducts } from '../../context/ProductsContext';
 import './Products.css';
 
 // simulate no products available
 //const catalog = [];
 
 function Products({ setCurrentPage, setSelectedProductDetailsId }) {
-  const { catalog } = useCatalog();
+  const { products } = useProducts();
+  console.log('Products:', products);
 
-  if (!catalog || catalog.length === 0) {
+  if (!products || products.length === 0) {
     return (
       <main className="products products--empty">
         <h1 className="products__title-no-products">
@@ -22,7 +22,7 @@ function Products({ setCurrentPage, setSelectedProductDetailsId }) {
     <main className="products">
       <h1 className="products__title">Catálogo de Productos</h1>
       <div className="products__grid">
-        {catalog.map((product) => (
+        {products.map((product) => (
           <div key={product.id} className="product__card">
             <img
               src={product.imagen}

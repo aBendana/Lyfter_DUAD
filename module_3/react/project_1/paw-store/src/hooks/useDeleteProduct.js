@@ -1,11 +1,11 @@
 import { useCallback } from 'react';
-import { useCatalog } from '../context/CatalogContext';
+import { useProducts } from '../context/ProductsContext';
 
 export const useDeleteProduct = () => {
-  const { setCatalog } = useCatalog();
+  const { deleteProduct } = useProducts();
 
   return useCallback(
-    (productId) => {
+    async (productId) => {
       const deleteConfirmation = window.confirm(
         'Seguro que deseas eliminar este producto?'
       );
@@ -14,10 +14,8 @@ export const useDeleteProduct = () => {
         return;
       }
 
-      setCatalog((currentCatalog) =>
-        currentCatalog.filter((product) => product.id !== productId)
-      );
+      await deleteProduct(productId);
     },
-    [setCatalog]
+    [deleteProduct]
   );
 };

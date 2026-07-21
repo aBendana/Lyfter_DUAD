@@ -6,6 +6,7 @@ const validPages = [
   'product-details',
   'admin',
   'edit-product',
+  'login',
 ];
 
 export const useExistsCurrentPage = (setCurrentPage) => {

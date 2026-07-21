@@ -1,4 +1,4 @@
-/* Container */
+/* Header Container */
 .header {
   width: 100%;
   background: #ffffff;
@@ -6,7 +6,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 1.5rem;
+  padding: 4rem 1.5rem 2rem 1.5rem;
   height: 4rem;
   box-sizing: border-box;
   position: sticky;
@@ -19,6 +19,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  flex-shrink: 0;
 }
 
 .header__icon {
@@ -33,6 +34,7 @@
   font-weight: 700;
   color: #7f55e0;
   margin: 0;
+  white-space: nowrap;
 }
 
 /* Nav group */
@@ -40,13 +42,16 @@
   display: flex;
   align-items: center;
   gap: 1.5rem;
+  flex-wrap: nowrap;
 }
 
-.begin,
-.products-header,
-.contact,
-.admin,
+.header__begin,
+.header__products-header,
+.header__contact,
+.header__admin,
+.header__login,
 .active {
+  background: transparent;
   color: #06040a;
   font-family: Inter, sans-serif;
   font-size: 1rem;
@@ -55,12 +60,50 @@
   margin: 0;
   text-decoration: none;
   cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.header__begin:hover,
+.header__products-header:hover,
+.header__contact:hover,
+.header__admin:hover,
+.header__login:hover {
+  color: #7f55e0;
 }
 
 /* Active state for nav links */
 .active {
   font-weight: 700;
   color: #36e270;
+}
+
+/* User info and logout button */
+.header__user-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.header__user-name {
+  font-family: Inter, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #06040a;
+}
+.header__logout-button {
+  background-color: #6a43c8;
+  font-family: Inter, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.4rem;
+  padding: 0.4rem 0.75rem;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    opacity 0.2s;
+}
+.header__logout-button:hover {
+  background-color: #8561da;
 }
 
 /* responsive — tablet / mobile */
@@ -79,6 +122,15 @@
     gap: 1rem;
     flex-wrap: wrap;
   }
+
+  .header__begin,
+  .header__products-header,
+  .header__contact,
+  .header__admin,
+  .header__login,
+  .active {
+    font-size: 0.95rem;
+  }
 }
 
 @media (max-width: 30rem) {
@@ -91,9 +143,12 @@
     font-size: 1.1rem;
   }
 
-  .begin,
-  .products-header,
-  .contact {
+  .header__begin,
+  .header__products-header,
+  .header__contact,
+  .header__admin,
+  .header__login,
+  .active {
     font-size: 0.875rem;
   }
 }

@@ -1,11 +1,23 @@
-import { useCatalog } from '../../context/CatalogContext';
+import { useProducts } from '../../context/ProductsContext';
+import { useRequireAdmin } from '../../hooks/useRequireAdmin';
+import { useAuth } from '../../context/AuthContext';
 import { useEffect } from 'react';
 import { EditProductForm } from '../../components/Forms';
 import './EditProduct.css';
 
 function EditProduct({ productId, setCurrentPage, setSelectedProductId }) {
-  const { catalog, setCatalog } = useCatalog();
-  const productToEdit = catalog.find((product) => product.id === productId);
+  const { products, updateProduct } = useProducts();
+  const productToEdit = products.find((product) => product.id === productId);
+
+  // this is a guard to prevent non-admin users
+  // check if the logged user is an administrator to render the edit product page,
+  // if not redirect to home, as same as was did in the Admin.jsx page
+  const { loggedUser } = useAuth();
+  const isAdmin = loggedUser?.role === 'administrator';
+  useRequireAdmin(isAdmin, setCurrentPage);
+  if (!isAdmin) {
+    return null;
+  }
 
   // handle the cancel and back to admin panel
   const cancelEdit = () => {
@@ -47,22 +59,16 @@ function EditProduct({ productId, setCurrentPage, setSelectedProductId }) {
   };
 
   // manage the submit action for the editing and comeback to admin panel
-  const handleEditSubmit = (formData) => {
-    setCatalog((currentCatalog) =>
-      currentCatalog.map((product) =>
-        product.id === productId
-          ? {
-              ...product,
-              nombre: formData.name,
-              descripcion: formData.description,
-              precio: formData.price,
-              categoria: formData.category,
-              imagen: formData.imageUrl,
-              stock: formData.stock,
-            }
-          : product
-      )
-    );
+  const handleEditSubmit = async (formData) => {
+    await updateProduct(productId, {
+      nombre: formData.name,
+      descripcion: formData.description,
+      precio: formData.price,
+      categoria: formData.category,
+      imagen: formData.imageUrl,
+      stock: formData.stock,
+    });
+
     cancelEdit(); // go back to the admin panel after editing
   };
 
