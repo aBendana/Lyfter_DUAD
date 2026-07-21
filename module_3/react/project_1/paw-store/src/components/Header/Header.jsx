@@ -1,18 +1,10 @@
 import pawPrint from '../../assets/icons/PawPrint.svg';
-import { useState, useEffect } from 'react';
-import { authService } from '../../services/authService';
+import { useAuth } from '../../context/AuthContext';
 import './Header.css';
 
 function Header({ currentPage, setCurrentPage }) {
-  // state to manage the logged-in user information
-  const [loggedUser, setLoggedUser] = useState(null);
-
-  // useEffect to retrieve the logged-in user information from localStorage
-  // re-runs whenever currentPage changes so login/logout updates the display
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    setLoggedUser(user);
-  }, [currentPage]);
+  const { loggedUser, logout } = useAuth();
+  const isAdmin = loggedUser?.role === 'administrator';
 
   return (
     <header className="header">
@@ -29,7 +21,7 @@ function Header({ currentPage, setCurrentPage }) {
           className={currentPage === 'home' ? 'active' : 'header__begin'}
           onClick={(e) => {
             e.preventDefault();
-            logout();
+            setCurrentPage('home');
           }}
         >
           Inicio
@@ -59,16 +51,21 @@ function Header({ currentPage, setCurrentPage }) {
           Contacto
         </a>
 
-        <a
-          href="#"
-          className={currentPage === 'admin' ? 'active' : 'header__admin'}
-          onClick={(e) => {
-            e.preventDefault();
-            setCurrentPage('admin');
-          }}
-        >
-          Administración
-        </a>
+        {/* if the user is an administrator, show the admin link 
+            one of two ways to deny access to the admin page by a client 
+            the other one is applied in the Admin page */}
+        {isAdmin && (
+          <a
+            href="#"
+            className={currentPage === 'admin' ? 'active' : 'header__admin'}
+            onClick={(e) => {
+              e.preventDefault();
+              setCurrentPage('admin');
+            }}
+          >
+            Administración
+          </a>
+        )}
 
         {loggedUser ? (
           <div className="header__user-info">
@@ -79,7 +76,7 @@ function Header({ currentPage, setCurrentPage }) {
               className="header__logout-button"
               onClick={(e) => {
                 e.preventDefault();
-                authService.logout();
+                logout();
                 setCurrentPage('home');
               }}
             >
@@ -97,6 +94,9 @@ function Header({ currentPage, setCurrentPage }) {
           >
             Iniciar Sesión
           </a>
+          //as register page does not have a link in the header,
+          // so the green highlighted link will not be shown
+          // when the user is on the register page
         )}
       </nav>
     </header>

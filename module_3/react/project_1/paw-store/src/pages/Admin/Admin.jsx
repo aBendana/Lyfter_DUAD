@@ -1,4 +1,6 @@
-import { useCatalog } from '../../context/CatalogContext';
+import { useProducts } from '../../context/ProductsContext';
+import { useRequireAdmin } from '../../hooks/useRequireAdmin';
+import { useAuth } from '../../context/AuthContext';
 import { CreateProductForm } from '../../components/Forms';
 import { useEditProduct } from '../../hooks/useEditProduct';
 import { useCreateProduct } from '../../hooks/useCreateProduct';
@@ -6,7 +8,18 @@ import { useDeleteProduct } from '../../hooks/useDeleteProduct';
 import './Admin.css';
 
 function Administration({ setCurrentPage, setSelectedProductId }) {
-  const { catalog } = useCatalog();
+  const { products } = useProducts();
+  const { loggedUser } = useAuth();
+  const isAdmin = loggedUser?.role === 'administrator';
+
+  // if the user is not an administrator, and try to access the admin page by link,
+  // gonna be redirected to home, the hook useRequireAdmin handles this.
+  // The null return is to avoid rendering the admin panel for non-admin users, even for a brief moment
+  // This is one of two ways to deny access to the admin page the other one is applied in the Header component
+  useRequireAdmin(isAdmin, setCurrentPage);
+  if (!isAdmin) {
+    return null;
+  }
 
   // handle for creating a new product using the custom hook
   const handleCreateProduct = useCreateProduct();
@@ -17,7 +30,7 @@ function Administration({ setCurrentPage, setSelectedProductId }) {
     setSelectedProductId,
   });
   const handleDeleteProduct = useDeleteProduct();
-  const hasProducts = Boolean(catalog?.length);
+  const hasProducts = Boolean(products?.length);
 
   return (
     <main className="panel-admin">
@@ -46,7 +59,7 @@ function Administration({ setCurrentPage, setSelectedProductId }) {
               </tr>
             </thead>
             <tbody>
-              {catalog.map((product) => (
+              {products.map((product) => (
                 <tr key={product.id}>
                   <td>{product.id}</td>
                   <td>{product.nombre}</td>

@@ -1,5 +1,5 @@
 {
-  "mock-login": [
+  "users": [
     {
       "id": "1",
       "username": "admin",
@@ -13,6 +13,27 @@
       "email": "user@example.com",
       "password": "user123",
       "role": "client"
+    },
+    {
+      "username": "Carlos Roder",
+      "email": "roder@example.com",
+      "password": "AvBm#4545",
+      "role": "client",
+      "id": "v1Poh1N6cls"
+    },
+    {
+      "username": "Carme Trejos",
+      "email": "trejos@example.com",
+      "password": "AvBm#4545",
+      "role": "client",
+      "id": "HJ36RIn35GM"
+    },
+    {
+      "username": "Pancho Gonzo",
+      "email": "gonzo@example.com",
+      "password": "AvBm#4545",
+      "role": "client",
+      "id": "g_VH47fbGI0"
     }
   ],
   "products": [
@@ -20,16 +41,16 @@
       "id": "1",
       "nombre": "Collar de cuero",
       "descripcion": "Collar resistente para perros de todos los tamaños.",
-      "precio": 8500,
+      "precio": 10500,
       "categoria": "Perros",
       "imagen": "https://via.placeholder.com/300x300.png?text=Collar+de+cuero",
-      "stock": 12
+      "stock": 50
     },
     {
       "id": "2",
       "nombre": "Cama suave para gatos",
       "descripcion": "Cama acolchada y cómoda para gatos de interior.",
-      "precio": 12000,
+      "precio": 12500,
       "categoria": "Gatos",
       "imagen": "https://via.placeholder.com/300x300.png?text=Cama+para+gatos",
       "stock": 5
@@ -87,6 +108,15 @@
       "categoria": "Accesorios",
       "imagen": "https://via.placeholder.com/300x300.png?text=Plato+doble",
       "stock": 25
+    },
+    {
+      "nombre": "Gato Fly",
+      "descripcion": "Alimento especial para gato peresozo",
+      "precio": 55000,
+      "categoria": "Gatos",
+      "imagen": "https://via.placeholder.com/300x300.png?text=Gato+Fly\"",
+      "stock": 25,
+      "id": "GLFvmBAQgrc"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

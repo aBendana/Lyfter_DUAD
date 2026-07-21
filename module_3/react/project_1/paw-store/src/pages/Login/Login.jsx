@@ -1,10 +1,10 @@
 import { useState } from 'react';
+import { useAuth } from '../../context/AuthContext';
 import LoginForm from '../../components/Forms/LoginForm/LoginForm';
-import { authService } from '../../services/authService';
 import './Login.css';
 
 function Login({ setCurrentPage }) {
-  // state to manage the display of login error messages
+  const { login } = useAuth();
   const [showLoginError, setShowLoginError] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -14,10 +14,7 @@ function Login({ setCurrentPage }) {
     setShowLoginError(false);
 
     try {
-      const loginData = await authService.mockLogin(
-        formData.email,
-        formData.password
-      );
+      const loginData = await login(formData.email, formData.password);
 
       // obtain the role from the login response to determine the next page
       const role = loginData?.role;
@@ -38,12 +35,14 @@ function Login({ setCurrentPage }) {
     <main className="login">
       <h1 className="login__title">Iniciar Sesión</h1>
       <p className="login__error">
-        {showLoginError && 'Error al iniciar sesión'}
+        {showLoginError && 'Credenciales incorrectas, intente nuevamente.'}
       </p>
       <LoginForm
         onSubmit={handleLogin}
         isSubmitting={isSubmitting}
         onCancel={() => setCurrentPage('home')}
+        onRegister={() => setCurrentPage('register')}
+        loginError={showLoginError}
       />
     </main>
   );

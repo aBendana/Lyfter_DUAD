@@ -1,104 +1,137 @@
 # Paw Store
 
-Paw Store is a front-end React project for a pet store interface. The current version includes a home page, a products catalog, a product details view, and a loading screen when entering the products page.
+Paw Store is a frontend application built with React + Vite for a pet products e-commerce experience.
 
-This is still an in-progress project, so some planned features are not implemented yet, such as a contact page, shopping cart, and checkout flow.
+The current project includes mock authentication, user registration, a products catalog, product details, and an admin panel with CRUD operations connected to JSON Server.
 
-## Technologies
+## Stack
 
 - React 19
 - Vite 8
-- JavaScript
+- JavaScript (ESM)
 - CSS
-- ESLint
-- Prettier
-
-## Main Dependencies
-
-- react
-- react-dom
-- vite
+- Axios
 - react-hook-form
-- axios
-- json-server (dev dependency)
+- ESLint + Prettier
+- JSON Server (development environment)
 
-### Prerequisites
+## Requirements
 
-- Node.js 18 or later
-- npm 9 or later
+- Node.js 18+
+- npm 9+
 
-## Installation and Instructions
+## Installation
 
-1. Clone the repository: git clone <https://github.com/aBendana/Lyfter_DUAD>
-2. navigate to project folder: cd /module_3/React/Project_1/paw-store
-3. install dependency: npm install
-4. install dependency: npm install react-hook-form
-5. start development server: npm run dev
-6. open in browser: http://localhost:5173
-
-## JSON Server Setup
-
-JSON Server provides a fake REST API for development and testing. It's located in the `json-server/` folder.
-
-### Starting the JSON Server
-
-In a separate terminal, run:
+1. Clone the repository:
 
 ```bash
-npm run json-server
+git clone https://github.com/aBendana/Lyfter_DUAD
 ```
 
-This will start the JSON Server on `http://localhost:3001` with your database from `json-server/paw-store-db.json`.
+2. Enter the project directory:
 
-### Available Endpoints
+```bash
+cd module_3/react/project_1/paw-store
+```
 
-Once the JSON Server is running, you can access these endpoints:
+3. Install dependencies:
 
-- **GET** `/products` - Get all products
-- **GET** `/products/:id` - Get a specific product
-- **POST** `/products` - Create a new product
-- **PUT** `/products/:id` - Update a product
-- **DELETE** `/products/:id` - Delete a product
-- **GET** `/users` - Get all users
-- **GET** `/users/:id` - Get a specific user
+```bash
+npm install
+```
 
-### Running Both Dev and JSON Server
+## Run Locally
 
-Open two terminals:
+Open two terminals in the project folder.
 
-**Terminal 1 - React Dev Server:**
+Terminal 1 (frontend):
 
 ```bash
 npm run dev
 ```
 
-**Terminal 2 - JSON Server:**
+Terminal 2 (mock API):
 
 ```bash
 npm run json-server
 ```
 
-Then access the app at `http://localhost:5173` (it will connect to the JSON Server at `http://localhost:3001`)
+Application: http://localhost:5173  
+Mock API: http://localhost:3001
 
-## Current Features
+## Available Scripts
 
-- Home page with introductory content
-- Loading screen before rendering products
-- Products page rendered from local JSON data
-- Empty-state support when no products are available
-- Product details page
-- Administration panel to manage catalog products
-- Create product flow from admin panel
-- Edit product flow with preloaded product data
-- Delete product action from admin table
-- Form handling and validation with react-hook-form
-- Shared catalog state via CatalogContext
-- Responsive styling for core views and admin views
+- `npm run dev`: starts Vite in development mode.
+- `npm run json-server`: starts JSON Server with `json-server/paw-store-db.json`.
+- `npm run build`: creates a production build.
+- `npm run preview`: previews the local production build.
+- `npm run lint`: runs ESLint.
+- `npm run lint:fix`: automatically fixes lint issues.
+- `npm run format`: runs Prettier and then `lint:fix`.
+
+## Mock API Endpoints
+
+JSON Server exposes, among others, these endpoints:
+
+- `GET /products`
+- `GET /products/:id`
+- `POST /products`
+- `PATCH /products/:id`
+- `DELETE /products/:id`
+- `GET /users`
+- `GET /users/:id`
+- `POST /users`
+
+## Functional Architecture
+
+### Navigation
+
+The app uses local state navigation in App.jsx (it does not use React Router).  
+Main pages:
+
+- Home
+- Products
+- ProductDetails
+- Admin
+- EditProduct
+- Login
+- Register
+
+### Global State (Context API)
+
+- AuthContext: manages authenticated user (loggedUser), login, register, logout, and isAuthenticated.
+- ProductsContext: fetches products from API on mount and exposes products, setProducts, getProductById, createProduct, updateProduct, and deleteProduct.
+
+Note: CatalogContext still exists in the project, but it is not part of the main runtime flow. (It will be deleted in the final project submission)
+
+### Services
+
+- productsService: product HTTP operations with Axios.
+- authService: mock login via /users, registration via POST /users, and localStorage persistence.
+
+Both services automatically attach an Authorization header when a token exists in localStorage.
+
+## Implemented Features
+
+- Home page.
+- Products list with empty state handling.
+- Loading screen when entering Products/Admin.
+- Product details page.
+- User login (mock).
+- Client user registration.
+- Admin panel visible only for administrator role.
+- Create product from admin panel.
+- Edit product from admin panel.
+- Delete product with confirmation.
+- Form handling and validation using react-hook-form.
+- Authenticated user persistence in localStorage.
 
 ## Project Structure
 
 ```text
 paw-store/
+	json-server/
+		paw-store-db.json
 	public/
 	src/
 		assets/
@@ -106,9 +139,17 @@ paw-store/
 		components/
 			Footer/
 			Forms/
+				CreateProductForm/
+				EditProductForm/
+				LoginForm/
+				ProductForm/
+				RegisterForm/
 			Header/
 			Loading/
 		context/
+			AuthContext.jsx
+			CatalogContext.jsx
+			ProductsContext.jsx
 		data/
 			products.json
 		hooks/
@@ -116,13 +157,25 @@ paw-store/
 			Admin/
 			EditProduct/
 			Home/
+			Login/
 			ProductDetails/
 			Products/
+			Register/
+		services/
+			authService.js
+			productsService.js
+		utils/
+			validatePassword.js
 		App.jsx
 		index.css
 		main.jsx
 	eslint.config.js
+	index.html
 	package.json
 	README.md
 	vite.config.js
 ```
+
+## Current Scope
+
+Although the project currently focuses on simulated authentication and product management, the code is ready to be connected to a real backend. E-commerce features, such as the shopping cart, checkout process, and contact page, are not yet implemented; these will be added in subsequent releases.

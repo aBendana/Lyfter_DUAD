@@ -1,9 +1,9 @@
 import './ProductDetails.css';
-import { useCatalog } from '../../context/CatalogContext';
+import { useProducts } from '../../context/ProductsContext';
 
 function ProductDetails({ productId, setCurrentPage }) {
-  const { catalog } = useCatalog();
-  const product = catalog.find((p) => p.id === productId);
+  const { products } = useProducts();
+  const product = products.find((p) => p.id === productId);
 
   if (!product) {
     return (

@@ -1,7 +1,8 @@
 import { useForm } from 'react-hook-form';
+import { useEffect } from 'react';
 import './LoginForm.css';
 
-function LoginForm({ onSubmit, onCancel }) {
+function LoginForm({ onSubmit, onCancel, onRegister, loginError }) {
   const initialValues = {
     email: '',
     password: '',
@@ -11,10 +12,18 @@ function LoginForm({ onSubmit, onCancel }) {
   const {
     register,
     handleSubmit,
+    resetField,
     formState: { errors },
   } = useForm({
     defaultValues: initialValues,
   });
+
+  // clear only the password when login fails
+  useEffect(() => {
+    if (loginError) {
+      resetField('password');
+    }
+  }, [loginError, resetField]);
 
   return (
     <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
@@ -25,6 +34,7 @@ function LoginForm({ onSubmit, onCancel }) {
         className="login-form__input"
         id="email"
         type="email"
+        placeholder="Ingrese su email"
         {...register('email', { required: 'Email es necesario' })}
       />
       {errors.email && <span role="alert">{errors.email.message}</span>}
@@ -36,6 +46,7 @@ function LoginForm({ onSubmit, onCancel }) {
         className="login-form__input"
         id="password"
         type="password"
+        placeholder="Ingrese su password"
         {...register('password', { required: 'Password es necesario' })}
       />
       {errors.password && <span role="alert">{errors.password.message}</span>}
@@ -47,6 +58,14 @@ function LoginForm({ onSubmit, onCancel }) {
 
         <button className="login-form__button" type="button" onClick={onCancel}>
           Volver al inicio
+        </button>
+
+        <button
+          className="login-form__button"
+          type="button"
+          onClick={onRegister}
+        >
+          Registrarse
         </button>
       </div>
     </form>
