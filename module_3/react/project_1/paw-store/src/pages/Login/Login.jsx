@@ -19,7 +19,7 @@ function Login({ setCurrentPage }) {
       // obtain the role from the login response to determine the next page
       const role = loginData?.role;
 
-      if (role === 'administrator') {
+      if (role === 'admin') {
         setCurrentPage('admin');
       } else {
         setCurrentPage('products');
@@ -35,7 +35,9 @@ function Login({ setCurrentPage }) {
     <main className="login">
       <h1 className="login__title">Iniciar Sesión</h1>
       <p className="login__error">
-        {showLoginError && 'Credenciales incorrectas, intente nuevamente.'}
+        {showLoginError &&
+          'Las credenciales proporcionadas no son válidas. ' +
+            'Por favor verifica tu correo y contraseña.'}
       </p>
       <LoginForm
         onSubmit={handleLogin}

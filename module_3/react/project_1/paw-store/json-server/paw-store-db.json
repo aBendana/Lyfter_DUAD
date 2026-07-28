@@ -5,35 +5,42 @@
       "username": "admin",
       "email": "admin@example.com",
       "password": "admin123",
-      "role": "administrator"
+      "role": "admin"
     },
     {
       "id": "2",
       "username": "user",
       "email": "user@example.com",
       "password": "user123",
-      "role": "client"
+      "role": "cliente"
     },
     {
       "username": "Carlos Roder",
       "email": "roder@example.com",
       "password": "AvBm#4545",
-      "role": "client",
+      "role": "cliente",
       "id": "v1Poh1N6cls"
     },
     {
       "username": "Carme Trejos",
       "email": "trejos@example.com",
       "password": "AvBm#4545",
-      "role": "client",
+      "role": "cliente",
       "id": "HJ36RIn35GM"
     },
     {
       "username": "Pancho Gonzo",
       "email": "gonzo@example.com",
       "password": "AvBm#4545",
-      "role": "client",
+      "role": "cliente",
       "id": "g_VH47fbGI0"
+    },
+    {
+      "username": "Roberto Carlos",
+      "email": "rb15@example.com",
+      "password": "AvBm#4545",
+      "role": "cliente",
+      "id": "Tq0Xj2xXmPQ"
     }
   ],
   "products": [
@@ -44,7 +51,7 @@
       "precio": 10500,
       "categoria": "Perros",
       "imagen": "https://via.placeholder.com/300x300.png?text=Collar+de+cuero",
-      "stock": 50
+      "stock": 60
     },
     {
       "id": "2",
@@ -59,7 +66,7 @@
       "id": "3",
       "nombre": "Pelota de goma",
       "descripcion": "Pelota duradera ideal para juegos al aire libre.",
-      "precio": 2500,
+      "precio": 2800,
       "categoria": "Perros",
       "imagen": "https://via.placeholder.com/300x300.png?text=Pelota+de+goma",
       "stock": 30
@@ -117,6 +124,15 @@
       "imagen": "https://via.placeholder.com/300x300.png?text=Gato+Fly\"",
       "stock": 25,
       "id": "GLFvmBAQgrc"
+    },
+    {
+      "nombre": "Colla feliz",
+      "descripcion": "collar largo para gato",
+      "precio": 10500,
+      "categoria": "Gatos",
+      "imagen": "https://via.placeholder.com/300x300.png?text=Plato+doble",
+      "stock": 25,
+      "id": "1-UW0Xj3Eh4"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

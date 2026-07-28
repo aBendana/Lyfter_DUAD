@@ -1,19 +1,4 @@
-import axios from 'axios';
-
-// not a real API URL, is json-server running on localhost:3001
-// for development purposes
-const API_URL = 'http://localhost:3001';
-const api = axios.create({
-  baseURL: API_URL,
-});
-
-// interceptor to add the token to the request headers
-// if it exists in localStorage
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
-  if (token) config.headers.Authorization = `Bearer ${token}`;
-  return config;
-});
+import api from './api';
 
 // productService object to handle product-related API calls
 export const productsService = {

@@ -1,3 +1,4 @@
+import AccessDenied from '../../components/AccessDenied';
 import { useProducts } from '../../context/ProductsContext';
 import { useRequireAdmin } from '../../hooks/useRequireAdmin';
 import { useAuth } from '../../context/AuthContext';
@@ -8,19 +9,38 @@ import { useDeleteProduct } from '../../hooks/useDeleteProduct';
 import './Admin.css';
 
 function Administration({ setCurrentPage, setSelectedProductId }) {
-  const { products } = useProducts();
+  const { products, loadProductsError, deleteProductError } = useProducts();
   const { loggedUser } = useAuth();
-  const isAdmin = loggedUser?.role === 'administrator';
+  const isAdmin = loggedUser?.role === 'admin';
 
-  // if the user is not an administrator, and try to access the admin page by link,
-  // gonna be redirected to home, the hook useRequireAdmin handles this.
-  // The null return is to avoid rendering the admin panel for non-admin users, even for a brief moment
-  // This is one of two ways to deny access to the admin page the other one is applied in the Header component
+  // if the user is not an administrator, and try to access the admin page,
+  // gonna be redirected first to a temporary Access Denied page,
+  // in Access Denied page, the user will be redirected to home after 7 seconds
+  // or can click the button to go to home immediately
   useRequireAdmin(isAdmin, setCurrentPage);
   if (!isAdmin) {
-    return null;
+    return <AccessDenied setCurrentPage={setCurrentPage} />;
   }
 
+  // render the admin panel for administrators
+  return (
+    <AdminPanel
+      products={products}
+      loadProductsError={loadProductsError}
+      deleteProductError={deleteProductError}
+      setCurrentPage={setCurrentPage}
+      setSelectedProductId={setSelectedProductId}
+    />
+  );
+}
+
+function AdminPanel({
+  products,
+  loadProductsError,
+  deleteProductError,
+  setCurrentPage,
+  setSelectedProductId,
+}) {
   // handle for creating a new product using the custom hook
   const handleCreateProduct = useCreateProduct();
 
@@ -39,12 +59,24 @@ function Administration({ setCurrentPage, setSelectedProductId }) {
         En esta sección puedes gestionar el catálogo de productos de PawStore.
       </p>
 
-      {!hasProducts ? (
-        /* show a message when there are no products in the catalog */
+      {loadProductsError && (
+        /* guard show a message when a loading error occurs,
+        the create/update errors are handled separately inside their forms */
+        <p className="panel-admin__error-message">{loadProductsError}</p>
+      )}
+
+      {deleteProductError && (
+        /* guard show a message when a delete error occurs */
+        <p className="panel-admin__error-message">{deleteProductError}</p>
+      )}
+
+      {!hasProducts && !loadProductsError ? (
+        /* show a message when there are no products in the catalog,
+        but only if there is no error, to avoid contradictory messages */
         <h1 className="products-admin__title-no-products">
           No hay productos para gestionar
         </h1>
-      ) : (
+      ) : hasProducts ? (
         /* show the products table when there are products in the catalog */
         <section className="products-admin__table">
           <table className="products-admin__table-content">
@@ -85,7 +117,7 @@ function Administration({ setCurrentPage, setSelectedProductId }) {
             </tbody>
           </table>
         </section>
-      )}
+      ) : null}
 
       <section className="panel-admin__form">
         <h2 className="panel-admin__form-title">Agregar nuevo producto</h2>

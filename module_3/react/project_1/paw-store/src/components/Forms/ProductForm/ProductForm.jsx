@@ -9,6 +9,7 @@ function ProductForm({
   submitLabel,
   genericErrorMessage,
   successMessage = '',
+  requestErrorMessage = '',
   showCancelButton = true,
   shouldResetOnSuccess = false,
 }) {
@@ -139,11 +140,18 @@ function ProductForm({
       />
       {errors.stock && <span role="alert">{errors.stock.message}</span>}
 
-      {showSuccessMessage && successMessage ? (
+      {requestErrorMessage ? (
+        /* show a message when there is an error while making the request */
+        <p className="product-form__request-error-message">
+          {requestErrorMessage}
+        </p>
+      ) : showSuccessMessage && successMessage ? (
+        /* show a message when the request is successful */
         <p id="success-message" className="product-form__success-message">
           {successMessage}
         </p>
-      ) : null}
+      ) : /* nothing is shown when there is no request error and no success message */
+      null}
 
       <div className="product-form__buttons-container">
         {showCancelButton && (

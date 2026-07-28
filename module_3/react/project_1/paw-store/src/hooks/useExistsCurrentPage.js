@@ -4,6 +4,7 @@ const validPages = [
   'home',
   'products',
   'product-details',
+  'contact',
   'admin',
   'edit-product',
   'login',
