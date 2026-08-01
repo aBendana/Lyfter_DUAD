@@ -1,9 +1,12 @@
 import { useEffect } from 'react';
 
-export const useRequireAdmin = (isAdmin, setCurrentPage) => {
+export const useRequireAdmin = (isAdmin, setCurrentPage, delay = 7000) => {
   useEffect(() => {
     if (!isAdmin) {
-      setCurrentPage('home');
+      const timer = setTimeout(() => {
+        setCurrentPage('home');
+      }, delay);
+      return () => clearTimeout(timer);
     }
-  }, [isAdmin, setCurrentPage]);
+  }, [isAdmin, setCurrentPage, delay]);
 };

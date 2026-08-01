@@ -1,3 +1,4 @@
+import AccessDenied from '../../components/AccessDenied/AccessDenied';
 import { useProducts } from '../../context/ProductsContext';
 import { useRequireAdmin } from '../../hooks/useRequireAdmin';
 import { useAuth } from '../../context/AuthContext';
@@ -6,18 +7,37 @@ import { EditProductForm } from '../../components/Forms';
 import './EditProduct.css';
 
 function EditProduct({ productId, setCurrentPage, setSelectedProductId }) {
-  const { products, updateProduct } = useProducts();
-  const productToEdit = products.find((product) => product.id === productId);
-
   // this is a guard to prevent non-admin users
   // check if the logged user is an administrator to render the edit product page,
   // if not redirect to home, as same as was did in the Admin.jsx page
   const { loggedUser } = useAuth();
-  const isAdmin = loggedUser?.role === 'administrator';
+  const isAdmin = loggedUser?.role === 'admin';
+
+  // if the user is not an administrator, and try to access the admin page,
+  // gonna be redirected first to a temporary Access Denied page,
+  // in Access Denied page, the user will be redirected to home after 7 seconds
+  // or can click the button to go to home immediately
   useRequireAdmin(isAdmin, setCurrentPage);
   if (!isAdmin) {
-    return null;
+    return <AccessDenied setCurrentPage={setCurrentPage} />;
   }
+
+  return (
+    <EditProductContent
+      productId={productId}
+      setCurrentPage={setCurrentPage}
+      setSelectedProductId={setSelectedProductId}
+    />
+  );
+}
+
+function EditProductContent({
+  productId,
+  setCurrentPage,
+  setSelectedProductId,
+}) {
+  const { products, updateProduct } = useProducts();
+  const productToEdit = products.find((product) => product.id === productId);
 
   // handle the cancel and back to admin panel
   const cancelEdit = () => {

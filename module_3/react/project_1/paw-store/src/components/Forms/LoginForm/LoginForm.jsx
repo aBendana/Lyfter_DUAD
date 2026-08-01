@@ -28,32 +28,32 @@ function LoginForm({ onSubmit, onCancel, onRegister, loginError }) {
   return (
     <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
       <label className="login-form__label" htmlFor="email">
-        Email
+        Correo electrónico
       </label>
       <input
         className="login-form__input"
         id="email"
         type="email"
-        placeholder="Ingrese su email"
-        {...register('email', { required: 'Email es necesario' })}
+        placeholder="Ingrese su correo electrónico"
+        {...register('email', { required: 'Correo electrónico es necesario' })}
       />
       {errors.email && <span role="alert">{errors.email.message}</span>}
 
       <label className="login-form__label" htmlFor="password">
-        Password
+        Contraseña
       </label>
       <input
         className="login-form__input"
         id="password"
         type="password"
-        placeholder="Ingrese su password"
-        {...register('password', { required: 'Password es necesario' })}
+        placeholder="Ingrese su contraseña"
+        {...register('password', { required: 'Contraseña es necesaria' })}
       />
       {errors.password && <span role="alert">{errors.password.message}</span>}
 
       <div className="login-form__buttons">
         <button className="login-form__button" type="submit">
-          Iniciar Sesión
+          Ingresar
         </button>
 
         <button className="login-form__button" type="button" onClick={onCancel}>

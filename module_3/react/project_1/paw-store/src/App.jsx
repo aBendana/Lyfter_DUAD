@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import Home from './pages/Home';
 import Products from './pages/Products';
-import { useLoadingEffect } from './hooks/useLoadingEffect';
 import ProductDetails from './pages/ProductDetails';
 import Administration from './pages/Admin';
 import EditProduct from './pages/EditProduct';
@@ -9,7 +8,6 @@ import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Loading from './components/Loading';
 import { ProductsProvider } from './context/ProductsContext';
 import { AuthProvider } from './context/AuthContext';
 import { useExistsCurrentPage } from './hooks/useExistsCurrentPage';
@@ -28,9 +26,6 @@ function App() {
   // state to manage the selected product for edit view
   const [selectedProductId, setSelectedProductId] = useState(null);
 
-  // define the loading effect hook - loading screen
-  const isLoading = useLoadingEffect(currentPage);
-
   const renderPage = () => {
     // render login page
     if (currentPage === 'login') {
@@ -44,10 +39,6 @@ function App() {
 
     // render products page
     if (currentPage === 'products') {
-      if (isLoading) {
-        return <Loading />;
-      }
-
       return (
         <Products
           setCurrentPage={setCurrentPage}
@@ -68,10 +59,6 @@ function App() {
 
     // render administration page
     if (currentPage === 'admin') {
-      if (isLoading) {
-        return <Loading />;
-      }
-
       return (
         <Administration
           setCurrentPage={setCurrentPage}
@@ -91,8 +78,7 @@ function App() {
       );
     }
 
-    /* send to home any other link, right now is not used because 
-    of the useExistsCurrentPage hook, this can be quite  useful 
+    /* send to home any other link, this can be quite  useful 
     for future implementations of 404 pages or other error handling. 
     General fallback for security */
     return <Home setCurrentPage={setCurrentPage} />; // render default home page

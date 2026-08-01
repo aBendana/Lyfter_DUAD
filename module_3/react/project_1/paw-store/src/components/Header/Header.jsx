@@ -4,7 +4,6 @@ import './Header.css';
 
 function Header({ currentPage, setCurrentPage }) {
   const { loggedUser, logout } = useAuth();
-  const isAdmin = loggedUser?.role === 'administrator';
 
   return (
     <header className="header">
@@ -40,32 +39,31 @@ function Header({ currentPage, setCurrentPage }) {
           Productos
         </a>
 
+        {/* this <a> is redirecting  to home provisionally, when the contact page
+            be ready this has to be changed to 'contact'*/}
+        {/* is do it in this way to mantain the active green color 
+            in the right view */}
         <a
           href="#"
           className={currentPage === 'contact' ? 'active' : 'header__contact'}
           onClick={(e) => {
             e.preventDefault();
-            setCurrentPage('contact');
+            setCurrentPage('home');
           }}
         >
           Contacto
         </a>
 
-        {/* if the user is an administrator, show the admin link 
-            one of two ways to deny access to the admin page by a client 
-            the other one is applied in the Admin page */}
-        {isAdmin && (
-          <a
-            href="#"
-            className={currentPage === 'admin' ? 'active' : 'header__admin'}
-            onClick={(e) => {
-              e.preventDefault();
-              setCurrentPage('admin');
-            }}
-          >
-            Administración
-          </a>
-        )}
+        <a
+          href="#"
+          className={currentPage === 'admin' ? 'active' : 'header__admin'}
+          onClick={(e) => {
+            e.preventDefault();
+            setCurrentPage('admin');
+          }}
+        >
+          Administración
+        </a>
 
         {loggedUser ? (
           <div className="header__user-info">

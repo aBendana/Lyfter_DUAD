@@ -119,7 +119,7 @@ Both services automatically attach an Authorization header when a token exists i
 - Product details page.
 - User login (mock).
 - Client user registration.
-- Admin panel visible only for administrator role.
+- Admin panel visible only for admin role.
 - Create product from admin panel.
 - Edit product from admin panel.
 - Delete product with confirmation.

@@ -84,7 +84,7 @@ function RegisterForm({ onSubmit, onCancel }) {
 
       {/*role client is hidden, but is included in the form data for 
       the correct registration of the new client */}
-      <input type="hidden" {...register('role')} value="client" />
+      <input type="hidden" {...register('role')} value="cliente" />
 
       <div className="register-form__buttons">
         <button type="submit" className="register-form__button">

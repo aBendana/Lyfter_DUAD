@@ -34,6 +34,14 @@
   text-align: center;
 }
 
+.products__error-message {
+  margin: 0.5rem 0 0;
+  text-align: center;
+  color: #c84444;
+  font-family: Inter, sans-serif;
+  font-size: 1rem;
+}
+
 /* ── Product grid ── */
 .products__grid {
   display: flex;
