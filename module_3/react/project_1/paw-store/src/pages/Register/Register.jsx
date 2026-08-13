@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import RegisterForm from '../../components/Forms/RegisterForm/RegisterForm';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../routes/routes';
 import './Register.css';
 
-function Register({ setCurrentPage }) {
+function Register() {
   const { register } = useAuth();
   const [showRegisterError, setShowRegisterError] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
 
   // handle register form submission
   const handleRegister = async (formData) => {
@@ -21,7 +24,7 @@ function Register({ setCurrentPage }) {
         formData.role
       );
 
-      setCurrentPage('products');
+      navigate(ROUTES.PRODUCTS);
     } catch (error) {
       setShowRegisterError(true);
     } finally {
@@ -38,7 +41,7 @@ function Register({ setCurrentPage }) {
       <RegisterForm
         onSubmit={handleRegister}
         isSubmitting={isSubmitting}
-        onCancel={() => setCurrentPage('home')}
+        onCancel={() => navigate(ROUTES.HOME)}
       />
     </main>
   );

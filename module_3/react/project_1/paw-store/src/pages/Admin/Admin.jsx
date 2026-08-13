@@ -6,20 +6,23 @@ import { CreateProductForm } from '../../components/Forms';
 import { useEditProduct } from '../../hooks/useEditProduct';
 import { useCreateProduct } from '../../hooks/useCreateProduct';
 import { useDeleteProduct } from '../../hooks/useDeleteProduct';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../routes/routes';
 import './Admin.css';
 
-function Administration({ setCurrentPage, setSelectedProductId }) {
+function Administration() {
   const { products, loadProductsError, deleteProductError } = useProducts();
   const { loggedUser } = useAuth();
   const isAdmin = loggedUser?.role === 'admin';
+  const navigate = useNavigate();
 
   // if the user is not an administrator, and try to access the admin page,
   // gonna be redirected first to a temporary Access Denied page,
   // in Access Denied page, the user will be redirected to home after 7 seconds
   // or can click the button to go to home immediately
-  useRequireAdmin(isAdmin, setCurrentPage);
+  useRequireAdmin(isAdmin);
   if (!isAdmin) {
-    return <AccessDenied setCurrentPage={setCurrentPage} />;
+    return <AccessDenied />;
   }
 
   // render the admin panel for administrators
@@ -28,27 +31,16 @@ function Administration({ setCurrentPage, setSelectedProductId }) {
       products={products}
       loadProductsError={loadProductsError}
       deleteProductError={deleteProductError}
-      setCurrentPage={setCurrentPage}
-      setSelectedProductId={setSelectedProductId}
     />
   );
 }
 
-function AdminPanel({
-  products,
-  loadProductsError,
-  deleteProductError,
-  setCurrentPage,
-  setSelectedProductId,
-}) {
+function AdminPanel({ products, loadProductsError, deleteProductError }) {
   // handle for creating a new product using the custom hook
   const handleCreateProduct = useCreateProduct();
 
   //handlers for edit and delete product actions using custom hooks
-  const handleEditProduct = useEditProduct({
-    setCurrentPage,
-    setSelectedProductId,
-  });
+  const handleEditProduct = useEditProduct();
   const handleDeleteProduct = useDeleteProduct();
   const hasProducts = Boolean(products?.length);
 

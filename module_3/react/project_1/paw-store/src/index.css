@@ -44,7 +44,6 @@ body {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  padding-top: 4rem;
 }
 
 p {

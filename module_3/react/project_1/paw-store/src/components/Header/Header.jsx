@@ -1,9 +1,14 @@
 import pawPrint from '../../assets/icons/PawPrint.svg';
+import { NavLink, useNavigate, Link } from 'react-router-dom';
+import { ROUTES } from '../../routes/routes';
 import { useAuth } from '../../context/AuthContext';
+import { useCart } from '../../context/CartContext';
 import './Header.css';
 
-function Header({ currentPage, setCurrentPage }) {
+function Header() {
   const { loggedUser, logout } = useAuth();
+  const navigate = useNavigate();
+  const { cartTotalItems } = useCart();
 
   return (
     <header className="header">
@@ -15,55 +20,46 @@ function Header({ currentPage, setCurrentPage }) {
 
       {/* nav for the navigation links */}
       <nav className="header__nav">
-        <a
-          href="#"
-          className={currentPage === 'home' ? 'active' : 'header__begin'}
-          onClick={(e) => {
-            e.preventDefault();
-            setCurrentPage('home');
-          }}
+        <NavLink
+          to={ROUTES.HOME}
+          className={({ isActive }) => (isActive ? 'active' : 'header__begin')}
         >
           Inicio
-        </a>
+        </NavLink>
 
-        <a
-          href="#"
-          className={
-            currentPage === 'products' ? 'active' : 'header__products-header'
+        <NavLink
+          to={ROUTES.PRODUCTS}
+          className={({ isActive }) =>
+            isActive ? 'active' : 'header__products'
           }
-          onClick={(e) => {
-            e.preventDefault();
-            setCurrentPage('products');
-          }}
         >
           Productos
-        </a>
+        </NavLink>
 
-        {/* this <a> is redirecting  to home provisionally, when the contact page
-            be ready this has to be changed to 'contact'*/}
-        {/* is do it in this way to mantain the active green color 
-            in the right view */}
-        <a
-          href="#"
-          className={currentPage === 'contact' ? 'active' : 'header__contact'}
-          onClick={(e) => {
-            e.preventDefault();
-            setCurrentPage('home');
-          }}
-        >
+        {/* redirecting to home provisionally; update to ROUTES.CONTACT when the contact page is ready; 
+            in order to 'Contacto' doesn't appears active, Link is used instead of NavLink, and the
+            className is set as header__contact */}
+        <Link to={ROUTES.HOME} className={'header__contact'}>
           Contacto
-        </a>
+        </Link>
 
-        <a
-          href="#"
-          className={currentPage === 'admin' ? 'active' : 'header__admin'}
-          onClick={(e) => {
-            e.preventDefault();
-            setCurrentPage('admin');
-          }}
+        <NavLink
+          to={ROUTES.ADMIN}
+          className={({ isActive }) => (isActive ? 'active' : 'header__admin')}
         >
           Administración
-        </a>
+        </NavLink>
+
+        <NavLink
+          to={ROUTES.CART}
+          className={({ isActive }) => (isActive ? 'active' : 'header__cart')}
+        >
+          <span>Carrito</span>
+          <span> </span>
+          {cartTotalItems > 0 && (
+            <span className="header__cart-badge">({cartTotalItems})</span>
+          )}
+        </NavLink>
 
         {loggedUser ? (
           <div className="header__user-info">
@@ -72,29 +68,24 @@ function Header({ currentPage, setCurrentPage }) {
             </span>
             <button
               className="header__logout-button"
-              onClick={(e) => {
-                e.preventDefault();
+              onClick={() => {
                 logout();
-                setCurrentPage('home');
+                navigate(ROUTES.HOME);
               }}
             >
               Cerrar Sesión
             </button>
           </div>
         ) : (
-          <a
-            href="#"
-            className={currentPage === 'login' ? 'active' : 'header__login'}
-            onClick={(e) => {
-              e.preventDefault();
-              setCurrentPage('login');
-            }}
+          // register page has no header link, so no active highlight on that view
+          <NavLink
+            to={ROUTES.LOGIN}
+            className={({ isActive }) =>
+              isActive ? 'active' : 'header__login'
+            }
           >
             Iniciar Sesión
-          </a>
-          //as register page does not have a link in the header,
-          // so the green highlighted link will not be shown
-          // when the user is on the register page
+          </NavLink>
         )}
       </nav>
     </header>

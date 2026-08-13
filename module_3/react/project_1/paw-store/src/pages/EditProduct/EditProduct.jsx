@@ -1,12 +1,15 @@
 import AccessDenied from '../../components/AccessDenied/AccessDenied';
+import Loading from '../../components/Loading';
 import { useProducts } from '../../context/ProductsContext';
 import { useRequireAdmin } from '../../hooks/useRequireAdmin';
 import { useAuth } from '../../context/AuthContext';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { EditProductForm } from '../../components/Forms';
+import { useParams, useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../routes/routes';
 import './EditProduct.css';
 
-function EditProduct({ productId, setCurrentPage, setSelectedProductId }) {
+function EditProduct() {
   // this is a guard to prevent non-admin users
   // check if the logged user is an administrator to render the edit product page,
   // if not redirect to home, as same as was did in the Admin.jsx page
@@ -17,52 +20,53 @@ function EditProduct({ productId, setCurrentPage, setSelectedProductId }) {
   // gonna be redirected first to a temporary Access Denied page,
   // in Access Denied page, the user will be redirected to home after 7 seconds
   // or can click the button to go to home immediately
-  useRequireAdmin(isAdmin, setCurrentPage);
+  useRequireAdmin(isAdmin);
   if (!isAdmin) {
-    return <AccessDenied setCurrentPage={setCurrentPage} />;
+    return <AccessDenied />;
   }
 
-  return (
-    <EditProductContent
-      productId={productId}
-      setCurrentPage={setCurrentPage}
-      setSelectedProductId={setSelectedProductId}
-    />
-  );
+  return <EditProductContent />;
 }
 
-function EditProductContent({
-  productId,
-  setCurrentPage,
-  setSelectedProductId,
-}) {
-  const { products, updateProduct } = useProducts();
-  const productToEdit = products.find((product) => product.id === productId);
+function EditProductContent() {
+  // get the product ID from the URL parameters
+  const fromParams = useParams();
+  const productId = fromParams.id; // get the product ID from the URL parameters
 
+  const { loading, products, updateProduct } = useProducts();
+  const productToEdit = products.find((product) => product.id === productId);
+  const navigate = useNavigate();
+
+  // this code segment manage the case when the product to edit is not found in the catalog
+  // and don't want to redirect to 404 page, instead redirect to admin panel after 2 seconds
   // handle the cancel and back to admin panel
-  const cancelEdit = () => {
-    setCurrentPage('admin');
-    setSelectedProductId(null);
-  };
+  // memoize the cancelEdit function to avoid unnecessary re-renders
+  const cancelEdit = useCallback(() => {
+    navigate(ROUTES.ADMIN);
+  }, [navigate]);
 
   // guard in case the product is not found in the catalog
   // redirect to admin if the product doesn't exist
   useEffect(() => {
-    if (!productToEdit) {
+    if (!loading && !productToEdit) {
       const timer = setTimeout(() => {
         cancelEdit();
-      }, 1800);
+      }, 2000);
       return () => clearTimeout(timer);
     }
-  }, [productToEdit]);
+  }, [loading, productToEdit, cancelEdit]);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   // show a message before redirecting,
-  // has a 1.8 seconds delay before redirecting to the admin panel
+  // has a 2 seconds delay before redirecting to the admin panel
   if (!productToEdit) {
     return (
       <main className="edit-product">
         <h2 className="edit-product__title">
-          No se encontró el producto para editar.
+          No se encontró el producto para editar o No existe.
         </h2>
       </main>
     );

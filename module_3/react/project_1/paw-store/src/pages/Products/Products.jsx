@@ -1,13 +1,17 @@
 import { useProducts } from '../../context/ProductsContext';
 import Loading from '../../components/Loading';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../routes/routes';
 import './Products.css';
 
 // simulate no products available
 //const catalog = [];
 
-function Products({ setCurrentPage, setSelectedProductDetailsId }) {
+function Products() {
   const { products, loading, loadProductsError } = useProducts();
   console.log('Products:', products);
+
+  const navigate = useNavigate();
 
   if (loading) {
     return <Loading />;
@@ -57,8 +61,7 @@ function Products({ setCurrentPage, setSelectedProductDetailsId }) {
               <button
                 className="product__button"
                 onClick={() => {
-                  setSelectedProductDetailsId(product.id);
-                  setCurrentPage('product-details');
+                  navigate(ROUTES.PRODUCT_DETAILS.replace(':id', product.id));
                 }}
               >
                 Ver detalles

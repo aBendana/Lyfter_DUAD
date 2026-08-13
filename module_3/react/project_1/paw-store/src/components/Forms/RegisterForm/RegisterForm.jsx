@@ -10,6 +10,7 @@ function RegisterForm({ onSubmit, onCancel }) {
     confirmPassword: '',
   };
 
+  // set up the form with react-hook-form
   const {
     register,
     getValues,
