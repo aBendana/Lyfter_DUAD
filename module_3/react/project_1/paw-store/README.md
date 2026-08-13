@@ -2,7 +2,7 @@
 
 Paw Store is a frontend application built with React + Vite for a pet products e-commerce experience.
 
-The current project includes mock authentication, user registration, a products catalog, product details, and an admin panel with CRUD operations connected to JSON Server.
+The project includes mock authentication, user registration, a product catalog, product details, shopping cart, checkout flow, order confirmation, and an admin panel with CRUD operations connected to JSON Server.
 
 ## Stack
 
@@ -12,6 +12,7 @@ The current project includes mock authentication, user registration, a products 
 - CSS
 - Axios
 - react-hook-form
+- react-router-dom
 - ESLint + Prettier
 - JSON Server (development environment)
 
@@ -59,6 +60,13 @@ npm run json-server
 Application: http://localhost:5173  
 Mock API: http://localhost:3001
 
+## Test Accounts
+
+You can use these users from the mock database:
+
+- Admin: `admin@example.com` / `admin123`
+- Client: `user@example.com` / `user123`
+
 ## Available Scripts
 
 - `npm run dev`: starts Vite in development mode.
@@ -81,13 +89,16 @@ JSON Server exposes, among others, these endpoints:
 - `GET /users`
 - `GET /users/:id`
 - `POST /users`
+- `GET /orders`
+- `GET /orders/:id`
+- `POST /orders`
 
 ## Functional Architecture
 
 ### Navigation
 
-The app uses local state navigation in App.jsx (it does not use React Router).  
-Main pages:
+The app uses `react-router-dom` with `BrowserRouter` and centralized route constants.  
+Current routes and pages:
 
 - Home
 - Products
@@ -96,35 +107,52 @@ Main pages:
 - EditProduct
 - Login
 - Register
+- Cart
+- Checkout
+- Confirmation
+- NotFound
+
+Notes:
+
+- `/contacto` is still a placeholder route and currently redirects to Home.
+- The cart button in the header shows the current item count.
 
 ### Global State (Context API)
 
 - AuthContext: manages authenticated user (loggedUser), login, register, logout, and isAuthenticated.
-- ProductsContext: fetches products from API on mount and exposes products, setProducts, getProductById, createProduct, updateProduct, and deleteProduct.
-
-Note: CatalogContext still exists in the project, but it is not part of the main runtime flow. (It will be deleted in the final project submission)
+- ProductsContext: fetches products from API on mount and exposes products, loading state, errors, `setProducts`, `getProductById`, `createProduct`, `updateProduct`, and `deleteProduct`.
+- CartContext: manages cart items, quantity changes, item removal, total price, and total item count.
+- CheckoutContext: creates orders and exposes checkout error handling.
 
 ### Services
 
+- api: shared Axios client with `http://localhost:3001` base URL and request interceptor.
 - productsService: product HTTP operations with Axios.
 - authService: mock login via /users, registration via POST /users, and localStorage persistence.
+- checkoutService: order creation via POST `/orders`.
 
-Both services automatically attach an Authorization header when a token exists in localStorage.
+The shared API client automatically attaches an Authorization header when a token exists in localStorage.
 
 ## Implemented Features
 
 - Home page.
 - Products list with empty state handling.
-- Loading screen when entering Products/Admin.
+- Loading screen while products are being fetched.
 - Product details page.
+- Shopping cart with add, remove, increase, and decrease quantity actions.
+- Checkout page with buyer information form.
+- Order confirmation page with purchase summary.
 - User login (mock).
 - Client user registration.
 - Admin panel visible only for admin role.
 - Create product from admin panel.
 - Edit product from admin panel.
 - Delete product with confirmation.
+- Access control: non-admin users trying to reach the Admin panel see an Access Denied screen and are redirected to Home after a delay.
 - Form handling and validation using react-hook-form.
 - Authenticated user persistence in localStorage.
+- Cart total and item count calculation.
+- Redirect to login when a user tries to continue checkout without being authenticated.
 
 ## Project Structure
 
@@ -137,6 +165,8 @@ paw-store/
 		assets/
 			icons/
 		components/
+			AccessDenied/
+			Checkout/
 			Footer/
 			Forms/
 				CreateProductForm/
@@ -148,21 +178,34 @@ paw-store/
 			Loading/
 		context/
 			AuthContext.jsx
-			CatalogContext.jsx
+			CartContext.jsx
+			CheckoutContext.jsx
 			ProductsContext.jsx
-		data/
-			products.json
 		hooks/
+			useCreateProduct.js
+			useDeleteProduct.js
+			useEditProduct.js
+			useLoading.js
+			useRequireAdmin.js
 		pages/
 			Admin/
+			Cart/
+			Checkout/
+			Confirmation/
 			EditProduct/
 			Home/
 			Login/
+			NotFound/
 			ProductDetails/
 			Products/
 			Register/
+		routes/
+			AppRoutes.jsx
+			routes.js
 		services/
+			api.js
 			authService.js
+			checkoutService.js
 			productsService.js
 		utils/
 			validatePassword.js
@@ -178,4 +221,12 @@ paw-store/
 
 ## Current Scope
 
-Although the project currently focuses on simulated authentication and product management, the code is ready to be connected to a real backend. E-commerce features, such as the shopping cart, checkout process, and contact page, are not yet implemented; these will be added in subsequent releases.
+The project uses a mock backend with JSON Server, so authentication and order creation are simulated. The code is structured to be connected to a real backend later.
+
+Current limitations:
+
+- Authentication is mock-based and uses `/users` from JSON Server.
+- The Authorization header is prepared in Axios, but JSON Server does not validate real tokens.
+- The contact page is not implemented yet.
+- Cart data is handled in memory and is not persisted after a full refresh.
+- Order confirmation email logic is prepared in comments, but not active because it needs a real backend.

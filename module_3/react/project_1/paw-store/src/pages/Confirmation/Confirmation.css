@@ -1,0 +1,112 @@
+.confirmation {
+  width: 100%;
+  min-height: 70vh;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 3rem;
+  box-sizing: border-box;
+  background: #f7f6fa;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.confirmation__title,
+.confirmation__no-order-message {
+  margin: 1rem 0 0;
+  font-family: Poppins, sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #7f55e0;
+}
+
+.confirmation__email-message {
+  margin: 0;
+  max-width: 40rem;
+  font-family: Inter, sans-serif;
+  font-size: 1rem;
+  color: #3d3547;
+}
+
+.confirmation__buyer-message {
+  margin: 2rem 0rem -1rem;
+  font-family: Inter, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #3d3547;
+}
+
+.confirmation__order-table {
+  width: min(100%, 56rem);
+  margin-top: 0.5rem;
+  border-collapse: collapse;
+  background: #ffffff;
+  border: 1px solid #e5e4e7;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 0.25rem 0.75rem rgba(8, 6, 13, 0.05);
+}
+
+.confirmation__order-table th,
+.confirmation__order-table td {
+  padding: 0.85rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #f0eef5;
+  font-family: Inter, sans-serif;
+  font-size: 0.95rem;
+  color: #2f2f2f;
+}
+
+.confirmation__order-table th {
+  background: #efeafc;
+  font-family: Poppins, sans-serif;
+  font-weight: 600;
+  color: #5f3fc4;
+}
+
+.confirmation__order-table tr:last-child td {
+  border-bottom: none;
+}
+
+.confirmation__order-total {
+  margin-top: 1rem;
+  font-family: Inter, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #3d3547;
+}
+
+.confirmation__home-button,
+.confirmation__products-button {
+  margin-top: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.85rem 1.4rem;
+  background: #7f55e0;
+  color: #ffffff;
+  font-family: Inter, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.confirmation__home-button:hover,
+.confirmation__products-button:hover {
+  background: #6a43c8;
+}
+
+@media (max-width: 48rem) {
+  .confirmation {
+    padding: 1.25rem 1rem 2rem;
+  }
+
+  .confirmation__title {
+    font-size: 1.6rem;
+  }
+
+  .confirmation__order-table th,
+  .confirmation__order-table td {
+    padding: 0.7rem 0.65rem;
+    font-size: 0.88rem;
+  }
+}

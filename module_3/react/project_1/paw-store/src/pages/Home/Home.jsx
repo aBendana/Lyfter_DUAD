@@ -1,6 +1,10 @@
+import { useNavigate, NavLink } from 'react-router-dom';
+import { ROUTES } from '../../routes/routes';
 import './Home.css';
 
-function Home({ setCurrentPage }) {
+function Home() {
+  const navigate = useNavigate();
+
   return (
     <main className="home">
       <h1 className="home__title">Bienvenido a Paw Store</h1>
@@ -15,15 +19,7 @@ function Home({ setCurrentPage }) {
       </p>
 
       {/* link to products page */}
-      <a
-        href="#"
-        onClick={(e) => {
-          e.preventDefault();
-          setCurrentPage('products');
-        }}
-      >
-        Ver Productos
-      </a>
+      <NavLink to={ROUTES.PRODUCTS}>Ver Productos</NavLink>
 
       <p className="home__description">
         Esta es la página principal de la aplicación. Más adelante aquí se

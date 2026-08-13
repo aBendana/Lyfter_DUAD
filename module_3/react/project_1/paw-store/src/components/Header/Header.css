@@ -46,9 +46,10 @@
 }
 
 .header__begin,
-.header__products-header,
+.header__products,
 .header__contact,
 .header__admin,
+.header__cart,
 .header__login,
 .active {
   background: transparent;
@@ -64,11 +65,32 @@
 }
 
 .header__begin:hover,
-.header__products-header:hover,
+.header__products:hover,
 .header__contact:hover,
 .header__admin:hover,
+.header__cart:hover,
 .header__login:hover {
   color: #7f55e0;
+}
+
+/* Cart badge */
+.header__cart {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.header__cart-badge {
+  min-width: 1.1rem;
+  height: 1.1rem;
+  padding: 0 0.25rem;
+  border-radius: 999px;
+  background: #7f55e0;
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1.1rem;
+  text-align: center;
 }
 
 /* Active state for nav links */
@@ -124,9 +146,10 @@
   }
 
   .header__begin,
-  .header__products-header,
+  .header__products,
   .header__contact,
   .header__admin,
+  .header__cart,
   .header__login,
   .active {
     font-size: 0.95rem;
@@ -144,9 +167,10 @@
   }
 
   .header__begin,
-  .header__products-header,
+  .header__products,
   .header__contact,
   .header__admin,
+  .header__cart,
   .header__login,
   .active {
     font-size: 0.875rem;

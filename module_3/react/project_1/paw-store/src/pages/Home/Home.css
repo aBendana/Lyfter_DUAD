@@ -1,7 +1,7 @@
 /* main container */
 .home {
-  width: 100%;
-  min-height: 50vh;
+  min-height: 60vh;
+  min-height: 60dvh;
   background: #ffffff;
   box-sizing: border-box;
   padding: 2rem 1.5rem;

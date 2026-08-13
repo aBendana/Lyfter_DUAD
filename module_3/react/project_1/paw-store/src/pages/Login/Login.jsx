@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import LoginForm from '../../components/Forms/LoginForm/LoginForm';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../routes/routes';
 import './Login.css';
 
-function Login({ setCurrentPage }) {
+function Login() {
   const { login } = useAuth();
   const [showLoginError, setShowLoginError] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
 
   // handle login form submission
   const handleLogin = async (formData) => {
@@ -20,9 +23,9 @@ function Login({ setCurrentPage }) {
       const role = loginData?.role;
 
       if (role === 'admin') {
-        setCurrentPage('admin');
+        navigate(ROUTES.ADMIN);
       } else {
-        setCurrentPage('products');
+        navigate(ROUTES.PRODUCTS);
       }
     } catch (error) {
       setShowLoginError(true);
@@ -42,8 +45,8 @@ function Login({ setCurrentPage }) {
       <LoginForm
         onSubmit={handleLogin}
         isSubmitting={isSubmitting}
-        onCancel={() => setCurrentPage('home')}
-        onRegister={() => setCurrentPage('register')}
+        onCancel={() => navigate(ROUTES.HOME)}
+        onRegister={() => navigate(ROUTES.REGISTER)}
         loginError={showLoginError}
       />
     </main>
