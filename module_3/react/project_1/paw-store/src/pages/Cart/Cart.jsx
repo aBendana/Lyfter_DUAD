@@ -93,7 +93,7 @@ function Cart() {
               }
             }}
           >
-            Continuar al checkout
+            Ir al checkout
           </button>
         </div>
       </div>

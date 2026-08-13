@@ -13,7 +13,7 @@ function BuyerInfoForm({ register, errors }) {
   return (
     <div className="buyer-info-form">
       <label className="buyer-info-form__label" htmlFor="name">
-        Nombre Completo
+        Nombre completo
       </label>
       <input
         className="buyer-info-form__input"
@@ -49,7 +49,7 @@ function BuyerInfoForm({ register, errors }) {
       )}
 
       <label className="buyer-info-form__label" htmlFor="address">
-        Dirección
+        Dirección de envío
       </label>
       <input
         className="buyer-info-form__input"
