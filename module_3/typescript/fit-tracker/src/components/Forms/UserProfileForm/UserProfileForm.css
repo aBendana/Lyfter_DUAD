@@ -1,0 +1,118 @@
+.user-profile-form {
+  --profile-bg: #0b0b0d;
+  --profile-bg-soft: #141418;
+  --profile-text: #f5f5f6;
+  --profile-muted: #d5d7db;
+  --profile-accent: #ff8a1f;
+
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+  width: min(100%, 52rem);
+  padding: clamp(1.25rem, 4vw, 2.5rem);
+  border: 1px solid rgb(255 255 255 / 12%);
+  border-radius: 0.9rem;
+  background:
+    radial-gradient(circle at 85% 15%, rgb(255 138 31 / 16%), transparent 42%),
+    linear-gradient(
+      160deg,
+      var(--profile-bg) 0%,
+      #09090b 48%,
+      var(--profile-bg-soft) 100%
+    );
+  color: var(--profile-text);
+  box-shadow: 0 1.5rem 4rem rgb(0 0 0 / 24%);
+}
+
+.user-profile-form__field {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.user-profile-form__label {
+  color: var(--profile-muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.user-profile-form__input {
+  width: 100%;
+  min-height: 2.8rem;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid rgb(255 255 255 / 20%);
+  border-radius: 0.65rem;
+  color: var(--profile-text);
+  background: rgb(255 255 255 / 7%);
+  font: inherit;
+  color-scheme: dark;
+  transition:
+    border-color 180ms ease,
+    background 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.user-profile-form__input:hover {
+  border-color: rgb(255 178 111 / 70%);
+}
+
+.user-profile-form__input:focus-visible {
+  border-color: var(--profile-accent);
+  outline: none;
+  background: rgb(255 255 255 / 10%);
+  box-shadow: 0 0 0 3px rgb(255 138 31 / 22%);
+}
+
+.user-profile-form__input::placeholder {
+  color: rgb(213 215 219 / 68%);
+}
+
+.user-profile-form__error,
+.user-profile-form__success {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.user-profile-form__error {
+  color: #ff9b9b;
+}
+
+.user-profile-form__success {
+  grid-column: 1 / -1;
+  color: var(--profile-accent);
+}
+
+.user-profile-form button {
+  grid-column: 1 / -1;
+  justify-self: start;
+  margin-top: 0.25rem;
+  padding: 0.85rem 1.45rem;
+  border: 1px solid var(--profile-accent);
+  border-radius: 0.9rem;
+  color: #ffffff;
+  background: linear-gradient(135deg, #ff8a1f 0%, #ff6a00 100%);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    transform 180ms ease,
+    filter 180ms ease;
+}
+
+.user-profile-form button:hover {
+  transform: translateY(-0.12rem);
+  filter: brightness(1.08);
+}
+
+.user-profile-form button:focus-visible {
+  outline: 1px solid #ffffff;
+  outline-offset: 0.25rem;
+}
+
+@media (max-width: 48rem) {
+  .user-profile-form {
+    grid-template-columns: 1fr;
+    padding: 1.25rem;
+  }
+}
