@@ -1,6 +1,4 @@
-import type { WeeklyRoutineType } from '../types/weeklyRoutineTypes';
 import type { RoutineType } from '../types/routineTypes';
-import type { CaloriesPerMinute } from '../types/exerciseTypes';
 
 // pass minutes to hours and minutes
 export function minutesToHoursAndMinutes(minutes: number): string {
@@ -19,10 +17,7 @@ export function minutesToHoursAndMinutes(minutes: number): string {
 }
 
 // calories burned
-export function caloriesBurned(
-  caloricRate: CaloriesPerMinute,
-  duration: number
-): number {
+export function caloriesBurned(caloricRate: number, duration: number): number {
   if (duration === 0) {
     throw new Error('Duration cannot be zero');
   }
@@ -40,10 +35,9 @@ export function exercisePace(minutes: number, distance: number): number {
 }
 
 // weekly routine total burned calories
-export function weeklyRoutineTotalCalories(
-  weeklyRoutine: WeeklyRoutineType
-): number {
-  const totalCalories = weeklyRoutine.entries.reduce(
+// or for any other array of routine entries
+export function routineTotalCalories(entries: RoutineType[]): number {
+  const totalCalories = entries.reduce(
     (total: number, entry: RoutineType) =>
       total +
       caloriesBurned(entry.exercise.caloriesPerMinute, entry.exercise.duration),
@@ -54,11 +48,9 @@ export function weeklyRoutineTotalCalories(
 }
 
 // weekly calories average, not including days with no exercise
-export function weeklyCaloriesAverage(
-  weeklyRoutine: WeeklyRoutineType
-): number {
+export function weeklyCaloriesAverage(entries: RoutineType[]): number {
   // filter out days with no exercise
-  const daysWithExercise = weeklyRoutine.entries.filter(
+  const daysWithExercise = entries.filter(
     (entry: RoutineType) => entry.exercise.duration > 0
   );
 
@@ -67,20 +59,20 @@ export function weeklyCaloriesAverage(
     return 0;
   }
 
-  const totalCalories = weeklyRoutineTotalCalories(weeklyRoutine);
+  const totalCalories = routineTotalCalories(entries);
 
   return parseFloat((totalCalories / daysWithExercise.length).toFixed(2));
 }
 
 // day with the most calories burned
 export function dayWithMostCaloriesBurned(
-  weeklyRoutine: WeeklyRoutineType
+  entries: RoutineType[]
 ): RoutineType | null {
-  if (weeklyRoutine.entries.length === 0) {
+  if (entries.length === 0) {
     return null;
   }
 
-  return weeklyRoutine.entries.reduce((maxEntry, currentEntry) => {
+  return entries.reduce((maxEntry, currentEntry) => {
     const currentCalories = caloriesBurned(
       currentEntry.exercise.caloriesPerMinute,
       currentEntry.exercise.duration
@@ -105,6 +97,11 @@ export function percentageOfTotalCaloriesBurned(
   dayMostCalories: number
 ): number {
   return parseFloat(((dayMostCalories / totalCaloriesBurned) * 100).toFixed(2));
+}
+
+// total time for an array of routine entries
+export function totalTime(entries: RoutineType[]): number {
+  return entries.reduce((total, entry) => total + entry.exercise.duration, 0);
 }
 
 // longest duration exercise

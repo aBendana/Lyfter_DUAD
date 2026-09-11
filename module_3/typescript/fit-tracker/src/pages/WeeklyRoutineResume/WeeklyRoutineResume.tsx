@@ -1,12 +1,14 @@
 import { useWeeklyRoutine } from '../../context/WeeklyRoutineContext';
 import { useUserProfile } from '../../context/UserProfileContext';
+import { GroupCardioExercisesResume } from '../../components/GroupCategory/GroupCardio';
+import { GroupStrengthExercisesResume } from '../../components/GroupCategory/GroupStrenght';
+import { GroupFlexibilityExercisesResume } from '../../components/GroupCategory/GroupFlexibility';
 import { NavLink } from 'react-router-dom';
 import { ROUTES } from '../../routes/routes';
 import {
   minutesToHoursAndMinutes,
   caloriesBurned,
-  exercisePace,
-  weeklyRoutineTotalCalories,
+  routineTotalCalories,
   weeklyCaloriesAverage,
   longerDurationExercise,
   dayWithMostCaloriesBurned,
@@ -16,14 +18,11 @@ import './WeeklyRoutineResume.css';
 
 export function WeeklyRoutineResume() {
   // state and context hooks
-  const { routineEntries, routineName } = useWeeklyRoutine();
+  const { routineEntries, routineName, exerciseCount } = useWeeklyRoutine();
   const { userProfile } = useUserProfile();
 
   // calculate the total calories burned for the weekly routine
-  const totalCaloriesBurned = weeklyRoutineTotalCalories({
-    name: routineName,
-    entries: routineEntries,
-  });
+  const totalCaloriesBurned = routineTotalCalories(routineEntries);
 
   // calculate the longest exercise duration and name for display
   const longestExercise = longerDurationExercise(routineEntries);
@@ -35,16 +34,10 @@ export function WeeklyRoutineResume() {
   );
 
   // calculate the day with the most calories burned
-  const dayWithMostCalories = dayWithMostCaloriesBurned({
-    name: routineName,
-    entries: routineEntries,
-  });
+  const dayWithMostCalories = dayWithMostCaloriesBurned(routineEntries);
 
   // calculate the average calories burned excluding days with no exercise
-  const averageCaloriesBurned = weeklyCaloriesAverage({
-    name: routineName,
-    entries: routineEntries,
-  });
+  const averageCaloriesBurned = weeklyCaloriesAverage(routineEntries);
 
   // calculate the day with the most calories burned details for display
   const dayWithMostCaloriesName = dayWithMostCalories?.name ?? 'N/A';
@@ -91,79 +84,23 @@ export function WeeklyRoutineResume() {
             <dd>{userProfile.experienceLevel}</dd>
           </div>
           <div>
-            <dt>Exercises</dt>
-            <dd>{routineEntries.length}</dd>
+            <dt>Membership</dt>
+            <dd>{userProfile.contract}</dd>
+          </div>
+          <div>
+            <dt>Start Date</dt>
+            <dd>{userProfile.startDate.toLocaleDateString()}</dd>
+          </div>
+          <div>
+            <dt>Status</dt>
+            <dd>{userProfile.state}</dd>
           </div>
         </dl>
       </section>
 
-      <section
-        className="weekly-routine-resume__exercises"
-        aria-labelledby="exercises-title"
-      >
-        <div className="weekly-routine-resume__section-heading">
-          <h2 id="exercises-title">Exercises</h2>
-        </div>
-
-        {routineEntries.length === 0 ? (
-          <p className="weekly-routine-resume__empty">
-            No exercises have been added yet.
-          </p>
-        ) : (
-          <div className="weekly-routine-resume__entries">
-            {routineEntries.map((entry, index) => (
-              <article
-                className="weekly-routine-resume__entry"
-                key={`${entry.name}-${entry.exercise.name}-${index}`}
-              >
-                <div>
-                  <p className="weekly-routine-resume__day">{entry.name}</p>
-                  <h3>{entry.exercise.name}</h3>
-                </div>
-                <dl>
-                  <div>
-                    <dt>Duration</dt>
-                    <dd>{minutesToHoursAndMinutes(entry.exercise.duration)}</dd>
-                  </div>
-
-                  <div>
-                    <dt>Calories</dt>
-                    <dd>
-                      {entry.exercise.duration === 0
-                        ? 0
-                        : caloriesBurned(
-                            entry.exercise.caloriesPerMinute,
-                            entry.exercise.duration
-                          )}{' '}
-                      kcal
-                    </dd>
-                  </div>
-
-                  {'distance' in entry.exercise && (
-                    <div>
-                      <dt>Distance</dt>
-                      <dd>{entry.exercise.distance} km</dd>
-                    </div>
-                  )}
-
-                  {'distance' in entry.exercise && (
-                    <div>
-                      <dt>Pace</dt>
-                      <dd>
-                        {exercisePace(
-                          entry.exercise.duration,
-                          entry.exercise.distance
-                        )}{' '}
-                        min/km
-                      </dd>
-                    </div>
-                  )}
-                </dl>
-              </article>
-            ))}
-          </div>
-        )}
-      </section>
+      <GroupCardioExercisesResume />
+      <GroupStrengthExercisesResume />
+      <GroupFlexibilityExercisesResume />
 
       <section
         className="weekly-routine-resume__summary"
@@ -174,6 +111,13 @@ export function WeeklyRoutineResume() {
         </div>
 
         <dl>
+          <div>
+            <dt className="weekly-routine-resume__stat-label">
+              Total Exercises in the Routine
+            </dt>
+            <dd>{exerciseCount ?? 'N/A'} exercise(s)</dd>
+          </div>
+
           <div>
             <dt className="weekly-routine-resume__stat-label">
               Total Calories Burned

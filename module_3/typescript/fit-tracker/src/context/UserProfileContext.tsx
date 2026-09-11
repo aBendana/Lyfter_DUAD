@@ -1,6 +1,8 @@
 import { createContext, useContext, useState } from 'react';
 import type { Dispatch, ReactNode, SetStateAction } from 'react';
 import type { UserProfileType } from '../types/userTypes';
+import { generateUserId } from '../utils/generateIds';
+import { generateExpireDate, getMembershipState } from '../utils/generateDates';
 
 // user profile context type
 // to define the shape of the context value
@@ -11,9 +13,14 @@ type UserProfileContextType = {
 
 // default user profile values
 const defaultUserProfile: UserProfileType = {
+  id: generateUserId(),
   fullName: '',
   age: 0,
   experienceLevel: 'Beginner',
+  contract: 'Basic',
+  startDate: new Date(),
+  endDate: generateExpireDate(),
+  state: getMembershipState(generateExpireDate()),
 };
 
 // create the context with default values

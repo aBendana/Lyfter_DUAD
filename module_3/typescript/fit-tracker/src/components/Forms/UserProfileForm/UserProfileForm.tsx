@@ -1,5 +1,8 @@
 import { useForm } from 'react-hook-form';
-import type { ExperienceLevelType } from '../../../types/userTypes';
+import type {
+  ExperienceLevelType,
+  MembershipContractType,
+} from '../../../types/userTypes';
 import { useState } from 'react';
 import './UserProfileForm.css';
 
@@ -8,6 +11,7 @@ export type UserProfileFormType = {
   fullName: string;
   age: number;
   experienceLevel: ExperienceLevelType;
+  membership: MembershipContractType;
 };
 
 type UserProfileFormProps = {
@@ -106,6 +110,32 @@ export function UserProfileForm({
         {errors.experienceLevel && (
           <p className="user-profile-form__error">
             {errors.experienceLevel.message}
+          </p>
+        )}
+      </div>
+
+      <div className="user-profile-form__field">
+        <label className="user-profile-form__label" htmlFor="membership">
+          Membership
+        </label>
+
+        <select
+          className="user-profile-form__input"
+          id="membership"
+          {...register('membership', {
+            required: 'Membership is required',
+          })}
+        >
+          <option value="" disabled>
+            Membership
+          </option>
+          <option value="Basic">Basic</option>
+          <option value="Premium">Premium</option>
+          <option value="Gold">Gold</option>
+        </select>
+        {errors.membership && (
+          <p className="user-profile-form__error">
+            {errors.membership.message}
           </p>
         )}
       </div>

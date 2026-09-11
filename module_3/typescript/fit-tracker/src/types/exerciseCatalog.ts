@@ -2,24 +2,44 @@
 // that can be in the options of the UI select input
 // for the user to choose sports
 
-import type { DistanceSportType, NonDistanceSportType } from './exerciseTypes';
+import type {
+  ExerciseCategoryType,
+  ExerciseCardioNameType,
+  ExerciseStrengthNameType,
+  ExerciseFlexibilityNameType,
+} from './exerciseTypes';
+
+// array of exercise categories
+export const exerciseNameCategories: ExerciseCategoryType[] = [
+  'Cardio',
+  'Strength',
+  'Flexibility',
+];
 
 // array of distance-based sports,
-export const distanceNameExercises: DistanceSportType[] = [
+export const cardioNameExercises: ExerciseCardioNameType[] = [
   'Running',
   'Cycling',
   'Swimming',
   'Walking',
   'Hiking',
   'Rowing',
-  'Tennis',
-  'Contact Sports',
 ];
 
 // array of non-distance-based sports
-export const nonDistanceNameExercises: NonDistanceSportType[] = [
-  'Strength Training',
+export const strengthNameExercises: ExerciseStrengthNameType[] = [
+  'Bench Press',
+  'Squats',
+  'Deadlifts',
+  'Overhead Press',
+  'Pull-Ups',
+  'Push-Ups',
+];
+
+export const flexibilityNameExercises: ExerciseFlexibilityNameType[] = [
   'Yoga',
   'Pilates',
-  'Dancing',
+  'Tai Chi',
+  'Barre',
+  'Stretching',
 ];

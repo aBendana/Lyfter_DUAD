@@ -15,9 +15,11 @@ export function UserProfile() {
     }
 
     setUserProfile({
+      ...userProfile,
       fullName: data.fullName.trim(),
       age: data.age,
       experienceLevel: data.experienceLevel,
+      contract: data.membership,
     });
   };
 
@@ -25,7 +27,15 @@ export function UserProfile() {
     <main className="user-profile">
       <h1 className="user-profile__title">Your Profile</h1>
 
-      <UserProfileForm onSubmit={handleSubmit} defaultValues={userProfile} />
+      <UserProfileForm
+        onSubmit={handleSubmit}
+        defaultValues={{
+          fullName: userProfile.fullName,
+          age: userProfile.age,
+          experienceLevel: userProfile.experienceLevel,
+          membership: userProfile.contract,
+        }}
+      />
 
       <NavLink to={ROUTES.EXCERCISE_ROUTINE}>Time to exercise!</NavLink>
     </main>
