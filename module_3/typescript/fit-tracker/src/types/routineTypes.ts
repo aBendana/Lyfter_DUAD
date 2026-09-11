@@ -1,4 +1,5 @@
 import type { ExerciseType } from './exerciseTypes';
+import type { RoutineId } from './idsTypes';
 
 // type day of the week
 export type DayOfWeekType =
@@ -11,6 +12,7 @@ export type DayOfWeekType =
   | 'Sunday';
 
 export type RoutineType = {
+  id: RoutineId;
   name: DayOfWeekType;
   exercise: ExerciseType;
 };
