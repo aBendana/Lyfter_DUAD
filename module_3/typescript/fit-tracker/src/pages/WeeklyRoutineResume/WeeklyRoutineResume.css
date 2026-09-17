@@ -125,8 +125,10 @@
 }
 
 .weekly-routine-resume__section-description {
-  margin: -0.5rem 0 1rem;
-  font-size: 1.1rem;
+  margin: -0.5rem 1.5rem 1rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  font-style: italic;
   color: var(--resume-muted);
 }
 
@@ -148,6 +150,15 @@
 .weekly-routine-resume__entry h3 {
   margin-bottom: 0;
   font-size: 1.15rem;
+}
+
+.weekly-routine-resume__entry > div:last-child {
+  grid-column: 1 / -1;
+  width: 100%;
+}
+
+.weekly-routine-resume__entry > div:last-child p {
+  margin: 0;
 }
 
 .weekly-routine-resume__entry dl {

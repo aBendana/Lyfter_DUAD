@@ -2,7 +2,7 @@ import { UserProfileForm } from '../../components/Forms/UserProfileForm/UserProf
 import type { UserProfileFormType } from '../../components/Forms/UserProfileForm/UserProfileForm';
 import { NavLink } from 'react-router-dom';
 import { ROUTES } from '../../routes/routes';
-import { useUserProfile } from '../../context/UserProfileContext';
+import { useUserProfile } from '../../hooks/useUserProfile';
 import './UserProfile.css';
 
 export function UserProfile() {

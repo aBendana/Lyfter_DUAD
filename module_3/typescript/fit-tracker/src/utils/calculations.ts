@@ -118,3 +118,36 @@ export function longerDurationExercise(
       : longestExercise
   );
 }
+
+// exercise total exercises counter
+// + total exercises per category
+export function exerciseCounter(entries: RoutineType[]): {
+  total: number;
+  cardio: number;
+  strength: number;
+  flexibility: number;
+} {
+  const counts = {
+    total: 0,
+    cardio: 0,
+    strength: 0,
+    flexibility: 0,
+  };
+
+  for (const entry of entries) {
+    counts.total++;
+    switch (entry.exercise.exerciseCategory) {
+      case 'Cardio':
+        counts.cardio++;
+        break;
+      case 'Strength':
+        counts.strength++;
+        break;
+      case 'Flexibility':
+        counts.flexibility++;
+        break;
+    }
+  }
+
+  return counts;
+}
