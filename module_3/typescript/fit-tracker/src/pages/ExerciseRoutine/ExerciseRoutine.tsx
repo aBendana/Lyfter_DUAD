@@ -1,16 +1,12 @@
 import { DailyRoutineForm } from '../../components/Forms/DailyRoutineForm/DailyRoutineForm';
 import type { DailyRoutineFormType } from '../../components/Forms/DailyRoutineForm/DailyRoutineForm';
 import { WeeklyRoutineNameForm } from '../../components/Forms/WeeklyRoutineNameForm/WeeklyRoutineNameForm';
-import { distanceNameExercises } from '../../types/exerciseCatalog';
-import type {
-  DistanceSportType,
-  ExerciseType,
-  NonDistanceSportType,
-} from '../../types/exerciseTypes';
+import { createRoutineEntry } from '../../utils/createRoutineEntry';
 import type { RoutineType } from '../../types/routineTypes';
 import { NavLink } from 'react-router-dom';
 import { ROUTES } from '../../routes/routes';
-import { useWeeklyRoutine } from '../../context/WeeklyRoutineContext';
+import { useWeeklyRoutine } from '../../hooks/useWeeklyRoutine';
+import { generateRoutineId } from '../../utils/generateIds';
 import './ExerciseRoutine.css';
 
 export function ExerciseRoutine() {
@@ -25,24 +21,11 @@ export function ExerciseRoutine() {
       return;
     }
 
-    // determine if the exercise is distance-based or not
-    // and create the appropriate ExerciseType object
-    const exercise: ExerciseType = distanceNameExercises.includes(
-      data.exerciseName as DistanceSportType
-    )
-      ? {
-          name: data.exerciseName as DistanceSportType,
-          duration: data.duration,
-          caloriesPerMinute: data.caloriesPerMinute,
-          distance: data.distance ?? 0,
-        }
-      : {
-          name: data.exerciseName as NonDistanceSportType,
-          duration: data.duration,
-          caloriesPerMinute: data.caloriesPerMinute,
-        };
+    // create the appropriate ExerciseType object using the utility function
+    const { exercise } = createRoutineEntry(data);
 
     const routineEntry: RoutineType = {
+      id: generateRoutineId(),
       name: data.exerciseDay,
       exercise,
     };
