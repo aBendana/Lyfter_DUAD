@@ -1,7 +1,7 @@
 import { BrowserRouter as Router } from 'react-router-dom';
 import { AppRoutes } from './routes/AppRoutes';
-import { UserProfileProvider } from './context/UserProfileContext';
-import { WeeklyRoutineProvider } from './context/WeeklyRoutineContext';
+import { UserProfileProvider } from './context/UserProfileProvider';
+import { WeeklyRoutineProvider } from './context/WeeklyRoutineProvider';
 
 function App() {
   return (

@@ -54,6 +54,8 @@ The application is available at the URL shown by Vite, normally `http://localhos
 
 ## Functional Architecture
 
+The application separates UI concerns from reusable domain logic. React components handle forms and presentation, while context providers manage shared session state and utility modules handle calculations, descriptions, identifiers, and exercise construction.
+
 ## Navigation
 
 The application uses `react-router-dom` with `BrowserRouter` and centralized route constants.
@@ -67,33 +69,57 @@ The application uses `react-router-dom` with `BrowserRouter` and centralized rou
 
 The Context API keeps application data available between routes during the current session.
 
-- `UserProfileContext`: stores the user's full name, age, and experience level.
-- `WeeklyRoutineContext`: stores the routine name and its exercise entries.
+- `UserProfileContext`: defines the user profile context contract.
+- `UserProfileProvider`: stores the complete user profile, including personal information and membership details.
+- `useUserProfile`: provides components with access to the user profile context.
+- `WeeklyRoutineContext`: defines the weekly routine context contract.
+- `WeeklyRoutineProvider`: stores the routine name, routine identifier, and exercise entries.
+- `useWeeklyRoutine`: provides components with access to the weekly routine context.
+
+Contexts, providers, and custom hooks are kept in separate modules to comply with the `react-refresh/only-export-components` ESLint rule and to keep each responsibility clear.
 
 ### Forms
 
 Forms use `react-hook-form` for validation and field handling.
 
 - The user profile form validates full name, age from 12 to 120, and experience level. Existing profile data appears as the form's initial values.
-- The routine form validates the day, exercise, duration, calories per minute, and distance when the selected exercise requires it.
-- Distance is requested only for distance-based exercises.
+- The routine form validates the day, exercise category, exercise name, duration, and calories per minute.
+- Exercise-specific fields are shown according to the selected category: distance and heart rate zone for cardio, sets, repetitions, and weight for strength, and positions for flexibility.
+
+### Exercise Catalog
+
+The weekly resume organizes registered exercises into three categories through the reusable `GroupExercises` component:
+
+- Cardio: distance, pace, and heart rate zone.
+- Strength: sets, repetitions, and weight.
+- Flexibility: positions.
+
+Each category displays its registered exercises with duration and calorie details, category-specific fields, and a generated textual description for the individual exercise and the category summary.
 
 ### Calculations
 
 The weekly resume calculates data from the registered exercise sessions:
 
 - Total calories burned.
+- Total exercises and totals by category.
 - Average calories burned on active days.
 - Longest session.
 - Day with the highest calorie burn and its percentage of the weekly total.
 - Duration, calories, distance, and pace for individual sessions when applicable.
 
+Exercise construction is extracted into a reusable utility so the category-specific `ExerciseType` logic, identifiers, and calculations can be tested independently from the page component.
+
 ## Implemented Features
 
 - User profile creation and update through prefilled form values.
+- Unified personal and membership profile summary.
 - Weekly routine naming.
 - Exercise registration by day.
-- Distance-based and non-distance exercise categories.
+- Cardio, strength, and flexibility exercise categories.
+- Category-specific exercise details and duration and calorie subtotals.
+- Generated textual descriptions for individual exercises and category summaries.
+- Reusable category summary rendering through `GroupCategories` and `GroupExercises`.
+- Stable list keys based on each routine entry's unique `RoutineId`.
 - Client-side form validation with feedback messages.
 - Exercise session success feedback and form reset after submission.
 - Weekly exercise list with session details.
@@ -105,19 +131,41 @@ The weekly resume calculates data from the registered exercise sessions:
 ```text
 fit-tracker/
 	src/
+		assets/
 		components/
 			Forms/
 				DailyRoutineForm/
 				UserProfileForm/
 				WeeklyRoutineNameForm/
+			GroupCategory/
+				GroupCategories.tsx
+				GroupExercises.tsx
+			UserProfileSummary/
+				UserProfileSummary.tsx
+			WeeklySummary/
+				WeeklySummary.tsx
 		context/
-			UserProfileContext.tsx
-			WeeklyRoutineContext.tsx
+			UserProfileContext.ts
+			UserProfileProvider.tsx
+			WeeklyRoutineContext.ts
+			WeeklyRoutineProvider.tsx
+		hooks/
+			useUserProfile.ts
+			useWeeklyRoutine.ts
+		index.css
 		pages/
 			ExerciseRoutine/
+				ExerciseRoutine.tsx
+				ExerciseRoutine.css
 			Home/
+				Home.tsx
+				Home.css
 			UserProfile/
+				UserProfile.tsx
+				UserProfile.css
 			WeeklyRoutineResume/
+				WeeklyRoutineResume.tsx
+				WeeklyRoutineResume.css
 		routes/
 			AppRoutes.tsx
 			routes.ts
@@ -129,6 +177,10 @@ fit-tracker/
 			weeklyRoutineTypes.ts
 		utils/
 			calculations.ts
+			createRoutineEntry.ts
+			generateDates.ts
+			generateDescriptions.ts
+			generateIds.ts
 		App.tsx
 		main.tsx
 	eslint.config.js
@@ -140,4 +192,4 @@ fit-tracker/
 
 ## Current Scope
 
-The application is fully client-side. Profile and routine data are held in React context, so they are available while navigating the application but are lost after a full browser refresh. It does not currently use an API, authentication, or persistent storage.
+The application is fully client-side. It supports a unified personal and membership profile, weekly routine creation, category-specific exercise details, category summaries with generated descriptions, and weekly training statistics. Profile and routine data are held in React context, so they are available while navigating the application but are lost after a full browser refresh. The project does not currently use an API, authentication, or persistent storage.
