@@ -1,74 +1,63 @@
 import { useWeeklyRoutine } from '../../hooks/useWeeklyRoutine';
+import type { ExerciseCategoryType } from '../../types/exerciseTypes';
 import { GroupExercises } from './GroupExercises';
 import { generateCategoryWeeklyResumeDescription } from '../../utils/generateDescriptions';
 
+const categorySections: {
+  category: ExerciseCategoryType;
+  heading: string;
+  id: string;
+}[] = [
+  { category: 'Cardio', heading: 'Cardio Exercises', id: 'cardio-exercises' },
+  {
+    category: 'Strength',
+    heading: 'Strength Exercises',
+    id: 'strength-exercises',
+  },
+  {
+    category: 'Flexibility',
+    heading: 'Flexibility Exercises',
+    id: 'flexibility-exercises',
+  },
+];
+
 export function GroupCategoriesResume() {
-  const { routineEntries } = useWeeklyRoutine();
-
-  // defining the cardio entries
-  const cardioEntries = routineEntries.filter(
-    (entry) => entry.exercise.exerciseCategory === 'Cardio'
-  );
-
-  // defining the strength entries
-  const strengthEntries = routineEntries.filter(
-    (entry) => entry.exercise.exerciseCategory === 'Strength'
-  );
-
-  // defining the flexibility entries
-  const flexibilityEntries = routineEntries.filter(
-    (entry) => entry.exercise.exerciseCategory === 'Flexibility'
-  );
+  const { officialEntries: routineEntries } = useWeeklyRoutine();
 
   return (
     <>
-      {cardioEntries.length > 0 && (
-        <section
-          className="weekly-routine-resume__exercises"
-          aria-labelledby="exercises-title"
-        >
-          <div className="weekly-routine-resume__section-heading">
-            <h2 id="exercises-title">Cardio Exercises</h2>
-            <p className="weekly-routine-resume__section-description">
-              {generateCategoryWeeklyResumeDescription(cardioEntries)}
-            </p>
-          </div>
+      {categorySections.map(({ category, heading, id }) => {
+        const hasExercises = routineEntries.some((session) =>
+          session.exercises.some(
+            (exercise) => exercise.exerciseCategory === category
+          )
+        );
 
-          <GroupExercises routineEntries={cardioEntries} />
-        </section>
-      )}
+        return (
+          hasExercises && (
+            <section
+              className="weekly-routine-resume__exercises"
+              aria-labelledby={id}
+              key={category}
+            >
+              <div className="weekly-routine-resume__section-heading">
+                <h2 id={id}>{heading}</h2>
+                <p className="weekly-routine-resume__section-description">
+                  {generateCategoryWeeklyResumeDescription(
+                    routineEntries,
+                    category
+                  )}
+                </p>
+              </div>
 
-      {strengthEntries.length > 0 && (
-        <section
-          className="weekly-routine-resume__exercises"
-          aria-labelledby="strength-exercises-title"
-        >
-          <div className="weekly-routine-resume__section-heading">
-            <h2 id="strength-exercises-title">Strength Exercises</h2>
-            <p className="weekly-routine-resume__section-description">
-              {generateCategoryWeeklyResumeDescription(strengthEntries)}
-            </p>
-          </div>
-
-          <GroupExercises routineEntries={strengthEntries} />
-        </section>
-      )}
-
-      {flexibilityEntries.length > 0 && (
-        <section
-          className="weekly-routine-resume__exercises"
-          aria-labelledby="flexibility-exercises-title"
-        >
-          <div className="weekly-routine-resume__section-heading">
-            <h2 id="flexibility-exercises-title">Flexibility Exercises</h2>
-            <p className="weekly-routine-resume__section-description">
-              {generateCategoryWeeklyResumeDescription(flexibilityEntries)}
-            </p>
-          </div>
-
-          <GroupExercises routineEntries={flexibilityEntries} />
-        </section>
-      )}
+              <GroupExercises
+                routineEntries={routineEntries}
+                category={category}
+              />
+            </section>
+          )
+        );
+      })}
     </>
   );
 }

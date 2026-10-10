@@ -1,0 +1,11 @@
+.user-routine__title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+section a {
+  display: inline-block;
+  margin-top: 1rem;
+  color: #ff8a1f;
+}

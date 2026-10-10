@@ -1,22 +1,27 @@
 import type {
   ExerciseId,
-  UserId,
-  RoutineId,
+  MemberId,
+  InstructorId,
   WeeklyRoutineId,
+  DayRoutineId,
 } from '../types/idsTypes';
 
 export function generateExerciseId(): ExerciseId {
   return crypto.randomUUID() as ExerciseId;
 }
 
-export function generateUserId(): UserId {
-  return crypto.randomUUID() as UserId;
+export function generateMemberId(): MemberId {
+  return crypto.randomUUID() as MemberId;
 }
 
-export function generateRoutineId(): RoutineId {
-  return crypto.randomUUID() as RoutineId;
+export function generateInstructorId(): InstructorId {
+  return crypto.randomUUID() as InstructorId;
 }
 
 export function generateWeeklyRoutineId(): WeeklyRoutineId {
   return crypto.randomUUID() as WeeklyRoutineId;
+}
+
+export function generateDayRoutineId(): DayRoutineId {
+  return crypto.randomUUID() as DayRoutineId;
 }

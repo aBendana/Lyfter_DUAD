@@ -1,14 +1,15 @@
 import { useForm } from 'react-hook-form';
+import type { DefaultValues } from 'react-hook-form';
 import type {
   ExperienceLevelType,
   MembershipContractType,
 } from '../../../types/userTypes';
-import { useState } from 'react';
 import './UserProfileForm.css';
 
 //type for the form data
 export type UserProfileFormType = {
   fullName: string;
+  email: string;
   age: number;
   experienceLevel: ExperienceLevelType;
   membership: MembershipContractType;
@@ -16,15 +17,15 @@ export type UserProfileFormType = {
 
 type UserProfileFormProps = {
   onSubmit: (data: UserProfileFormType) => void;
-  defaultValues: UserProfileFormType;
+  defaultValues: DefaultValues<UserProfileFormType>;
+  showSuccessMessage: boolean;
 };
 
 export function UserProfileForm({
   onSubmit,
   defaultValues,
+  showSuccessMessage,
 }: UserProfileFormProps) {
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-
   const {
     register,
     handleSubmit,
@@ -36,13 +37,7 @@ export function UserProfileForm({
   return (
     <form
       className="user-profile-form"
-      onSubmit={handleSubmit((data) => {
-        onSubmit(data);
-        setShowSuccessMessage(true);
-        setTimeout(() => {
-          setShowSuccessMessage(false);
-        }, 3500);
-      })}
+      onSubmit={handleSubmit(onSubmit)}
     >
       <div className="user-profile-form__field">
         <label className="user-profile-form__label" htmlFor="fullName">
@@ -57,6 +52,28 @@ export function UserProfileForm({
         />
         {errors.fullName && (
           <p className="user-profile-form__error">{errors.fullName.message}</p>
+        )}
+      </div>
+
+      <div className="user-profile-form__field">
+        <label className="user-profile-form__label" htmlFor="email">
+          Email
+        </label>
+        <input
+          className="user-profile-form__input"
+          id="email"
+          type="email"
+          placeholder="Enter your email"
+          {...register('email', {
+            required: 'Email is required',
+            pattern: {
+              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              message: 'Enter a valid email address',
+            },
+          })}
+        />
+        {errors.email && (
+          <p className="user-profile-form__error">{errors.email.message}</p>
         )}
       </div>
 

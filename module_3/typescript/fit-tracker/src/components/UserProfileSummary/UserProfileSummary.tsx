@@ -1,9 +1,9 @@
-import type { UserProfileType } from '../../types/userTypes';
+import type { MemberProfileType } from '../../types/userTypes';
 
 export function UserProfileSummary({
   userProfile,
 }: {
-  userProfile: UserProfileType;
+  userProfile: MemberProfileType;
 }) {
   return (
     <section
