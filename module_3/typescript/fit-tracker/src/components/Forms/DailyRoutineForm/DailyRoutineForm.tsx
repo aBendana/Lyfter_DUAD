@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form';
+import type { DefaultValues } from 'react-hook-form';
 import { useState } from 'react';
 import type { DayOfWeekType } from '../../../types/routineTypes';
 import type {
@@ -27,16 +28,36 @@ export type DailyRoutineFormType = {
   exerciseName: SportNameType | '';
   duration: number;
   caloriesPerMinute: number;
-  distance?: number; // option for cardio exercises
+  distance?: number; // optional for cardio exercises
   heartRateZone?: number; // optional for cardio exercises
   sets?: number; // optional for strength exercises
   repetitions?: number; // optional for strength exercises
   weight?: number; // optional for strength exercises
   positions?: number; // optional for flexibility exercises
+  flexibilityComments?: string; // optional for flexibility exercises
+  dayComments?: string; // optional note for the workout session
+  completed: boolean;
 };
 
 type DailyRoutineFormProps = {
   onSubmit: (data: DailyRoutineFormType) => void;
+};
+
+const emptyFormValues: DefaultValues<DailyRoutineFormType> = {
+  exerciseDay: '',
+  exerciseCategory: '',
+  exerciseName: '',
+  duration: undefined,
+  caloriesPerMinute: undefined,
+  distance: undefined,
+  heartRateZone: undefined,
+  sets: undefined,
+  repetitions: undefined,
+  weight: undefined,
+  positions: undefined,
+  flexibilityComments: undefined,
+  dayComments: undefined,
+  completed: true,
 };
 
 export function DailyRoutineForm({ onSubmit }: DailyRoutineFormProps) {
@@ -50,25 +71,13 @@ export function DailyRoutineForm({ onSubmit }: DailyRoutineFormProps) {
     watch,
     formState: { errors },
   } = useForm<DailyRoutineFormType>({
-    defaultValues: {
-      exerciseDay: '',
-      exerciseCategory: '',
-      exerciseName: '',
-      // initialize all optional fields as undefined
-      // to use placeholder values in the form inputs
-      duration: undefined,
-      caloriesPerMinute: undefined,
-      distance: undefined,
-      heartRateZone: undefined,
-      sets: undefined,
-      repetitions: undefined,
-      weight: undefined,
-      positions: undefined,
-    },
+    defaultValues: emptyFormValues,
   });
 
   // watch the selected exercise category to dynamically update the form fields
   const selectedCategory = watch('exerciseCategory');
+  const selectedExerciseDay = watch('exerciseDay');
+  const isCompleted = watch('completed');
 
   // determine the list of exercise names based on the selected category
   const exerciseNames =
@@ -276,11 +285,12 @@ export function DailyRoutineForm({ onSubmit }: DailyRoutineFormProps) {
               className="daily-routine-form__input"
               id="heartRateZone"
               type="number"
-              step="0.1"
+              step="1"
+              min="1"
+              max="5"
               placeholder="Enter heart rate zone (1-5)"
               {...register('heartRateZone', {
                 valueAsNumber: true,
-                required: 'Heart rate zone is required for this exercise',
                 min: {
                   value: 1,
                   message:
@@ -367,7 +377,6 @@ export function DailyRoutineForm({ onSubmit }: DailyRoutineFormProps) {
               placeholder="Enter weight used"
               {...register('weight', {
                 valueAsNumber: true,
-                required: 'Weight is required for this exercise',
                 min: {
                   value: 1,
                   message: 'Weight must be at least 1, and a positive number',
@@ -384,32 +393,90 @@ export function DailyRoutineForm({ onSubmit }: DailyRoutineFormProps) {
       )}
 
       {isFlexibilityExercise && (
-        <div className="daily-routine-form__field">
-          <label className="daily-routine-form__label" htmlFor="positions">
-            Positions
-          </label>
-          <input
-            className="daily-routine-form__input"
-            id="positions"
-            type="number"
-            step="1"
-            placeholder="Enter number of positions"
-            {...register('positions', {
-              valueAsNumber: true,
-              required: 'Positions are required for this exercise',
-              min: {
-                value: 1,
-                message: 'Positions must be at least 1, and a positive number',
-              },
-            })}
-          />
-          {errors.positions && (
-            <p className="daily-routine-form__error">
-              {errors.positions.message}
-            </p>
-          )}
-        </div>
+        <>
+          <div className="daily-routine-form__field">
+            <label className="daily-routine-form__label" htmlFor="positions">
+              Positions
+            </label>
+            <input
+              className="daily-routine-form__input"
+              id="positions"
+              type="number"
+              step="1"
+              placeholder="Enter number of positions"
+              {...register('positions', {
+                valueAsNumber: true,
+                required: 'Positions are required for this exercise',
+                min: {
+                  value: 1,
+                  message:
+                    'Positions must be at least 1, and a positive number',
+                },
+              })}
+            />
+            {errors.positions && (
+              <p className="daily-routine-form__error">
+                {errors.positions.message}
+              </p>
+            )}
+          </div>
+
+          <div className="daily-routine-form__field">
+            <label
+              className="daily-routine-form__label"
+              htmlFor="position-comments"
+            >
+              Comments
+            </label>
+            <textarea
+              className="daily-routine-form__input"
+              id="position-comments"
+              placeholder="Enter notes for these flexibility exercises"
+              rows={2}
+              {...register('flexibilityComments')}
+            />
+            {errors.flexibilityComments && (
+              <p className="daily-routine-form__error">
+                {errors.flexibilityComments.message}
+              </p>
+            )}
+          </div>
+        </>
       )}
+
+      <label className="daily-routine-form__checkbox-field" htmlFor="completed">
+        <input
+          className="daily-routine-form__checkbox"
+          id="completed"
+          type="checkbox"
+          {...register('completed')}
+        />
+        {isCompleted ? 'Completed' : 'Incomplete'}
+      </label>
+
+      <div className="daily-routine-form__field">
+        <label className="daily-routine-form__label" htmlFor="day-comments">
+          Comments for{' '}
+          {selectedExerciseDay ? (
+            <strong>{selectedExerciseDay}</strong>
+          ) : (
+            '(select a day)'
+          )}{' '}
+          Session
+        </label>
+        <textarea
+          className="daily-routine-form__input"
+          id="day-comments"
+          placeholder="Enter your comments for this session"
+          rows={2}
+          {...register('dayComments')}
+        />
+        {errors.dayComments && (
+          <p className="daily-routine-form__error">
+            {errors.dayComments.message}
+          </p>
+        )}
+      </div>
 
       <button type="submit">Save Routine</button>
 

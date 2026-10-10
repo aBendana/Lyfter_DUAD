@@ -4,8 +4,8 @@
   --routine-text: #f5f5f6;
   --routine-muted: #d5d7db;
   --routine-accent: #ff8a1f;
-  --routine-accent-soft: #ffb26f;
 
+  margin-bottom: 2.5rem;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.25rem;
@@ -57,11 +57,43 @@
   border-color: rgb(255 178 111 / 70%);
 }
 
+.daily-routine-form__input:disabled {
+  border-color: rgb(255 255 255 / 12%);
+  color: #0e0d0d;
+  font-style: italic;
+  font-weight: bold;
+  background: rgba(255, 255, 255, 0.315);
+  cursor: not-allowed;
+  opacity: 1;
+}
+
 .daily-routine-form__input:focus-visible {
   border-color: var(--routine-accent);
   outline: none;
   background: rgb(255 255 255 / 10%);
   box-shadow: 0 0 0 3px rgb(255 138 31 / 22%);
+}
+
+.daily-routine-form__checkbox-field {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: var(--routine-muted);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.daily-routine-form__checkbox {
+  width: 1.15rem;
+  height: 1.15rem;
+  margin: 0;
+  accent-color: var(--routine-accent);
+}
+
+.daily-routine-form__checkbox:focus-visible {
+  outline: 2px solid var(--routine-accent);
+  outline-offset: 2px;
 }
 
 .daily-routine-form button {

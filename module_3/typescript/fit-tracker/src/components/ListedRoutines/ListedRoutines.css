@@ -1,0 +1,52 @@
+.routine-row {
+  display: block;
+  margin-bottom: 2rem;
+}
+
+.routine-row > h3 {
+  margin-bottom: 0.5rem;
+}
+
+.routine-row__details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  gap: 0.5rem;
+  align-items: start;
+}
+
+.routine-row__comments {
+  grid-column: 1 / -1;
+  margin-top: -0.7rem;
+}
+
+.routine-row__comments p {
+  font-style: italic;
+  font-size: 1.1rem;
+  color: #928f8f;
+  margin: 0;
+}
+
+.routine-row__comments p + p {
+  padding-left: 1.5rem;
+}
+
+.routine-row__item h4 {
+  margin-bottom: -0.8rem;
+}
+
+.routine-row__item {
+  min-width: 0;
+}
+
+.routine-row__item dl > div {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.routine-row__item dt::after {
+  content: ':';
+}
+
+.routine-row__item dd {
+  margin: 0;
+}

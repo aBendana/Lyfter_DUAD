@@ -1,59 +1,64 @@
-import type { RoutineType } from '../../types/routineTypes';
+import type { DayRoutineType } from '../../types/routineTypes';
 import {
   exerciseCounter,
   minutesToHoursAndMinutes,
-  caloriesBurned,
   routineTotalCalories,
   weeklyCaloriesAverage,
-  longerDurationExercise,
+  longerDurationSession,
   dayWithMostCaloriesBurned,
   percentageOfTotalCaloriesBurned,
+  totalTime,
+  totalTimeByCategory,
 } from '../../utils/calculations';
 
 export function WeeklyRoutineSummary({
   routineEntries,
 }: {
-  routineEntries: RoutineType[];
+  routineEntries: DayRoutineType[];
 }) {
   // calculate the exercise counts total and categories
   const exerciseCounts = exerciseCounter(routineEntries);
 
+  // calculate total time by exercise category
+  const timeByCategory = totalTimeByCategory(routineEntries);
+
+  // calculate total time of the weekly routine
+  const totalRoutineTime = totalTime(routineEntries);
+
   // calculate the total calories burned for the weekly routine
   const totalCaloriesBurned = routineTotalCalories(routineEntries);
 
-  // calculate the longest exercise duration and name for display
-  const longestExercise = longerDurationExercise(routineEntries);
-  const longestExerciseDay = longestExercise?.name ?? 'N/A';
-  const longestExerciseDuration = longestExercise?.exercise.duration ?? 0;
-  const longestExerciseName = longestExercise?.exercise.name ?? 'N/A';
-  const longestExerciseHoursMinutes = minutesToHoursAndMinutes(
-    longestExerciseDuration
+  // calculate the longest session by combined exercise duration
+  const longestSession = longerDurationSession(routineEntries);
+  const longestSessionDuration = longestSession
+    ? totalTime([longestSession])
+    : 0;
+  const longestSessionHoursMinutes = minutesToHoursAndMinutes(
+    longestSessionDuration
   );
 
-  // calculate the day with the most calories burned
+  // calculate the session with the most calories burned
   const dayWithMostCalories = dayWithMostCaloriesBurned(routineEntries);
 
   // calculate the average calories burned excluding days with no exercise
   const averageCaloriesBurned = weeklyCaloriesAverage(routineEntries);
 
-  // calculate the day with the most calories burned details for display
-  const dayWithMostCaloriesName = dayWithMostCalories?.name ?? 'N/A';
-  const dayWithMostCaloriesExercise =
-    dayWithMostCalories?.exercise.name ?? 'N/A';
+  // calculate the highest-calorie session details for display
+  const dayWithMostCaloriesExercise = dayWithMostCalories
+    ? dayWithMostCalories.exercises.map((exercise) => exercise.name).join(', ')
+    : 'N/A';
   const dayWithMostCaloriesAmount = dayWithMostCalories
-    ? caloriesBurned(
-        dayWithMostCalories.exercise.caloriesPerMinute,
-        dayWithMostCalories.exercise.duration
-      )
+    ? routineTotalCalories([dayWithMostCalories])
     : 0;
 
-  // calculate the percentage of total calories burned for the day with the most calories burned
-  const percentageOfTotalCalories = dayWithMostCaloriesAmount
-    ? percentageOfTotalCaloriesBurned(
-        totalCaloriesBurned,
-        dayWithMostCaloriesAmount
-      )
-    : 0;
+  // calculate the percentage of total calories burned in the highest-calorie session
+  const percentageOfTotalCalories =
+    totalCaloriesBurned > 0
+      ? percentageOfTotalCaloriesBurned(
+          totalCaloriesBurned,
+          dayWithMostCaloriesAmount
+        )
+      : 0;
 
   return (
     <section
@@ -67,19 +72,43 @@ export function WeeklyRoutineSummary({
       <dl>
         <div>
           <dt className="weekly-routine-resume__stat-label">
-            Total Exercises in the Routine
+            Exercises and Time by Category
           </dt>
-          <dd>{exerciseCounts.total ?? 'N/A'} exercise(s) in total.</dd>
-          <dd>{exerciseCounts.cardio ?? 0} cardio exercise(s) </dd>
-          <dd>{exerciseCounts.strength ?? 0} strength exercise(s)</dd>
-          <dd>{exerciseCounts.flexibility ?? 0} flexibility exercise(s)</dd>
+          <dd>{exerciseCounts.total ?? 'N/A'} exercise(s) in total.</dd> with a
+          total time of {totalRoutineTime} min.
+          <dd>{exerciseCounts.cardio ?? 0} cardio exercise(s) </dd> with a total
+          time of {timeByCategory.cardioTime} min.
+          <dd>{exerciseCounts.strength ?? 0} strength exercise(s) </dd> with a
+          total time of {timeByCategory.strengthTime} min.
+          <dd>
+            {exerciseCounts.flexibility ?? 0} flexibility exercise(s)
+          </dd>{' '}
+          with a total time of {timeByCategory.flexibilityTime} min.
+        </div>
+
+        <div>
+          <dt className="weekly-routine-resume__stat-label">
+            Total Weekly Routine Time
+          </dt>
+          <dd>
+            {exerciseCounts.total > 0 ? (
+              <>
+                {minutesToHoursAndMinutes(totalRoutineTime)} total (
+                {totalRoutineTime} min)
+              </>
+            ) : (
+              'N/A'
+            )}
+          </dd>
         </div>
 
         <div>
           <dt className="weekly-routine-resume__stat-label">
             Total Calories Burned
           </dt>
-          <dd>{longestExercise ? <>{totalCaloriesBurned} kcal</> : 'N/A'}</dd>
+          <dd>
+            {exerciseCounts.total > 0 ? <>{totalCaloriesBurned} kcal</> : 'N/A'}
+          </dd>
         </div>
 
         <div>
@@ -87,7 +116,7 @@ export function WeeklyRoutineSummary({
             Average Calories Burned
           </dt>
           <dd>
-            {longestExercise ? (
+            {exerciseCounts.total > 0 ? (
               <>{averageCaloriesBurned} kcal per day</>
             ) : (
               'N/A'
@@ -98,10 +127,10 @@ export function WeeklyRoutineSummary({
         <div>
           <dt className="weekly-routine-resume__stat-label">Longest session</dt>
           <dd>
-            {longestExercise ? (
+            {longestSession ? (
               <>
-                {longestExerciseName} on {longestExerciseDay} lasting{' '}
-                {longestExerciseHoursMinutes}
+                {longestSession.day} lasting {longestSessionHoursMinutes} (
+                {longestSessionDuration} min)
               </>
             ) : (
               'N/A'
@@ -111,16 +140,16 @@ export function WeeklyRoutineSummary({
 
         <div>
           <dt className="weekly-routine-resume__stat-label">
-            Day with most calories burned
+            Session with most calories burned
           </dt>
           <dd>
             {dayWithMostCalories ? (
               <>
-                {dayWithMostCaloriesExercise} on {dayWithMostCaloriesName}{' '}
+                {dayWithMostCalories.day} ({dayWithMostCaloriesExercise})
                 burning {dayWithMostCaloriesAmount} kcal
                 <br />
                 representing {percentageOfTotalCalories}% of total calories
-                burned
+                burned during the week.
               </>
             ) : (
               'N/A'

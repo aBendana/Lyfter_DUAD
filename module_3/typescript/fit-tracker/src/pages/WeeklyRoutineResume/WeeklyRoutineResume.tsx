@@ -1,32 +1,36 @@
 import { useWeeklyRoutine } from '../../hooks/useWeeklyRoutine';
-import { useUserProfile } from '../../hooks/useUserProfile';
-import { GroupCategoriesResume } from '../../components/GroupCategory/GroupCategories';
-import { WeeklyRoutineSummary } from '../../components/WeeklySummary/WeeklySummary';
+import { useMemberRoutine } from '../../hooks/useMemberRoutine';
 import { UserProfileSummary } from '../../components/UserProfileSummary/UserProfileSummary';
+import { WeeklyRoutineSummary } from '../../components/WeeklySummary/WeeklySummary';
+import { Recommendations } from '../../components/Observations/Recommendations';
+import { IncompleteRoutines } from '../../components/Observations/IncompleteRoutines';
 import { NavLink } from 'react-router-dom';
 import { ROUTES } from '../../routes/routes';
 import './WeeklyRoutineResume.css';
 
 export function WeeklyRoutineResume() {
   // state and context hooks
-  const { routineEntries, routineName } = useWeeklyRoutine();
-  const { userProfile } = useUserProfile();
+  const { officialEntries: routineEntries, routineName } = useWeeklyRoutine();
+  const { activeMember } = useMemberRoutine();
 
   return (
-    <main className="weekly-routine-resume">
+    <section className="weekly-routine-resume">
       <header className="weekly-routine-resume__header">
         <p className="weekly-routine-resume__eyebrow">Progress overview</p>
         <h1>{routineName || 'No routine name specified'}</h1>
       </header>
 
-      <UserProfileSummary userProfile={userProfile} />
-      <GroupCategoriesResume />
+      {activeMember && (
+        <UserProfileSummary userProfile={activeMember.member} />
+      )}
       <WeeklyRoutineSummary routineEntries={routineEntries} />
+      <Recommendations routineEntries={routineEntries} />
+      <IncompleteRoutines entries={routineEntries} />
 
       <div className="weekly-routine-resume__actions">
         <NavLink
           className="weekly-routine-resume__link"
-          to={ROUTES.EXCERCISE_ROUTINE}
+          to={ROUTES.USER_ROUTINE}
         >
           Add another exercise
         </NavLink>
@@ -38,6 +42,6 @@ export function WeeklyRoutineResume() {
           Modify Profile
         </NavLink>
       </div>
-    </main>
+    </section>
   );
 }
