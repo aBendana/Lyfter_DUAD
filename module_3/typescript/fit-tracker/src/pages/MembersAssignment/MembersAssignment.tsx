@@ -5,7 +5,7 @@ import { ROUTES } from '../../routes/routes';
 import './MembersAssignment.css';
 
 export function MembersAssignment() {
-  const { memberRecords } = useMemberRoutine();
+  const { members } = useMemberRoutine();
   const { instructors, activeInstructor, assignMember, unassignMember } =
     useInstructor();
 
@@ -28,13 +28,13 @@ export function MembersAssignment() {
         </p>
       )}
 
-      {memberRecords.length === 0 ? (
+      {members.length === 0 ? (
         <p className="members-assignment__empty">
           There are no registered members yet. Create a member profile first.
         </p>
       ) : (
         <ul className="members-assignment__list">
-          {memberRecords.map(({ member }) => {
+          {members.map((member) => {
             const assignedInstructor = instructors.find((instructor) =>
               instructor.assignedMemberIds.includes(member.memberId)
             );

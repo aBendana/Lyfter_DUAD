@@ -106,7 +106,7 @@ The calculation utilities build exercise metrics and summarize the active member
 - Recommendations use the number of active training days and total routine minutes: they encourage at least 3 days and 150 minutes, advise rest when activity exceeds 5 days or 300 minutes, and otherwise report good consistency. An empty routine gets a separate prompt.
 - Exercise descriptions format durations as hours and minutes where applicable; cardio details include distance and pace.
 
-Exercise construction and calculations are implemented in reusable utilities, separate from the page components.
+Exercise construction and calculations are implemented in reusable utilities, separate from the page components. The formal contracts of every calculation (parameters and return types) are declared in `src/types/calculationTypes.ts`, and each function in `src/utils/calculations.ts` is typed against its contract, so the signature exists independently of the implementation.
 
 ### Implemented Features
 
@@ -199,6 +199,7 @@ fit-tracker/
 			routes.ts
 		types/
 			exerciseCatalog.ts
+			calculationTypes.ts
 			exerciseTypes.ts
 			idsTypes.ts
 			routineTypes.ts

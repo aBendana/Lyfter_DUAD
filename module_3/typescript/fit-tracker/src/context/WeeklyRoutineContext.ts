@@ -1,6 +1,10 @@
 import { createContext } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
-import type { WeeklyRoutineId } from '../types/idsTypes';
+import type {
+  DayRoutineId,
+  ExerciseId,
+  WeeklyRoutineId,
+} from '../types/idsTypes';
 import type { DayRoutineType } from '../types/routineTypes';
 
 // context type for weekly routine
@@ -22,6 +26,16 @@ export interface WeeklyRoutineContextType {
   // array of official exercise entries for the weekly routine
   officialEntries: DayRoutineType[];
   setOfficialEntries: Dispatch<SetStateAction<DayRoutineType[]>>;
+
+  // changes the completed state of an existing exercise
+  updateExerciseCompleted: (
+    dayRoutineId: DayRoutineId,
+    exerciseId: ExerciseId,
+    completed: boolean
+  ) => void;
+
+  // changes (or removes, when empty) the comments of an existing session
+  updateDayComments: (dayRoutineId: DayRoutineId, dayComments: string) => void;
 }
 // create the context with undefined default, so the hook can guard against
 // being used outside the provider

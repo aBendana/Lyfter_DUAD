@@ -37,7 +37,7 @@ export function InstructorMembersResume() {
         </p>
       ) : (
         <div className="instructor-members-resume__list">
-          {dashboard.supervisedMembers.map(({ member, routine }) => (
+          {dashboard.supervisedMembers.map((member) => (
             <article
               className="instructor-members-resume__member"
               key={member.memberId}
@@ -45,8 +45,8 @@ export function InstructorMembersResume() {
               <header className="instructor-members-resume__member-header">
                 <h3>{member.fullName}</h3>
                 <p>
-                  {routine.name || 'Weekly routine'} · Started{' '}
-                  {routine.startDate.toLocaleDateString()}
+                  {member.routine.name || 'Weekly routine'} · Started{' '}
+                  {member.routine.startDate.toLocaleDateString()}
                 </p>
               </header>
 
@@ -80,19 +80,19 @@ export function InstructorMembersResume() {
                     </div>
                     <div>
                       <dt>Membership</dt>
-                      <dd>{member.contract}</dd>
+                      <dd>{member.membership.contract}</dd>
                     </div>
                     <div>
                       <dt>Start date</dt>
-                      <dd>{member.startDate.toLocaleDateString()}</dd>
+                      <dd>{member.membership.startDate.toLocaleDateString()}</dd>
                     </div>
                     <div>
                       <dt>End date</dt>
-                      <dd>{member.endDate.toLocaleDateString()}</dd>
+                      <dd>{member.membership.endDate.toLocaleDateString()}</dd>
                     </div>
                     <div>
                       <dt>Status</dt>
-                      <dd>{member.state}</dd>
+                      <dd>{member.membership.state}</dd>
                     </div>
                   </dl>
                 </div>
@@ -108,19 +108,19 @@ export function InstructorMembersResume() {
                 <dl className="instructor-members-resume__stats">
                   <div>
                     <dt>Workout days</dt>
-                    <dd>{totalTrainingSessions(routine.entries)}</dd>
+                    <dd>{totalTrainingSessions(member.routine.entries)}</dd>
                   </div>
                   <div>
                     <dt>Exercise time</dt>
-                    <dd>{totalTime(routine.entries)} min</dd>
+                    <dd>{totalTime(member.routine.entries)} min</dd>
                   </div>
                   <div>
                     <dt>Calories burned</dt>
-                    <dd>{routineTotalCalories(routine.entries)} kcal</dd>
+                    <dd>{routineTotalCalories(member.routine.entries)} kcal</dd>
                   </div>
                   <div>
                     <dt>Incomplete exercises</dt>
-                    <dd>{totalIncompleteExercises(routine.entries)}</dd>
+                    <dd>{totalIncompleteExercises(member.routine.entries)}</dd>
                   </div>
                 </dl>
               </section>

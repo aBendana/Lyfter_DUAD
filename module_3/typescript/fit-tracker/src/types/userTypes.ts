@@ -31,7 +31,10 @@ export interface MembershipType {
 }
 
 // user profile type complete
-export interface MemberProfileType extends MemberInfoType, MembershipType {}
+export interface MemberProfileType extends MemberInfoType {
+  membership: MembershipType;
+  routine: WeeklyRoutineType;
+}
 
 // user instructor type complete
 export interface InstructorInfoType extends BasicPersonInfoType {
@@ -40,14 +43,8 @@ export interface InstructorInfoType extends BasicPersonInfoType {
   assignedMemberIds: MemberId[];
 }
 
-// in-memory record for a member and their current weekly routine
-export interface MemberRoutineRecordType {
-  member: MemberProfileType;
-  routine: WeeklyRoutineType;
-}
-
 // type for the instructor dashboard
 export interface InstructorDashboardType {
   instructor: InstructorInfoType;
-  supervisedMembers: MemberRoutineRecordType[];
+  supervisedMembers: MemberProfileType[];
 }

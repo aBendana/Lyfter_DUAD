@@ -16,7 +16,7 @@ import {
 import './DailyRoutineForm.css';
 
 //type for the form data
-export type DailyRoutineFormType = {
+export interface DailyRoutineFormType {
   // '' is just used as a placeholder for the select input,
   // so that the user is forced to select a day of the week
   exerciseDay: DayOfWeekType | '';
@@ -37,11 +37,11 @@ export type DailyRoutineFormType = {
   flexibilityComments?: string; // optional for flexibility exercises
   dayComments?: string; // optional note for the workout session
   completed: boolean;
-};
+}
 
-type DailyRoutineFormProps = {
+interface DailyRoutineFormProps {
   onSubmit: (data: DailyRoutineFormType) => void;
-};
+}
 
 const emptyFormValues: DefaultValues<DailyRoutineFormType> = {
   exerciseDay: '',

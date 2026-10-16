@@ -4,7 +4,10 @@ import type { DayRoutineType } from '../types/routineTypes';
 import type { WeeklyRoutineType } from '../types/weeklyRoutineTypes';
 import { generateWeeklyRoutineId } from '../utils/generateIds';
 import { useMemberRoutine } from '../hooks/useMemberRoutine';
+import { setExerciseCompleted } from '../utils/setExerciseCompleted';
+import { setDayComments } from '../utils/setDayComments';
 import { WeeklyRoutineContext } from './WeeklyRoutineContext';
+import type { WeeklyRoutineContextType } from './WeeklyRoutineContext';
 
 const emptyWeeklyRoutine: WeeklyRoutineType = {
   id: generateWeeklyRoutineId(),
@@ -23,9 +26,9 @@ function resolveStateAction<Value>(
 }
 
 // props for the WeeklyRoutineProvider, including its child components
-type WeeklyRoutineProviderProps = {
+interface WeeklyRoutineProviderProps {
   children: ReactNode;
-};
+}
 
 export function WeeklyRoutineProvider({
   children,
@@ -71,6 +74,20 @@ export function WeeklyRoutineProvider({
       entries: resolveStateAction(value, currentRoutine.entries),
     }));
 
+  const updateExerciseCompleted: WeeklyRoutineContextType['updateExerciseCompleted'] =
+    (dayRoutineId, exerciseId, completed) =>
+      updateRoutine((currentRoutine) =>
+        setExerciseCompleted(currentRoutine, dayRoutineId, exerciseId, completed)
+      );
+
+  const updateDayComments: WeeklyRoutineContextType['updateDayComments'] = (
+    dayRoutineId,
+    dayComments
+  ) =>
+    updateRoutine((currentRoutine) =>
+      setDayComments(currentRoutine, dayRoutineId, dayComments)
+    );
+
   return (
     <WeeklyRoutineContext.Provider
       value={{
@@ -82,6 +99,8 @@ export function WeeklyRoutineProvider({
         setStartDate,
         officialEntries: routine.entries,
         setOfficialEntries,
+        updateExerciseCompleted,
+        updateDayComments,
       }}
     >
       {children}

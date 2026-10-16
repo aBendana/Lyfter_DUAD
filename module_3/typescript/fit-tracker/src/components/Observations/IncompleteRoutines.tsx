@@ -1,8 +1,12 @@
-import { totalIncompleteExercises } from '../../utils/calculations';
+import {
+  incompleteExercisesList,
+  totalIncompleteExercises,
+} from '../../utils/calculations';
 import type { DayRoutineType } from '../../types/routineTypes';
 
 export function IncompleteRoutines({ entries }: { entries: DayRoutineType[] }) {
   const incompleteCount = totalIncompleteExercises(entries);
+  const incompleteExercises = incompleteExercisesList(entries);
 
   return (
     <div className="incomplete-routines">
@@ -18,6 +22,13 @@ export function IncompleteRoutines({ entries }: { entries: DayRoutineType[] }) {
           <p className="incomplete-routines__count">
             Total incomplete exercises: {incompleteCount}
           </p>
+          <ul className="incomplete-routines__list">
+            {incompleteExercises.map((exercise) => (
+              <li key={`${exercise.day}-${exercise.id}`}>
+                {exercise.name} on {exercise.day}
+              </li>
+            ))}
+          </ul>
           <p className="incomplete-routines__advice">
             If you're having trouble completing exercises, consider adjusting
             your routine or seeking guidance with your assigned trainer.

@@ -13,8 +13,14 @@ import './UserRoutine.css';
 
 export function UserRoutine() {
   const { activeMember } = useMemberRoutine();
-  const { routineName, setRoutineName, officialEntries, setOfficialEntries } =
-    useWeeklyRoutine();
+  const {
+    routineName,
+    setRoutineName,
+    officialEntries,
+    setOfficialEntries,
+    updateExerciseCompleted,
+    updateDayComments,
+  } = useWeeklyRoutine();
 
   // handle the submission of the weekly routine name
   const handleRoutineNameSubmit = (name: string) => {
@@ -81,7 +87,11 @@ export function UserRoutine() {
       />
 
       <DailyRoutineForm onSubmit={handleEntrySubmit} />
-      <ListedRoutines routines={officialEntries} />
+      <ListedRoutines
+        routines={officialEntries}
+        onToggleCompleted={updateExerciseCompleted}
+        onChangeDayComments={updateDayComments}
+      />
 
       <div className="weekly-routine-resume__actions">
         <NavLink

@@ -1,7 +1,24 @@
-import type { DayRoutineType } from '../types/routineTypes';
+import type {
+  CaloriesBurned,
+  CategoryTimes,
+  DayWithMostCaloriesBurned,
+  ExerciseCounter,
+  ExerciseCounts,
+  ExercisePace,
+  IncompleteExercisesList,
+  LongerDurationSession,
+  MinutesToHoursAndMinutes,
+  PercentageOfTotalCaloriesBurned,
+  RoutineTotalCalories,
+  TotalIncompleteExercises,
+  TotalTime,
+  TotalTimeByCategory,
+  TotalTrainingSessions,
+  WeeklyCaloriesAverage,
+} from '../types/calculationTypes';
 
 // pass minutes to hours and minutes
-export function minutesToHoursAndMinutes(minutes: number): string {
+export const minutesToHoursAndMinutes: MinutesToHoursAndMinutes = (minutes) => {
   if (!Number.isInteger(minutes) || minutes < 0) {
     throw new RangeError('Minutes must be a non-negative integer');
   }
@@ -18,10 +35,10 @@ export function minutesToHoursAndMinutes(minutes: number): string {
   }
 
   return `${hours}h ${remainingMinutes}min`;
-}
+};
 
 // calories burned
-export function caloriesBurned(caloricRate: number, duration: number): number {
+export const caloriesBurned: CaloriesBurned = (caloricRate, duration) => {
   if (!Number.isFinite(caloricRate) || caloricRate < 1) {
     throw new RangeError('Caloric rate must be a finite number of at least 1');
   }
@@ -37,10 +54,10 @@ export function caloriesBurned(caloricRate: number, duration: number): number {
   }
 
   return parseFloat(totalCalories.toFixed(2));
-}
+};
 
 // pace for distance-based exercises
-export function exercisePace(minutes: number, distance: number): number {
+export const exercisePace: ExercisePace = (minutes, distance) => {
   if (!Number.isSafeInteger(minutes) || minutes <= 0) {
     throw new RangeError('Minutes must be a positive safe integer');
   }
@@ -56,11 +73,11 @@ export function exercisePace(minutes: number, distance: number): number {
   }
 
   return parseFloat(pace.toFixed(2));
-}
+};
 
 // weekly routine total burned calories
 // or for any other array of routine entries
-export function routineTotalCalories(entries: DayRoutineType[]): number {
+export const routineTotalCalories: RoutineTotalCalories = (entries) => {
   const totalCalories = entries.reduce(
     (total, session) =>
       total +
@@ -72,10 +89,10 @@ export function routineTotalCalories(entries: DayRoutineType[]): number {
   );
 
   return Number(totalCalories.toFixed(2));
-}
+};
 
 // weekly calories average, not including days with no exercise
-export function weeklyCaloriesAverage(entries: DayRoutineType[]): number {
+export const weeklyCaloriesAverage: WeeklyCaloriesAverage = (entries) => {
   const daysWithExercise = entries.filter((session) =>
     session.exercises.some((exercise) => exercise.duration > 0)
   );
@@ -88,12 +105,10 @@ export function weeklyCaloriesAverage(entries: DayRoutineType[]): number {
   const totalCalories = routineTotalCalories(daysWithExercise);
 
   return parseFloat((totalCalories / daysWithExercise.length).toFixed(2));
-}
+};
 
 // day with the most calories burned
-export function dayWithMostCaloriesBurned(
-  entries: DayRoutineType[]
-): DayRoutineType | null {
+export const dayWithMostCaloriesBurned: DayWithMostCaloriesBurned = (entries) => {
   if (entries.length === 0) {
     return null;
   }
@@ -103,13 +118,10 @@ export function dayWithMostCaloriesBurned(
       ? currentSession
       : maxSession
   );
-}
+};
 
 // percentage of total calories burned for day with the most calories burned
-export function percentageOfTotalCaloriesBurned(
-  totalCaloriesBurned: number,
-  dayMostCalories: number
-): number {
+export const percentageOfTotalCaloriesBurned: PercentageOfTotalCaloriesBurned = (totalCaloriesBurned, dayMostCalories) => {
   if (!Number.isFinite(totalCaloriesBurned) || totalCaloriesBurned <= 0) {
     throw new RangeError('Total calories burned must be finite and positive');
   }
@@ -124,10 +136,10 @@ export function percentageOfTotalCaloriesBurned(
 
   const percentage = (dayMostCalories / totalCaloriesBurned) * 100;
   return Number(percentage.toFixed(2));
-}
+};
 
 // total time for an array of routine entries
-export function totalTime(entries: DayRoutineType[]): number {
+export const totalTime: TotalTime = (entries) => {
   return entries.reduce(
     (total, session) =>
       total +
@@ -137,12 +149,10 @@ export function totalTime(entries: DayRoutineType[]): number {
       ),
     0
   );
-}
+};
 
 // longest training session by combined exercise duration
-export function longerDurationSession(
-  entries: DayRoutineType[]
-): DayRoutineType | null {
+export const longerDurationSession: LongerDurationSession = (entries) => {
   const sessionsWithExercise = entries.filter((session) =>
     session.exercises.some((exercise) => exercise.duration > 0)
   );
@@ -156,17 +166,12 @@ export function longerDurationSession(
       ? currentSession
       : longestSession
   );
-}
+};
 
 // exercise total exercises counter
 // + total exercises per category
-export function exerciseCounter(entries: DayRoutineType[]): {
-  total: number;
-  cardio: number;
-  strength: number;
-  flexibility: number;
-} {
-  const counts = {
+export const exerciseCounter: ExerciseCounter = (entries) => {
+  const counts: ExerciseCounts = {
     total: 0,
     cardio: 0,
     strength: 0,
@@ -191,15 +196,11 @@ export function exerciseCounter(entries: DayRoutineType[]): {
   }
 
   return counts;
-}
+};
 
 // count total time for exercise category
-export function totalTimeByCategory(entries: DayRoutineType[]): {
-  cardioTime: number;
-  strengthTime: number;
-  flexibilityTime: number;
-} {
-  const times = {
+export const totalTimeByCategory: TotalTimeByCategory = (entries) => {
+  const times: CategoryTimes = {
     cardioTime: 0,
     strengthTime: 0,
     flexibilityTime: 0,
@@ -222,17 +223,30 @@ export function totalTimeByCategory(entries: DayRoutineType[]): {
   }
 
   return times;
-}
+};
 
 // count total of training sessions (trained days)
-export function totalTrainingSessions(entries: DayRoutineType[]): number {
+export const totalTrainingSessions: TotalTrainingSessions = (entries) => {
   return entries.filter((session) =>
     session.exercises.some((exercise) => exercise.duration > 0)
   ).length;
-}
+};
+
+// list incomplete exercises with the day they belong to
+export const incompleteExercisesList: IncompleteExercisesList = (entries) => {
+  return entries.flatMap((session) =>
+    session.exercises
+      .filter((exercise) => !exercise.completed)
+      .map((exercise) => ({
+        id: exercise.id,
+        name: exercise.name,
+        day: session.day,
+      }))
+  );
+};
 
 // count incomplete exercises (exercises marked as incomplete)
-export function totalIncompleteExercises(entries: DayRoutineType[]): number {
+export const totalIncompleteExercises: TotalIncompleteExercises = (entries) => {
   let count = 0;
   for (const session of entries) {
     for (const exercise of session.exercises) {
@@ -242,4 +256,4 @@ export function totalIncompleteExercises(entries: DayRoutineType[]): number {
     }
   }
   return count;
-}
+};

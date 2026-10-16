@@ -18,9 +18,7 @@ export function ExercisesResume() {
         <h1>{routineName || 'No routine name specified'}</h1>
       </header>
 
-      {activeMember && (
-        <UserProfileSummary userProfile={activeMember.member} />
-      )}
+      {activeMember && <UserProfileSummary userProfile={activeMember} />}
       <GroupCategoriesResume />
 
       <div className="exercises-resume__actions">

@@ -1,4 +1,5 @@
 import type { DayOfWeekType, DayRoutineType } from '../../types/routineTypes';
+import type { DayRoutineId, ExerciseId } from '../../types/idsTypes';
 import './ListedRoutines.css';
 
 const daysOfWeek: DayOfWeekType[] = [
@@ -11,7 +12,21 @@ const daysOfWeek: DayOfWeekType[] = [
   'Sunday',
 ];
 
-export function ListedRoutines({ routines }: { routines: DayRoutineType[] }) {
+interface ListedRoutinesProps {
+  routines: DayRoutineType[];
+  onToggleCompleted: (
+    dayRoutineId: DayRoutineId,
+    exerciseId: ExerciseId,
+    completed: boolean
+  ) => void;
+  onChangeDayComments: (dayRoutineId: DayRoutineId, dayComments: string) => void;
+}
+
+export function ListedRoutines({
+  routines,
+  onToggleCompleted,
+  onChangeDayComments,
+}: ListedRoutinesProps) {
   return (
     <div>
       {daysOfWeek.map((day) => {
@@ -97,7 +112,20 @@ export function ListedRoutines({ routines }: { routines: DayRoutineType[] }) {
                       <div>
                         <dt>Status</dt>
                         <dd>
-                          {exercise.completed ? 'Completed' : 'Incomplete'}
+                          <label>
+                            <input
+                              type="checkbox"
+                              checked={exercise.completed}
+                              onChange={(event) =>
+                                onToggleCompleted(
+                                  routine.id,
+                                  exercise.id,
+                                  event.target.checked
+                                )
+                              }
+                            />{' '}
+                            {exercise.completed ? 'Completed' : 'Incomplete'}
+                          </label>
                         </dd>
                       </div>
                     </dl>
@@ -105,8 +133,25 @@ export function ListedRoutines({ routines }: { routines: DayRoutineType[] }) {
                 ))}
 
                 <div className="routine-row__comments">
-                  <p>Day Comments:</p>
-                  <p> {routine.dayComments || 'N/A'}</p>
+                  <label htmlFor={`day-comments-${routine.id}`}>
+                    Day Comments:
+                  </label>
+                  {/* key remounts the field when the stored note changes */}
+                  <textarea
+                    key={routine.dayComments ?? ''}
+                    id={`day-comments-${routine.id}`}
+                    rows={2}
+                    placeholder="N/A"
+                    defaultValue={routine.dayComments ?? ''}
+                    onBlur={(event) => {
+                      if (
+                        event.target.value.trim() !==
+                        (routine.dayComments ?? '')
+                      ) {
+                        onChangeDayComments(routine.id, event.target.value);
+                      }
+                    }}
+                  />
                 </div>
               </div>
             ) : (

@@ -7,19 +7,19 @@ import type {
 import './UserProfileForm.css';
 
 //type for the form data
-export type UserProfileFormType = {
+export interface UserProfileFormType {
   fullName: string;
   email: string;
   age: number;
   experienceLevel: ExperienceLevelType;
   membership: MembershipContractType;
-};
+}
 
-type UserProfileFormProps = {
+interface UserProfileFormProps {
   onSubmit: (data: UserProfileFormType) => void;
   defaultValues: DefaultValues<UserProfileFormType>;
   showSuccessMessage: boolean;
-};
+}
 
 export function UserProfileForm({
   onSubmit,

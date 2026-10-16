@@ -26,15 +26,15 @@ export function UserProfileSummary({
         </div>
         <div>
           <dt>Membership</dt>
-          <dd>{userProfile.contract}</dd>
+          <dd>{userProfile.membership.contract}</dd>
         </div>
         <div>
           <dt>Start Date</dt>
-          <dd>{userProfile.startDate.toLocaleDateString()}</dd>
+          <dd>{userProfile.membership.startDate.toLocaleDateString()}</dd>
         </div>
         <div>
           <dt>Status</dt>
-          <dd>{userProfile.state}</dd>
+          <dd>{userProfile.membership.state}</dd>
         </div>
       </dl>
     </section>

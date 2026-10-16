@@ -7,13 +7,13 @@ import { useMemberRoutine } from '../hooks/useMemberRoutine';
 import { InstructorContext } from './InstructorContext';
 import type { NewInstructorType } from './InstructorContext';
 
-type InstructorProviderProps = {
+interface InstructorProviderProps {
   children: ReactNode;
-};
+}
 
 export function InstructorProvider({ children }: InstructorProviderProps) {
-  // retrieve member records from the custom hook
-  const { memberRecords } = useMemberRoutine();
+  // retrieve member profiles from the custom hook
+  const { members } = useMemberRoutine();
 
   //state for instructors and active instructor ID
   const [instructors, setInstructors] = useState<InstructorInfoType[]>([]);
@@ -32,8 +32,8 @@ export function InstructorProvider({ children }: InstructorProviderProps) {
   const dashboard = activeInstructor
     ? {
         instructor: activeInstructor,
-        supervisedMembers: memberRecords.filter((record) =>
-          activeInstructor.assignedMemberIds.includes(record.member.memberId)
+        supervisedMembers: members.filter((member) =>
+          activeInstructor.assignedMemberIds.includes(member.memberId)
         ),
       }
     : null;
@@ -86,7 +86,7 @@ export function InstructorProvider({ children }: InstructorProviderProps) {
       );
     }
 
-    if (!memberRecords.some((record) => record.member.memberId === memberId)) {
+    if (!members.some((member) => member.memberId === memberId)) {
       throw new Error('Cannot assign a member that is not registered');
     }
 

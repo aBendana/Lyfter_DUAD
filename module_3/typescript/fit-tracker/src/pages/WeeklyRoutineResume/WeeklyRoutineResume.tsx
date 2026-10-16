@@ -20,9 +20,7 @@ export function WeeklyRoutineResume() {
         <h1>{routineName || 'No routine name specified'}</h1>
       </header>
 
-      {activeMember && (
-        <UserProfileSummary userProfile={activeMember.member} />
-      )}
+      {activeMember && <UserProfileSummary userProfile={activeMember} />}
       <WeeklyRoutineSummary routineEntries={routineEntries} />
       <Recommendations routineEntries={routineEntries} />
       <IncompleteRoutines entries={routineEntries} />

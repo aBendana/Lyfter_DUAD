@@ -11,6 +11,7 @@ import {
   getMembershipState,
 } from '../../utils/generateDates';
 import type { MemberProfileType } from '../../types/userTypes';
+import { generateWeeklyRoutineId } from '../../utils/generateIds';
 import './UserProfile.css';
 
 const newMemberDefaults: DefaultValues<UserProfileFormType> = {
@@ -24,7 +25,7 @@ const newMemberDefaults: DefaultValues<UserProfileFormType> = {
 export function UserProfile() {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const {
-    memberRecords,
+    members,
     activeMember,
     activeMemberId,
     addMember,
@@ -34,8 +35,10 @@ export function UserProfile() {
   } = useMemberRoutine();
 
   const handleSubmit = (data: UserProfileFormType): void => {
-    const currentProfile = activeMember?.member;
-    const endDate = currentProfile?.endDate ?? generateExpireDate();
+    const currentProfile = activeMember;
+    const endDate =
+      currentProfile?.membership.endDate ?? generateExpireDate();
+    const startDate = currentProfile?.membership.startDate ?? new Date();
 
     // if the current profile exists, preserve its start date and state, otherwise generate new ones
     const updatedProfile: MemberProfileType = {
@@ -44,10 +47,19 @@ export function UserProfile() {
       email: data.email.trim(),
       age: data.age,
       experienceLevel: data.experienceLevel,
-      contract: data.membership,
-      startDate: currentProfile?.startDate ?? new Date(),
-      endDate,
-      state: currentProfile?.state ?? getMembershipState(endDate),
+      membership: {
+        contract: data.membership,
+        startDate,
+        endDate,
+        state:
+          currentProfile?.membership.state ?? getMembershipState(endDate),
+      },
+      routine: currentProfile?.routine ?? {
+        id: generateWeeklyRoutineId(),
+        name: '',
+        startDate: new Date(),
+        entries: [],
+      },
     };
 
     if (currentProfile) {
@@ -65,11 +77,11 @@ export function UserProfile() {
   // show default values for the form based on the active member
   const defaultValues = activeMember
     ? {
-        fullName: activeMember.member.fullName,
-        email: activeMember.member.email,
-        age: activeMember.member.age,
-        experienceLevel: activeMember.member.experienceLevel,
-        membership: activeMember.member.contract,
+        fullName: activeMember.fullName,
+        email: activeMember.email,
+        age: activeMember.age,
+        experienceLevel: activeMember.experienceLevel,
+        membership: activeMember.membership.contract,
       }
     : newMemberDefaults;
 
@@ -83,19 +95,19 @@ export function UserProfile() {
           className="user-profile-form__input"
           value={activeMemberId ?? ''}
           onChange={(event) => {
-            const selectedRecord = memberRecords.find(
-              (record) => record.member.memberId === event.target.value
+            const selectedMember = members.find(
+              (member) => member.memberId === event.target.value
             );
 
-            if (selectedRecord) {
-              selectMember(selectedRecord.member.memberId);
+            if (selectedMember) {
+              selectMember(selectedMember.memberId);
             } else {
               startNewMember();
             }
           }}
         >
           <option value="">New Member</option>
-          {memberRecords.map(({ member }) => (
+          {members.map((member) => (
             <option key={member.memberId} value={member.memberId}>
               {member.fullName || member.email}
             </option>

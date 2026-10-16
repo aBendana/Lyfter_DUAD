@@ -2,18 +2,18 @@ import { useForm } from 'react-hook-form';
 import type { DefaultValues } from 'react-hook-form';
 import '../UserProfileForm/UserProfileForm.css';
 
-export type InstructorProfileFormType = {
+export interface InstructorProfileFormType {
   fullName: string;
   email: string;
   age: number;
   yearsOfExperience: number;
-};
+}
 
-type InstructorProfileFormProps = {
+interface InstructorProfileFormProps {
   onSubmit: (data: InstructorProfileFormType) => void;
   defaultValues: DefaultValues<InstructorProfileFormType>;
   showSuccessMessage: boolean;
-};
+}
 
 export function InstructorProfileForm({
   onSubmit,
