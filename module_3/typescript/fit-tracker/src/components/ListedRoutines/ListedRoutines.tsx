@@ -89,7 +89,7 @@ export function ListedRoutines({
                             <dt>Weight</dt>
                             <dd>
                               {exercise.weight != null
-                                ? `${exercise.weight} kg`
+                                ? `${exercise.weight} lbs`
                                 : 'N/A'}
                             </dd>
                           </div>

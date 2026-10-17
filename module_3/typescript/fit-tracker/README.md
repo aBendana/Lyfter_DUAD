@@ -84,6 +84,7 @@ Forms use `react-hook-form` for field handling, validation, and submission feedb
 - The instructor profile form supports creating or selecting an instructor to update. It collects full name, email, age (18–120), and years of experience (0–80); required fields, email format, and whole-number limits are validated. Existing instructor data is prefilled.
 - The weekly routine name form requires a name and trims surrounding whitespace before saving it.
 - The exercise session form requires a day, category, exercise, duration (at least one whole minute), and calories per minute (at least one). Its exercise list changes with the selected category, and changing category clears the selected exercise. Cardio adds required distance (at least 0.1 km) and an optional heart-rate zone (1–5); strength adds required sets and repetitions (at least one each) and optional weight (at least one lb); flexibility adds required positions (at least one) and optional comments. Every session also has a completed/incomplete checkbox, defaulting to completed, and optional day-session comments.
+- Registered exercises can be marked completed or incomplete from the routine list. Day comments can be edited there as well; clearing the field removes the saved note.
 - Successful profile and exercise submissions show confirmation feedback. The exercise form resets after submission so another exercise can be entered.
 
 ### Exercise Catalog
@@ -102,7 +103,7 @@ The calculation utilities build exercise metrics and summarize the active member
 
 - Each exercise's calories are calculated as calories per minute × duration and rounded to two decimal places. Cardio pace is duration ÷ distance in minutes per kilometer, also rounded to two decimal places.
 - Weekly statistics include total exercise count and counts and duration by category, total routine duration, total calories, average calories per active day, the longest day session by combined duration, and the day session with the most calories plus its percentage of weekly calories. The average excludes sessions without exercises of positive duration; it is zero when there are no active days.
-- The weekly resume also counts exercises marked incomplete. Calorie and duration totals include all registered exercises, including those marked incomplete.
+- The weekly resume counts and lists incomplete exercises with their day. Calorie and duration totals include all registered exercises, including those marked incomplete.
 - Recommendations use the number of active training days and total routine minutes: they encourage at least 3 days and 150 minutes, advise rest when activity exceeds 5 days or 300 minutes, and otherwise report good consistency. An empty routine gets a separate prompt.
 - Exercise descriptions format durations as hours and minutes where applicable; cardio details include distance and pace.
 
@@ -113,6 +114,7 @@ Exercise construction and calculations are implemented in reusable utilities, se
 - Member profile creation, selection, and update, including membership contract and status dates.
 - Per-member weekly routine naming and exercise-session tracking across the days of the week.
 - Cardio, strength, and flexibility exercise registration with category-specific details, completion status, and session or flexibility comments.
+- Post-registration completion toggling and editable or removable day comments.
 - Client-side form validation, submission feedback, and exercise form reset after successful submission.
 - Weekly exercise resume grouped by category, with session details and generated exercise and category descriptions.
 - Weekly statistics for exercise counts and time by category, total duration and calories, average calories per active day, longest session, highest-calorie day, and incomplete exercises.
@@ -212,6 +214,8 @@ fit-tracker/
 			generateDescriptions.ts
 			generateIds.ts
 			generateRecommendations.ts
+			setDayComments.ts
+			setExerciseCompleted.ts
 		App.tsx
 		main.tsx
 	eslint.config.js
