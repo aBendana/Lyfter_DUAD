@@ -1,17 +1,20 @@
 import { BrowserRouter as Router } from 'react-router-dom';
 import { AppRoutes } from './routes/AppRoutes';
-import { UserProfileProvider } from './context/UserProfileProvider';
 import { WeeklyRoutineProvider } from './context/WeeklyRoutineProvider';
+import { MemberRoutineProvider } from './context/MemberRoutineProvider';
+import { InstructorProvider } from './context/InstructorProvider';
 
 function App() {
   return (
-    <UserProfileProvider>
-      <WeeklyRoutineProvider>
-        <Router>
-          <AppRoutes />
-        </Router>
-      </WeeklyRoutineProvider>
-    </UserProfileProvider>
+    <MemberRoutineProvider>
+      <InstructorProvider>
+        <WeeklyRoutineProvider>
+          <Router>
+            <AppRoutes />
+          </Router>
+        </WeeklyRoutineProvider>
+      </InstructorProvider>
+    </MemberRoutineProvider>
   );
 }
 

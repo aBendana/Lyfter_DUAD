@@ -3,6 +3,15 @@ import type { ExerciseId } from './idsTypes';
 //exercise categories
 export type ExerciseCategoryType = 'Cardio' | 'Strength' | 'Flexibility';
 
+// fields shared by every exercise, regardless of category
+export interface ExerciseGenericType {
+  id: ExerciseId;
+  caloriesPerMinute: number;
+  duration: number;
+  caloriesBurned: number;
+  completed: boolean;
+}
+
 // cardio exercises and attributes
 export type ExerciseCardioNameType =
   | 'Running'
@@ -12,17 +21,13 @@ export type ExerciseCardioNameType =
   | 'Hiking'
   | 'Rowing';
 
-export type ExerciseCardioType = {
-  id: ExerciseId;
+export interface ExerciseCardioType extends ExerciseGenericType {
   exerciseCategory: 'Cardio';
   name: ExerciseCardioNameType;
-  caloriesPerMinute: number;
-  duration: number;
-  caloriesBurned: number;
   distance: number;
   pace: number;
-  heartRateZone: number;
-};
+  heartRateZone?: number; // optional: not all users will know their heart rate zone
+}
 
 export type ExerciseStrengthNameType =
   | 'Bench Press'
@@ -32,17 +37,13 @@ export type ExerciseStrengthNameType =
   | 'Pull-Ups'
   | 'Push-Ups';
 
-export type ExerciseStrengthType = {
-  id: ExerciseId;
+export interface ExerciseStrengthType extends ExerciseGenericType {
   exerciseCategory: 'Strength';
   name: ExerciseStrengthNameType;
-  caloriesPerMinute: number;
-  duration: number;
-  caloriesBurned: number;
   sets: number;
   repetitions: number;
-  weight: number;
-};
+  weight?: number; // optional: not all strength exercises will have a weight associated
+}
 
 export type ExerciseFlexibilityNameType =
   | 'Yoga'
@@ -51,15 +52,12 @@ export type ExerciseFlexibilityNameType =
   | 'Barre'
   | 'Stretching';
 
-export type ExerciseFlexibilityType = {
-  id: ExerciseId;
+export interface ExerciseFlexibilityType extends ExerciseGenericType {
   exerciseCategory: 'Flexibility';
   name: ExerciseFlexibilityNameType;
-  caloriesPerMinute: number;
-  duration: number;
-  caloriesBurned: number;
   positions: number;
-};
+  flexibilityComments?: string; // optional for the user to add notes about the exercise
+}
 
 // union type of all sports
 // this is used for generate the catalog list in the UI

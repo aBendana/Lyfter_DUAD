@@ -7,6 +7,7 @@
   --home-accent-soft: #ffb26f;
 
   min-height: 100dvh;
+  position: relative;
   display: grid;
   align-content: center;
   justify-items: start;
@@ -45,7 +46,8 @@
   font-weight: 600;
 }
 
-.home a {
+.home__user-link,
+.home__instructor-link {
   margin-top: 0.8rem;
   display: inline-flex;
   align-items: center;
@@ -53,7 +55,7 @@
   padding: 0.85rem 1.45rem;
   border: 1px solid var(--home-accent);
   border-radius: 0.9rem;
-  color: #ffffff;
+  color: var(--home-text);
   background: linear-gradient(135deg, #ff8a1f 0%, #ff6a00 100%);
   font-weight: 600;
   text-decoration: none;
@@ -61,6 +63,16 @@
     transform 180ms ease,
     filter 180ms ease,
     background 180ms ease;
+}
+
+.home__instructor-link {
+  position: absolute;
+  padding: 0.65rem 1.65rem;
+  background: linear-gradient(135deg, #ff7716 0%, #ad5a0c 100%);
+  border-color: var(--home-muted);
+  top: 3rem;
+  right: 5rem;
+  margin-top: 0;
 }
 
 .home a:hover {

@@ -3,15 +3,15 @@ import { useState } from 'react';
 import '../DailyRoutineForm/DailyRoutineForm.css';
 
 // type for the form data
-type WeeklyRoutineNameFormType = {
+interface WeeklyRoutineNameFormType {
   routineName: string;
-};
+}
 
 // type for the form props
-type WeeklyRoutineNameFormProps = {
+interface WeeklyRoutineNameFormProps {
   onSubmit: (name: string) => void;
   routineName: string;
-};
+}
 
 export function WeeklyRoutineNameForm({
   onSubmit,

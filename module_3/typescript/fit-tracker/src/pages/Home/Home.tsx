@@ -5,6 +5,9 @@ import './Home.css';
 export function Home() {
   return (
     <main className="home">
+      <NavLink className="home__instructor-link" to={ROUTES.INSTRUCTOR_PROFILE}>
+        Instructor
+      </NavLink>
       <h1 className="home__title">Welcome to Fit Tracker</h1>
 
       <p className="home__description">
@@ -18,7 +21,9 @@ export function Home() {
       </p>
 
       {/* link to user profile page */}
-      <NavLink to={ROUTES.USER_PROFILE}>Let's start!</NavLink>
+      <NavLink className="home__user-link" to={ROUTES.USER_PROFILE}>
+        Let's start!
+      </NavLink>
     </main>
   );
 }

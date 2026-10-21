@@ -1,0 +1,208 @@
+.exercises-resume {
+  --resume-panel: rgb(255 255 255 / 7%);
+  --resume-border: rgb(255 255 255 / 14%);
+  --resume-text: #f5f5f6;
+  --resume-muted: #d5d7db;
+  --resume-accent: #ff8a1f;
+  --resume-accent-soft: #ffb26f;
+
+  display: grid;
+  align-content: start;
+  gap: 1.5rem;
+  color: var(--resume-text);
+}
+
+.exercises-resume__header,
+.exercises-resume .weekly-routine-resume__profile,
+.exercises-resume .weekly-routine-resume__exercises {
+  width: min(100%, 64rem);
+  margin: 0 auto;
+}
+
+.exercises-resume__header {
+  display: grid;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+}
+
+.exercises-resume__eyebrow,
+.exercises-resume .weekly-routine-resume__day {
+  margin: 0;
+  color: var(--resume-accent-soft);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.exercises-resume h1,
+.exercises-resume h2,
+.exercises-resume h3 {
+  margin-top: 0;
+}
+
+.exercises-resume h1 {
+  margin-bottom: 0;
+  font-size: 3.1rem;
+  line-height: 1.04;
+}
+
+.exercises-resume .weekly-routine-resume__profile,
+.exercises-resume .weekly-routine-resume__exercises {
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border: 1px solid var(--resume-border);
+  border-radius: 0.9rem;
+  background: var(--resume-panel);
+}
+
+.exercises-resume h2 {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+
+.exercises-resume dl {
+  margin: 0;
+}
+
+.exercises-resume .weekly-routine-resume__profile dl {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.exercises-resume dt {
+  color: var(--resume-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.exercises-resume dd {
+  margin: 0.35rem 0 0;
+  font-weight: 600;
+}
+
+.exercises-resume .weekly-routine-resume__section-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.exercises-resume .weekly-routine-resume__section-heading p {
+  margin-bottom: 1rem;
+  color: var(--resume-muted);
+  text-align: right;
+}
+
+.exercises-resume .weekly-routine-resume__section-heading strong {
+  color: var(--resume-accent-soft);
+}
+
+.exercises-resume .weekly-routine-resume__section-description {
+  margin: -0.5rem 1.5rem 1rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--resume-muted);
+}
+
+.exercises-resume .weekly-routine-resume__entries {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.exercises-resume .weekly-routine-resume__entry {
+  display: grid;
+  grid-template-columns: minmax(10rem, 1fr) 2fr;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--resume-border);
+  border-radius: 0.65rem;
+  background: rgb(0 0 0 / 16%);
+}
+
+.exercises-resume .weekly-routine-resume__entry h3 {
+  margin-bottom: 0;
+  font-size: 1.15rem;
+}
+
+.exercises-resume .weekly-routine-resume__entry > div:last-child {
+  grid-column: 1 / -1;
+  width: 100%;
+}
+
+.exercises-resume .weekly-routine-resume__entry > div:last-child p {
+  margin: 0;
+}
+
+.exercises-resume .weekly-routine-resume__entry dl {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2rem;
+  align-items: center;
+}
+
+.exercises-resume .weekly-routine-resume__entry dd {
+  color: var(--resume-text);
+}
+
+.exercises-resume__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.exercises-resume__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 1.45rem;
+  border: 1px solid var(--resume-accent);
+  border-radius: 0.9rem;
+  color: #ffffff;
+  background: linear-gradient(135deg, #ff8a1f 0%, #ff6a00 100%);
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    transform 180ms ease,
+    filter 180ms ease;
+}
+
+.exercises-resume__link:hover {
+  transform: translateY(-0.12rem);
+  filter: brightness(1.08);
+}
+
+.exercises-resume__link:focus-visible {
+  outline: 1px solid #ffffff;
+  outline-offset: 0.25rem;
+}
+
+@media (max-width: 48rem) {
+  .exercises-resume h1 {
+    font-size: 2.1rem;
+  }
+
+  .exercises-resume .weekly-routine-resume__profile dl,
+  .exercises-resume .weekly-routine-resume__entry {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .exercises-resume .weekly-routine-resume__section-heading {
+    display: grid;
+    gap: 0;
+  }
+
+  .exercises-resume .weekly-routine-resume__section-heading p {
+    text-align: left;
+  }
+}
+
+@media (max-width: 32rem) {
+  .exercises-resume .weekly-routine-resume__profile dl,
+  .exercises-resume .weekly-routine-resume__entry {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

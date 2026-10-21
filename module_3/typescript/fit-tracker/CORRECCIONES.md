@@ -1,42 +1,73 @@
 # CORRECCIONES
 
-# 1. Falta la descripción textual por categoría
+## 1. Contratos formales para las funciones de cálculo.
 
-    - Se crea generateDescription.ts con la función generateExerciseDescription utilizada en GroupExercises.tsx.
-    - Ahora cada RoutineType: cuenta con una descripción completa con el día, nombre, datos relevantes y un texto de descripción de acuerdo a su ExerciseType.
-    - Como una mejora adicional y también en generateDescription.ts, se crea la función generateCategoryWeeklyResumeDescription para seguir haciendo un resúmen descriptivo de todos los ejercicios por categoría de ejercicio.
+- Se creó [`src/types/calculationTypes.ts`](src/types/calculationTypes.ts) con un tipo por cada función de cálculo (por ejemplo, `CaloriesBurned`, `ExerciseCounter`) y con los tipos de resultado `ExerciseCounts` y `CategoryTimes`.
 
-# 2. El contador de ejercicios por tipo no funciona como pieza independiente
+- En [`src/utils/calculations.ts`](src/utils/calculations.ts) cada función ahora se declara como `const nombre: Contrato = (...) => {...}`. La lógica no cambió.
 
-    - Se crea la función exerciseCounter en calculations.ts para centralizar el conteo de ejercicios sin depender de los componentes que muestran el detalle de cada rutina.
-    - La función calcula de forma independiente el total de ejercicios y la cantidad correspondiente a cada categoría: Cardio, Strength y Flexibility.
-    - Se utiliza exerciseCounter en WeeklySummary.tsx para mostrar el resumen numérico por categoría sin necesidad de listar todos los detalles de los ejercicios. NOTA: Se mantiene la descripción por categoría como información extra.
-    - Se elimina exerciseCount del contexto y de las props de WeeklySummary.tsx, evitando mantener una segunda lógica para calcular el total de ejercicios.
+- El contrato existe aparte de la implementación. Si cambia uno de los dos y deja de coincidir, TypeScript marca el error.
 
-# 3. Los tres componentes de resumen por categoría están casi duplicados
+## 2. Interfaces con nombre para los resultados de `exerciseCounter` y `totalTimeByCategory`.
 
-    - Se eliminó la duplicación de código reemplazando los componentes individuales (GroupCardio.tsx, GroupStrenght.tsx y GroupFlexibility.tsx) mediante una arquitectura modular en GroupCategory/.
-    - Se creó el submódulo parametrizado GroupExercises.tsx, encargado de renderizar de manera reutilizable tanto los campos comunes (Duration, Calories) como los campos específicos de cada categoría (Cardio, Strength, Flexibility) a partir de las propiedades del ejercicio.
-    - Se centralizó el agrupamiento en GroupCategories.tsx (GroupExercisesResume), el cual filtra las rutinas por categoría, maneja las cabeceras/secciones descriptivas y delega el renderizado de los ítems a GroupExercises.tsx.
-    - NOTA: también se modulariza el Weekly Summary y también el Profile de usuario para mantener el código más limpio y ordenado.
+- En [`src/types/calculationTypes.ts`](src/types/calculationTypes.ts) las formas de retorno se definieron como `interface`: `ExerciseCounts` (`total`, `cardio`, `strength`, `flexibility`) y `CategoryTimes` (`cardioTime`, `strengthTime`, `flexibilityTime`).
 
-# 4. La key de las listas ignora el id único que ya existe
+- Los contratos `ExerciseCounter` y `TotalTimeByCategory` las usan como tipo de retorno, así ya no hay formas escritas en la firma.
 
-    - Se reemplaza la key compuesta por el día, el nombre del ejercicio y el índice en GroupExercises.tsx.
-    - Ahora cada elemento de la lista utiliza entry.id como key, aprovechando el RoutineId único que ya existe en cada RoutineType.
-    - También se elimina el parámetro index del map(), ya que deja de ser necesario para identificar los elementos.
-    - De esta forma, React utiliza una identidad estable para cada rutina, incluso si las entradas se reordenan, se filtran o existen ejercicios con el mismo nombre.
+- La forma de los resultados queda definida en un solo lugar y puede reutilizarse.
 
-# 5. La construcción del objeto Exercise vive dentro del componente de página
+## 3. `interface` para tipos de objeto, `type` solo para uniones y alias.
 
-    - Se extrae de ExerciseRoutine.tsx la lógica encargada de construir el objeto ExerciseType según la categoría seleccionada.
-    - La nueva utilidad centraliza la generación del ExerciseId, los campos específicos de Cardio, Strength y Flexibility, y los cálculos de calorías y ritmo.
-    - ExerciseRoutine.tsx conserva la responsabilidad de manejar el formulario y actualizar el contexto, delegando la construcción del ejercicio a una función pura en utils/.
-    - De esta forma, la lógica de dominio queda separada de la interfaz y puede probarse de forma aislada.
+- Se cambiaron a `interface` los tipos de formulario (`DailyRoutineFormType`, `UserProfileFormType`, `InstructorProfileFormType`, `WeeklyRoutineNameFormType`) y los `Props` de formularios y providers.
 
-# 6. Los archivos de contexto exportan provider y hook desde el mismo archivo
+- Se mantiene `type` en uniones de literales, tipos función, IDs con marca y alias puntuales como `NewInstructorType` (`Omit<...>`).
 
-    - Se separan las responsabilidades de UserProfileContext.tsx y WeeklyRoutineContext.tsx para evitar que exporten componentes y hooks desde el mismo módulo. NOTA: como ya no contienen componentes ahora son UserProfileContext.ts y WeeklyRoutineContext.ts (módulos .ts)
-    - Cada archivo de contexto se encarga únicamente de crear y exportar su contexto y su tipo correspondiente.
-    - Los providers se trasladan a UserProfileProvider.tsx y WeeklyRoutineProvider.tsx, mientras que los hooks useUserProfile y useWeeklyRoutine se mantienen en la carpeta hooks/.
-    - Esta separación corrige el error react-refresh/only-export-components reportado por npm run lint y mantiene una estructura más clara y ordenada para consumir cada contexto.
+## 4. El perfil del miembro incluye su membresía y rutina asignada.
+
+- `MemberProfileType` ahora contiene `membership: MembershipType` y `routine: WeeklyRoutineType`. La membresía queda modelada como algo que el miembro tiene, y la rutina asignada forma parte de su perfil.
+
+- Se eliminó `MemberRoutineRecordType`, que duplicaba la relación entre el miembro y su rutina. El contexto y el provider ahora manejan directamente perfiles (`MemberProfileType`).
+
+- Se actualizaron los formularios, resúmenes y vistas de instructores para acceder a los datos desde el perfil. Al editar un perfil se preservan la rutina existente y los datos de la membresía que no se modifican en el formulario.
+
+## 5. Marcado de `complete` para un ejercicio después de creados.
+
+- Ahora un ejercicio puede ser tanto marcado como `completed` o `incompleted` tanto en su creación (`DailyRoutineForm`) como en su revisión (`ListedRoutines`).
+
+- Se creó `src/utils/setExerciseCompleted.ts` que recibe la rutina, el id de la sesión, el id del ejercicio y el nuevo estado, y retorna una copia actualizada de la rutina sin mutar la original.
+
+- `WeeklyRoutineContext` y `WeeklyRoutineProvider` exponen `updateExerciseCompleted`, que guarda la copia en la rutina del miembro activo.
+
+- En `ListedRoutines` el estado dejó de ser solo texto: ahora es un checkbox (`Completed` / `Incomplete`) que llama a `onToggleCompleted`. `UserRoutine` conecta esa prop con el contexto.
+
+## 6. Edición y borrado de las notas del día (`dayComments`).
+
+- Antes la nota de la sesión solo se agregaba al registrar un ejercicio y, por `dayComments || session.dayComments` en `UserRoutine`, una nota existente no se podía editar ni borrar.
+
+- Se creó `src/utils/setDayComments.ts`, que recibe la rutina, el id de la sesión y el nuevo texto, y retorna una copia actualizada sin mutar la original. Un texto vacío (o solo espacios) elimina la nota.
+
+- `WeeklyRoutineContext` y `WeeklyRoutineProvider` exponen `updateDayComments`.
+
+- En `ListedRoutines` la nota es un `textarea` editable que guarda en `onBlur` solo si el texto cambió, mediante `onChangeDayComments`. `UserRoutine` conecta esa prop con el contexto.
+
+- El formulario sigue pudiendo definir la nota al registrar un ejercicio; si queda vacío se conserva la existente.
+
+## 7. Recomendaciones adecuadas.
+
+- Antes `generateRecommendations` evaluaba `días || minutos` en una cadena `if / else if`: un usuario con 6 días y 140 minutos caía en "sé más constante" y nunca recibía el aviso de entrenar demasiados días, y uno con 2 días y 400 minutos cumplía ambas condiciones a la vez sin que el mensaje lo reflejara.
+
+- En src/utils/generateRecommendations.ts ahora se clasifican por separado los días (`fewDays` < 3, `manyDays` > 5) y los minutos (`fewMinutes` < 150, `manyMinutes` > 300), y se combinan con `&&` para cubrir las 9 combinaciones posibles (pocos / normales / muchos × pocos / normales / muchos).
+
+- Cada combinación tiene su propio mensaje con los valores reales del usuario. Por ejemplo, pocos días con muchos minutos advierte que se sobrecarga el cuerpo en esos días y sugiere repartir el entrenamiento.
+
+- Cada `if` termina en `return`, por lo que el orden importa: las combinaciones (`fewDays && manyMinutes`) se evalúan antes que los casos individuales (`fewDays`) para que no queden ocultas.
+
+## 8. Filtración de los ejercicios incompletos.
+
+- Antes `totalIncompleteExercises` solo devolvía un número, así que `IncompleteRoutines` mostraba cuántos ejercicios faltaban pero no cuáles ni de qué día.
+
+- En `src/types/calculationTypes.ts` se agregaron la interfaz `IncompleteExerciseEntry` (`id`, `name`, `day`) y el contrato `IncompleteExercisesList`.
+
+- En `src/utils/calculations.ts` se creó `incompleteExercisesList`, que recorre todas las sesiones, filtra los ejercicios con `completed === false` y los devuelve junto con el día de su sesión. `totalIncompleteExercises` se mantiene sin cambios para los resúmenes que solo necesitan el conteo.
+
+- En src/components/Observations/IncompleteRoutines.tsx se muestra la lista completa de pendientes con el formato "Running on Monday", debajo del total y antes del consejo.

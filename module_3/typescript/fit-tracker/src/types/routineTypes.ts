@@ -1,5 +1,5 @@
 import type { ExerciseType } from './exerciseTypes';
-import type { RoutineId } from './idsTypes';
+import type { DayRoutineId } from './idsTypes';
 
 // type day of the week
 export type DayOfWeekType =
@@ -11,8 +11,13 @@ export type DayOfWeekType =
   | 'Saturday'
   | 'Sunday';
 
-export type RoutineType = {
-  id: RoutineId;
-  name: DayOfWeekType;
-  exercise: ExerciseType;
-};
+interface DaySchedule {
+  day: DayOfWeekType;
+}
+
+// day session type representing a day's workout session
+export interface DayRoutineType extends DaySchedule {
+  id: DayRoutineId;
+  exercises: ExerciseType[];
+  dayComments?: string;
+}

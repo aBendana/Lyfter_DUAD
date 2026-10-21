@@ -1,8 +1,9 @@
-import type { RoutineType } from './routineTypes';
+import type { DayRoutineType } from './routineTypes';
 import type { WeeklyRoutineId } from './idsTypes';
 
-export type WeeklyRoutineType = {
+export interface WeeklyRoutineType {
   id: WeeklyRoutineId;
   name: string;
-  entries: RoutineType[];
-};
+  startDate: Date;
+  entries: DayRoutineType[];
+}
