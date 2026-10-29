@@ -5,6 +5,7 @@ export const ROUTES = {
   HOME: '/',
   USER_PROFILE: '/user-profile',
   USER_ROUTINE: '/user-routine',
+  NINJA_EXERCISES: '/ninja-exercises',
   EXERCISES_RESUME: '/exercises-resume',
   WEEKLY_ROUTINE_RESUME: '/weekly-statistics',
   INSTRUCTOR_PROFILE: '/instructor-profile',

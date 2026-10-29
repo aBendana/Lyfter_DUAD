@@ -10,6 +10,7 @@ import { InstructorDashboard } from '../components/InstructorDashboard/Instructo
 import { InstructorProfile } from '../pages/InstructorProfile/InstructorProfile';
 import { MembersAssignment } from '../pages/MembersAssignment/MembersAssignment';
 import { InstructorMembersResume } from '../pages/InstructorMembersResume/InstructorMembersResume';
+import { NinjaExercises } from '../pages/NinjaExercises/NinjaExercises';
 
 export function AppRoutes() {
   return (
@@ -18,6 +19,7 @@ export function AppRoutes() {
 
       <Route element={<Dashboard />}>
         <Route path={ROUTES.USER_PROFILE} element={<UserProfile />} />
+        <Route path={ROUTES.NINJA_EXERCISES} element={<NinjaExercises />} />
         <Route path={ROUTES.USER_ROUTINE} element={<UserRoutine />} />
         <Route path={ROUTES.EXERCISES_RESUME} element={<ExercisesResume />} />
         <Route
@@ -31,7 +33,6 @@ export function AppRoutes() {
           path={ROUTES.INSTRUCTOR_PROFILE}
           element={<InstructorProfile />}
         />
-
         <Route
           path={ROUTES.MEMBERS_ASSIGNMENT}
           element={<MembersAssignment />}

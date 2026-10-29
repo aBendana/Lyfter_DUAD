@@ -65,6 +65,11 @@
     border-color 160ms ease;
 }
 
+.dashboard__item-note {
+  font-size: 0.8em;
+  font-style: italic;
+}
+
 .dashboard__item:hover,
 .dashboard__item[aria-current='page'] {
   color: #ffffff;

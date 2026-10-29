@@ -1,0 +1,223 @@
+.ninja-exercises {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 58rem;
+}
+
+.ninja-exercises__header {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.ninja-exercises__header h2 {
+  font-size: clamp(1.7rem, 4vw, 2.5rem);
+  line-height: 1.1;
+}
+
+.ninja-exercises__header > p:last-child {
+  color: #c7c7cc;
+}
+
+.ninja-exercises__eyebrow {
+  color: #ff8a1f;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ninja-exercises__search {
+  display: grid;
+  gap: 0.5rem;
+  max-width: 48rem;
+}
+
+.ninja-exercises__search-controls {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: end;
+  gap: 0.85rem;
+}
+
+.ninja-exercises__search-controls label {
+  display: grid;
+  gap: 0.4rem;
+  font-weight: 600;
+}
+
+.ninja-exercises__search-controls select,
+.ninja-exercises__search-controls input {
+  color-scheme: dark;
+  min-width: 0;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid rgb(255 255 255 / 20%);
+  border-radius: 0.55rem;
+  color: #f5f5f6;
+  background: rgb(255 255 255 / 7%);
+}
+
+.ninja-exercises__search-controls select:focus-visible,
+.ninja-exercises__search-controls input:focus-visible,
+.ninja-exercises__search-controls button:focus-visible,
+.ninja-exercises__add:focus-visible {
+  outline: 2px solid #ff8a1f;
+  outline-offset: 2px;
+}
+
+.ninja-exercises__search-controls button {
+  grid-column: 1 / -1;
+  justify-self: start;
+  min-height: 2.75rem;
+  padding: 0.7rem 1rem;
+  border: 1px solid #ff8a1f;
+  border-radius: 0.55rem;
+  color: #111114;
+  background: #ff8a1f;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.ninja-exercises__search-controls button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.ninja-exercises__add {
+  padding: 0.35rem 0.65rem;
+  border: 1px solid #ff8a1f;
+  border-radius: 0.45rem;
+  color: #ffb26f;
+  background: transparent;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ninja-exercises__add:hover:not(:disabled) {
+  color: #111114;
+  background: #ff8a1f;
+}
+
+.ninja-exercises__add:disabled {
+  border-color: rgb(183 244 206 / 30%);
+  color: #b7f4ce;
+  background: rgb(37 150 83 / 20%);
+  cursor: default;
+}
+
+.ninja-exercises__error {
+  padding: 0.8rem 1rem;
+  border: 1px solid rgb(255 105 105 / 45%);
+  border-radius: 0.55rem;
+  color: #ffd1d1;
+  background: rgb(130 25 25 / 22%);
+}
+
+.ninja-exercises__loading {
+  color: #c7c7cc;
+}
+
+.ninja-exercises__results {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.ninja-exercises__results-header {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.ninja-exercises__results-header h3 {
+  font-size: 1.4rem;
+}
+
+.ninja-exercises__group {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.ninja-exercises__group h4 {
+  font-size: 1.1rem;
+}
+
+.ninja-exercises__list {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.ninja-exercises__item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 0.6rem;
+  background: rgb(255 255 255 / 4%);
+}
+
+.ninja-exercises__item--incomplete {
+  grid-template-columns: minmax(0, 0.7fr) minmax(0, 1fr);
+  border-color: rgb(255 178 111 / 28%);
+}
+
+.ninja-exercises__empty {
+  color: #c7c7cc;
+}
+
+.ninja-exercises__catalog-summary {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.ninja-exercises__catalog-summary h3 {
+  font-size: 1.4rem;
+}
+
+.ninja-exercises__catalog-table-wrapper {
+  overflow-x: auto;
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 0.6rem;
+}
+
+.ninja-exercises__catalog-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.ninja-exercises__catalog-table th,
+.ninja-exercises__catalog-table td {
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid rgb(255 255 255 / 10%);
+}
+
+.ninja-exercises__catalog-table thead {
+  color: #ffb26f;
+  background: rgb(255 138 31 / 8%);
+}
+
+.ninja-exercises__catalog-table tbody tr:last-child th,
+.ninja-exercises__catalog-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+@media (max-width: 600px) {
+  .ninja-exercises__search-controls {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ninja-exercises__item,
+  .ninja-exercises__item--incomplete {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .ninja-exercises__catalog-table th,
+  .ninja-exercises__catalog-table td {
+    padding: 0.7rem 0.55rem;
+  }
+}

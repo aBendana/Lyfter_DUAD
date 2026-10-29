@@ -5,6 +5,7 @@ import type {
   ExerciseId,
   WeeklyRoutineId,
 } from '../types/idsTypes';
+import type { WorkoutStatusType } from '../types/exerciseTypes';
 import type { DayRoutineType } from '../types/routineTypes';
 
 // context type for weekly routine
@@ -27,11 +28,11 @@ export interface WeeklyRoutineContextType {
   officialEntries: DayRoutineType[];
   setOfficialEntries: Dispatch<SetStateAction<DayRoutineType[]>>;
 
-  // changes the completed state of an existing exercise
-  updateExerciseCompleted: (
+  // changes the status of an existing exercise
+  updateExerciseStatus: (
     dayRoutineId: DayRoutineId,
     exerciseId: ExerciseId,
-    completed: boolean
+    status: WorkoutStatusType
   ) => void;
 
   // changes (or removes, when empty) the comments of an existing session

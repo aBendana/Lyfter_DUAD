@@ -2,6 +2,7 @@ import type { ExerciseType } from '../types/exerciseTypes';
 import type { ExerciseCategoryType } from '../types/exerciseTypes';
 import type { DayRoutineType } from '../types/routineTypes';
 import { minutesToHoursAndMinutes } from './calculations';
+import { formatExerciseName } from './formatExerciseName';
 
 export function generateCategoryWeeklyResumeDescription(
   routineEntries: DayRoutineType[],
@@ -27,23 +28,25 @@ export function generateCategoryWeeklyResumeDescription(
 }
 
 export function generateExerciseDescription(exercise: ExerciseType): string {
-  const status = exercise.completed ? 'Completed' : 'Incomplete';
+  const status =
+    exercise.status.charAt(0).toUpperCase() + exercise.status.slice(1);
+  const name = formatExerciseName(exercise);
 
   switch (exercise.exerciseCategory) {
     case 'Cardio':
-      return `${exercise.name} covers ${exercise.distance} km in ${minutesToHoursAndMinutes(
+      return `${name} covers ${exercise.distance} km in ${minutesToHoursAndMinutes(
         exercise.duration
       )}, at a pace of ${exercise.pace} min/km, in heart rate zone 
       ${exercise.heartRateZone ?? 'not specified'}. Status: ${status}.`;
 
     case 'Strength':
-      return `${exercise.name} consists of ${exercise.sets} sets of ${exercise.repetitions} 
+      return `${name} consists of ${exercise.sets} sets of ${exercise.repetitions} 
       (weight: ${exercise.weight ?? 'not specified'} kg), completed in ${minutesToHoursAndMinutes(
         exercise.duration
       )}. Status: ${status}.`;
 
     case 'Flexibility':
-      return `${exercise.name} includes ${exercise.positions} positions and lasts ${minutesToHoursAndMinutes(
+      return `${name} includes ${exercise.positions} positions and lasts ${minutesToHoursAndMinutes(
         exercise.duration
       )}. Status: ${status}.`;
   }

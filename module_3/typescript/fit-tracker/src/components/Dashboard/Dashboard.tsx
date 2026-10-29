@@ -14,6 +14,10 @@ export function Dashboard() {
             Your Profile
           </NavLink>
 
+          <NavLink className="dashboard__item" to={ROUTES.NINJA_EXERCISES}>
+            Ninja Exercises (optional)
+          </NavLink>
+
           <NavLink className="dashboard__item" to={ROUTES.USER_ROUTINE}>
             Create Your Weekly Routine
           </NavLink>

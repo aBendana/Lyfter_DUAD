@@ -5,14 +5,13 @@ import type { DayOfWeekType } from '../../../types/routineTypes';
 import type {
   SportNameType,
   ExerciseCategoryType,
+  WorkoutStatusType,
 } from '../../../types/exerciseTypes';
-
 import {
   exerciseNameCategories,
-  cardioNameExercises,
-  strengthNameExercises,
-  flexibilityNameExercises,
+  workoutStatuses,
 } from '../../../types/exerciseCatalog';
+import { useExerciseCatalog } from '../../../hooks/useExerciseCatalog';
 import './DailyRoutineForm.css';
 
 //type for the form data
@@ -36,7 +35,7 @@ export interface DailyRoutineFormType {
   positions?: number; // optional for flexibility exercises
   flexibilityComments?: string; // optional for flexibility exercises
   dayComments?: string; // optional note for the workout session
-  completed: boolean;
+  status: WorkoutStatusType;
 }
 
 interface DailyRoutineFormProps {
@@ -57,11 +56,12 @@ const emptyFormValues: DefaultValues<DailyRoutineFormType> = {
   positions: undefined,
   flexibilityComments: undefined,
   dayComments: undefined,
-  completed: true,
+  status: 'completed',
 };
 
 export function DailyRoutineForm({ onSubmit }: DailyRoutineFormProps) {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const { getExerciseNames } = useExerciseCatalog();
 
   const {
     register,
@@ -77,17 +77,11 @@ export function DailyRoutineForm({ onSubmit }: DailyRoutineFormProps) {
   // watch the selected exercise category to dynamically update the form fields
   const selectedCategory = watch('exerciseCategory');
   const selectedExerciseDay = watch('exerciseDay');
-  const isCompleted = watch('completed');
 
   // determine the list of exercise names based on the selected category
-  const exerciseNames =
-    selectedCategory === 'Cardio'
-      ? cardioNameExercises
-      : selectedCategory === 'Strength'
-        ? strengthNameExercises
-        : selectedCategory === 'Flexibility'
-          ? flexibilityNameExercises
-          : [];
+  const exerciseNames = selectedCategory
+    ? getExerciseNames(selectedCategory)
+    : [];
 
   const isCardioExercise = selectedCategory === 'Cardio';
   const isStrengthExercise = selectedCategory === 'Strength';
@@ -444,15 +438,25 @@ export function DailyRoutineForm({ onSubmit }: DailyRoutineFormProps) {
         </>
       )}
 
-      <label className="daily-routine-form__checkbox-field" htmlFor="completed">
-        <input
-          className="daily-routine-form__checkbox"
-          id="completed"
-          type="checkbox"
-          {...register('completed')}
-        />
-        {isCompleted ? 'Completed' : 'Incomplete'}
-      </label>
+      <div className="daily-routine-form__field">
+        <label className="daily-routine-form__label" htmlFor="status">
+          Status
+        </label>
+        <select
+          className="daily-routine-form__input"
+          id="status"
+          {...register('status', { required: 'Status is required' })}
+        >
+          {workoutStatuses.map((status) => (
+            <option key={status} value={status}>
+              {status.charAt(0).toUpperCase() + status.slice(1)}
+            </option>
+          ))}
+        </select>
+        {errors.status && (
+          <p className="daily-routine-form__error">{errors.status.message}</p>
+        )}
+      </div>
 
       <div className="daily-routine-form__field">
         <label className="daily-routine-form__label" htmlFor="day-comments">

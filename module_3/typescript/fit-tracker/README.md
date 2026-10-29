@@ -1,234 +1,131 @@
 # Fit Tracker
 
-Fit Tracker is a client-side application built with React, TypeScript, and Vite to create a weekly exercise routine, record sessions, and review training statistics.
+Fit Tracker is a client-side app for creating weekly exercise routines, tracking workout status, and reviewing training summaries. It also provides separate workflows for members and instructors.
 
-## Stack
+## Features
 
-- React 19
-- TypeScript
-- Vite 8
-- CSS
-- react-hook-form
-- react-router-dom
-- ESLint
+- Create and update member profiles and weekly routines.
+- Record cardio, strength, and flexibility exercises, including session details, comments, and pending, completed, or skipped status.
+- Review exercises by category, weekly statistics, incomplete sessions, and activity recommendations.
+- Create instructor profiles, assign members, and review assigned members' profiles and weekly progress.
+- Search api-ninjas exercises by muscle, with optional name, type, and difficulty filters, and add selected results to the exercise catalog for the current session.
 
 ## Requirements
 
-- Node.js 18+
-- npm 9+
+- Node.js `^20.19.0` or `>=22.12.0`
+- npm
 
-## Installation
+## Get started
 
-1. Clone the repository:
-
-```bash
-git clone https://github.com/aBendana/Lyfter_DUAD
-```
-
-2. Enter the project directory:
+From the repository root, open the app directory and install dependencies:
 
 ```bash
 cd module_3/typescript/fit-tracker
-```
-
-3. Install dependencies:
-
-```bash
 npm install
 ```
 
-## Run Locally
+Start the development server:
 
 ```bash
 npm run dev
 ```
 
-The application is available at the URL shown by Vite, normally `http://localhost:5173`.
+Open the local URL printed by Vite, normally `http://localhost:5173`.
 
-## Available Scripts
+## Exercise search setup
 
-- `npm run dev`: starts Vite in development mode.
-- `npm run build`: runs the TypeScript build and creates a production build.
-- `npm run preview`: previews the local production build.
-- `npm run lint`: runs ESLint.
+Exercise search uses the [api-ninjas Exercises API](https://api-ninjas.com/api/exercises) and requires an API key. The rest of the app works without one.
 
-## Functional Architecture
+Copy `.env.example` to `.env.local` (on Windows PowerShell, use `Copy-Item .env.example .env.local`) and set the key:
 
-The application separates UI concerns from reusable domain logic. React components handle forms and presentation, while context providers manage shared session state and utility modules handle calculations, descriptions, identifiers, and exercise construction.
+```env
+VITE_API_NINJAS_KEY=your_api_key
+```
 
-## Navigation
+Get a key from [api-ninjas](https://api-ninjas.com/profile), then restart the development server. Vite exposes `VITE_` variables in client-side code, so this key is visible in the browser and must not be treated as a secret. Use a server-side proxy if it needs to remain confidential.
 
-The application uses `react-router-dom` with `BrowserRouter` and centralized route constants.
+Search requires selecting a muscle group; name, API exercise type, and difficulty are optional filters. The API exercise type is separate from the app's exercise category: `olympic_weightlifting`, `powerlifting`, and `strongman` are accepted and mapped to the `Strength` category, along with `strength` and `plyometrics`. This mapping is implemented in `src/utils/validateApiExercises.ts`; supported API types are declared in `src/types/apiExerciseTypes.ts`, and the search form's type options are in `src/pages/NinjaExercises/NinjaExercises.tsx`.
 
-- `/`: Home
-- `/user-profile`: create or update the user profile.
-- `/exercise-routine`: define a routine name and add exercise sessions.
-- `/weekly-routine-resume`: review profile information, exercises, and weekly statistics.
+Results are validated before they can be added. Incomplete results are shown separately, and only exercises the user adds become available in the routine form. These additions are held in memory and do not persist after a page refresh.
 
-### Global State
+## Available scripts
 
-The Context API keeps member, instructor, and weekly routine data available between routes during the current session. All state is held in memory and is lost after a full browser refresh.
+- `npm run dev`: start the development server.
+- `npm run build`: run the TypeScript build and create a production build.
+- `npm run preview`: preview the production build locally.
+- `npm run lint`: run ESLint.
 
-- `MemberRoutineContext` and `MemberRoutineProvider` manage member records, the active member, and member profile updates. Each record combines a member profile with that member's weekly routine. The provider supports adding and selecting members, starting a new member session, updating a profile, and updating the active member's routine.
-- `InstructorContext` and `InstructorProvider` manage instructor records and the active instructor. They support creating, selecting, and updating instructors, as well as assigning and unassigning members. The instructor dashboard is derived from the active instructor's assigned member IDs and the member records.
-- `WeeklyRoutineContext` and `WeeklyRoutineProvider` expose the active member's routine ID, name, start date, and exercise entries. Their setters update the routine stored in that member's record; routine updates require an active member.
-- `useMemberRoutine`, `useInstructor`, and `useWeeklyRoutine` provide typed access to their respective contexts and throw an error if called outside the matching provider.
+## Application routes
 
-`App` nests `MemberRoutineProvider` outside `InstructorProvider` and `WeeklyRoutineProvider`, because both inner providers consume member state. Contexts, providers, and custom hooks are kept in separate modules to comply with the `react-refresh/only-export-components` ESLint rule and to keep each responsibility clear.
+| Route                        | Purpose                                      |
+| ---------------------------- | -------------------------------------------- |
+| `/`                          | Home and workflow selection                  |
+| `/user-profile`              | Create or update a member profile            |
+| `/user-routine`              | Create a weekly routine and record exercises |
+| `/exercises-resume`          | Review registered exercises                  |
+| `/weekly-statistics`         | Review weekly statistics and recommendations |
+| `/ninja-exercises`           | Search and add api-ninjas exercises          |
+| `/instructor-profile`        | Create or update an instructor profile       |
+| `/members-assignment`        | Assign or unassign members                   |
+| `/instructor-members-resume` | Review assigned members and their progress   |
 
-### Forms
+## App flow
 
-Forms use `react-hook-form` for field handling, validation, and submission feedback.
+Start at the home page and choose the member or instructor workflow.
 
-- The member profile form supports creating a new member or selecting an existing profile to update. It collects full name, email, age (12–120), experience level, and membership contract; required fields and email format are validated. When an existing member is selected, their current values prefill the form.
-- The instructor profile form supports creating or selecting an instructor to update. It collects full name, email, age (18–120), and years of experience (0–80); required fields, email format, and whole-number limits are validated. Existing instructor data is prefilled.
-- The weekly routine name form requires a name and trims surrounding whitespace before saving it.
-- The exercise session form requires a day, category, exercise, duration (at least one whole minute), and calories per minute (at least one). Its exercise list changes with the selected category, and changing category clears the selected exercise. Cardio adds required distance (at least 0.1 km) and an optional heart-rate zone (1–5); strength adds required sets and repetitions (at least one each) and optional weight (at least one lb); flexibility adds required positions (at least one) and optional comments. Every session also has a completed/incomplete checkbox, defaulting to completed, and optional day-session comments.
-- Registered exercises can be marked completed or incomplete from the routine list. Day comments can be edited there as well; clearing the field removes the saved note.
-- Successful profile and exercise submissions show confirmation feedback. The exercise form resets after submission so another exercise can be entered.
+- **Member:** Create or select a profile, then create a weekly routine and add exercise sessions by day and category. Exercises can be entered in the routine form or searched through api-ninjas and added to the catalog. Review the exercise list, update completion status, and check weekly statistics and recommendations.
 
-### Exercise Catalog
+- **Instructor:** Create or select an instructor profile, assign registered members, then review assigned members' profiles and routine progress from the instructor dashboard.
 
-The weekly resume organizes registered exercises into three categories through the reusable `GroupExercises` component:
+## Scope and limitations
 
-- Cardio: distance, pace, and heart rate zone.
-- Strength: sets, repetitions, and weight.
-- Flexibility: positions.
+Fit Tracker currently supports member and instructor workflows in a single browser session. Members can manage their profile and weekly exercises; instructors can manage their profile, assign members, and review those members' progress. The exercise search is an optional integration with api-ninjas.
 
-Each category displays its registered exercises with duration and calorie details, category-specific fields, and a generated textual description for the individual exercise and the category summary.
+The app is client-side only. Member and instructor profiles, assignments, routines, and user-added exercises are kept in React context in memory: they survive navigation but are lost after a full browser refresh. There is no backend, authentication, authorization, or persistent storage. The API key is exposed to the browser when used, so this setup is suitable for development and demonstration, not for keeping a credential private.
 
-### Calculations
-
-The calculation utilities build exercise metrics and summarize the active member's weekly routine:
-
-- Each exercise's calories are calculated as calories per minute × duration and rounded to two decimal places. Cardio pace is duration ÷ distance in minutes per kilometer, also rounded to two decimal places.
-- Weekly statistics include total exercise count and counts and duration by category, total routine duration, total calories, average calories per active day, the longest day session by combined duration, and the day session with the most calories plus its percentage of weekly calories. The average excludes sessions without exercises of positive duration; it is zero when there are no active days.
-- The weekly resume counts and lists incomplete exercises with their day. Calorie and duration totals include all registered exercises, including those marked incomplete.
-- Recommendations use the number of active training days and total routine minutes: they encourage at least 3 days and 150 minutes, advise rest when activity exceeds 5 days or 300 minutes, and otherwise report good consistency. An empty routine gets a separate prompt.
-- Exercise descriptions format durations as hours and minutes where applicable; cardio details include distance and pace.
-
-Exercise construction and calculations are implemented in reusable utilities, separate from the page components. The formal contracts of every calculation (parameters and return types) are declared in `src/types/calculationTypes.ts`, and each function in `src/utils/calculations.ts` is typed against its contract, so the signature exists independently of the implementation.
-
-### Implemented Features
-
-- Member profile creation, selection, and update, including membership contract and status dates.
-- Per-member weekly routine naming and exercise-session tracking across the days of the week.
-- Cardio, strength, and flexibility exercise registration with category-specific details, completion status, and session or flexibility comments.
-- Post-registration completion toggling and editable or removable day comments.
-- Client-side form validation, submission feedback, and exercise form reset after successful submission.
-- Weekly exercise resume grouped by category, with session details and generated exercise and category descriptions.
-- Weekly statistics for exercise counts and time by category, total duration and calories, average calories per active day, longest session, highest-calorie day, and incomplete exercises.
-- Routine-based activity recommendations based on workout days and total exercise time.
-- Instructor profile creation, selection, and update.
-- Member assignment management for instructors, preventing a member from being assigned to multiple instructors.
-- Instructor dashboard with assigned member profiles and weekly progress summaries.
-- Separate member and instructor dashboards with navigation between their respective workflows.
-- Responsive layouts for the member, instructor, routine, and resume views.
-
-### Project Structure
+## Project structure
 
 ```text
 fit-tracker/
-	src/
-		components/
-			Dashboard/
-				Dashboard.tsx
-				Dashboard.css
-			Forms/
-				DailyRoutineForm/
-					DailyRoutineForm.tsx
-					DailyRoutineForm.css
-				InstructorProfileForm/
-					InstructorProfileForm.tsx
-				UserProfileForm/
-					UserProfileForm.tsx
-					UserProfileForm.css
-				WeeklyRoutineNameForm/
-					WeeklyRoutineNameForm.tsx
-			GroupCategory/
-				GroupCategories.tsx
-				GroupExercises.tsx
-			InstructorDashboard/
-				InstructorDashboard.tsx
-			ListedRoutines/
-				ListedRoutines.tsx
-				ListedRoutines.css
-			Observations/
-				IncompleteRoutines.tsx
-				Recommendations.tsx
-			UserProfileSummary/
-				UserProfileSummary.tsx
-			WeeklySummary/
-				WeeklySummary.tsx
-		context/
-			InstructorContext.ts
-			InstructorProvider.tsx
-			MemberRoutineContext.ts
-			MemberRoutineProvider.tsx
-			WeeklyRoutineContext.ts
-			WeeklyRoutineProvider.tsx
-		hooks/
-			useInstructor.ts
-			useMemberRoutine.ts
-			useWeeklyRoutine.ts
-		index.css
-		pages/
-			ExcercisesResume/
-				ExercisesResume.tsx
-				ExercisesResume.css
-			Home/
-				Home.tsx
-				Home.css
-			InstructorMembersResume/
-				InstructorMembersResume.tsx
-				InstructorMembersResume.css
-			InstructorProfile/
-				InstructorProfile.tsx
-			MembersAssignment/
-				MembersAssignment.tsx
-				MembersAssignment.css
-			UserProfile/
-				UserProfile.tsx
-				UserProfile.css
-			UserRoutine/
-				UserRoutine.tsx
-				UserRoutine.css
-			WeeklyRoutineResume/
-				WeeklyRoutineResume.tsx
-				WeeklyRoutineResume.css
-		routes/
-			AppRoutes.tsx
-			routes.ts
-		types/
-			exerciseCatalog.ts
-			calculationTypes.ts
-			exerciseTypes.ts
-			idsTypes.ts
-			routineTypes.ts
-			userTypes.ts
-			weeklyRoutineTypes.ts
-		utils/
-			calculations.ts
-			createRoutineEntry.ts
-			generateDates.ts
-			generateDescriptions.ts
-			generateIds.ts
-			generateRecommendations.ts
-			setDayComments.ts
-			setExerciseCompleted.ts
-		App.tsx
-		main.tsx
-	eslint.config.js
-	index.html
-	package.json
-	package-lock.json
-	README.md
-	tsconfig.app.json
-	tsconfig.node.json
-	tsconfig.json
-	vite.config.ts
+├── public/
+├── src/
+│   ├── components/
+│   │   ├── Dashboard/
+│   │   ├── Forms/
+│   │   │   ├── DailyRoutineForm/
+│   │   │   ├── InstructorProfileForm/
+│   │   │   ├── UserProfileForm/
+│   │   │   └── WeeklyRoutineNameForm/
+│   │   ├── GroupCategory/
+│   │   ├── InstructorDashboard/
+│   │   ├── ListedRoutines/
+│   │   ├── Observations/
+│   │   ├── UserProfileSummary/
+│   │   └── WeeklySummary/
+│   ├── context/
+│   ├── hooks/
+│   ├── pages/
+│   │   ├── ExcercisesResume/
+│   │   ├── Home/
+│   │   ├── InstructorMembersResume/
+│   │   ├── InstructorProfile/
+│   │   ├── MembersAssignment/
+│   │   ├── NinjaExercises/
+│   │   ├── UserProfile/
+│   │   ├── UserRoutine/
+│   │   └── WeeklyRoutineResume/
+│   ├── routes/
+│   ├── services/
+│   ├── types/
+│   ├── utils/
+│   ├── App.tsx
+│   ├── index.css
+│   ├── main.tsx
+│   └── vite-env.d.ts
+├── .env.example
+├── index.html
+├── package.json
+└── vite.config.ts
 ```
 
-### Current Scope
-
-Fit Tracker is a client-side application for tracking member profiles and weekly exercise routines, with separate workflows for members and instructors. Members can create and update profiles, record categorized exercises and completion status, and review exercise details, weekly statistics, and activity recommendations. Instructors can manage their profiles, assign registered members, and review assigned members' profiles and routine summaries. Member records, instructor records, assignments, and routines are held in React context in memory; they remain available while navigating the app but are lost after a full browser refresh. The project does not currently use an API, authentication, or persistent storage.
+`components` and `pages` contain the reusable UI and route screens. `context` and `hooks` manage shared in-memory state, `routes` maps URLs to screens, `services` handles the external API, and `types` and `utils` hold domain types and logic.

@@ -7,18 +7,20 @@ import { ListedRoutines } from '../../components/ListedRoutines/ListedRoutines';
 import { createRoutineEntry } from '../../utils/createRoutineEntry';
 import { generateDayRoutineId } from '../../utils/generateIds';
 import { useMemberRoutine } from '../../hooks/useMemberRoutine';
+import { useExerciseCatalog } from '../../hooks/useExerciseCatalog';
 import { NavLink } from 'react-router-dom';
 import { ROUTES } from '../../routes/routes';
 import './UserRoutine.css';
 
 export function UserRoutine() {
   const { activeMember } = useMemberRoutine();
+  const { isApiExercise } = useExerciseCatalog();
   const {
     routineName,
     setRoutineName,
     officialEntries,
     setOfficialEntries,
-    updateExerciseCompleted,
+    updateExerciseStatus,
     updateDayComments,
   } = useWeeklyRoutine();
 
@@ -30,13 +32,15 @@ export function UserRoutine() {
   // handle adding an exercise to the day's session,
   // creating the session if it doesn't exist yet
   const handleEntrySubmit = (data: DailyRoutineFormType): void => {
-    const { exerciseDay, exerciseName } = data;
+    const { exerciseDay, exerciseName, exerciseCategory } = data;
 
-    if (exerciseDay === '' || exerciseName === '') {
+    if (exerciseDay === '' || exerciseName === '' || exerciseCategory === '') {
       return;
     }
 
-    const { exercise } = createRoutineEntry(data);
+    const { exercise } = createRoutineEntry(data, {
+      fromNinja: isApiExercise(exerciseCategory, exerciseName),
+    });
     const dayComments = data.dayComments;
 
     setOfficialEntries((currentEntries) => {
@@ -89,7 +93,7 @@ export function UserRoutine() {
       <DailyRoutineForm onSubmit={handleEntrySubmit} />
       <ListedRoutines
         routines={officialEntries}
-        onToggleCompleted={updateExerciseCompleted}
+        onChangeStatus={updateExerciseStatus}
         onChangeDayComments={updateDayComments}
       />
 

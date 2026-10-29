@@ -10,6 +10,7 @@ import {
   totalTime,
   totalTimeByCategory,
 } from '../../utils/calculations';
+import { formatExerciseName } from '../../utils/formatExerciseName';
 
 export function WeeklyRoutineSummary({
   routineEntries,
@@ -45,7 +46,7 @@ export function WeeklyRoutineSummary({
 
   // calculate the highest-calorie session details for display
   const dayWithMostCaloriesExercise = dayWithMostCalories
-    ? dayWithMostCalories.exercises.map((exercise) => exercise.name).join(', ')
+    ? dayWithMostCalories.exercises.map(formatExerciseName).join(', ')
     : 'N/A';
   const dayWithMostCaloriesAmount = dayWithMostCalories
     ? routineTotalCalories([dayWithMostCalories])

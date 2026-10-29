@@ -16,6 +16,7 @@ import type {
   TotalTrainingSessions,
   WeeklyCaloriesAverage,
 } from '../types/calculationTypes';
+import { formatExerciseName } from './formatExerciseName';
 
 // pass minutes to hours and minutes
 export const minutesToHoursAndMinutes: MinutesToHoursAndMinutes = (minutes) => {
@@ -236,10 +237,10 @@ export const totalTrainingSessions: TotalTrainingSessions = (entries) => {
 export const incompleteExercisesList: IncompleteExercisesList = (entries) => {
   return entries.flatMap((session) =>
     session.exercises
-      .filter((exercise) => !exercise.completed)
+      .filter((exercise) => exercise.status !== 'completed')
       .map((exercise) => ({
         id: exercise.id,
-        name: exercise.name,
+        name: formatExerciseName(exercise),
         day: session.day,
       }))
   );
@@ -250,7 +251,7 @@ export const totalIncompleteExercises: TotalIncompleteExercises = (entries) => {
   let count = 0;
   for (const session of entries) {
     for (const exercise of session.exercises) {
-      if (!exercise.completed) {
+      if (exercise.status !== 'completed') {
         count++;
       }
     }
