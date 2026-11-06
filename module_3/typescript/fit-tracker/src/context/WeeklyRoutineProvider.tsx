@@ -6,6 +6,7 @@ import { generateWeeklyRoutineId } from '../utils/generateIds';
 import { useMemberRoutine } from '../hooks/useMemberRoutine';
 import { setExerciseStatus } from '../utils/setExerciseStatus';
 import { setDayComments } from '../utils/setDayComments';
+import { isStateUpdater } from '../utils/typeGuards';
 import { WeeklyRoutineContext } from './WeeklyRoutineContext';
 import type { WeeklyRoutineContextType } from './WeeklyRoutineContext';
 
@@ -20,9 +21,7 @@ function resolveStateAction<Value>(
   action: SetStateAction<Value>,
   currentValue: Value
 ): Value {
-  return typeof action === 'function'
-    ? (action as (previousValue: Value) => Value)(currentValue)
-    : action;
+  return isStateUpdater(action) ? action(currentValue) : action;
 }
 
 // props for the WeeklyRoutineProvider, including its child components

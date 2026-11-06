@@ -3,6 +3,10 @@
 // for the user to choose sports
 
 import type {
+  ApiExerciseDifficulty,
+  ApiExerciseSearchType,
+} from './apiExerciseTypes';
+import type {
   ExerciseCategoryType,
   ExerciseCardioNameType,
   ExerciseStrengthNameType,
@@ -64,6 +68,24 @@ export const apiMuscles: readonly string[] = [
   'shoulders',
   'traps',
   'triceps',
+];
+
+// type values accepted by the api-ninjas `type` query parameter
+export const exerciseSearchTypes: readonly ApiExerciseSearchType[] = [
+  'cardio',
+  'olympic_weightlifting',
+  'plyometrics',
+  'powerlifting',
+  'strength',
+  'stretching',
+  'strongman',
+];
+
+// difficulty values accepted and returned by api-ninjas
+export const exerciseDifficulties: readonly ApiExerciseDifficulty[] = [
+  'beginner',
+  'intermediate',
+  'expert',
 ];
 
 export const flexibilityNameExercises: ExerciseFlexibilityNameType[] = [

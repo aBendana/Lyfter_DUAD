@@ -63,9 +63,20 @@ export interface ExerciseFlexibilityType extends ExerciseGenericType {
   flexibilityComments?: string; // optional for the user to add notes about the exercise
 }
 
-// union type of all sports
-// this is used for generate the catalog list in the UI
-export type SportNameType = string;
+// local exercises: closed list of literals
+export type LocalExerciseNameType =
+  | ExerciseCardioNameType
+  | ExerciseStrengthNameType
+  | ExerciseFlexibilityNameType;
+
+// api exercises: any text, but only after passing the validator (isApiExerciseName)
+export type ApiExerciseNameType = string & {
+  readonly __brand: 'ApiExerciseName';
+};
+
+// every exercise name the catalog can offer in the form; a plain string is not
+// accepted, so the catalog can grow with api exercises without opening the type
+export type SportNameType = LocalExerciseNameType | ApiExerciseNameType;
 
 //
 export type ExerciseType =

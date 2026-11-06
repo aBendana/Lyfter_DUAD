@@ -14,7 +14,7 @@ import './UserRoutine.css';
 
 export function UserRoutine() {
   const { activeMember } = useMemberRoutine();
-  const { isApiExercise } = useExerciseCatalog();
+  const { isApiExercise, isCatalogExerciseName } = useExerciseCatalog();
   const {
     routineName,
     setRoutineName,
@@ -30,12 +30,18 @@ export function UserRoutine() {
   };
 
   // handle adding an exercise to the day's session,
-  // creating the session if it doesn't exist yet
-  const handleEntrySubmit = (data: DailyRoutineFormType): void => {
+  // creating the session if it doesn't exist yet;
+  // returns whether it was saved, so the form shows success or error
+  const handleEntrySubmit = (data: DailyRoutineFormType): boolean => {
     const { exerciseDay, exerciseName, exerciseCategory } = data;
 
     if (exerciseDay === '' || exerciseName === '' || exerciseCategory === '') {
-      return;
+      return false;
+    }
+
+    // the select value arrives as plain text: it must exist in the catalog
+    if (!isCatalogExerciseName(exerciseCategory, exerciseName)) {
+      return false;
     }
 
     const { exercise } = createRoutineEntry(data, {
@@ -70,6 +76,8 @@ export function UserRoutine() {
           : session
       );
     });
+
+    return true;
   };
 
   if (!activeMember) {

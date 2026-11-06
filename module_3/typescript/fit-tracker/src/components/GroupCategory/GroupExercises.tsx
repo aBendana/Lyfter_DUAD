@@ -75,7 +75,7 @@ export function GroupExercises({
                     <div>
                       <dt>Weight</dt>
                       <dd>
-                        {exercise.weight ? `${exercise.weight} kg` : 'N/A'}
+                        {exercise.weight ? `${exercise.weight} lbs` : 'N/A'}
                       </dd>
                     </div>
                   </>

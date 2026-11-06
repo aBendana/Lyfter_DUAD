@@ -117,6 +117,13 @@
   color: var(--routine-accent);
 }
 
+.daily-routine-form__submit-error {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: #ff9b9b;
+  font-weight: 600;
+}
+
 @media (max-width: 48rem) {
   .daily-routine-form {
     grid-template-columns: 1fr;

@@ -26,6 +26,10 @@ export function Dashboard() {
             Your Exercises Resume
           </NavLink>
 
+          <NavLink className="dashboard__item" to={ROUTES.UNIFIED_REPORT}>
+            Unified Report
+          </NavLink>
+
           <NavLink
             className="dashboard__item"
             to={ROUTES.WEEKLY_ROUTINE_RESUME}

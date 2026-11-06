@@ -1,4 +1,4 @@
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { AppRoutes } from './routes/AppRoutes';
 import { WeeklyRoutineProvider } from './context/WeeklyRoutineProvider';
 import { MemberRoutineProvider } from './context/MemberRoutineProvider';
@@ -11,9 +11,9 @@ function App() {
       <MemberRoutineProvider>
         <InstructorProvider>
           <WeeklyRoutineProvider>
-            <Router>
+            <BrowserRouter>
               <AppRoutes />
-            </Router>
+            </BrowserRouter>
           </WeeklyRoutineProvider>
         </InstructorProvider>
       </MemberRoutineProvider>

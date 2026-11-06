@@ -8,6 +8,7 @@ export const ROUTES = {
   NINJA_EXERCISES: '/ninja-exercises',
   EXERCISES_RESUME: '/exercises-resume',
   WEEKLY_ROUTINE_RESUME: '/weekly-statistics',
+  UNIFIED_REPORT: '/unified-report',
   INSTRUCTOR_PROFILE: '/instructor-profile',
   MEMBERS_ASSIGNMENT: '/members-assignment',
   INSTRUCTOR_MEMBERS_RESUME: '/instructor-members-resume',

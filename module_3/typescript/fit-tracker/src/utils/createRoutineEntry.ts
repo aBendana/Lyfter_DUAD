@@ -1,5 +1,8 @@
 import type { DailyRoutineFormType } from '../components/Forms/DailyRoutineForm/DailyRoutineForm';
-import type { ExerciseType } from '../types/exerciseTypes';
+import type {
+  ExerciseGenericType,
+  ExerciseType,
+} from '../types/exerciseTypes';
 import { generateExerciseId } from '../utils/generateIds';
 import { caloriesBurned, exercisePace } from '../utils/calculations';
 
@@ -14,6 +17,13 @@ function requirePositiveSafeInteger(
   return value;
 }
 
+// the declared return type keeps the 'ninja' literal without a type assertion
+function createExerciseSource(
+  fromNinja: boolean
+): Pick<ExerciseGenericType, 'source'> {
+  return fromNinja ? { source: 'ninja' } : {};
+}
+
 export function createRoutineEntry(
   data: DailyRoutineFormType,
   options: { fromNinja?: boolean } = {}
@@ -22,7 +32,7 @@ export function createRoutineEntry(
 } {
   // create the appropriate ExerciseType object
   const commonData = {
-    ...(options.fromNinja ? { source: 'ninja' as const } : {}),
+    ...createExerciseSource(options.fromNinja ?? false),
     id: generateExerciseId(),
     caloriesPerMinute: data.caloriesPerMinute,
     duration: data.duration,

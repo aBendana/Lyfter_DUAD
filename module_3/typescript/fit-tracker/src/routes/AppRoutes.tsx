@@ -11,6 +11,7 @@ import { InstructorProfile } from '../pages/InstructorProfile/InstructorProfile'
 import { MembersAssignment } from '../pages/MembersAssignment/MembersAssignment';
 import { InstructorMembersResume } from '../pages/InstructorMembersResume/InstructorMembersResume';
 import { NinjaExercises } from '../pages/NinjaExercises/NinjaExercises';
+import { UnifiedReport } from '../pages/UnifiedReport/UnifiedReport';
 
 export function AppRoutes() {
   return (
@@ -26,6 +27,7 @@ export function AppRoutes() {
           path={ROUTES.WEEKLY_ROUTINE_RESUME}
           element={<WeeklyRoutineResume />}
         />
+        <Route path={ROUTES.UNIFIED_REPORT} element={<UnifiedReport />} />
       </Route>
 
       <Route element={<InstructorDashboard />}>

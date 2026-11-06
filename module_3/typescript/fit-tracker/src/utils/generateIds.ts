@@ -5,23 +5,40 @@ import type {
   WeeklyRoutineId,
   DayRoutineId,
 } from '../types/idsTypes';
+import {
+  isDayRoutineId,
+  isExerciseId,
+  isInstructorId,
+  isMemberId,
+  isWeeklyRoutineId,
+} from './typeGuards';
 
 export function generateExerciseId(): ExerciseId {
-  return crypto.randomUUID() as ExerciseId;
+  const id = crypto.randomUUID();
+  if (!isExerciseId(id)) throw new Error('Invalid exercise id');
+  return id;
 }
 
 export function generateMemberId(): MemberId {
-  return crypto.randomUUID() as MemberId;
+  const id = crypto.randomUUID();
+  if (!isMemberId(id)) throw new Error('Invalid member id');
+  return id;
 }
 
 export function generateInstructorId(): InstructorId {
-  return crypto.randomUUID() as InstructorId;
+  const id = crypto.randomUUID();
+  if (!isInstructorId(id)) throw new Error('Invalid instructor id');
+  return id;
 }
 
 export function generateWeeklyRoutineId(): WeeklyRoutineId {
-  return crypto.randomUUID() as WeeklyRoutineId;
+  const id = crypto.randomUUID();
+  if (!isWeeklyRoutineId(id)) throw new Error('Invalid weekly routine id');
+  return id;
 }
 
 export function generateDayRoutineId(): DayRoutineId {
-  return crypto.randomUUID() as DayRoutineId;
+  const id = crypto.randomUUID();
+  if (!isDayRoutineId(id)) throw new Error('Invalid day routine id');
+  return id;
 }

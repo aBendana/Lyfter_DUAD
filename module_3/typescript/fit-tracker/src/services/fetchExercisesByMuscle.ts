@@ -41,7 +41,9 @@ export async function fetchExercisesByMuscle(
   }
 
   try {
-    return (await response.json()) as unknown;
+    // json() returns any; assigning it to unknown needs no conversion
+    const data: unknown = await response.json();
+    return data;
   } catch {
     throw new ApiError(
       'invalid-json',

@@ -26,60 +26,9 @@
   text-transform: uppercase;
 }
 
-.ninja-exercises__search {
-  display: grid;
-  gap: 0.5rem;
-  max-width: 48rem;
-}
-
-.ninja-exercises__search-controls {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-items: end;
-  gap: 0.85rem;
-}
-
-.ninja-exercises__search-controls label {
-  display: grid;
-  gap: 0.4rem;
-  font-weight: 600;
-}
-
-.ninja-exercises__search-controls select,
-.ninja-exercises__search-controls input {
-  color-scheme: dark;
-  min-width: 0;
-  padding: 0.7rem 0.85rem;
-  border: 1px solid rgb(255 255 255 / 20%);
-  border-radius: 0.55rem;
-  color: #f5f5f6;
-  background: rgb(255 255 255 / 7%);
-}
-
-.ninja-exercises__search-controls select:focus-visible,
-.ninja-exercises__search-controls input:focus-visible,
-.ninja-exercises__search-controls button:focus-visible,
 .ninja-exercises__add:focus-visible {
   outline: 2px solid #ff8a1f;
   outline-offset: 2px;
-}
-
-.ninja-exercises__search-controls button {
-  grid-column: 1 / -1;
-  justify-self: start;
-  min-height: 2.75rem;
-  padding: 0.7rem 1rem;
-  border: 1px solid #ff8a1f;
-  border-radius: 0.55rem;
-  color: #111114;
-  background: #ff8a1f;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.ninja-exercises__search-controls button:disabled {
-  cursor: wait;
-  opacity: 0.7;
 }
 
 .ninja-exercises__add {
@@ -159,8 +108,19 @@
 }
 
 .ninja-exercises__item--incomplete {
-  grid-template-columns: minmax(0, 0.7fr) minmax(0, 1fr);
   border-color: rgb(255 178 111 / 28%);
+}
+
+.ninja-exercises__item--incomplete em {
+  color: #ffb26f;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.ninja-exercises__item-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .ninja-exercises__empty {
@@ -206,12 +166,7 @@
 }
 
 @media (max-width: 600px) {
-  .ninja-exercises__search-controls {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .ninja-exercises__item,
-  .ninja-exercises__item--incomplete {
+  .ninja-exercises__item {
     grid-template-columns: minmax(0, 1fr);
     align-items: start;
   }

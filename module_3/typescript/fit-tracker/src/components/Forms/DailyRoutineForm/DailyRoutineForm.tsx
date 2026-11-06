@@ -39,7 +39,8 @@ export interface DailyRoutineFormType {
 }
 
 interface DailyRoutineFormProps {
-  onSubmit: (data: DailyRoutineFormType) => void;
+  // returns true when the exercise was saved, false when it was rejected
+  onSubmit: (data: DailyRoutineFormType) => boolean;
 }
 
 const emptyFormValues: DefaultValues<DailyRoutineFormType> = {
@@ -61,6 +62,7 @@ const emptyFormValues: DefaultValues<DailyRoutineFormType> = {
 
 export function DailyRoutineForm({ onSubmit }: DailyRoutineFormProps) {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
   const { getExerciseNames } = useExerciseCatalog();
 
   const {
@@ -91,7 +93,16 @@ export function DailyRoutineForm({ onSubmit }: DailyRoutineFormProps) {
     <form
       className="daily-routine-form"
       onSubmit={handleSubmit((data) => {
-        onSubmit(data);
+        const saved = onSubmit(data);
+
+        // keep the data in the form when it was rejected, so the user can fix it
+        if (!saved) {
+          setShowSuccessMessage(false);
+          setShowErrorMessage(true);
+          return;
+        }
+
+        setShowErrorMessage(false);
         setShowSuccessMessage(true);
         reset();
         setTimeout(() => {
@@ -489,6 +500,13 @@ export function DailyRoutineForm({ onSubmit }: DailyRoutineFormProps) {
           Routine saved successfully!
           <br />
           Add another exercise or go to the Weekly Routine Stats.
+        </p>
+      )}
+
+      {showErrorMessage && (
+        <p className="daily-routine-form__submit-error" role="alert">
+          This exercise is not in the catalog. Select an exercise from the
+          list and try again.
         </p>
       )}
     </form>
