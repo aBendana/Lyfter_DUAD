@@ -1,10 +1,8 @@
 import type { DailyRoutineFormType } from '../components/Forms/DailyRoutineForm/DailyRoutineForm';
-import type { ExerciseType } from '../types/exerciseTypes';
-import {
-  cardioNameExercises,
-  flexibilityNameExercises,
-  strengthNameExercises,
-} from '../types/exerciseCatalog';
+import type {
+  ExerciseGenericType,
+  ExerciseType,
+} from '../types/exerciseTypes';
 import { generateExerciseId } from '../utils/generateIds';
 import { caloriesBurned, exercisePace } from '../utils/calculations';
 
@@ -19,28 +17,36 @@ function requirePositiveSafeInteger(
   return value;
 }
 
-export function createRoutineEntry(data: DailyRoutineFormType): {
+// the declared return type keeps the 'ninja' literal without a type assertion
+function createExerciseSource(
+  fromNinja: boolean
+): Pick<ExerciseGenericType, 'source'> {
+  return fromNinja ? { source: 'ninja' } : {};
+}
+
+export function createRoutineEntry(
+  data: DailyRoutineFormType,
+  options: { fromNinja?: boolean } = {}
+): {
   exercise: ExerciseType;
 } {
   // create the appropriate ExerciseType object
   const commonData = {
+    ...createExerciseSource(options.fromNinja ?? false),
     id: generateExerciseId(),
     caloriesPerMinute: data.caloriesPerMinute,
     duration: data.duration,
     caloriesBurned: caloriesBurned(data.caloriesPerMinute, data.duration),
-    completed: data.completed,
+    status: data.status,
   };
 
   let exercise: ExerciseType;
+  const name = data.exerciseName.trim();
+  if (!name) {
+    throw new Error('Exercise name is required');
+  }
 
   if (data.exerciseCategory === 'Cardio') {
-    const name = cardioNameExercises.find(
-      (exerciseName) => exerciseName === data.exerciseName
-    );
-    if (!name) {
-      throw new Error('Exercise name does not match the Cardio category');
-    }
-
     if (data.distance === undefined) {
       throw new RangeError('Distance is required for Cardio exercises');
     }
@@ -64,13 +70,6 @@ export function createRoutineEntry(data: DailyRoutineFormType): {
       ...(heartRateZone !== undefined ? { heartRateZone } : {}),
     };
   } else if (data.exerciseCategory === 'Strength') {
-    const name = strengthNameExercises.find(
-      (exerciseName) => exerciseName === data.exerciseName
-    );
-    if (!name) {
-      throw new Error('Exercise name does not match the Strength category');
-    }
-
     const sets = requirePositiveSafeInteger(data.sets, 'Sets');
     const repetitions = requirePositiveSafeInteger(
       data.repetitions,
@@ -93,13 +92,6 @@ export function createRoutineEntry(data: DailyRoutineFormType): {
       ...(weight !== undefined ? { weight } : {}),
     };
   } else if (data.exerciseCategory === 'Flexibility') {
-    const name = flexibilityNameExercises.find(
-      (exerciseName) => exerciseName === data.exerciseName
-    );
-    if (!name) {
-      throw new Error('Exercise name does not match the Flexibility category');
-    }
-
     const positions = requirePositiveSafeInteger(data.positions, 'Positions');
 
     exercise = {

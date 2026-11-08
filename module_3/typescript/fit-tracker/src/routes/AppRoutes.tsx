@@ -10,6 +10,8 @@ import { InstructorDashboard } from '../components/InstructorDashboard/Instructo
 import { InstructorProfile } from '../pages/InstructorProfile/InstructorProfile';
 import { MembersAssignment } from '../pages/MembersAssignment/MembersAssignment';
 import { InstructorMembersResume } from '../pages/InstructorMembersResume/InstructorMembersResume';
+import { NinjaExercises } from '../pages/NinjaExercises/NinjaExercises';
+import { UnifiedReport } from '../pages/UnifiedReport/UnifiedReport';
 
 export function AppRoutes() {
   return (
@@ -18,12 +20,14 @@ export function AppRoutes() {
 
       <Route element={<Dashboard />}>
         <Route path={ROUTES.USER_PROFILE} element={<UserProfile />} />
+        <Route path={ROUTES.NINJA_EXERCISES} element={<NinjaExercises />} />
         <Route path={ROUTES.USER_ROUTINE} element={<UserRoutine />} />
         <Route path={ROUTES.EXERCISES_RESUME} element={<ExercisesResume />} />
         <Route
           path={ROUTES.WEEKLY_ROUTINE_RESUME}
           element={<WeeklyRoutineResume />}
         />
+        <Route path={ROUTES.UNIFIED_REPORT} element={<UnifiedReport />} />
       </Route>
 
       <Route element={<InstructorDashboard />}>
@@ -31,7 +35,6 @@ export function AppRoutes() {
           path={ROUTES.INSTRUCTOR_PROFILE}
           element={<InstructorProfile />}
         />
-
         <Route
           path={ROUTES.MEMBERS_ASSIGNMENT}
           element={<MembersAssignment />}

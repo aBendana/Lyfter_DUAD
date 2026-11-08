@@ -1,5 +1,9 @@
 import type { DayOfWeekType, DayRoutineType } from '../../types/routineTypes';
 import type { DayRoutineId, ExerciseId } from '../../types/idsTypes';
+import { workoutStatuses } from '../../types/exerciseCatalog';
+import { isWorkoutStatus } from '../../utils/typeGuards';
+import { formatExerciseName } from '../../utils/formatExerciseName';
+import type { WorkoutStatusType } from '../../types/exerciseTypes';
 import './ListedRoutines.css';
 
 const daysOfWeek: DayOfWeekType[] = [
@@ -14,17 +18,20 @@ const daysOfWeek: DayOfWeekType[] = [
 
 interface ListedRoutinesProps {
   routines: DayRoutineType[];
-  onToggleCompleted: (
+  onChangeStatus: (
     dayRoutineId: DayRoutineId,
     exerciseId: ExerciseId,
-    completed: boolean
+    status: WorkoutStatusType
   ) => void;
-  onChangeDayComments: (dayRoutineId: DayRoutineId, dayComments: string) => void;
+  onChangeDayComments: (
+    dayRoutineId: DayRoutineId,
+    dayComments: string
+  ) => void;
 }
 
 export function ListedRoutines({
   routines,
-  onToggleCompleted,
+  onChangeStatus,
   onChangeDayComments,
 }: ListedRoutinesProps) {
   return (
@@ -39,7 +46,7 @@ export function ListedRoutines({
               <div className="routine-row__details">
                 {routine.exercises.map((exercise) => (
                   <article key={exercise.id} className="routine-row__item">
-                    <h4>{exercise.name}</h4>
+                    <h4>{formatExerciseName(exercise)}</h4>
                     <dl>
                       <div>
                         <dt>Category</dt>
@@ -112,20 +119,27 @@ export function ListedRoutines({
                       <div>
                         <dt>Status</dt>
                         <dd>
-                          <label>
-                            <input
-                              type="checkbox"
-                              checked={exercise.completed}
-                              onChange={(event) =>
-                                onToggleCompleted(
+                          <select
+                            className="routine-row__status"
+                            aria-label={`Status of ${formatExerciseName(exercise)}`}
+                            value={exercise.status}
+                            onChange={(event) => {
+                              if (isWorkoutStatus(event.target.value)) {
+                                onChangeStatus(
                                   routine.id,
                                   exercise.id,
-                                  event.target.checked
-                                )
+                                  event.target.value
+                                );
                               }
-                            />{' '}
-                            {exercise.completed ? 'Completed' : 'Incomplete'}
-                          </label>
+                            }}
+                          >
+                            {workoutStatuses.map((status) => (
+                              <option key={status} value={status}>
+                                {status.charAt(0).toUpperCase() +
+                                  status.slice(1)}
+                              </option>
+                            ))}
+                          </select>
                         </dd>
                       </div>
                     </dl>

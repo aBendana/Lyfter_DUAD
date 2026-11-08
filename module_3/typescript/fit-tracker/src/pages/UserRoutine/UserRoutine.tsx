@@ -7,18 +7,20 @@ import { ListedRoutines } from '../../components/ListedRoutines/ListedRoutines';
 import { createRoutineEntry } from '../../utils/createRoutineEntry';
 import { generateDayRoutineId } from '../../utils/generateIds';
 import { useMemberRoutine } from '../../hooks/useMemberRoutine';
+import { useExerciseCatalog } from '../../hooks/useExerciseCatalog';
 import { NavLink } from 'react-router-dom';
 import { ROUTES } from '../../routes/routes';
 import './UserRoutine.css';
 
 export function UserRoutine() {
   const { activeMember } = useMemberRoutine();
+  const { isApiExercise, isCatalogExerciseName } = useExerciseCatalog();
   const {
     routineName,
     setRoutineName,
     officialEntries,
     setOfficialEntries,
-    updateExerciseCompleted,
+    updateExerciseStatus,
     updateDayComments,
   } = useWeeklyRoutine();
 
@@ -28,15 +30,23 @@ export function UserRoutine() {
   };
 
   // handle adding an exercise to the day's session,
-  // creating the session if it doesn't exist yet
-  const handleEntrySubmit = (data: DailyRoutineFormType): void => {
-    const { exerciseDay, exerciseName } = data;
+  // creating the session if it doesn't exist yet;
+  // returns whether it was saved, so the form shows success or error
+  const handleEntrySubmit = (data: DailyRoutineFormType): boolean => {
+    const { exerciseDay, exerciseName, exerciseCategory } = data;
 
-    if (exerciseDay === '' || exerciseName === '') {
-      return;
+    if (exerciseDay === '' || exerciseName === '' || exerciseCategory === '') {
+      return false;
     }
 
-    const { exercise } = createRoutineEntry(data);
+    // the select value arrives as plain text: it must exist in the catalog
+    if (!isCatalogExerciseName(exerciseCategory, exerciseName)) {
+      return false;
+    }
+
+    const { exercise } = createRoutineEntry(data, {
+      fromNinja: isApiExercise(exerciseCategory, exerciseName),
+    });
     const dayComments = data.dayComments;
 
     setOfficialEntries((currentEntries) => {
@@ -66,6 +76,8 @@ export function UserRoutine() {
           : session
       );
     });
+
+    return true;
   };
 
   if (!activeMember) {
@@ -89,7 +101,7 @@ export function UserRoutine() {
       <DailyRoutineForm onSubmit={handleEntrySubmit} />
       <ListedRoutines
         routines={officialEntries}
-        onToggleCompleted={updateExerciseCompleted}
+        onChangeStatus={updateExerciseStatus}
         onChangeDayComments={updateDayComments}
       />
 

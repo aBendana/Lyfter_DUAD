@@ -5,6 +5,7 @@ import type {
   ExerciseCounter,
   ExerciseCounts,
   ExercisePace,
+  ExerciseVolume,
   IncompleteExercisesList,
   LongerDurationSession,
   MinutesToHoursAndMinutes,
@@ -16,6 +17,7 @@ import type {
   TotalTrainingSessions,
   WeeklyCaloriesAverage,
 } from '../types/calculationTypes';
+import { formatExerciseName } from './formatExerciseName';
 
 // pass minutes to hours and minutes
 export const minutesToHoursAndMinutes: MinutesToHoursAndMinutes = (minutes) => {
@@ -73,6 +75,29 @@ export const exercisePace: ExercisePace = (minutes, distance) => {
   }
 
   return parseFloat(pace.toFixed(2));
+};
+
+// volume for strength exercises, weight is optional
+export const exerciseVolume: ExerciseVolume = (sets, repetitions, weight) => {
+  if (!Number.isSafeInteger(sets) || sets <= 0) {
+    throw new RangeError('Sets must be a positive safe integer');
+  }
+
+  if (!Number.isSafeInteger(repetitions) || repetitions <= 0) {
+    throw new RangeError('Repetitions must be a positive safe integer');
+  }
+
+  if (weight !== undefined && (!Number.isSafeInteger(weight) || weight <= 0)) {
+    throw new RangeError('Weight must be a positive safe integer');
+  }
+
+  const volume = sets * repetitions * (weight ?? 1);
+
+  if (!Number.isSafeInteger(volume)) {
+    throw new RangeError('Calculated volume must be a safe integer');
+  }
+
+  return volume;
 };
 
 // weekly routine total burned calories
@@ -236,10 +261,10 @@ export const totalTrainingSessions: TotalTrainingSessions = (entries) => {
 export const incompleteExercisesList: IncompleteExercisesList = (entries) => {
   return entries.flatMap((session) =>
     session.exercises
-      .filter((exercise) => !exercise.completed)
+      .filter((exercise) => exercise.status !== 'completed')
       .map((exercise) => ({
         id: exercise.id,
-        name: exercise.name,
+        name: formatExerciseName(exercise),
         day: session.day,
       }))
   );
@@ -250,7 +275,7 @@ export const totalIncompleteExercises: TotalIncompleteExercises = (entries) => {
   let count = 0;
   for (const session of entries) {
     for (const exercise of session.exercises) {
-      if (!exercise.completed) {
+      if (exercise.status !== 'completed') {
         count++;
       }
     }

@@ -4,8 +4,9 @@ import type { DayRoutineType } from '../types/routineTypes';
 import type { WeeklyRoutineType } from '../types/weeklyRoutineTypes';
 import { generateWeeklyRoutineId } from '../utils/generateIds';
 import { useMemberRoutine } from '../hooks/useMemberRoutine';
-import { setExerciseCompleted } from '../utils/setExerciseCompleted';
+import { setExerciseStatus } from '../utils/setExerciseStatus';
 import { setDayComments } from '../utils/setDayComments';
+import { isStateUpdater } from '../utils/typeGuards';
 import { WeeklyRoutineContext } from './WeeklyRoutineContext';
 import type { WeeklyRoutineContextType } from './WeeklyRoutineContext';
 
@@ -20,9 +21,7 @@ function resolveStateAction<Value>(
   action: SetStateAction<Value>,
   currentValue: Value
 ): Value {
-  return typeof action === 'function'
-    ? (action as (previousValue: Value) => Value)(currentValue)
-    : action;
+  return isStateUpdater(action) ? action(currentValue) : action;
 }
 
 // props for the WeeklyRoutineProvider, including its child components
@@ -74,10 +73,10 @@ export function WeeklyRoutineProvider({
       entries: resolveStateAction(value, currentRoutine.entries),
     }));
 
-  const updateExerciseCompleted: WeeklyRoutineContextType['updateExerciseCompleted'] =
-    (dayRoutineId, exerciseId, completed) =>
+  const updateExerciseStatus: WeeklyRoutineContextType['updateExerciseStatus'] =
+    (dayRoutineId, exerciseId, status) =>
       updateRoutine((currentRoutine) =>
-        setExerciseCompleted(currentRoutine, dayRoutineId, exerciseId, completed)
+        setExerciseStatus(currentRoutine, dayRoutineId, exerciseId, status)
       );
 
   const updateDayComments: WeeklyRoutineContextType['updateDayComments'] = (
@@ -99,7 +98,7 @@ export function WeeklyRoutineProvider({
         setStartDate,
         officialEntries: routine.entries,
         setOfficialEntries,
-        updateExerciseCompleted,
+        updateExerciseStatus,
         updateDayComments,
       }}
     >

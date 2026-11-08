@@ -3,11 +3,23 @@
 // for the user to choose sports
 
 import type {
+  ApiExerciseDifficulty,
+  ApiExerciseSearchType,
+} from './apiExerciseTypes';
+import type {
   ExerciseCategoryType,
   ExerciseCardioNameType,
   ExerciseStrengthNameType,
   ExerciseFlexibilityNameType,
+  WorkoutStatusType,
 } from './exerciseTypes';
+
+// array of every valid workout status
+export const workoutStatuses: readonly WorkoutStatusType[] = [
+  'pending',
+  'completed',
+  'skipped',
+];
 
 // array of exercise categories
 export const exerciseNameCategories: ExerciseCategoryType[] = [
@@ -34,6 +46,46 @@ export const strengthNameExercises: ExerciseStrengthNameType[] = [
   'Overhead Press',
   'Pull-Ups',
   'Push-Ups',
+];
+
+// muscle values accepted by the api-ninjas `muscle` query parameter;
+// any other value returns an empty list without an error
+export const apiMuscles: readonly string[] = [
+  'abdominals',
+  'abductors',
+  'adductors',
+  'biceps',
+  'calves',
+  'chest',
+  'forearms',
+  'glutes',
+  'hamstrings',
+  'lats',
+  'lower_back',
+  'middle_back',
+  'neck',
+  'quadriceps',
+  'shoulders',
+  'traps',
+  'triceps',
+];
+
+// type values accepted by the api-ninjas `type` query parameter
+export const exerciseSearchTypes: readonly ApiExerciseSearchType[] = [
+  'cardio',
+  'olympic_weightlifting',
+  'plyometrics',
+  'powerlifting',
+  'strength',
+  'stretching',
+  'strongman',
+];
+
+// difficulty values accepted and returned by api-ninjas
+export const exerciseDifficulties: readonly ApiExerciseDifficulty[] = [
+  'beginner',
+  'intermediate',
+  'expert',
 ];
 
 export const flexibilityNameExercises: ExerciseFlexibilityNameType[] = [

@@ -22,6 +22,13 @@ export type CaloriesBurned = (caloricRate: number, duration: number) => number;
 // minutes per distance unit
 export type ExercisePace = (minutes: number, distance: number) => number;
 
+// sets x repetitions x weight, or sets x repetitions without weight
+export type ExerciseVolume = (
+  sets: number,
+  repetitions: number,
+  weight?: number
+) => number;
+
 export type RoutineTotalCalories = (entries: DayRoutineType[]) => number;
 
 // average over days with exercise only

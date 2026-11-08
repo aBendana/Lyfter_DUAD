@@ -2,6 +2,7 @@ import type { ExerciseCategoryType } from '../../types/exerciseTypes';
 import type { DayRoutineType } from '../../types/routineTypes';
 import { minutesToHoursAndMinutes } from '../../utils/calculations';
 import { generateExerciseDescription } from '../../utils/generateDescriptions';
+import { formatExerciseName } from '../../utils/formatExerciseName';
 
 export function GroupExercises({
   routineEntries,
@@ -22,7 +23,7 @@ export function GroupExercises({
             >
               <div>
                 <p className="weekly-routine-resume__day">{session.day}</p>
-                <h3>{exercise.name}</h3>
+                <h3>{formatExerciseName(exercise)}</h3>
               </div>
 
               <dl>
@@ -74,7 +75,7 @@ export function GroupExercises({
                     <div>
                       <dt>Weight</dt>
                       <dd>
-                        {exercise.weight ? `${exercise.weight} kg` : 'N/A'}
+                        {exercise.weight ? `${exercise.weight} lbs` : 'N/A'}
                       </dd>
                     </div>
                   </>

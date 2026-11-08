@@ -1,12 +1,13 @@
 import type { DayRoutineId, ExerciseId } from '../types/idsTypes';
+import type { WorkoutStatusType } from '../types/exerciseTypes';
 import type { WeeklyRoutineType } from '../types/weeklyRoutineTypes';
 
-// returns an updated copy of the routine with the exercise's completed state changed
-export function setExerciseCompleted(
+// returns an updated copy of the routine with the exercise's status changed
+export function setExerciseStatus(
   routine: WeeklyRoutineType,
   dayRoutineId: DayRoutineId,
   exerciseId: ExerciseId,
-  completed: boolean
+  status: WorkoutStatusType
 ): WeeklyRoutineType {
   return {
     ...routine,
@@ -15,7 +16,7 @@ export function setExerciseCompleted(
         ? {
             ...session,
             exercises: session.exercises.map((exercise) =>
-              exercise.id === exerciseId ? { ...exercise, completed } : exercise
+              exercise.id === exerciseId ? { ...exercise, status } : exercise
             ),
           }
         : session
