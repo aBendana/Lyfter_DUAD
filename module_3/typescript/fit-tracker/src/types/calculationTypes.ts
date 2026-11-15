@@ -1,3 +1,4 @@
+import type { ExerciseId } from './idsTypes';
 import type { DayRoutineType } from './routineTypes';
 
 export interface ExerciseCounts {
@@ -63,7 +64,7 @@ export type TotalTrainingSessions = (entries: DayRoutineType[]) => number;
 
 // incomplete exercise with the day it belongs to
 export interface IncompleteExerciseEntry {
-  id: string;
+  id: ExerciseId;
   name: string;
   day: DayRoutineType['day'];
 }

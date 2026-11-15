@@ -43,7 +43,9 @@ const emptyFormValues: NinjaSearchFormValues = {
 };
 
 // form values -> api filters: empty optional fields are left out
-function toSearchFilters(values: NinjaSearchFormValues): ApiExerciseSearchFilters {
+function toSearchFilters(
+  values: NinjaSearchFormValues
+): ApiExerciseSearchFilters {
   const name = values.name.trim();
   return {
     muscle: values.muscle.trim(),
@@ -54,7 +56,9 @@ function toSearchFilters(values: NinjaSearchFormValues): ApiExerciseSearchFilter
 }
 
 // api filters -> form values, used by "Search again"
-function toFormValues(filters: ApiExerciseSearchFilters): NinjaSearchFormValues {
+function toFormValues(
+  filters: ApiExerciseSearchFilters
+): NinjaSearchFormValues {
   return {
     muscle: filters.muscle,
     name: filters.name ?? '',
@@ -108,6 +112,7 @@ export function NinjaExercises() {
     getExerciseCounts,
     hasExercise,
     getIncompleteExerciseStatus,
+    logSearchError,
     searchHistory,
     addSearchToHistory,
     clearSearchHistory,
@@ -157,6 +162,10 @@ export function NinjaExercises() {
         report,
       });
     } catch (error) {
+      // unexpected errors are only for the console, like in the message
+      if (error instanceof ApiError) {
+        logSearchError(error, requestedFilters.muscle);
+      }
       setSearchState({
         status: 'error',
         filters: requestedFilters,
@@ -180,7 +189,10 @@ export function NinjaExercises() {
       <header className="ninja-exercises__header">
         <p className="ninja-exercises__eyebrow">External exercise catalog</p>
         <h2>Ninja Exercises</h2>
-        <p>Search by muscle and optionally narrow results by name, type, or difficulty.</p>
+        <p>
+          Search by muscle and optionally narrow results by name, type, or
+          difficulty.
+        </p>
       </header>
 
       <NinjaSearchForm
@@ -220,7 +232,8 @@ export function NinjaExercises() {
           <header className="ninja-exercises__results-header">
             <h3>Search Results</h3>
             <p>
-              Filters: <strong>{formatSearchFilters(searchState.filters)}</strong>
+              Filters:{' '}
+              <strong>{formatSearchFilters(searchState.filters)}</strong>
             </p>
           </header>
 
@@ -257,8 +270,7 @@ export function NinjaExercises() {
                           exercise.difficulty,
                           formatFilterLabel
                         )}{' '}
-                        ·{' '}
-                        {formatEquipmentsLabel(exercise.equipments)}
+                        · {formatEquipmentsLabel(exercise.equipments)}
                       </span>
                       <button
                         className="ninja-exercises__add"
@@ -310,8 +322,8 @@ export function NinjaExercises() {
                     <th scope="row">{category}</th>
                     <td>{formatExerciseCount(counts.local)}</td>
                     <td>
-                      {counts.ninja > 0
-                        ? formatExerciseCount(counts.ninja)
+                      {counts.api > 0
+                        ? formatExerciseCount(counts.api)
                         : 'No Added'}
                     </td>
                   </tr>

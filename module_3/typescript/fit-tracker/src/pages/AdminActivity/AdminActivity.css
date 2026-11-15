@@ -1,0 +1,54 @@
+.admin-activity {
+  display: grid;
+  align-content: start;
+  gap: 1.5rem;
+  color: #f5f5f6;
+}
+
+.admin-activity__empty,
+.admin-activity__list,
+.admin-activity__total {
+  width: min(100%, 76rem);
+  margin: 0 auto;
+}
+
+.admin-activity__empty {
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border: 1px solid rgb(255 255 255 / 14%);
+  border-radius: 0.9rem;
+  background: rgb(255 255 255 / 7%);
+}
+
+.admin-activity__list {
+  display: grid;
+  gap: 0.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.admin-activity__item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid rgb(255 255 255 / 14%);
+  border-left: 3px solid #6fcf97;
+  border-radius: 0.6rem;
+  background: rgb(255 255 255 / 5%);
+}
+
+.admin-activity__item--error {
+  border-left-color: #ff6b6b;
+}
+
+.admin-activity__message {
+  overflow-wrap: anywhere;
+}
+
+.admin-activity__time,
+.admin-activity__total {
+  color: #d5d7db;
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+}

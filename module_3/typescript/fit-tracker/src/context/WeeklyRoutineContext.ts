@@ -5,8 +5,8 @@ import type {
   ExerciseId,
   WeeklyRoutineId,
 } from '../types/idsTypes';
-import type { WorkoutStatusType } from '../types/exerciseTypes';
-import type { DayRoutineType } from '../types/routineTypes';
+import type { ExerciseType, WorkoutStatusType } from '../types/exerciseTypes';
+import type { DayOfWeekType, DayRoutineType } from '../types/routineTypes';
 
 // context type for weekly routine
 // to define the shape of the context value
@@ -27,6 +27,13 @@ export interface WeeklyRoutineContextType {
   // array of official exercise entries for the weekly routine
   officialEntries: DayRoutineType[];
   setOfficialEntries: Dispatch<SetStateAction<DayRoutineType[]>>;
+
+  // adds an exercise to the day's session, creating the session if needed
+  addExerciseToDay: (
+    day: DayOfWeekType,
+    exercise: ExerciseType,
+    dayComments?: string
+  ) => void;
 
   // changes the status of an existing exercise
   updateExerciseStatus: (

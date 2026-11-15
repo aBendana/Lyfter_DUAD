@@ -1,0 +1,25 @@
+.admin-page-header {
+  display: grid;
+  gap: 0.5rem;
+  width: min(100%, 76rem);
+  margin: 0 auto;
+  color: #f5f5f6;
+}
+
+.admin-page-header h2 {
+  margin: 0;
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+}
+
+.admin-page-header p {
+  margin: 0;
+  color: #d5d7db;
+}
+
+.admin-page-header .admin-page-header__eyebrow {
+  color: #ffb26f;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}

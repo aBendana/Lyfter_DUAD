@@ -14,6 +14,12 @@ import type {
   WorkoutStatusType,
 } from '../types/exerciseTypes';
 import type {
+  ApiCatalogExerciseType,
+  CatalogExerciseType,
+} from '../types/catalogExerciseTypes';
+import type {
+  ActivityId,
+  CatalogExerciseId,
   DayRoutineId,
   ExerciseId,
   InstructorId,
@@ -53,30 +59,41 @@ export function isStateUpdater<Value>(
   return typeof action === 'function';
 }
 
-const uuidPattern =
-  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-
-function isUuid(value: string): boolean {
-  return uuidPattern.test(value);
+function isPositiveInteger(value: number): boolean {
+  return Number.isInteger(value) && value > 0;
 }
 
 // branded ids are earned by a runtime check, never by a type assertion
-export function isExerciseId(value: string): value is ExerciseId {
-  return isUuid(value);
+export function isExerciseId(value: number): value is ExerciseId {
+  return isPositiveInteger(value);
 }
 
-export function isMemberId(value: string): value is MemberId {
-  return isUuid(value);
+export function isMemberId(value: number): value is MemberId {
+  return isPositiveInteger(value);
 }
 
-export function isInstructorId(value: string): value is InstructorId {
-  return isUuid(value);
+export function isInstructorId(value: number): value is InstructorId {
+  return isPositiveInteger(value);
 }
 
-export function isWeeklyRoutineId(value: string): value is WeeklyRoutineId {
-  return isUuid(value);
+export function isWeeklyRoutineId(value: number): value is WeeklyRoutineId {
+  return isPositiveInteger(value);
 }
 
-export function isDayRoutineId(value: string): value is DayRoutineId {
-  return isUuid(value);
+export function isDayRoutineId(value: number): value is DayRoutineId {
+  return isPositiveInteger(value);
+}
+
+export function isCatalogExerciseId(value: number): value is CatalogExerciseId {
+  return isPositiveInteger(value);
+}
+
+export function isActivityId(value: number): value is ActivityId {
+  return isPositiveInteger(value);
+}
+
+export function isApiCatalogExercise(
+  exercise: CatalogExerciseType
+): exercise is ApiCatalogExerciseType {
+  return exercise.source === 'api';
 }

@@ -12,7 +12,7 @@ export interface BasicPersonInfoType {
 export type ExperienceLevelType = 'Beginner' | 'Intermediate' | 'Advanced';
 
 export interface MemberInfoType extends BasicPersonInfoType {
-  memberId: MemberId;
+  id: MemberId;
   experienceLevel: ExperienceLevelType;
 }
 
@@ -38,7 +38,7 @@ export interface MemberProfileType extends MemberInfoType {
 
 // user instructor type complete
 export interface InstructorInfoType extends BasicPersonInfoType {
-  instructorId: InstructorId;
+  id: InstructorId;
   yearsOfExperience: number;
   assignedMemberIds: MemberId[];
 }

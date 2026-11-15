@@ -12,4 +12,9 @@ export const ROUTES = {
   INSTRUCTOR_PROFILE: '/instructor-profile',
   MEMBERS_ASSIGNMENT: '/members-assignment',
   INSTRUCTOR_MEMBERS_RESUME: '/instructor-members-resume',
+  ADMIN_OVERVIEW: '/admin',
+  ADMIN_MEMBERSHIPS: '/admin/memberships',
+  ADMIN_INSTRUCTORS: '/admin/instructors',
+  ADMIN_CATALOG: '/admin/catalog',
+  ADMIN_ACTIVITY: '/admin/activity',
 };

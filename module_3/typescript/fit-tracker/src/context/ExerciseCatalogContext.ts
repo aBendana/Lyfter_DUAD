@@ -1,4 +1,5 @@
 import { createContext } from 'react';
+import type { ApiError } from '../services/apiErrors';
 import type {
   ApiExerciseCategoryType,
   ApiExerciseType,
@@ -7,17 +8,17 @@ import type {
   SearchHistoryEntryType,
 } from '../types/apiExerciseTypes';
 import type {
+  ApiCatalogExerciseType,
+  CatalogSourceCountsType,
+} from '../types/catalogExerciseTypes';
+import type {
   ExerciseCategoryType,
   SportNameType,
 } from '../types/exerciseTypes';
 
-export interface ExerciseCatalogCountsType {
-  local: number;
-  ninja: number;
-}
-
 export interface ExerciseCatalogContextType {
-  addedExercises: ApiExerciseType[];
+  // the api part of the catalog store
+  addedExercises: ApiCatalogExerciseType[];
 
   addExercise: (exercise: ApiExerciseType) => void;
 
@@ -34,9 +35,13 @@ export interface ExerciseCatalogContextType {
 
   incompleteExercises: IncompleteApiExerciseType[];
 
+  // the search runs in the page, so its failures reach the log through here
+  logSearchError: (error: ApiError, muscle: string) => void;
+
+  // without a category it counts the whole catalog
   getExerciseCounts: (
-    category: ExerciseCategoryType
-  ) => ExerciseCatalogCountsType;
+    category?: ExerciseCategoryType
+  ) => CatalogSourceCountsType;
 
   getExerciseNames: (category: ExerciseCategoryType) => SportNameType[];
 

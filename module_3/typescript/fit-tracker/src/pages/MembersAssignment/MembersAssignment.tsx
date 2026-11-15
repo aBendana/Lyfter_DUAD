@@ -36,19 +36,17 @@ export function MembersAssignment() {
         <ul className="members-assignment__list">
           {members.map((member) => {
             const assignedInstructor = instructors.find((instructor) =>
-              instructor.assignedMemberIds.includes(member.memberId)
+              instructor.assignedMemberIds.includes(member.id)
             );
             const assignedToAnotherInstructor =
               assignedInstructor !== undefined &&
-              assignedInstructor.instructorId !==
-                activeInstructor?.instructorId;
+              assignedInstructor.id !== activeInstructor?.id;
             const isAssignedToActiveInstructor =
-              activeInstructor?.assignedMemberIds.includes(member.memberId) ??
-              false;
-            const checkboxId = `member-assignment-${member.memberId}`;
+              activeInstructor?.assignedMemberIds.includes(member.id) ?? false;
+            const checkboxId = `member-assignment-${member.id}`;
 
             return (
-              <li className="members-assignment__item" key={member.memberId}>
+              <li className="members-assignment__item" key={member.id}>
                 <input
                   id={checkboxId}
                   className="members-assignment__checkbox"
@@ -57,9 +55,9 @@ export function MembersAssignment() {
                   disabled={!activeInstructor || assignedToAnotherInstructor}
                   onChange={(event) => {
                     if (event.target.checked) {
-                      assignMember(member.memberId);
+                      assignMember(member.id);
                     } else {
-                      unassignMember(member.memberId);
+                      unassignMember(member.id);
                     }
                   }}
                   aria-describedby={`${checkboxId}-status`}

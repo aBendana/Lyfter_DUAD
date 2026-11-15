@@ -3,7 +3,9 @@ import type { ReactNode } from 'react';
 import type { InstructorId, MemberId } from '../types/idsTypes';
 import type { InstructorInfoType } from '../types/userTypes';
 import { generateInstructorId } from '../utils/generateIds';
-import { useMemberRoutine } from '../hooks/useMemberRoutine';
+import { instructorStore, memberStore } from '../store/stores';
+import { logActivity } from '../store/logActivity';
+import { useStore } from '../hooks/useStore';
 import { InstructorContext } from './InstructorContext';
 import type { NewInstructorType } from './InstructorContext';
 
@@ -12,11 +14,10 @@ interface InstructorProviderProps {
 }
 
 export function InstructorProvider({ children }: InstructorProviderProps) {
-  // retrieve member profiles from the custom hook
-  const { members } = useMemberRoutine();
-
-  //state for instructors and active instructor ID
-  const [instructors, setInstructors] = useState<InstructorInfoType[]>([]);
+  // both lists come from the stores, so this provider no longer depends on
+  // being nested inside the member provider
+  const members = useStore(memberStore);
+  const instructors = useStore(instructorStore);
 
   //state for active instructor ID
   const [activeInstructorId, setActiveInstructorId] =
@@ -24,16 +25,15 @@ export function InstructorProvider({ children }: InstructorProviderProps) {
 
   // get the currently active instructor based on the activeInstructorId
   const activeInstructor =
-    instructors.find(
-      (instructor) => instructor.instructorId === activeInstructorId
-    ) ?? null;
+    instructors.find((instructor) => instructor.id === activeInstructorId) ??
+    null;
 
   // prepare the dashboard data for the active instructor
   const dashboard = activeInstructor
     ? {
         instructor: activeInstructor,
         supervisedMembers: members.filter((member) =>
-          activeInstructor.assignedMemberIds.includes(member.memberId)
+          activeInstructor.assignedMemberIds.includes(member.id)
         ),
       }
     : null;
@@ -42,17 +42,26 @@ export function InstructorProvider({ children }: InstructorProviderProps) {
   const createInstructor = (data: NewInstructorType) => {
     const instructor: InstructorInfoType = {
       ...data,
-      instructorId: generateInstructorId(),
+      id: generateInstructorId(),
       assignedMemberIds: [],
     };
 
-    setInstructors((currentInstructors) => [...currentInstructors, instructor]);
-    setActiveInstructorId(instructor.instructorId);
+    instructorStore.add(instructor);
+    logActivity({
+      kind: 'instructor-added',
+      instructorName: instructor.fullName,
+    });
+    setActiveInstructorId(instructor.id);
   };
 
   // guard to ensure the instructor being selected exists
   const selectInstructor = (instructorId: InstructorId) => {
-    if (!instructors.some((item) => item.instructorId === instructorId)) {
+    if (!instructorStore.getById(instructorId).found) {
+      logActivity({
+        kind: 'not-found',
+        entity: 'instructor',
+        targetId: instructorId,
+      });
       throw new Error('Cannot select an instructor that is not registered');
     }
 
@@ -64,72 +73,83 @@ export function InstructorProvider({ children }: InstructorProviderProps) {
     setActiveInstructorId(null);
   };
 
-  // function to update the currently active instructor
+  // the form data has no id or assigned members, so it is a valid partial update
   const updateActiveInstructor = (data: NewInstructorType) => {
-    if (!activeInstructor) {
+    if (activeInstructorId === null) {
       throw new Error('Select an instructor before updating their profile');
     }
 
-    setInstructors((currentInstructors) =>
-      currentInstructors.map((instructor) =>
-        instructor.instructorId === activeInstructor.instructorId
-          ? { ...instructor, ...data }
-          : instructor
-      )
+    const result = instructorStore.update(activeInstructorId, data);
+    logActivity(
+      result.found
+        ? { kind: 'instructor-updated', instructorName: result.item.fullName }
+        : { kind: 'not-found', entity: 'instructor', targetId: result.id }
     );
   };
 
   const assignMember = (memberId: MemberId) => {
-    if (!activeInstructor) {
+    if (activeInstructorId === null) {
       throw new Error(
         'Select or create an instructor before assigning members'
       );
     }
 
-    if (!members.some((member) => member.memberId === memberId)) {
+    const member = memberStore.getById(memberId);
+    if (!member.found) {
+      logActivity({ kind: 'not-found', entity: 'member', targetId: memberId });
       throw new Error('Cannot assign a member that is not registered');
     }
 
-    const assignedInstructor = instructors.find((instructor) =>
+    const [assignedInstructor] = instructorStore.findBy((instructor) =>
       instructor.assignedMemberIds.includes(memberId)
     );
-    if (
-      assignedInstructor &&
-      assignedInstructor.instructorId !== activeInstructor.instructorId
-    ) {
+    if (assignedInstructor && assignedInstructor.id !== activeInstructorId) {
       throw new Error('Member is already assigned to another instructor');
     }
 
-    setInstructors((currentInstructors) =>
-      currentInstructors.map((instructor) =>
-        instructor.instructorId === activeInstructor.instructorId &&
-        !instructor.assignedMemberIds.includes(memberId)
-          ? {
-              ...instructor,
-              assignedMemberIds: [...instructor.assignedMemberIds, memberId],
-            }
-          : instructor
-      )
-    );
+    // read from the store, not the render, so two quick clicks cannot duplicate it
+    const current = instructorStore.getById(activeInstructorId);
+    if (!current.found || current.item.assignedMemberIds.includes(memberId)) {
+      return;
+    }
+
+    instructorStore.update(activeInstructorId, {
+      assignedMemberIds: [...current.item.assignedMemberIds, memberId],
+    });
+    logActivity({
+      kind: 'member-assigned',
+      instructorName: current.item.fullName,
+      memberName: member.item.fullName,
+    });
   };
 
   // guard to ensure the instructor is active before unassigning a member
   const unassignMember = (memberId: MemberId) => {
-    if (!activeInstructor) {
+    if (activeInstructorId === null) {
       throw new Error('Select an instructor before removing assigned members');
     }
 
-    setInstructors((currentInstructors) =>
-      currentInstructors.map((instructor) =>
-        instructor.instructorId === activeInstructor.instructorId
-          ? {
-              ...instructor,
-              assignedMemberIds: instructor.assignedMemberIds.filter(
-                (assignedMemberId) => assignedMemberId !== memberId
-              ),
-            }
-          : instructor
-      )
+    const current = instructorStore.getById(activeInstructorId);
+    if (!current.found || !current.item.assignedMemberIds.includes(memberId)) {
+      return;
+    }
+
+    instructorStore.update(activeInstructorId, {
+      assignedMemberIds: current.item.assignedMemberIds.filter(
+        (assignedMemberId) => assignedMemberId !== memberId
+      ),
+    });
+
+    // members are never removed, but the lookup still reports a missing one
+    const member = memberStore.getById(memberId);
+    logActivity(
+      member.found
+        ? {
+            kind: 'member-unassigned',
+            instructorName: current.item.fullName,
+            memberName: member.item.fullName,
+          }
+        : { kind: 'not-found', entity: 'member', targetId: memberId }
     );
   };
 

@@ -8,22 +8,27 @@ import type {
   IncompleteApiExerciseType,
   SearchHistoryEntryType,
 } from '../types/apiExerciseTypes';
-import {
-  cardioNameExercises,
-  flexibilityNameExercises,
-  strengthNameExercises,
-} from '../types/exerciseCatalog';
+import type {
+  CatalogExerciseType,
+  CatalogSourceCountsType,
+} from '../types/catalogExerciseTypes';
 import type {
   ExerciseCategoryType,
-  LocalExerciseNameType,
   SportNameType,
 } from '../types/exerciseTypes';
+import type { ApiError } from '../services/apiErrors';
 import {
+  getRawExerciseName,
   normalizeExerciseName,
   toExerciseCategory,
 } from '../utils/normalizeExercise';
+import { getCatalogExerciseCategory } from '../utils/getCatalogExerciseCategory';
+import { generateCatalogExerciseId } from '../utils/generateIds';
+import { isApiCatalogExercise } from '../utils/typeGuards';
+import { exerciseCatalogStore } from '../store/stores';
+import { logActivity } from '../store/logActivity';
+import { useStore } from '../hooks/useStore';
 import { ExerciseCatalogContext } from './ExerciseCatalogContext';
-import type { ExerciseCatalogCountsType } from './ExerciseCatalogContext';
 
 interface ExerciseCatalogProviderProps {
   children: ReactNode;
@@ -32,19 +37,6 @@ interface ExerciseCatalogProviderProps {
 // decided exercises stay stored so a repeated search does not bring them back
 interface StoredIncompleteExerciseType extends IncompleteApiExerciseType {
   status: IncompleteApiExerciseStatusType;
-}
-
-function getDefaultExerciseNames(
-  category: ExerciseCategoryType
-): LocalExerciseNameType[] {
-  switch (category) {
-    case 'Cardio':
-      return cardioNameExercises;
-    case 'Strength':
-      return strengthNameExercises;
-    case 'Flexibility':
-      return flexibilityNameExercises;
-  }
 }
 
 const MAX_SEARCH_HISTORY = 10;
@@ -59,31 +51,28 @@ function getSearchFiltersKey(filters: ApiExerciseSearchFilters): string {
   ].join('|');
 }
 
-// true when the exercise is a default one or is already in the given added list;
-// the list is a parameter so it works with the state and inside a state updater
+// a name appears once per category, whatever its source; the list is a
+// parameter so it works with the render snapshot and with a fresh store read
 function isInCatalog(
-  addedExercises: ApiExerciseType[],
-  category: ApiExerciseCategoryType,
+  catalog: readonly CatalogExerciseType[],
+  category: ExerciseCategoryType,
   name: string
 ): boolean {
   const normalizedName = normalizeExerciseName(name);
 
-  return (
-    getDefaultExerciseNames(toExerciseCategory(category)).some(
-      (exerciseName) => normalizeExerciseName(exerciseName) === normalizedName
-    ) ||
-    addedExercises.some(
-      (exercise) =>
-        exercise.category === category &&
-        normalizeExerciseName(exercise.name) === normalizedName
-    )
+  return catalog.some(
+    (exercise) =>
+      getCatalogExerciseCategory(exercise) === category &&
+      normalizeExerciseName(exercise.name) === normalizedName
   );
 }
 
 export function ExerciseCatalogProvider({
   children,
 }: ExerciseCatalogProviderProps) {
-  const [addedExercises, setAddedExercises] = useState<ApiExerciseType[]>([]);
+  // local and api exercises live in the catalog store
+  const catalog = useStore(exerciseCatalogStore);
+  const addedExercises = catalog.filter(isApiCatalogExercise);
   const [storedIncompleteExercises, setStoredIncompleteExercises] = useState<
     StoredIncompleteExerciseType[]
   >([]);
@@ -98,15 +87,25 @@ export function ExerciseCatalogProvider({
   const hasExercise = (
     category: ApiExerciseCategoryType,
     name: string
-  ): boolean => isInCatalog(addedExercises, category, name);
+  ): boolean => isInCatalog(catalog, toExerciseCategory(category), name);
 
-  // checks the latest list inside the updater, so two quick adds cannot duplicate it
+  // reads the store, not the render, so two quick adds cannot duplicate it
   const addExercise = (exercise: ApiExerciseType): void => {
-    setAddedExercises((currentExercises) =>
-      isInCatalog(currentExercises, exercise.category, exercise.name)
-        ? currentExercises
-        : [...currentExercises, exercise]
-    );
+    const category = toExerciseCategory(exercise.category);
+    if (isInCatalog(exerciseCatalogStore.getAll(), category, exercise.name)) {
+      return;
+    }
+
+    exerciseCatalogStore.add({
+      ...exercise,
+      id: generateCatalogExerciseId(),
+      source: 'api',
+    });
+    logActivity({
+      kind: 'catalog-exercise-added',
+      exerciseName: exercise.name,
+      category,
+    });
   };
 
   // keeps incomplete exercises across searches; the same raw item is stored once
@@ -127,12 +126,10 @@ export function ExerciseCatalogProvider({
       return newExercises.length > 0
         ? [
             ...currentExercises,
-            ...newExercises.map(
-              (exercise): StoredIncompleteExerciseType => ({
-                ...exercise,
-                status: 'pending',
-              })
-            ),
+            ...newExercises.map((exercise): StoredIncompleteExerciseType => ({
+              ...exercise,
+              status: 'pending',
+            })),
           ]
         : currentExercises;
     });
@@ -151,6 +148,18 @@ export function ExerciseCatalogProvider({
           : currentExercise
       )
     );
+
+    // an accepted one is already logged by addExercise
+    if (decision === 'discarded') {
+      logActivity({
+        kind: 'catalog-exercise-discarded',
+        exerciseName: getRawExerciseName(exercise.raw) || 'Unnamed exercise',
+      });
+    }
+  };
+
+  const logSearchError = (error: ApiError, muscle: string): void => {
+    logActivity({ kind: 'api-error', errorKind: error.kind, muscle });
   };
 
   // pending when it is not stored yet (the search result arrives before the state update)
@@ -167,25 +176,13 @@ export function ExerciseCatalogProvider({
   const isApiExercise = (
     category: ExerciseCategoryType,
     name: string
-  ): boolean => {
-    const normalizedName = normalizeExerciseName(name);
-    return addedExercises.some(
-      (exercise) =>
-        toExerciseCategory(exercise.category) === category &&
-        normalizeExerciseName(exercise.name) === normalizedName
-    );
-  };
+  ): boolean => isInCatalog(addedExercises, category, name);
 
-  const getExerciseNames = (
-    category: ExerciseCategoryType
-  ): SportNameType[] => {
-    const defaults: SportNameType[] = getDefaultExerciseNames(category);
-    const added = addedExercises
-      .filter((exercise) => toExerciseCategory(exercise.category) === category)
+  // store order keeps local exercises first; addExercise already avoids repeats
+  const getExerciseNames = (category: ExerciseCategoryType): SportNameType[] =>
+    catalog
+      .filter((exercise) => getCatalogExerciseCategory(exercise) === category)
       .map((exercise) => exercise.name);
-
-    return [...new Set([...defaults, ...added])];
-  };
 
   // the form select sends plain text, so the name is checked against the catalog
   const isCatalogExerciseName = (
@@ -213,13 +210,18 @@ export function ExerciseCatalogProvider({
   };
 
   const getExerciseCounts = (
-    category: ExerciseCategoryType
-  ): ExerciseCatalogCountsType => ({
-    local: getDefaultExerciseNames(category).length,
-    ninja: addedExercises.filter(
-      (exercise) => toExerciseCategory(exercise.category) === category
-    ).length,
-  });
+    category?: ExerciseCategoryType
+  ): CatalogSourceCountsType => {
+    const exercises =
+      category === undefined
+        ? catalog
+        : catalog.filter(
+            (exercise) => getCatalogExerciseCategory(exercise) === category
+          );
+    const api = exercises.filter(isApiCatalogExercise).length;
+
+    return { local: exercises.length - api, api };
+  };
 
   return (
     <ExerciseCatalogContext.Provider
@@ -230,6 +232,7 @@ export function ExerciseCatalogProvider({
         resolveIncompleteExercise,
         getIncompleteExerciseStatus,
         incompleteExercises,
+        logSearchError,
         getExerciseCounts,
         getExerciseNames,
         hasExercise,

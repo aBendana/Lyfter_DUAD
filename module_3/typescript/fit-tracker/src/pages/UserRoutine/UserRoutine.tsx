@@ -1,11 +1,9 @@
 import { useWeeklyRoutine } from '../../hooks/useWeeklyRoutine';
 import { WeeklyRoutineNameForm } from '../../components/Forms/WeeklyRoutineNameForm/WeeklyRoutineNameForm';
-import type { DayRoutineType } from '../../types/routineTypes';
 import type { DailyRoutineFormType } from '../../components/Forms/DailyRoutineForm/DailyRoutineForm';
 import { DailyRoutineForm } from '../../components/Forms/DailyRoutineForm/DailyRoutineForm';
 import { ListedRoutines } from '../../components/ListedRoutines/ListedRoutines';
 import { createRoutineEntry } from '../../utils/createRoutineEntry';
-import { generateDayRoutineId } from '../../utils/generateIds';
 import { useMemberRoutine } from '../../hooks/useMemberRoutine';
 import { useExerciseCatalog } from '../../hooks/useExerciseCatalog';
 import { NavLink } from 'react-router-dom';
@@ -19,7 +17,7 @@ export function UserRoutine() {
     routineName,
     setRoutineName,
     officialEntries,
-    setOfficialEntries,
+    addExerciseToDay,
     updateExerciseStatus,
     updateDayComments,
   } = useWeeklyRoutine();
@@ -47,35 +45,7 @@ export function UserRoutine() {
     const { exercise } = createRoutineEntry(data, {
       fromNinja: isApiExercise(exerciseCategory, exerciseName),
     });
-    const dayComments = data.dayComments;
-
-    setOfficialEntries((currentEntries) => {
-      const existingDaySession = currentEntries.find(
-        (session) => session.day === exerciseDay
-      );
-
-      // if the day session already exists, update its comments as well
-      if (!existingDaySession) {
-        const newDaySession: DayRoutineType = {
-          id: generateDayRoutineId(),
-          day: exerciseDay,
-          exercises: [exercise],
-          dayComments,
-        };
-
-        return [...currentEntries, newDaySession];
-      }
-
-      return currentEntries.map((session) =>
-        session.day === exerciseDay
-          ? {
-              ...session,
-              exercises: [...session.exercises, exercise],
-              dayComments: dayComments || session.dayComments,
-            }
-          : session
-      );
-    });
+    addExerciseToDay(exerciseDay, exercise, data.dayComments);
 
     return true;
   };
