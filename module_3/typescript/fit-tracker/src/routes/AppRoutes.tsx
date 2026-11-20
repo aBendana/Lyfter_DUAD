@@ -12,6 +12,12 @@ import { MembersAssignment } from '../pages/MembersAssignment/MembersAssignment'
 import { InstructorMembersResume } from '../pages/InstructorMembersResume/InstructorMembersResume';
 import { NinjaExercises } from '../pages/NinjaExercises/NinjaExercises';
 import { UnifiedReport } from '../pages/UnifiedReport/UnifiedReport';
+import { AdminDashboard } from '../components/AdminDashboard/AdminDashboard';
+import { AdminOverview } from '../pages/AdminOverview/AdminOverview';
+import { AdminMemberships } from '../pages/AdminMemberships/AdminMemberships';
+import { AdminInstructors } from '../pages/AdminInstructors/AdminInstructors';
+import { AdminCatalog } from '../pages/AdminCatalog/AdminCatalog';
+import { AdminActivity } from '../pages/AdminActivity/AdminActivity';
 
 export function AppRoutes() {
   return (
@@ -43,6 +49,14 @@ export function AppRoutes() {
           path={ROUTES.INSTRUCTOR_MEMBERS_RESUME}
           element={<InstructorMembersResume />}
         />
+      </Route>
+
+      <Route element={<AdminDashboard />}>
+        <Route path={ROUTES.ADMIN_OVERVIEW} element={<AdminOverview />} />
+        <Route path={ROUTES.ADMIN_MEMBERSHIPS} element={<AdminMemberships />} />
+        <Route path={ROUTES.ADMIN_INSTRUCTORS} element={<AdminInstructors />} />
+        <Route path={ROUTES.ADMIN_CATALOG} element={<AdminCatalog />} />
+        <Route path={ROUTES.ADMIN_ACTIVITY} element={<AdminActivity />} />
       </Route>
     </Routes>
   );

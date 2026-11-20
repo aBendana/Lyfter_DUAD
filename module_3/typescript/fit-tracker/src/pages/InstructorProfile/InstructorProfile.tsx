@@ -66,11 +66,11 @@ export function InstructorProfile() {
           value={activeInstructorId ?? ''}
           onChange={(event) => {
             const selected = instructors.find(
-              (instructor) => instructor.instructorId === event.target.value
+              (instructor) => String(instructor.id) === event.target.value
             );
 
             if (selected) {
-              selectInstructor(selected.instructorId);
+              selectInstructor(selected.id);
             } else {
               startNewInstructor();
             }
@@ -78,10 +78,7 @@ export function InstructorProfile() {
         >
           <option value="">New Instructor</option>
           {instructors.map((instructor) => (
-            <option
-              key={instructor.instructorId}
-              value={instructor.instructorId}
-            >
+            <option key={instructor.id} value={instructor.id}>
               {instructor.fullName || instructor.email}
             </option>
           ))}

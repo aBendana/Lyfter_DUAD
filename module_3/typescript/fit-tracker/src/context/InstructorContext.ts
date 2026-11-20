@@ -7,11 +7,11 @@ import type {
 
 export type NewInstructorType = Omit<
   InstructorInfoType,
-  'instructorId' | 'assignedMemberIds'
+  'id' | 'assignedMemberIds'
 >;
 
 export interface InstructorContextType {
-  instructors: InstructorInfoType[];
+  instructors: readonly InstructorInfoType[];
   activeInstructor: InstructorInfoType | null;
   activeInstructorId: InstructorId | null;
   dashboard: InstructorDashboardType | null;

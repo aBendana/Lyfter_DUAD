@@ -26,7 +26,7 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 }
 
 // text field of an item that failed validation, empty when it has none
-export function getRawStringField(raw: unknown, field: string): string {
+function getRawStringField(raw: unknown, field: string): string {
   if (!isRecord(raw)) return '';
 
   const value = raw[field];

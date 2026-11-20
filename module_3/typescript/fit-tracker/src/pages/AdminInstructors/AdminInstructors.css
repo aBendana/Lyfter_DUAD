@@ -1,0 +1,88 @@
+.admin-instructors {
+  display: grid;
+  align-content: start;
+  gap: 1.5rem;
+  color: #f5f5f6;
+}
+
+.admin-instructors__empty,
+.admin-instructors__list {
+  width: min(100%, 76rem);
+  margin: 0 auto;
+}
+
+.admin-instructors__empty,
+.admin-instructors__card {
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border: 1px solid rgb(255 255 255 / 14%);
+  border-radius: 0.9rem;
+  background: rgb(255 255 255 / 7%);
+}
+
+.admin-instructors__list {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.admin-instructors__card {
+  display: grid;
+  gap: 1.25rem;
+  min-width: 0;
+}
+
+.admin-instructors__card h3 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.admin-instructors__profile {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 0.75rem;
+  margin: 0;
+}
+
+.admin-instructors__profile dt {
+  color: #d5d7db;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.admin-instructors__profile dd {
+  margin: 0.35rem 0 0;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.admin-instructors__members {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.admin-instructors__member {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid rgb(255 255 255 / 14%);
+  border-radius: 0.6rem;
+  background: rgb(255 255 255 / 4%);
+}
+
+.admin-instructors__member span:last-child {
+  color: #d5d7db;
+}
+
+.admin-instructors__member--missing {
+  color: #ff9b9b;
+}
+
+.admin-instructors__no-members {
+  margin: 0;
+  color: #d5d7db;
+}

@@ -47,7 +47,8 @@
 }
 
 .home__user-link,
-.home__instructor-link {
+.home__instructor-link,
+.home__admin-link {
   margin-top: 0.8rem;
   display: inline-flex;
   align-items: center;
@@ -65,7 +66,8 @@
     background 180ms ease;
 }
 
-.home__instructor-link {
+.home__instructor-link,
+.home__admin-link {
   position: absolute;
   padding: 0.65rem 1.65rem;
   background: linear-gradient(135deg, #ff7716 0%, #ad5a0c 100%);
@@ -73,6 +75,16 @@
   top: 3rem;
   right: 5rem;
   margin-top: 0;
+}
+
+/* same width as the instructor link, stacked right below it */
+.home__admin-link {
+  top: 6.25rem;
+  min-width: 9.2rem;
+}
+
+.home__instructor-link {
+  min-width: 9.2rem;
 }
 
 .home a:hover {

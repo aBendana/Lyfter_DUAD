@@ -1,16 +1,15 @@
 import { NavLink } from 'react-router-dom';
 import { useInstructor } from '../../hooks/useInstructor';
+import { useStore } from '../../hooks/useStore';
 import { ROUTES } from '../../routes/routes';
-import {
-  routineTotalCalories,
-  totalIncompleteExercises,
-  totalTime,
-  totalTrainingSessions,
-} from '../../utils/calculations';
+import { routineStore } from '../../store/stores';
+import { findMemberRoutine } from '../../utils/findMemberRoutine';
+import { MemberResumeCard } from '../../components/MemberResumeCard/MemberResumeCard';
 import './InstructorMembersResume.css';
 
 export function InstructorMembersResume() {
   const { dashboard } = useInstructor();
+  const routines = useStore(routineStore);
 
   return (
     <main className="instructor-members-resume">
@@ -38,93 +37,11 @@ export function InstructorMembersResume() {
       ) : (
         <div className="instructor-members-resume__list">
           {dashboard.supervisedMembers.map((member) => (
-            <article
-              className="instructor-members-resume__member"
-              key={member.memberId}
-            >
-              <header className="instructor-members-resume__member-header">
-                <h3>{member.fullName}</h3>
-                <p>
-                  {member.routine.name || 'Weekly routine'} · Started{' '}
-                  {member.routine.startDate.toLocaleDateString()}
-                </p>
-              </header>
-
-              <section aria-label={`${member.fullName}'s profile`}>
-                <h4 className="instructor-members-resume__section-title">
-                  Profile
-                </h4>
-
-                <div
-                  className="instructor-members-resume__profile-scroll"
-                  role="region"
-                  aria-label={`${member.fullName}'s profile details`}
-                  tabIndex={0}
-                >
-                  <dl className="instructor-members-resume__profile">
-                    <div>
-                      <dt>Name</dt>
-                      <dd>{member.fullName}</dd>
-                    </div>
-                    <div>
-                      <dt>Email</dt>
-                      <dd>{member.email}</dd>
-                    </div>
-                    <div>
-                      <dt>Age</dt>
-                      <dd>{member.age}</dd>
-                    </div>
-                    <div>
-                      <dt>Experience</dt>
-                      <dd>{member.experienceLevel}</dd>
-                    </div>
-                    <div>
-                      <dt>Membership</dt>
-                      <dd>{member.membership.contract}</dd>
-                    </div>
-                    <div>
-                      <dt>Start date</dt>
-                      <dd>{member.membership.startDate.toLocaleDateString()}</dd>
-                    </div>
-                    <div>
-                      <dt>End date</dt>
-                      <dd>{member.membership.endDate.toLocaleDateString()}</dd>
-                    </div>
-                    <div>
-                      <dt>Status</dt>
-                      <dd>{member.membership.state}</dd>
-                    </div>
-                  </dl>
-                </div>
-              </section>
-
-              <section
-                aria-label={`${member.fullName}'s weekly routine summary`}
-              >
-                <h4 className="instructor-members-resume__section-title">
-                  Weekly routine summary
-                </h4>
-
-                <dl className="instructor-members-resume__stats">
-                  <div>
-                    <dt>Workout days</dt>
-                    <dd>{totalTrainingSessions(member.routine.entries)}</dd>
-                  </div>
-                  <div>
-                    <dt>Exercise time</dt>
-                    <dd>{totalTime(member.routine.entries)} min</dd>
-                  </div>
-                  <div>
-                    <dt>Calories burned</dt>
-                    <dd>{routineTotalCalories(member.routine.entries)} kcal</dd>
-                  </div>
-                  <div>
-                    <dt>Incomplete exercises</dt>
-                    <dd>{totalIncompleteExercises(member.routine.entries)}</dd>
-                  </div>
-                </dl>
-              </section>
-            </article>
+            <MemberResumeCard
+              member={member}
+              routine={findMemberRoutine(member.id, routines)}
+              key={member.id}
+            />
           ))}
         </div>
       )}

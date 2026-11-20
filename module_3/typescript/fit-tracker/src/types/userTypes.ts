@@ -1,5 +1,4 @@
 import type { MemberId, InstructorId } from './idsTypes';
-import type { WeeklyRoutineType } from './weeklyRoutineTypes';
 
 // basic type for describing a system user
 export interface BasicPersonInfoType {
@@ -12,7 +11,7 @@ export interface BasicPersonInfoType {
 export type ExperienceLevelType = 'Beginner' | 'Intermediate' | 'Advanced';
 
 export interface MemberInfoType extends BasicPersonInfoType {
-  memberId: MemberId;
+  id: MemberId;
   experienceLevel: ExperienceLevelType;
 }
 
@@ -30,15 +29,14 @@ export interface MembershipType {
   state: MembershipStateType;
 }
 
-// user profile type complete
+// user profile type complete; the routine lives in routineStore
 export interface MemberProfileType extends MemberInfoType {
   membership: MembershipType;
-  routine: WeeklyRoutineType;
 }
 
 // user instructor type complete
 export interface InstructorInfoType extends BasicPersonInfoType {
-  instructorId: InstructorId;
+  id: InstructorId;
   yearsOfExperience: number;
   assignedMemberIds: MemberId[];
 }

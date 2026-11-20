@@ -11,7 +11,6 @@ import {
   getMembershipState,
 } from '../../utils/generateDates';
 import type { MemberProfileType } from '../../types/userTypes';
-import { generateWeeklyRoutineId } from '../../utils/generateIds';
 import './UserProfile.css';
 
 const newMemberDefaults: DefaultValues<UserProfileFormType> = {
@@ -31,41 +30,37 @@ export function UserProfile() {
     addMember,
     selectMember,
     startNewMember,
-    updateMemberProfile,
+    updateMember,
   } = useMemberRoutine();
 
   const handleSubmit = (data: UserProfileFormType): void => {
-    const currentProfile = activeMember;
-    const endDate =
-      currentProfile?.membership.endDate ?? generateExpireDate();
-    const startDate = currentProfile?.membership.startDate ?? new Date();
-
-    // if the current profile exists, preserve its start date and state, otherwise generate new ones
-    const updatedProfile: MemberProfileType = {
-      memberId: currentProfile?.memberId ?? generateMemberId(),
+    const formFields = {
       fullName: data.fullName.trim(),
       email: data.email.trim(),
       age: data.age,
       experienceLevel: data.experienceLevel,
-      membership: {
-        contract: data.membership,
-        startDate,
-        endDate,
-        state:
-          currentProfile?.membership.state ?? getMembershipState(endDate),
-      },
-      routine: currentProfile?.routine ?? {
-        id: generateWeeklyRoutineId(),
-        name: '',
-        startDate: new Date(),
-        entries: [],
-      },
     };
 
-    if (currentProfile) {
-      updateMemberProfile(updatedProfile);
+    if (activeMember) {
+      // partial update: id, routine and membership dates stay as they are;
+      // membership is nested, so it is sent whole with only the contract changed
+      updateMember(activeMember.id, {
+        ...formFields,
+        membership: { ...activeMember.membership, contract: data.membership },
+      });
     } else {
-      addMember(updatedProfile);
+      const endDate = generateExpireDate();
+      const newMember: MemberProfileType = {
+        ...formFields,
+        id: generateMemberId(),
+        membership: {
+          contract: data.membership,
+          startDate: new Date(),
+          endDate,
+          state: getMembershipState(endDate),
+        },
+      };
+      addMember(newMember);
     }
 
     setShowSuccessMessage(true);
@@ -96,11 +91,11 @@ export function UserProfile() {
           value={activeMemberId ?? ''}
           onChange={(event) => {
             const selectedMember = members.find(
-              (member) => member.memberId === event.target.value
+              (member) => String(member.id) === event.target.value
             );
 
             if (selectedMember) {
-              selectMember(selectedMember.memberId);
+              selectMember(selectedMember.id);
             } else {
               startNewMember();
             }
@@ -108,7 +103,7 @@ export function UserProfile() {
         >
           <option value="">New Member</option>
           {members.map((member) => (
-            <option key={member.memberId} value={member.memberId}>
+            <option key={member.id} value={member.id}>
               {member.fullName || member.email}
             </option>
           ))}

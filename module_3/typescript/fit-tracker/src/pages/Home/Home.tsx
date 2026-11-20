@@ -8,6 +8,9 @@ export function Home() {
       <NavLink className="home__instructor-link" to={ROUTES.INSTRUCTOR_PROFILE}>
         Instructor
       </NavLink>
+      <NavLink className="home__admin-link" to={ROUTES.ADMIN_OVERVIEW}>
+        Admin
+      </NavLink>
       <h1 className="home__title">Welcome to Fit Tracker</h1>
 
       <p className="home__description">
