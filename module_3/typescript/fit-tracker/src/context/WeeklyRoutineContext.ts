@@ -1,32 +1,18 @@
 import { createContext } from 'react';
-import type { Dispatch, SetStateAction } from 'react';
-import type {
-  DayRoutineId,
-  ExerciseId,
-  WeeklyRoutineId,
-} from '../types/idsTypes';
+import type { DayRoutineId, ExerciseId } from '../types/idsTypes';
 import type { ExerciseType, WorkoutStatusType } from '../types/exerciseTypes';
 import type { DayOfWeekType, DayRoutineType } from '../types/routineTypes';
 
 // context type for weekly routine
-// to define the shape of the context value
+// only the operations the pages use; the id is never exposed for editing
 
 export interface WeeklyRoutineContextType {
-  // unique identifier for the weekly routine
-  weeklyRoutineId: WeeklyRoutineId;
-  setWeeklyRoutineId: Dispatch<SetStateAction<WeeklyRoutineId>>;
-
-  // name of the weekly routine
+  // name of the active member's routine
   routineName: string;
-  setRoutineName: Dispatch<SetStateAction<string>>;
+  setRoutineName: (name: string) => void;
 
-  // starting date of the weekly routine
-  startDate: Date;
-  setStartDate: Dispatch<SetStateAction<Date>>;
-
-  // array of official exercise entries for the weekly routine
+  // day sessions of the active member's routine
   officialEntries: DayRoutineType[];
-  setOfficialEntries: Dispatch<SetStateAction<DayRoutineType[]>>;
 
   // adds an exercise to the day's session, creating the session if needed
   addExerciseToDay: (

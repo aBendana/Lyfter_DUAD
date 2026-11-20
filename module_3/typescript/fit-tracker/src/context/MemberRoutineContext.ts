@@ -1,6 +1,5 @@
 import { createContext } from 'react';
 import type { MemberId } from '../types/idsTypes';
-import type { WeeklyRoutineType } from '../types/weeklyRoutineTypes';
 import type { MemberProfileType } from '../types/userTypes';
 import type { EntityChangesType, StoreResultType } from '../types/storeTypes';
 
@@ -18,7 +17,6 @@ export interface MemberRoutineContextType {
     memberId: MemberId,
     changes: EntityChangesType<MemberProfileType>
   ) => StoreResultType<MemberProfileType>;
-  updateActiveMemberRoutine: (routine: WeeklyRoutineType) => void;
 }
 
 export const MemberRoutineContext = createContext<

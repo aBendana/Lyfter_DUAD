@@ -13,7 +13,7 @@ export type MemberEditableFieldType = keyof Pick<
 
 // what a lookup was searching for when it found nothing
 export type NotFoundEntityType =
-  'member' | 'instructor' | 'exercise' | 'day session';
+  'member' | 'instructor' | 'routine' | 'exercise' | 'day session';
 
 // what happened, without id or time; `kind` discriminates the union
 // and the formatter turns each kind into its text

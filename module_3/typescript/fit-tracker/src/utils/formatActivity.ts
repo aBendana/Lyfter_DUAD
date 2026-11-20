@@ -23,6 +23,7 @@ const workoutStatusLabels: Record<WorkoutStatusType, string> = {
 const notFoundEntityLabels: Record<NotFoundEntityType, string> = {
   member: 'Member',
   instructor: 'Instructor',
+  routine: 'Routine',
   exercise: 'Exercise',
   'day session': 'Day session',
 };

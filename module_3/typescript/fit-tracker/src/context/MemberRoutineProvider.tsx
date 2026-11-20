@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import type { ReactNode } from 'react';
 import type { MemberId } from '../types/idsTypes';
-import type { WeeklyRoutineType } from '../types/weeklyRoutineTypes';
 import type { MemberProfileType } from '../types/userTypes';
 import type { EntityChangesType } from '../types/storeTypes';
 import type { MemberEditableFieldType } from '../types/activityTypes';
-import { memberStore } from '../store/stores';
+import { memberStore, routineStore } from '../store/stores';
 import { logActivity } from '../store/logActivity';
 import { useStore } from '../hooks/useStore';
+import { createEmptyRoutine } from '../utils/createEmptyRoutine';
 import { MemberRoutineContext } from './MemberRoutineContext';
 
 // fields compared to log what an update really changed
@@ -33,9 +33,10 @@ export function MemberRoutineProvider({
   const activeMember =
     members.find((member) => member.id === activeMemberId) ?? null;
 
-  // function to add a new member to the store
+  // the routine is created with the member, so every member has exactly one
   const addMember = (member: MemberProfileType) => {
     memberStore.add(member);
+    routineStore.add(createEmptyRoutine(member.id));
     logActivity({ kind: 'member-added', memberName: member.fullName });
     setActiveMemberId(member.id);
   };
@@ -87,15 +88,6 @@ export function MemberRoutineProvider({
     return result;
   };
 
-  // function to update the active member's routine
-  const updateActiveMemberRoutine = (routine: WeeklyRoutineType) => {
-    if (activeMemberId === null) {
-      throw new Error('Cannot update a routine without an active member');
-    }
-
-    memberStore.update(activeMemberId, { routine });
-  };
-
   return (
     <MemberRoutineContext.Provider
       value={{
@@ -106,7 +98,6 @@ export function MemberRoutineProvider({
         selectMember,
         startNewMember,
         updateMember,
-        updateActiveMemberRoutine,
       }}
     >
       {children}

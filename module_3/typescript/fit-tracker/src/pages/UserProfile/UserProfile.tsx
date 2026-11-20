@@ -11,7 +11,6 @@ import {
   getMembershipState,
 } from '../../utils/generateDates';
 import type { MemberProfileType } from '../../types/userTypes';
-import { generateWeeklyRoutineId } from '../../utils/generateIds';
 import './UserProfile.css';
 
 const newMemberDefaults: DefaultValues<UserProfileFormType> = {
@@ -59,12 +58,6 @@ export function UserProfile() {
           startDate: new Date(),
           endDate,
           state: getMembershipState(endDate),
-        },
-        routine: {
-          id: generateWeeklyRoutineId(),
-          name: '',
-          startDate: new Date(),
-          entries: [],
         },
       };
       addMember(newMember);

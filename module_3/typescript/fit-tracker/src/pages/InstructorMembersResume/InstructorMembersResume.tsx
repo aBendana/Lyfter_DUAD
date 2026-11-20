@@ -1,11 +1,15 @@
 import { NavLink } from 'react-router-dom';
 import { useInstructor } from '../../hooks/useInstructor';
+import { useStore } from '../../hooks/useStore';
 import { ROUTES } from '../../routes/routes';
+import { routineStore } from '../../store/stores';
+import { findMemberRoutine } from '../../utils/findMemberRoutine';
 import { MemberResumeCard } from '../../components/MemberResumeCard/MemberResumeCard';
 import './InstructorMembersResume.css';
 
 export function InstructorMembersResume() {
   const { dashboard } = useInstructor();
+  const routines = useStore(routineStore);
 
   return (
     <main className="instructor-members-resume">
@@ -33,7 +37,11 @@ export function InstructorMembersResume() {
       ) : (
         <div className="instructor-members-resume__list">
           {dashboard.supervisedMembers.map((member) => (
-            <MemberResumeCard member={member} key={member.id} />
+            <MemberResumeCard
+              member={member}
+              routine={findMemberRoutine(member.id, routines)}
+              key={member.id}
+            />
           ))}
         </div>
       )}

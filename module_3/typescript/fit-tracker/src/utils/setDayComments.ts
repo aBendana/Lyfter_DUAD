@@ -1,21 +1,18 @@
 import type { DayRoutineId } from '../types/idsTypes';
-import type { WeeklyRoutineType } from '../types/weeklyRoutineTypes';
+import type { DayRoutineType } from '../types/routineTypes';
 
-// returns an updated copy of the routine with the session's comments changed;
+// returns updated entries with the session's comments changed;
 // empty comments remove the note
 export function setDayComments(
-  routine: WeeklyRoutineType,
+  entries: readonly DayRoutineType[],
   dayRoutineId: DayRoutineId,
   dayComments: string
-): WeeklyRoutineType {
+): DayRoutineType[] {
   const trimmedComments = dayComments.trim();
 
-  return {
-    ...routine,
-    entries: routine.entries.map((session) =>
-      session.id === dayRoutineId
-        ? { ...session, dayComments: trimmedComments || undefined }
-        : session
-    ),
-  };
+  return entries.map((session) =>
+    session.id === dayRoutineId
+      ? { ...session, dayComments: trimmedComments || undefined }
+      : session
+  );
 }

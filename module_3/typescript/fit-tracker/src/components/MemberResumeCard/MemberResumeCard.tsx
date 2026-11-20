@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import type { MemberProfileType } from '../../types/userTypes';
+import type { WeeklyRoutineType } from '../../types/weeklyRoutineTypes';
 import {
   routineTotalCalories,
   totalIncompleteExercises,
@@ -10,19 +11,28 @@ import './MemberResumeCard.css';
 
 interface MemberResumeCardProps {
   member: MemberProfileType;
+  // looked up by the view in routineStore, null if it is missing
+  routine: WeeklyRoutineType | null;
   // extra sections each view adds at the end of the card
   children?: ReactNode;
 }
 
 // profile and weekly summary shared by the instructor and admin views
-export function MemberResumeCard({ member, children }: MemberResumeCardProps) {
+export function MemberResumeCard({
+  member,
+  routine,
+  children,
+}: MemberResumeCardProps) {
+  const entries = routine?.entries ?? [];
+
   return (
     <article className="member-resume-card">
       <header className="member-resume-card__header">
         <h3>{member.fullName}</h3>
         <p>
-          {member.routine.name || 'Weekly routine'} · Started{' '}
-          {member.routine.startDate.toLocaleDateString()}
+          {routine
+            ? `${routine.name || 'Weekly routine'} · Started ${routine.startDate.toLocaleDateString()}`
+            : 'No routine yet'}
         </p>
       </header>
 
@@ -80,19 +90,19 @@ export function MemberResumeCard({ member, children }: MemberResumeCardProps) {
         <dl className="member-resume-card__stats">
           <div>
             <dt>Workout days</dt>
-            <dd>{totalTrainingSessions(member.routine.entries)}</dd>
+            <dd>{totalTrainingSessions(entries)}</dd>
           </div>
           <div>
             <dt>Exercise time</dt>
-            <dd>{totalTime(member.routine.entries)} min</dd>
+            <dd>{totalTime(entries)} min</dd>
           </div>
           <div>
             <dt>Calories burned</dt>
-            <dd>{routineTotalCalories(member.routine.entries)} kcal</dd>
+            <dd>{routineTotalCalories(entries)} kcal</dd>
           </div>
           <div>
             <dt>Incomplete exercises</dt>
-            <dd>{totalIncompleteExercises(member.routine.entries)}</dd>
+            <dd>{totalIncompleteExercises(entries)}</dd>
           </div>
         </dl>
       </section>

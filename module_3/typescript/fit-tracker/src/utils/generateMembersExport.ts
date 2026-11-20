@@ -1,5 +1,6 @@
 import type { ExportFileType, MemberExportType } from '../types/exportTypes';
 import type { InstructorInfoType, MemberProfileType } from '../types/userTypes';
+import type { WeeklyRoutineType } from '../types/weeklyRoutineTypes';
 import {
   routineTotalCalories,
   totalIncompleteExercises,
@@ -8,16 +9,20 @@ import {
 } from './calculations';
 import { createExportFile } from './createExportFile';
 import { findMemberInstructor } from './findMemberInstructor';
-import { hasActiveRoutine } from './hasActiveRoutine';
+import { findMemberRoutine } from './findMemberRoutine';
+import { isActiveRoutine } from './isActiveRoutine';
 
-// same figures the members card shows
+// same figures the members card shows; the file joins each member
+// with its routine, so the export keeps the nested shape
 export function generateMembersExport(
   members: readonly MemberProfileType[],
+  routines: readonly WeeklyRoutineType[],
   instructors: readonly InstructorInfoType[]
 ): ExportFileType<MemberExportType> {
   return createExportFile(
     members.map((member): MemberExportType => {
-      const { entries } = member.routine;
+      const routine = findMemberRoutine(member.id, routines);
+      const entries = routine?.entries ?? [];
       return {
         id: member.id,
         fullName: member.fullName,
@@ -28,8 +33,8 @@ export function generateMembersExport(
         instructor:
           findMemberInstructor(member.id, instructors)?.fullName ?? null,
         routine: {
-          name: member.routine.name,
-          active: hasActiveRoutine(member),
+          name: routine?.name ?? '',
+          active: routine !== null && isActiveRoutine(routine),
           workoutDays: totalTrainingSessions(entries),
           minutes: totalTime(entries),
           calories: routineTotalCalories(entries),

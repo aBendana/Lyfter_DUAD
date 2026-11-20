@@ -1,4 +1,3 @@
-import type { SetStateAction } from 'react';
 import type {
   ApiExerciseDifficulty,
   ApiExerciseSearchType,
@@ -50,13 +49,6 @@ export function isExerciseDifficulty(
   value: string
 ): value is ApiExerciseDifficulty {
   return exerciseDifficulties.some((difficulty) => difficulty === value);
-}
-
-// a state action is either the next value or an updater of the previous value
-export function isStateUpdater<Value>(
-  action: SetStateAction<Value>
-): action is (previousValue: Value) => Value {
-  return typeof action === 'function';
 }
 
 function isPositiveInteger(value: number): boolean {
